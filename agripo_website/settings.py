@@ -41,6 +41,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'core',
     'functional_tests',
+    'accounts',
+)
+
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+    'accounts.authentication.PersonaAuthenticationBackend',
 )
 
 MIDDLEWARE_CLASSES = (
