@@ -29,6 +29,19 @@ DOMAIN = "localhost"
 
 ALLOWED_HOSTS = [DOMAIN]
 
+PRODUCTION_SERVER = "www.agripo.net"
+STAGING_SERVER = "staging.agripo.net"
+
+import sys
+SERVER_TYPE = "DEVELOPMENT"
+for arg in sys.argv:
+    if 'liveserver' in arg:
+        server = arg.split('=')[1]
+        if server == PRODUCTION_SERVER:
+            SERVER_TYPE = "PRODUCTION"
+        elif server == PRODUCTION_SERVER:
+            SERVER_TYPE = "STAGING"
+
 
 # Application definition
 

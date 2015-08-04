@@ -35,3 +35,8 @@ class LoginViewTest(TestCase):
         mock_authenticate.return_value = None
         self.client.post('/accounts/login', {'assertion': 'a'})
         self.assertNotIn(SESSION_KEY, self.client.session) 
+
+    def test_can_auto_connect_with_new_email(self):
+        page = self.client.get('/accounts/auto_login/alpha@test.com')
+        self.assertEqual(page.content.decode(page.charset), "{} is connected".format('alpha@test.com'))
+        print(request.user.is_authenticated())

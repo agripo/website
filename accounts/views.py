@@ -7,3 +7,11 @@ def persona_login(request):
     if user:
         login(request, user)
     return HttpResponse('OK')
+
+
+def auto_connect(request, email):
+    #    try:
+    #        return self.get_user(email)
+    #    except ListUser.DoesNotExist:
+    #        return ListUser.objects.create(email=email)
+    return HttpResponse("{} is connected".format(email))
