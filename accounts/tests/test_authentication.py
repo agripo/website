@@ -3,7 +3,6 @@ from django.test import TestCase
 import logging
 
 from django.contrib.auth import get_user_model
-
 User = get_user_model()
 
 from django.conf import settings
@@ -15,6 +14,7 @@ from accounts.authentication import (
 
 @patch('accounts.authentication.requests.post')
 class AuthenticateTest(TestCase):
+
     def setUp(self):
         self.backend = PersonaAuthenticationBackend()
         user = User(email='other@user.com')
@@ -58,7 +58,7 @@ class AuthenticateTest(TestCase):
         mock_post.return_value.ok = True
         mock_post.return_value.json.return_value = response_json
 
-        logger = logging.getLogger('accounts.authentication')
+        logger = logging.getLogger('accounts.authentication') 
         with patch.object(logger, 'warning') as mock_log_warning:
             self.backend.authenticate('an assertion')
 
@@ -68,6 +68,7 @@ class AuthenticateTest(TestCase):
 
 
 class GetUserTest(TestCase):
+
     def test_gets_user_by_email(self):
         backend = PersonaAuthenticationBackend()
         other_user = User(email='other@user.com')
@@ -76,6 +77,7 @@ class GetUserTest(TestCase):
         desired_user = User.objects.create(email='a@b.com')
         found_user = backend.get_user('a@b.com')
         self.assertEqual(found_user, desired_user)
+
 
     def test_returns_none_if_no_user_with_that_email(self):
         backend = PersonaAuthenticationBackend()

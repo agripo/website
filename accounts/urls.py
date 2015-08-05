@@ -1,7 +1,7 @@
+from agripo_website.settings import SERVER_TYPE
 from django.conf.urls import url, patterns
 from django.contrib.auth.views import logout
 
-from agripo_website.settings import SERVER_TYPE
 from accounts import views
 
 
@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^login$', views.persona_login, name='persona_login'),
     url(r'^logout$', logout, {'next_page': '/'}, name='logout'),
 ]
+
 
 if SERVER_TYPE == "STAGING" or SERVER_TYPE == "DEVELOPMENT":
     urlpatterns += patterns(
