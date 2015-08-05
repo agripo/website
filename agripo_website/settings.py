@@ -61,6 +61,11 @@ INSTALLED_APPS = (
     'accounts',
 )
 
+if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+
 AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
     'accounts.authentication.NewUserConnectionModelBackend',
@@ -129,10 +134,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'agripo_website', 'core'),
-)
+if SERVER_TYPE != SERVER_TYPE_DEVELOPMENT:
+    STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
 LOGGING = {
    'version': 1,

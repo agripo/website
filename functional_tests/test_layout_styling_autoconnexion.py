@@ -15,7 +15,10 @@ class LayoutAndStylingTest(FunctionalTest):
         # He gets connected automatically using the test environment
         self.create_autoconnected_session("alpha@mail.com")
 
-        # He sees he's now connected
+        # He goes back to the home page to verify he is connected
+        self.show_page("", 1)
+
+        # He sees he is
         self.browser.find_element_by_id('id_logout')
 
     def _test_centering_for_width(self, width):
