@@ -32,15 +32,19 @@ ALLOWED_HOSTS = [DOMAIN]
 PRODUCTION_SERVER = "www.agripo.net"
 STAGING_SERVER = "staging.agripo.net"
 
+SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
+SERVER_TYPE_PRODUCTION = "PRODUCTION"
+SERVER_TYPE_STAGING = "STAGING"
+
 import sys
-SERVER_TYPE = "DEVELOPMENT"
+SERVER_TYPE = SERVER_TYPE_DEVELOPMENT
 for arg in sys.argv:
     if 'liveserver' in arg:
         server = arg.split('=')[1]
         if server == PRODUCTION_SERVER:
-            SERVER_TYPE = "PRODUCTION"
-        elif server == PRODUCTION_SERVER:
-            SERVER_TYPE = "STAGING"
+            SERVER_TYPE = SERVER_TYPE_PRODUCTION
+        elif server == STAGING_SERVER:
+            SERVER_TYPE = SERVER_TYPE_STAGING
 
 
 # Application definition

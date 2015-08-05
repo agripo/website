@@ -1,11 +1,14 @@
 import os
 import time
 from datetime import datetime
-from agripo_website.settings import SERVER_TYPE, STAGING_SERVER
+from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import WebDriverException
+
+
+from accounts.authentication import is_production_server, is_staging_server
 
 
 DEFAULT_WAIT = 5
@@ -18,16 +21,16 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        if SERVER_TYPE == "PRODUCTION":
+        if is_production_server():
             cls.server_url = 'http://not_a_valid_domain_name/at_all'
-        elif SERVER_TYPE == "STAGING":
-            cls.server_url = 'http://' + STAGING_SERVER
+        elif is_staging_server():
+            cls.server_url = 'http://' + settings.STAGING_SERVER
         else:
             super().setUpClass()
             cls.server_url = cls.live_server_url
 
     def setUp(self):
-        if SERVER_TYPE == "PRODUCTION":
+        if is_production_server():
             self.fail("Tests should never be launched on production server")
             return
         self.browser = webdriver.Firefox()
@@ -109,8 +112,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         # one more try, which will raise any errors if they are outstanding
         return function_with_assertion()
 
-    def create_pre_authenticated_session(self, email):
+    def show_page(self, page, timeout=DEFAULT_WAIT):
+        self.browser.get("{}/{}".format(self.server_url, page))
+        return self.wait_for(lambda: self.browser.find_element_by_id('id_top_container'), timeout)
+
+    def create_autoconnected_session(self, email):
         # We visit the page that immediately creates the session :
         self.browser.get("{}/accounts/auto_login/{}".format(self.server_url, email))
         # We check that we are authenticated
-
+        body = self.browser.find_element_by_css_selector('body')
+        self.assertEqual("{} is connected".format(email), body.text)

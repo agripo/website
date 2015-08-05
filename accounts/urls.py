@@ -3,6 +3,7 @@ from django.conf.urls import url, patterns
 from django.contrib.auth.views import logout
 
 from accounts import views
+from accounts.authentication import is_development_server, is_staging_server
 
 
 urlpatterns = [
@@ -11,7 +12,7 @@ urlpatterns = [
 ]
 
 
-if SERVER_TYPE == "STAGING" or SERVER_TYPE == "DEVELOPMENT":
+if is_staging_server() or is_development_server():
     urlpatterns += patterns(
         '',
         url(r'^auto_login/(?P<email>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+)$', views.auto_connect, name='auto_connect'),
