@@ -5,8 +5,7 @@ from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import WebDriverException
-
+from selenium.common.exceptions import WebDriverException, TimeoutException
 
 from accounts.authentication import is_production_server, is_staging_server
 from .page_home_page import HomePage
@@ -85,8 +84,8 @@ class FunctionalTest(StaticLiveServerTestCase):
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
 
-    def wait_for_element_with_id(self, element_id):
-        WebDriverWait(self.browser, timeout=30).until(
+    def wait_for_element_with_id(self, element_id, timeout=30):
+        WebDriverWait(self.browser, timeout=timeout).until(
             lambda b: b.find_element_by_id(element_id),
             'Could not find element with id {}. Page text was:\n{}'.format(
                 element_id, self.browser.find_element_by_tag_name('body').text
@@ -105,6 +104,13 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def wait_to_be_logged_out(self):
         self.wait_for_element_with_id(HomePage(self).id_login)
+
+    def assertElementNotFoundById(self, element_id):
+        try:
+            self.wait_for_element_with_id(element_id, 2)
+        except TimeoutException:
+            return True
+        self.fail("The element {} shouldn't have been found in the dom".format(element_id))
 
     def wait_for(self, function_with_assertion, timeout=DEFAULT_WAIT):
         start_time = time.time()

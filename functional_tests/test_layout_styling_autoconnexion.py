@@ -53,7 +53,7 @@ class LayoutAndStylingTest(FunctionalTest):
         content_with_persona = self.get_body_content()
 
         # He confirms that the content of the page is the same as with the other login
-        self.assertEqual(
+        self.assertHTMLEqual(
             content_autoconnected.replace('alpha@mail.com', '[EMAIL]'),
             content_with_persona.replace('alpha@mockmyid.com', '[EMAIL]'))
 
@@ -84,3 +84,18 @@ class LayoutAndStylingTest(FunctionalTest):
         self._test_centering_for_width(800)
         self._test_centering_for_width(1024)
         self._test_centering_for_width(1920)
+
+    def test_general_contents(self):
+        # Alpha goes to the homepage
+        home = HomePage(self).show()
+
+        # He sees that there is a message telling the site is using cookies
+        link = self.browser.find_element_by_id(home.id_page_uses_cookies)
+
+        # He reloads the page and notices that the box is still there
+        self.browser.refresh()
+
+        # He closes the box, then reload the page. He notices that the box doesn't appear anymore
+        self.browser.find_element_by_id(home.id_page_uses_cookies).click()
+        self.browser.refresh()
+        self.assertElementNotFoundById(home.id_page_uses_cookies)

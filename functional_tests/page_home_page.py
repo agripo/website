@@ -2,6 +2,7 @@ class HomePage(object):
     id_login = "id_login"
     id_logout = "id_logout"
     id_page = 'id_home_page'
+    id_page_uses_cookies = "id_uses_cookies"
 
     def __init__(self, test):
         self.test = test
