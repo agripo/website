@@ -55,7 +55,6 @@ class LoginViewTest(TestCase):
         self.assertNotIn('_auth_user_id', self.client.session)
 
     def test_cant_auto_connect_on_production_server(self):
-        print("1")
         force_production_server(True)  # deactivation is made in TearDown
         page = self.auto_connect('alpha@test.com')
         self.assertEqual(page.content.decode(page.charset), "No autoconnection on production server")
