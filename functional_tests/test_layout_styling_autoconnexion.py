@@ -2,29 +2,31 @@ from unittest import skip
 from .base import FunctionalTest
 import time
 
+from .page_home_page import HomePage
+
 
 class LayoutAndStylingTest(FunctionalTest):
 
     def test_can_autoconnect_and_connect_with_persona(self):
         # Alpha goes to the home page
-        self.show_page("", 1)
+        home = HomePage(self).show()
         window_handle = self.browser.current_window_handle
 
         # He sees he's not connected
-        self.browser.find_element_by_id('id_login')
+        home.check_connection_status(False)
 
         # He gets connected automatically using the test environment
         self.create_autoconnected_session("alpha@mail.com")
 
         # He goes back to the home page to verify he is connected
-        self.show_page("")
-        content_autoconnected = self.browser.find_element_by_css_selector('body').text
+        home.show()
+        content_autoconnected = self.get_body_content()
 
         # He sees he is, and he disconnects
         self.logout()
 
         # He now sees he is disconnected
-        connect_button = self.browser.find_element_by_id('id_login')
+        connect_button = home.get_login_button()
 
         # He connects through persona
         connect_button.click()
@@ -47,8 +49,8 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # He goes back to the home page to verify he is connected again
         self.wait_to_be_logged_in()
-        self.show_page("")
-        content_with_persona = self.browser.find_element_by_css_selector('body').text
+        home.show()
+        content_with_persona = self.get_body_content()
 
         # He confirms that the content of the page is the same as with the other login
         self.assertEqual(
@@ -63,7 +65,7 @@ class LayoutAndStylingTest(FunctionalTest):
     def _test_centering_for_width(self, width):
         self.browser.set_window_size(width, 1000)
         time.sleep(1)
-        self.show_page("")
+        HomePage(self).show()
         new_width = self.browser.get_window_size()['width']
         if new_width != width:
             print("The width has been resized from {} to {} because the screen wasn't "
