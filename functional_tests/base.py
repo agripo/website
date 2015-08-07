@@ -92,6 +92,9 @@ class FunctionalTest(StaticLiveServerTestCase):
             )
         )
 
+    def get_element_content_by_id(self, id_element):
+        return self.browser.find_element_by_id(id_element).text
+
     def get_body_content(self):
         return self.browser.find_element_by_css_selector('body').text
 
@@ -133,6 +136,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         # We check that we are authenticated
         body = self.browser.find_element_by_css_selector('body')
         self.assertEqual("{} is connected".format(email), body.text)
-        # We go back to previous page
-        self.browser.get(active_page)
+        # We go back to previous page or home page if there was none
+        if active_page != "about:blank":
+            self.browser.get(active_page)
+        else:
+            HomePage(self).show()
         self.wait_to_be_logged_in()
