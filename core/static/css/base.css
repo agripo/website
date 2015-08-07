@@ -1,0 +1,19 @@
+a{
+    color: #3c763d;
+}
+
+section.carousel{
+    padding-top: 0;
+}
+
+section#connection,
+section#id_uses_cookies_section{
+    margin: 0;
+    padding: 8px;
+    background-color: #101010;
+    color: #808080;
+}
+
+#navbar_spacer{
+    height:55px;
+}
