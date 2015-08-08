@@ -29,6 +29,23 @@ DOMAIN = "localhost"
 
 ALLOWED_HOSTS = [DOMAIN]
 
+# Some constants for dev/staging and production server
+PRODUCTION_SERVER = "www.agripo.net"
+STAGING_SERVER = "staging.agripo.net"
+SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
+SERVER_TYPE_PRODUCTION = "PRODUCTION"
+SERVER_TYPE_STAGING = "STAGING"
+
+# Finding out which one is running
+import sys
+SERVER_TYPE = SERVER_TYPE_DEVELOPMENT
+for arg in sys.argv:
+    if 'liveserver' in arg:
+        server = arg.split('=')[1]
+        if server == PRODUCTION_SERVER:
+            SERVER_TYPE = SERVER_TYPE_PRODUCTION
+        elif server == STAGING_SERVER:
+            SERVER_TYPE = SERVER_TYPE_STAGING
 
 # Application definition
 
@@ -41,6 +58,18 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'core',
     'functional_tests',
+)
+
+# Using some apps only on !production servers
+if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+
+# Adding the auto-connect backend
+AUTHENTICATION_BACKENDS = (
+    'core.authentication.NewUserAutoconnectionModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,6 +96,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'core.context_processors.cookies_notification',
             ],
         },
     },
@@ -102,13 +133,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
 STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'agripo_website', 'core'),
-)
+if SERVER_TYPE != SERVER_TYPE_DEVELOPMENT:
+    STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
 LOGGING = {
    'version': 1,
@@ -123,7 +150,7 @@ LOGGING = {
         'django': {
             'handlers': ['console'],
         },
-        'accounts': {
+        'core': {
             'handlers': ['console'],
         },
         'lists': {
