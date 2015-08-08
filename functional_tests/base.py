@@ -1,15 +1,20 @@
 import os
 import time
 from datetime import datetime
+from accounts.groups import GROUP_MANAGERS
 from django.conf import settings
+from django.contrib.auth.models import Group
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import WebDriverException, TimeoutException
+from django.contrib.auth import get_user_model
 
 from accounts.authentication import is_production_server, is_staging_server
 from .page_home_page import HomePage
 
+
+User = get_user_model()
 
 DEFAULT_WAIT = 5
 SCREEN_DUMP_LOCATION = os.path.join(
@@ -142,3 +147,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         else:
             HomePage(self).show()
         self.wait_to_be_logged_in()
+
+    def add_user_to_managers(self, email):
+        user = User.objects.get(email=email)
+        user.add_to_group(GROUP_MANAGERS)

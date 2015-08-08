@@ -1,9 +1,12 @@
-from unittest import skip
 from .base import FunctionalTest
-import time
 
 from .page_news import NewsPage
 from selenium import webdriver
+
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 class LayoutAndStylingTest(FunctionalTest):
@@ -12,8 +15,14 @@ class LayoutAndStylingTest(FunctionalTest):
         ## Prepopulating the news page
         #@todo Add some automatically generated news to the page
 
-        # Alpha gets connected, then goes to the news page
+        # Alpha gets connected
         self.create_autoconnected_session("alpha@mail.com")
+        # His account is in the managers group of the website
+        self.add_user_to_managers("alpha@mail.com")
+
+        print("Groups : {}".format(User.objects.get(email='alpha@mail.com').groups))
+
+        # He goes to the news page
         news_page_alpha = NewsPage(self).show()
         previous_content_alpha = self.get_element_content_by_id(news_page_alpha.id_news_list_container)
         alpha_browser = self.browser
@@ -42,3 +51,9 @@ class LayoutAndStylingTest(FunctionalTest):
         # Bravo confirms the news has disappeared
 
         # Alpha goes to check the news page himself, and they see the same things
+
+        # Bravo tries to access the edition page, but gets a 403 error
+
+        # He creates an account, to be able to edit the news
+
+        # He still gets a 403 error, as he isn't in the managers group

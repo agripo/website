@@ -1,11 +1,24 @@
+from django.contrib.auth.models import Group, UserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
-class User(models.Model):
-    email = models.EmailField(primary_key=True)
+from django.contrib.auth.models import AbstractBaseUser
+
+class User(PermissionsMixin):
+    username = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(unique=True, blank=False)
     last_login = models.DateTimeField(default=timezone.now)
-    REQUIRED_FIELDS = ()
-    USERNAME_FIELD = 'email'
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ('email',)
+
+    objects = UserManager()
+
+    def add_to_group(self, group_name):
+        group = Group.objects.get(name=group_name)
+        self.groups.add(group)
+        self.save()
+        pass
     
     def is_authenticated(self):
         return True
