@@ -2,14 +2,18 @@ from django.core.urlresolvers import reverse
 
 
 class NewsPage(object):
-    id_page = "id_news_page"
+    id_page = "id_news_list_page"
     id_news_list_container = "id_news_list_container"
+    id_field_title = 'id_title'
+    id_field_publication_date = 'id_publication_date'
+    id_field_content = 'id_content'
+    id_field_writer = 'id_writer'
 
     def __init__(self, test):
         self.test = test
 
     def show(self):
-        self.test.browser.get(reverse("news_page"))
+        self.test.browser.get(self.test.server_url+reverse("news_page"))
         self.test.wait_for(self._is_news_page)
         return self
 

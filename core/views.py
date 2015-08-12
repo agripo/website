@@ -1,8 +1,21 @@
+import datetime
+from core.models import News
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView
 
 import core.exceptions as core_exceptions
+
+
+NUMBER_OF_NEWS_BY_PAGE = 10
+
+
+class NewsListPage(ListView):
+    context_object_name = "news_list"
+    paginate_by = NUMBER_OF_NEWS_BY_PAGE
+    today = datetime.datetime.now()
+    queryset = News.objects.filter(publication_date__lte=today, is_active=True).order_by('-publication_date')
 
 
 def index_view(request):
@@ -21,7 +34,7 @@ def using_cookies_accepted(request):
     return HttpResponse("OK")
 
 
-def auto_connect(request, email):
+def auto_connect(request, email, manager=False):
     try:
         user = authenticate(email=email)
     except core_exceptions.NoAutoConnectionOnProductionServer:
@@ -31,8 +44,13 @@ def auto_connect(request, email):
 
     if user:
         # check if user is_active, and any other checks
+        if manager:
+            user.add_to_managers()
+            connected_as = "manager"
+        else:
+            connected_as = "user"
+
         login(request, user)
-        return HttpResponse("{} is connected".format(email))
+        return HttpResponse("{} is connected as {}".format(email, connected_as))
 
     raise core_exceptions.AutoConnectionUnknownError("New user not found")
-
