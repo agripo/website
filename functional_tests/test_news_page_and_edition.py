@@ -1,8 +1,8 @@
 import datetime
+from core.models import News
+from core.views import NUMBER_OF_NEWS_BY_PAGE
 from django.core.urlresolvers import reverse
 from selenium import webdriver
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.keys import Keys
 import time
 
 
@@ -20,19 +20,33 @@ def quit_if_possible(browser):
 class LayoutAndStylingTest(FunctionalTest):
 
     def test_can_add_news_to_news_page(self):
-        ## Prepopulating the news page
-        #@todo Add some automatically generated news to the page
-
-        faker = self.faker
-
         # Alpha gets connected as manager
         user_alpha = self.create_autoconnected_session(self.faker.email(), as_manager=True)
+
+        faker = self.faker
+        ## Prepopulating the news page
+        randomly_created_news_count = NUMBER_OF_NEWS_BY_PAGE * 2 + 1
+        for i in range(0, randomly_created_news_count):
+            the_news = News(
+                title=faker.sentence(),
+                content="\n".join(faker.paragraphs()),
+                writer=user_alpha
+            )
+            the_news.publication_date = datetime.date.today() - datetime.timedelta(1)
+            the_news.save()
+
+
 
         # He goes to the news page
         news_page_alpha = NewsPage(self).show()
         previous_content_alpha = self.get_element_content_by_id(news_page_alpha.id_news_list_container)
         alpha_browser = self.browser
         self.addCleanup(lambda: quit_if_possible(alpha_browser))
+
+        # He sees that there are already some news on the page, and a paginator for the next ones
+        #@todo Check that there are news on the first page
+
+        #@todo Check that there is a pagininator with links to page 2 & 3
 
         # Bravo, his friend, also goes to this page, but without connexion
         bravo_browser = webdriver.Firefox()
@@ -77,7 +91,7 @@ class LayoutAndStylingTest(FunctionalTest):
         self.assertTrue(found, "The new news hasn't been found in the page")
 
         # He goes to check the news on its page
-        l = reverse("one_news_page", kwargs={'pk': 1})
+        l = reverse("one_news_page", kwargs={'pk': randomly_created_news_count + 1})
         the_news_element.find_element_by_css_selector("a[href='{}']".format(l)).click()
 
         # and sees the news is displayed correctly
@@ -86,7 +100,7 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # Alpha modifies this last news, as there was a typo in it
         self.browser = alpha_browser
-        self.click_link(reverse('admin:core_news_change', args=(1,)), timeout=10)
+        self.click_link(reverse('admin:core_news_change', args=(randomly_created_news_count + 1,)), timeout=10)
         id_field = self.browser.find_element_by_id(news_page_alpha.id_field_title)
         id_field.clear()
 
