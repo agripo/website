@@ -8,6 +8,7 @@ class NewsPage(object):
     id_field_publication_date = 'id_publication_date'
     id_field_content = 'id_content'
     id_field_writer = 'id_writer'
+    id_news_title = 'id_news_title'
 
     def __init__(self, test):
         self.test = test

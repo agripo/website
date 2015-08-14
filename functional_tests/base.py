@@ -6,6 +6,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.common.exceptions import WebDriverException, TimeoutException
+from faker import Factory as FakerFactory
 
 from core.authentication import is_production_server, is_staging_server
 from .page_home_page import HomePage
@@ -35,6 +36,19 @@ class FunctionalTest(StaticLiveServerTestCase):
             return
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(DEFAULT_WAIT)
+        self.faker = FakerFactory.create('fr_FR')
+
+        # @todo remove this when it is not needed anymore (should be done by the migration #3
+        from django.contrib.auth.models import Group, Permission
+        if not Group.objects.all():
+            managers_group = Group(name="managers")
+            managers_group.save()
+            managers_group.permissions.add(
+                Permission.objects.get(codename='add_news'),
+                Permission.objects.get(codename='change_news'),
+                Permission.objects.get(codename='delete_news')
+            )
+        # End of the removable stuff
 
     def tearDown(self):
         if self._test_has_failed():

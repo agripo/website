@@ -72,7 +72,7 @@ class LayoutAndStylingTest(FunctionalTest):
         home.check_connection_status(False)
 
         # He gets connected automatically using the test environment
-        self.create_autoconnected_session("alpha@mail.com")
+        self.create_autoconnected_session(self.faker.email())
 
         # He goes back to the home page to verify he is connected
         home.show()

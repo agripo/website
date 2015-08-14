@@ -3,12 +3,15 @@ from core.models import News
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 import core.exceptions as core_exceptions
 
 
 NUMBER_OF_NEWS_BY_PAGE = 10
+
+class NewsPage(DetailView):
+    model = News
 
 
 class NewsListPage(ListView):
@@ -19,7 +22,6 @@ class NewsListPage(ListView):
 
 
 def index_view(request):
-    print("User id : {}".format(request.session.get('_auth_user_id')))
     slideshow_images = [
         {'src': '/static/img/1.jpg', 'alt': 'One image', 'caption': 'Tayap est un petit village du Cameroun.'},
         {'src': '/static/img/2.jpg', 'alt': 'Another image', 'caption': 'Agripo est un groupement de Tayap.'},

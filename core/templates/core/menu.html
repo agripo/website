@@ -1,99 +1,130 @@
 <ul class="nav navbar-nav navbar-right">
-    <li class="dropdown">
-        <a href="vergers_eco.html" class="dropdown-toggle" data-toggle="dropdown">AGRIPO <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#">Qui sommmes nous?</a>
-            </li>
-            <li>
-                <a href="#">Notre conseil d'administration</a>
-            </li>
-            <li>
-                <a href="#">Notre stratégie de développement durable</a>
-            </li>
-            <li>
-                <a href="#">Nos réalisations en chiffres</a>
-            </li>
-            <li>
-                <a href="#">Votre engagement</a>
-            </li>
-            <li>
-                <a href="#">Nous contacter</a>
-            </li>
-        </ul>
+    <style>
+        #submenus{
+            margin-top:50px;
+        }
+        ul.submenu{
+            display:none;
+        }
+        ul.submenu{
+            width: 100%;
+        }
+        ul.submenu li {
+            vertical-align: top;
+            margin: 5px;
+            width: 160px;
+            display:inline-block;
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            $('.dropdownz').click(function(ev, el){
+                $('.submenu').hide();
+                console.log(ev, ev.target);
+                submenu = ev.target.dataset.toggleElement;
+                $('#'+submenu).toggle();
+            });
+        };
+    </script>
+    <li class="dropdownz">
+        <a href="vergers_eco.html" class="dropdown-toggle" data-toggle-element="submenu_1" data-toggle="dropdown">AGRIPO <b class="caret"></b></a>
     </li>
-    <li class="dropdown">
-        <a href="agroforesterie.html" class="dropdown-toggle" data-toggle="dropdown">PROGRAMMES <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#">Vergers écologiques des territoires (VET)</a>
-            </li>
-            <li>
-                <a href="#">Initiatives Locales d'Éléctrification Solaire (ILES)</a>
-            </li>
-            <li>
-                <a href="#">Réseau d'Adduction Responsable en Eau potable (RARE)</a>
-            </li>
-            <li>
-                <a href="#">Gestion Raisonnée de l'Économie et de l'ENvironnement (GREEN)</a>
-            </li>
-            <li>
-                <a href="#">Vacances Solidaires (Change the World)</a>
-            </li>
-        </ul>
+    <li class="dropdownz">
+        <a href="agroforesterie.html" class="dropdown-toggle" data-toggle-element="submenu_2" data-toggle="dropdown">PROGRAMMES <b class="caret"></b></a>
     </li>
-    <li class="dropdown">
-        <a href="ecotourisme.html" class="dropdown-toggle" data-toggle="dropdown">ÉCOTOURISME <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#">Informations Pratiques</a>
-            </li>
-            <li>
-                <a href="#">Cameroun</a>
-            </li>
-            <li>
-                <a href="#">Village de Tayap</a>
-            </li>
-            <li>
-                <a href="#">Hébergements</a>
-            </li>
-            <li>
-                <a href="#">Services</a>
-            </li>
-        </ul>
+    <li class="dropdownz">
+        <a href="ecotourisme.html" class="dropdown-toggle" data-toggle-element="submenu_3" data-toggle="dropdown">ÉCOTOURISME <b class="caret"></b></a>
+   </li>
+    <li class="dropdownz">
+        <a href="a-propos.html" class="dropdown-toggle" data-toggle-element="submenu_4" data-toggle="dropdown">BOUTIQUE <b class="caret"></b></a>
     </li>
-    <li class="dropdown">
-        <a href="a-propos.html" class="dropdown-toggle" data-toggle="dropdown">BOUTIQUE <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#">Nos Plantations</a>
-            </li>
-            <li>
-                <a href="#">Nos Produits</a>
-            </li>
-            <li>
-                <a href="#">Conditions Générales de Ventes</a>
-            </li>
-        </ul>
+    <li class="dropdownz">
+        <a href="bibliotheque.html" class="dropdown-toggle" data-toggle-element="submenu_5" data-toggle="dropdown">BIBLIOTHÈQUE <b class="caret"></b></a>
     </li>
-    <li class="dropdown">
-        <a href="bibliotheque.html" class="dropdown-toggle" data-toggle="dropdown">BIBLIOTHÈQUE <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#">Documents Institutionnels</a>
-            </li>
-            <li>
-                <a href="#">Rapports Annuels</a>
-            </li>
-            <li>
-                <a href="#">Photos et Vidéos</a>
-            </li>
-            <li>
-                <a href="#">Ressources Documentaires</a>
-            </li>
-            <li>
-                <a href="#">Magazines et Presse</a>
-            </li>
-        </ul>
-    </li>
+
 </ul>
+<div id="submenus">
+    <ul class="submenu" id="submenu_1">
+        <li>
+            <a href="#">Qui sommmes nous?</a>
+        </li>
+        <li>
+            <a href="#">Notre conseil d'administration</a>
+        </li>
+        <li>
+            <a href="#">Notre stratégie de développement durable</a>
+        </li>
+        <li>
+            <a href="#">Nos réalisations en chiffres</a>
+        </li>
+        <li>
+            <a href="#">Votre engagement</a>
+        </li>
+        <li>
+            <a href="#">Nous contacter</a>
+        </li>
+    </ul>
+    <ul class="submenu" id="submenu_2">
+        <li>
+            <a href="#">Vergers écologiques des territoires (VET)</a>
+        </li>
+        <li>
+            <a href="#">Initiatives Locales d'Éléctrification Solaire (ILES)</a>
+        </li>
+        <li>
+            <a href="#">Réseau d'Adduction Responsable en Eau potable (RARE)</a>
+        </li>
+        <li>
+            <a href="#">Gestion Raisonnée de l'Économie et de l'ENvironnement (GREEN)</a>
+        </li>
+        <li>
+            <a href="#">Vacances Solidaires (Change the World)</a>
+        </li>
+    </ul>
+    <ul class="submenu" id="submenu_3">
+        <li>
+            <a href="#">Informations Pratiques</a>
+        </li>
+        <li>
+            <a href="#">Cameroun</a>
+        </li>
+        <li>
+            <a href="#">Village de Tayap</a>
+        </li>
+        <li>
+            <a href="#">Hébergements</a>
+        </li>
+        <li>
+            <a href="#">Services</a>
+        </li>
+    </ul>
+    <ul class="submenu" id="submenu_4">
+        <li>
+            <a href="#">Nos Plantations</a>
+        </li>
+        <li>
+            <a href="#">Nos Produits</a>
+        </li>
+        <li>
+            <a href="#">Conditions Générales de Ventes</a>
+        </li>
+    </ul>
+    <ul class="submenu" id="submenu_5">
+        <li>
+            <a href="#">Documents Institutionnels</a>
+        </li>
+        <li>
+            <a href="#">Rapports Annuels</a>
+        </li>
+        <li>
+            <a href="#">Photos et Vidéos</a>
+        </li>
+        <li>
+            <a href="#">Ressources Documentaires</a>
+        </li>
+        <li>
+            <a href="#">Magazines et Presse</a>
+        </li>
+    </ul>
+</div>

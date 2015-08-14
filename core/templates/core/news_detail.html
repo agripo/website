@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block page_name %}id_one_news_page{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 id="id_news_title">{{ news.title }}</h1>
+            <div>{{ news.content }}</div>
+        </div>
+    </div>
+{% endblock %}
