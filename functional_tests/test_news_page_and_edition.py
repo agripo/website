@@ -35,8 +35,6 @@ class LayoutAndStylingTest(FunctionalTest):
             the_news.publication_date = datetime.date.today() - datetime.timedelta(1)
             the_news.save()
 
-
-
         # He goes to the news page
         news_page_alpha = NewsPage(self).show()
         previous_content_alpha = self.get_element_content_by_id(news_page_alpha.id_news_list_container)
@@ -44,9 +42,10 @@ class LayoutAndStylingTest(FunctionalTest):
         self.addCleanup(lambda: quit_if_possible(alpha_browser))
 
         # He sees that there are already some news on the page, and a paginator for the next ones
-        #@todo Check that there are news on the first page
-
-        #@todo Check that there is a pagininator with links to page 2 & 3
+        all_news = self.browser.find_elements_by_css_selector('h3.one_news_title')
+        self.assertEqual(
+            len(all_news), NUMBER_OF_NEWS_BY_PAGE, 'Did not find the right number of news on the page')
+        self.browser.find_element_by_css_selector('.pagination a.pagination-next')  # should not raise an error
 
         # Bravo, his friend, also goes to this page, but without connexion
         bravo_browser = webdriver.Firefox()
