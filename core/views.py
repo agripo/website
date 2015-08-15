@@ -1,9 +1,9 @@
-import datetime
 from core.models import News
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.utils import timezone
 
 import core.exceptions as core_exceptions
 
@@ -13,13 +13,21 @@ NUMBER_OF_NEWS_BY_PAGE = 10
 class NewsPage(DetailView):
     model = News
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nav_previous'] = context['object'].get_previous()
+        context['nav_next'] = context['object'].get_next()
+        return context
+
 
 class NewsListPage(ListView):
+    template = "core/news_list.html"
     context_object_name = "news_list"
     paginate_by = NUMBER_OF_NEWS_BY_PAGE
-    today = datetime.datetime.now()
-    queryset = News.objects.filter(publication_date__lte=today, is_active=True).order_by('-publication_date')
 
+    def get_queryset(self):
+        return News.objects.filter(
+            publication_date__lte=timezone.now(), is_active=True).order_by('-publication_date')
 
 def index_view(request):
     slideshow_images = [

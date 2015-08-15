@@ -1,5 +1,7 @@
 from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 from django.test import TestCase
+from django.utils import timezone
 
 from core.models import AgripoUser as User, News
 import datetime
@@ -7,23 +9,23 @@ import datetime
 
 class UserModelTest(TestCase):
 
+    def test_add_to_managers_returns_user(self):
+        user = User(username="Jean-Claude", password="my_pass").add_to_managers()
+        self.assertIsInstance(user, User)
+
     def test_add_to_managers_hits_db(self):
         User(username="Jean-Claude", password="my_pass").add_to_managers()
         user = User.objects.get(username="Jean-Claude")
         self.assertTrue(user.is_manager)
 
+    def test_add_to_admins_returns_user(self):
+        user = User(username="Jean-Claude", password="my_pass").add_to_admins()
+        self.assertIsInstance(user, User)
+
     def test_add_to_admins_hits_db(self):
         User(username="Jean-Claude", password="my_pass").add_to_admins()
         user = User.objects.get(username="Jean-Claude")
         self.assertTrue(user.is_admin)
-
-    def test_add_to_managers_returns_user(self):
-        user = User(username="Jean-Claude", password="my_pass").add_to_managers()
-        self.assertIsInstance(user, User)
-
-    def test_add_to_admins_returns_user(self):
-        user = User(username="Jean-Claude", password="my_pass").add_to_admins()
-        self.assertIsInstance(user, User)
 
     def test_user_is_valid_with_email_username_and_password_only(self):
         user = User(username="Jean-Claude", email='a@b.com', password="my_pass")
@@ -84,6 +86,14 @@ class NewsModelTest(TestCase):
         user = self._create_user().add_to_managers()
         self._create_news(user, False)  # should not raise
 
+    def test_cant_publish_two_news_at_the_same_time(self):
+        user = self._create_user().add_to_managers()
+        pub = datetime.date.today() - datetime.timedelta(1)
+        n = News(title="Title", content="Content", writer=user, publication_date=pub)
+        n.save()
+        n2 = News(title="Title", content="Content", writer=user, publication_date=pub)
+        self.assertRaises(IntegrityError, n2.save)
+
     def test_manager_also_admin_can_add_news(self):
         user = self._create_user().add_to_managers().add_to_admins()
         self._create_news(user, False)  # should not raise
@@ -130,3 +140,10 @@ class NewsModelTest(TestCase):
         news.save()
 
         self.assertNotEqual(news.edition_date, original_edition_date)
+
+    def test_news_without_pubdate_are_published_at_that_moment(self):
+        before = timezone.now()
+        news = self._create_news()
+        after = timezone.now()
+        self.assertGreater(news.publication_date, before)
+        self.assertLess(news.publication_date, after)

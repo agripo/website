@@ -1,6 +1,7 @@
 from core.views import NUMBER_OF_NEWS_BY_PAGE
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils import timezone
 import datetime
 
 from core.authentication import force_production_server
@@ -56,7 +57,7 @@ class NewsViewsTest(CoreTestCase):
         writer = self.create_writer_if_none(writer)
         if not publication_date:
             # We define it in the past
-            publication_date = datetime.datetime.now() - datetime.timedelta(10)
+            publication_date = timezone.now() - datetime.timedelta(10)
         return News.objects.create(title=title, content=content, writer=writer, publication_date=publication_date)
 
     def insert_x_news(self, number, title, content, writer=None, publication_date=None):
@@ -75,27 +76,39 @@ class NewsViewsTest(CoreTestCase):
         response = self.client.get(reverse('news_page'))
         self.assertContains(response, "One news title", NUMBER_OF_NEWS_BY_PAGE)
 
-    def fill_with_entries_and_get_page(self, page_num=1):
+    def fill_with_entries(self, entries_count=NUMBER_OF_NEWS_BY_PAGE + 10):
         writer = self.create_writer_if_none(None)
-        for i in range(0, NUMBER_OF_NEWS_BY_PAGE + 10):
-            pub = datetime.datetime.now() - datetime.timedelta(i - 5)
+        for i in range(1, entries_count + 1):
+            pub = timezone.now() - datetime.timedelta(i - 5)
             self.insert_news("News #{}".format(i), "content", writer, publication_date=pub)
 
+    def fill_with_entries_and_get_page(self, page_num=1):
+        self.fill_with_entries()
         return self.client.get(reverse('news_page') + "?page=" + str(page_num))
 
     def test_display_recent_entries(self):
         response = self.fill_with_entries_and_get_page()
-        for i in range(5, NUMBER_OF_NEWS_BY_PAGE + 5):
+        for i in range(6, NUMBER_OF_NEWS_BY_PAGE + 5):
             self.assertContains(response, "News #{}".format(i))
 
     def test_future_entries(self):
         response = self.fill_with_entries_and_get_page()
-        self.assertNotContains(response, "News #{}".format(4))
+        self.assertNotContains(response, "News #{}".format(5))
 
     def test_hide_older_entries_from_front_page(self):
         response = self.fill_with_entries_and_get_page()
-        self.assertNotContains(response, "News #{}".format(5 + NUMBER_OF_NEWS_BY_PAGE))
+        self.assertNotContains(response, "News #{}".format(6 + NUMBER_OF_NEWS_BY_PAGE))
 
     def test_display_older_posts_on_following_pagination_pages(self):
         response = self.fill_with_entries_and_get_page(2)
-        self.assertContains(response, "News #{}".format(5 + NUMBER_OF_NEWS_BY_PAGE))
+        self.assertContains(response, "News #{}".format(6 + NUMBER_OF_NEWS_BY_PAGE))
+
+    def test_context_contains_reference_to_older_entry(self):
+        self.fill_with_entries(5)
+        response = self.client.get(reverse('one_news_page', kwargs={'pk': 3}))
+        self.assertContains(response, 'href="{}"'.format(reverse('one_news_page', kwargs={'pk': 4})))
+
+    def test_context_contains_reference_to_older_entry(self):
+        self.fill_with_entries(5)
+        response = self.client.get(reverse('one_news_page', kwargs={'pk': 3}))
+        self.assertContains(response, 'href="{}"'.format(reverse('one_news_page', kwargs={'pk': 2})))

@@ -1,12 +1,12 @@
 import os
 import time
-from datetime import datetime
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.common.exceptions import WebDriverException, TimeoutException
 from faker import Factory as FakerFactory
+from django.utils import timezone
 
 from core.authentication import is_production_server, is_staging_server
 from .page_home_page import HomePage
@@ -81,7 +81,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             f.write(self.browser.page_source)
 
     def _get_filename(self):
-        timestamp = datetime.now().isoformat().replace(':', '.')[:19]
+        timestamp = timezone.now().isoformat().replace(':', '.')[:19]
         return '{folder}/{classname}.{method}-window{windowid}-{timestamp}'.format(
             folder=SCREEN_DUMP_LOCATION,
             classname=self.__class__.__name__,

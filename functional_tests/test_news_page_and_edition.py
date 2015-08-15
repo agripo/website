@@ -1,8 +1,8 @@
-import datetime
 from core.models import News
 from core.views import NUMBER_OF_NEWS_BY_PAGE
 from django.core.urlresolvers import reverse
 from selenium import webdriver
+from django.utils import timezone
 import time
 
 
@@ -17,23 +17,25 @@ def quit_if_possible(browser):
         pass
 
 
-class LayoutAndStylingTest(FunctionalTest):
+class NewsAndNewsListPagesTest(FunctionalTest):
 
     def test_can_add_news_to_news_page(self):
-        # Alpha gets connected as manager
-        user_alpha = self.create_autoconnected_session(self.faker.email(), as_manager=True)
-
         faker = self.faker
-        ## Prepopulating the news page
+
+        # Alpha gets connected as manager
+        user_alpha = self.create_autoconnected_session(faker.email(), as_manager=True)
+
+        # # Prepopulating the news page
         randomly_created_news_count = NUMBER_OF_NEWS_BY_PAGE * 2 + 1
-        for i in range(0, randomly_created_news_count):
+        for i in range(randomly_created_news_count, 0, -1):
             the_news = News(
                 title=faker.sentence(),
                 content="\n".join(faker.paragraphs()),
                 writer=user_alpha
             )
-            the_news.publication_date = datetime.date.today() - datetime.timedelta(1)
+            the_news.publication_date = timezone.now() - timezone.timedelta(i)
             the_news.save()
+            last_initial_news_title = the_news.title
 
         # He goes to the news page
         news_page_alpha = NewsPage(self).show()
@@ -67,7 +69,9 @@ class LayoutAndStylingTest(FunctionalTest):
         the_news_content = "\n".join(faker.paragraphs())
         self.browser.find_element_by_id(news_page_alpha.id_field_title).send_keys(the_news_title)
         self.browser.find_element_by_css_selector(
-            'input#{} ~ span a'.format(news_page_alpha.id_field_publication_date)).click()
+            'input#{} ~ span a'.format(news_page_alpha.id_field_publication_date_date)).click()
+        self.browser.find_element_by_css_selector(
+            'input#{} ~ span a'.format(news_page_alpha.id_field_publication_date_time)).click()
         self.browser.find_element_by_id(news_page_alpha.id_field_content).send_keys(the_news_content)
         self.select_option_by_text(news_page_alpha.id_field_writer, user_alpha.username, ValueError)
         self.browser.find_element_by_css_selector('input[name="_save"]').click()
@@ -115,8 +119,14 @@ class LayoutAndStylingTest(FunctionalTest):
         self.browser = bravo_browser
         self.browser.refresh()
         h1 = self.browser.find_element_by_css_selector('h1')
-
         self.assertEqual(h1.text, the_news_title, "The new news hasn't been found in the page")
+
+        # Bravo notices that there is an "Older news" button, so he follows it
+        self.click_link(reverse("one_news_page", kwargs={'pk': randomly_created_news_count}))
+        # and he confirms that the content is the good one
+        h1 = self.browser.find_element_by_css_selector('h1')
+        self.assertEqual(h1.text, last_initial_news_title,
+                         "Previous news title hasn't been found in the page")
 
         # Alpha removes a previous news that had nothing to do there
 

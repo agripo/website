@@ -5,7 +5,8 @@ class NewsPage(object):
     id_page = "id_news_list_page"
     id_news_list_container = "id_news_list_container"
     id_field_title = 'id_title'
-    id_field_publication_date = 'id_publication_date'
+    id_field_publication_date_date = 'id_publication_date_0'
+    id_field_publication_date_time = 'id_publication_date_1'
     id_field_content = 'id_content'
     id_field_writer = 'id_writer'
     id_news_title = 'id_news_title'
