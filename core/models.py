@@ -10,8 +10,8 @@ class AgripoUser(User):
 
     def add_to_managers(self):
         self.is_staff = True
-        self.groups.add(Group.objects.get(name="managers"))
         self.save()
+        self.groups.add(Group.objects.get(name="managers"))
         return self
 
     def is_admin(self):
