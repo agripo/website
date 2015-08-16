@@ -21,6 +21,13 @@ class CoreTestCase(TestCase):
         return self.client.get('/core/auto_manager_login/{}'.format(email))
 
 
+class ShopViewTest(CoreTestCase):
+
+    def test_use_template(self):
+        response = self.client.get(reverse('shop_page'))
+        self.assertTemplateUsed(response, 'core/shop_page.html')
+
+
 class LoginViewTest(CoreTestCase):
 
     def test_can_auto_connect_with_new_email(self):
@@ -79,7 +86,7 @@ class NewsViewsTest(CoreTestCase):
     def fill_with_entries(self, entries_count=NUMBER_OF_NEWS_BY_PAGE + 10):
         writer = self.create_writer_if_none(None)
         for i in range(1, entries_count + 1):
-            pub = timezone.now() - datetime.timedelta(i - 5)
+            pub = timezone.now() - timezone.timedelta(i - 5)
             self.insert_news("News #{}".format(i), "content", writer, publication_date=pub)
 
     def fill_with_entries_and_get_page(self, page_num=1):
@@ -88,12 +95,12 @@ class NewsViewsTest(CoreTestCase):
 
     def test_display_recent_entries(self):
         response = self.fill_with_entries_and_get_page()
-        for i in range(6, NUMBER_OF_NEWS_BY_PAGE + 5):
+        for i in range(5, NUMBER_OF_NEWS_BY_PAGE + 5):
             self.assertContains(response, "News #{}".format(i))
 
     def test_future_entries(self):
         response = self.fill_with_entries_and_get_page()
-        self.assertNotContains(response, "News #{}".format(5))
+        self.assertNotContains(response, "News #{}".format(4))
 
     def test_hide_older_entries_from_front_page(self):
         response = self.fill_with_entries_and_get_page()
