@@ -75,24 +75,6 @@
     {% slideshow slideshow_images %}
 {% endif %}
 
-<section id="connection">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                {% if user.email %}
-                    <a class="btn navbar-btn navbar-right" id="id_logout" href="{% url 'logout' %}">Log out</a>
-                    <span class="navbar-text navbar-right">
-                        Logged in as {{ user.email }}
-                        {% if user.is_manager %}(manager){% endif %}
-                    </span>
-                {% else %}
-                    <a class="btn navbar-btn navbar-right" id="id_login" href="#">Sign in</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</section>
-
 <section id="main_content">
     <div class="container">
         {% block main_content %}
@@ -172,8 +154,21 @@
                         <i class="fa fa-user"></i>
                     </div>
                     <div class="down">
-                        <div>Mon compte</div>
-                        Me connecter
+                        <h4>Mon compte</h4>
+                        <div>
+                            {% if user.email %}
+                                Bienvenue {{ user.email }}
+                                <a class="btn navbar-btn" id="id_logout" href="{% url 'logout' %}">
+                                    <i class="fa fa-sign-out"></i>
+                                    Déconnexion
+                                </a>
+                            {% else %}
+                                <a class="btn navbar-btn" id="id_login" href="#">
+                                    <i class="fa fa-sign-in"></i>
+                                    Se connecter
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -186,8 +181,10 @@
                         <i class="fa fa-shopping-cart"></i>
                     </div>
                     <div class="down">
-                        <div>Panier</div>
-                        Vous n'êtes pas connecté
+                        <h4>Panier</h4>
+                        <div>
+                            Votre panier est vide
+                        </div>
                     </div>
                 </div>
             </div>
@@ -200,8 +197,8 @@
                         <i class="fa fa-suitcase"></i>
                     </div>
                     <div class="down">
-                        <div>Réserver votre séjour</div>
-                        Accéder au formulaire
+                        <h4>Réserver votre séjour</h4>
+                        <div>Accéder au formulaire</div>
                     </div>
                 </div>
             </div>
@@ -214,8 +211,8 @@
                         <i class="fa fa-heart"></i>
                     </div>
                     <div class="down">
-                        <div>Faire un don</div>
-                        Accéder au formulaire
+                        <h4>Faire un don</h4>
+                        <div>Accéder au formulaire</div>
                     </div>
                 </div>
             </div>
