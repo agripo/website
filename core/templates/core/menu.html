@@ -7,23 +7,59 @@
             display:none;
         }
         ul.submenu{
+            text-align: center;
             width: 100%;
         }
+        ul li a{
+            display:inline-block;
+            width: 100%;
+            height: 100%;
+        }
+        ul li a:hover{
+            text-decoration: none;
+            background-color: #030303;
+        }
         ul.submenu li {
+            border-radius: 3px;
+            padding: 5px;
             vertical-align: top;
             margin: 5px;
             width: 160px;
             display:inline-block;
             text-align: center;
+            background-color: #080808;
+            vertical-align: middle;
+        }
+        ul#submenu_1 li{
+            height: 73px;
+        }
+        ul#submenu_2 li{
+            height: 78px;
+        }
+        ul#submenu_3 li{
+            height: 30px;
+        }
+        ul#submenu_4 li,
+        ul#submenu_5 li{
+            height: 50px;
+        }
+        .submenu_description{
+            font-size: 80%;
         }
     </style>
     <script>
+        var displayed_menu = null;
         window.onload=function(){
             $('.dropdownz').click(function(ev, el){
                 $('.submenu').hide();
                 console.log(ev, ev.target);
                 submenu = ev.target.dataset.toggleElement;
-                $('#'+submenu).toggle();
+                if(displayed_menu != submenu){
+                    $('#'+submenu).toggle();
+                    displayed_menu = submenu;
+                }else{
+                    displayed_menu = null;
+                }
             });
         };
     </script>
@@ -67,19 +103,34 @@
     </ul>
     <ul class="submenu" id="submenu_2">
         <li>
-            <a href="#">Vergers écologiques des territoires (VET)</a>
+            <a href="#">
+                VET
+                <div class="submenu_description">Vergers écologiques des territoires</div>
+            </a>
         </li>
         <li>
-            <a href="#">Initiatives Locales d'Éléctrification Solaire (ILES)</a>
+            <a href="#">
+                ILES
+                <div class="submenu_description">Initiatives Locales d'Éléctrification Solaire</div>
+            </a>
         </li>
         <li>
-            <a href="#">Réseau d'Adduction Responsable en Eau potable (RARE)</a>
+            <a href="#">
+                RARE
+                <div class="submenu_description">Réseau d'Adduction Responsable en Eau potable</div>
+            </a>
         </li>
         <li>
-            <a href="#">Gestion Raisonnée de l'Économie et de l'ENvironnement (GREEN)</a>
+            <a href="#">
+                GREEN
+                <div class="submenu_description">Gestion Raisonnée de l'Économie et de l'ENvironnement</div>
+            </a>
         </li>
         <li>
-            <a href="#">Vacances Solidaires (Change the World)</a>
+            <a href="#">
+                Vacances Solidaires
+                <div class="submenu_description">Change the World</div>
+            </a>
         </li>
     </ul>
     <ul class="submenu" id="submenu_3">

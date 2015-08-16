@@ -17,3 +17,52 @@ section#id_uses_cookies_section{
 #navbar_spacer{
     height:55px;
 }
+
+.really-big{
+    font-size: 40px;
+}
+
+#boxes .row > div{
+    padding: 5px;
+}
+#boxes .one-box {
+    border: 4px solid rgba(0,0,0,0.1);
+    height: 280px;
+    max-width: 500px;
+    margin: 0 auto 0 auto;
+}
+#boxes .row .one-box .up {
+    width: 100%;
+    height: 140px;
+    border-bottom: 4px solid rgba(0,0,0,0.1);
+    background-color: grey;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+#boxes .row .one-box .icon {
+    width: 50px;
+    height: 50px;
+    margin: -25px auto 0 auto;
+    border-radius: 25px;
+    border: 4px solid rgba(0,0,0,0.1);
+    text-align: center;
+    line-height: 40px;
+    font-size: 25px;
+    background-color: white;
+}
+#boxes .row .one-box .down {
+    line-height: 45px;
+}
+#boxes .row .one-box .down div{
+    font-weight: bold;
+    font-size: 120%;
+}
+
+#boxes .one-box:hover,
+#boxes .one-box:hover .up,
+#boxes .one-box:hover .icon{
+    border-color: #3c763d;
+}
+#boxes .one-box:hover .icon{
+    color: #3c763d;
+}

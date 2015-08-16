@@ -31,8 +31,9 @@ class NewsListPage(ListView):
 
 def index_view(request):
     slideshow_images = [
-        {'src': '/static/img/1.jpg', 'alt': 'One image', 'caption': 'Tayap est un petit village du Cameroun.'},
-        {'src': '/static/img/2.jpg', 'alt': 'Another image', 'caption': 'Agripo est un groupement de Tayap.'},
+        {'src': '/static/img/diapo_1.jpg', 'alt': 'One image', 'caption': 'Tayap est un petit village du Cameroun.'},
+        {'src': '/static/img/diapo_2.jpg', 'alt': 'Another image', 'caption': 'Agripo est un groupement de Tayap.'},
+        {'src': '/static/img/diapo_3.jpg', 'alt': 'A third image', 'caption': 'Agripo est un groupement de Tayap.'},
     ]
     user = request.user
     return render(request, 'core/home_page.html',
