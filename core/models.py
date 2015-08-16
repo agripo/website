@@ -59,3 +59,9 @@ class News(models.Model):
         return News.objects.filter(
             publication_date__gt=self.publication_date,
             is_active=True).order_by('publication_date').first()
+
+    @staticmethod
+    def get_last():
+        return News.objects.filter(
+            publication_date__lt=timezone.now(),
+            is_active=True).order_by('-publication_date').first()

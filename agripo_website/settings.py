@@ -98,6 +98,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'core.context_processors.cookies_notification',
+                'core.context_processors.last_news_box',
             ],
         },
     },
