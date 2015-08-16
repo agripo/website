@@ -16,10 +16,9 @@ section#id_uses_cookies_section{
 section#social_lang{
     padding: 0;
 }
-section#social_lang .social_icons{
-    font-size: 24px;
+#products .one img{
+    width: 100%;
 }
-
 #navbar_spacer{
     height:55px;
 }
@@ -69,4 +68,22 @@ section#social_lang .social_icons{
 }
 #boxes .one-box:hover .icon{
     color: #3c763d;
+}
+
+.partners-block {
+    padding-bottom:50px;
+    background: url(/static/img/diapo_1.jpg) no-repeat 50% 50%;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+    display: block;
+    height: auto;
+    min-height:300px;
+    color:#fff;
+}
+.partners-block img{
+    padding: 5px 25px 5px 25px;
 }
