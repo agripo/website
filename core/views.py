@@ -2,13 +2,18 @@ from core.models import News
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.utils import timezone
 
 import core.exceptions as core_exceptions
 
 
 NUMBER_OF_NEWS_BY_PAGE = 10
+
+
+class ShopPage(TemplateView):
+    template_name = "core/shop_page.html"
+
 
 class NewsPage(DetailView):
     model = News
