@@ -52,7 +52,6 @@
         call_after_dom_is_loaded(function($){
             $('.dropdownz').click(function(ev, el){
                 $('.submenu').hide();
-                console.log(ev, ev.target);
                 submenu = ev.target.dataset.toggleElement;
                 if(displayed_menu != submenu){
                     $('#'+submenu).toggle();
