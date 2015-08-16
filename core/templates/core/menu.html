@@ -49,7 +49,7 @@
     </style>
     <script>
         var displayed_menu = null;
-        window.onload=function(){
+        call_after_dom_is_loaded(function($){
             $('.dropdownz').click(function(ev, el){
                 $('.submenu').hide();
                 console.log(ev, ev.target);
@@ -61,7 +61,7 @@
                     displayed_menu = null;
                 }
             });
-        };
+        });
     </script>
     <li class="dropdownz">
         <a href="vergers_eco.html" class="dropdown-toggle" data-toggle-element="submenu_1" data-toggle="dropdown">AGRIPO <b class="caret"></b></a>

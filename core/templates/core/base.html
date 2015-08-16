@@ -21,7 +21,18 @@
     <link href="/static/css/base.css" rel="stylesheet"/>
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-
+    <script>
+        var _func_to_call_after_dom_is_loaded = [];
+        function call_after_dom_is_loaded(callback){
+            _func_to_call_after_dom_is_loaded.push(callback);
+        }
+        function dom_is_loaded($){
+            for(callback in _func_to_call_after_dom_is_loaded){
+                func = _func_to_call_after_dom_is_loaded[callback];
+                func($);
+            }
+        }
+    </script>
 </head>
 <body id="{% block page_name %}id_unknown_page{% endblock %}">
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -364,7 +375,8 @@
 <!--<script src="/static/js/custom.js"></script>-->
 {% if not cookies_notification_shown %}
     <script>
-        $(function(){
+        call_after_dom_is_loaded(function($){
+            console.log("We add the event for cookies");
             $('#id_uses_cookies').click(function(){
                 console.log("CLicked!");
                 $.get(
@@ -378,5 +390,10 @@
         });
     </script>
 {% endif %}
+<script>
+    $(function($){
+        dom_is_loaded($);
+    });
+</script>
 </body>
 </html>
