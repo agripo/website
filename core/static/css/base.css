@@ -6,12 +6,18 @@ section.carousel{
     padding-top: 0;
 }
 
-section#connection,
+section#social_lang,
 section#id_uses_cookies_section{
     margin: 0;
     padding: 8px;
     background-color: #101010;
     color: #808080;
+}
+section#social_lang{
+    padding: 0;
+}
+section#social_lang .social_icons{
+    font-size: 24px;
 }
 
 #navbar_spacer{
