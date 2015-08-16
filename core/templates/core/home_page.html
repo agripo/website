@@ -3,3 +3,19 @@
 {% block page_name %}id_home_page{% endblock %}
 
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+
+{% block main_content %}
+<div class="row text-center">
+    <div class="col-md-1 align-right really-big">
+        <i class="fa fa-quote-left"></i>
+    </div>
+    <div class="col-md-10">
+        <h1>Bienvenue sur le site d'AGRIPO</h1>
+        {% lorem %}
+    </div>
+    <div class="col-md-1 align-left really-big">
+        <i class="fa fa-quote-right"></i>
+    </div>
+</div>
+{% endblock %}
