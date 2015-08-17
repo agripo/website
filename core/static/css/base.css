@@ -71,6 +71,9 @@ section#social_lang{
 #boxes .one-box.one-box-redim-hover .reduced{
     display: block;
 }
+#boxes .expanded p{
+    line-height: normal;
+}
 #boxes .one-box.one-box-redim-hover .expanded,
 #boxes .one-box.one-box-redim-hover:hover .reduced{
     display: none;
