@@ -35,8 +35,17 @@ section#social_lang{
     height: 280px;
     max-width: 500px;
     margin: 0 auto 0 auto;
+    overflow: hidden;
 }
-#boxes .row .one-box .up {
+#boxes .one-box,
+#boxes .one-box div{
+    transition: all 0.5s;
+}
+#boxes .one-box .fixed-bottom{
+    position:absolute;
+    bottom:0;
+}
+#boxes .one-box .up {
     width: 100%;
     height: 140px;
     border-bottom: 4px solid rgba(0,0,0,0.1);
@@ -44,7 +53,7 @@ section#social_lang{
     background-position: center top;
     background-repeat: no-repeat;
 }
-#boxes .row .one-box .icon {
+#boxes .one-box .icon {
     width: 50px;
     height: 50px;
     margin: -25px auto 0 auto;
@@ -55,7 +64,21 @@ section#social_lang{
     font-size: 25px;
     background-color: white;
 }
-#boxes .row .one-box .down h4{
+#boxes .one-box.one-box-redim-hover:hover .up{
+    height: 50px;
+}
+#boxes .one-box.one-box-redim-hover:hover .expanded,
+#boxes .one-box.one-box-redim-hover .reduced{
+    display: block;
+}
+#boxes .one-box.one-box-redim-hover .expanded,
+#boxes .one-box.one-box-redim-hover:hover .reduced{
+    display: none;
+}
+#boxes .one-box.one-box-redim-hover:hover .down{
+    height: 230px;
+}
+#boxes .one-box .down h4{
     margin-top: 5px;
     margin-bottom: 10px;
     font-weight: bold;

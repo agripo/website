@@ -5,10 +5,243 @@
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
 
 {% block main_content %}
-    <div class="row">
+    <div class="row" id="shop">
+        <style>
+            #shop h2{
+                margin: 50px 0 0px 0;
+            }
+            .one_product{
+                position: relative;
+                display: block;
+                padding: 10px;
+                height: 150px;
+                width: 100%;
+                margin-top: 0;
+                margin-bottom: 15px;
+            }
+            .one_product:hover .left_product_part,
+            .one_product:hover .right_product_part{
+                border-color: #3c763d;
+            }
+            .left_product_part{
+                display: inline-block;
+                position: absolute;
+                left: 0;
+                width: 40%;
+                height: 150px;
+                border: 4px solid rgba(0,0,0,0.1);
+                overflow: hidden;
+                text-align: center;
+            }
+            .left_product_part img {
+                max-width: 100%;
+                min-height: 150px;
+            }
+            .right_product_part{
+                width: 60%;
+                height: 150px;
+                left: 40%;
+                display: inline-block;
+                position: absolute;
+                padding: 5px;
+                border: 4px solid rgba(0,0,0,0.1);
+                border-left: none;
+            }
+            .one_product .expanded,
+            .one_product:hover .reduced{
+                display: none;
+            }
+            .one_product:hover .expanded,
+            .one_product .reduced{
+                display: block;
+            }
+            p.expanded input[type="submit"]{
+                width: 45px;
+            }
+        </style>
         <div class="col-md-12">
-            <h1 id="id_news_title">{{ news.title }}</h1>
-            <div>{{ news.content }}</div>
+            <h1>Bienvenue dans notre boutique</h1>
         </div>
+        {% for cat in categories %}
+            <div class="col-md-12">
+                <h2>{{ cat.name }}</h2>
+            </div>
+            {% for prod in cat.products %}
+                <div class="col-md-4">
+                    <div class="one_product">
+                        <div class="left_product_part">
+                            <img src="/static/img/shop/{{ prod.img }}"/>
+                        </div>
+                        <div class="right_product_part">
+                            <h3>{{ prod.name }}</h3>
+                            {% if prod.stock > 0 %}
+                                <p>En stock</p>
+                                <p class="reduced">
+                                    Quantité achetée : {{ prod.bought }}
+                                </p>
+                                <p class="expanded">
+                                    <input style="width:100px;" placeholder="Quantité" type="number" value="{{ prod.bought }}"/>
+                                    <input type="submit" value="OK"/>
+                                </p>
+                            {% else %}
+                                <p>Produit indisponible pour le moment</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    <!--
+        <div class="col-md-12">
+            <h2>Fruits</h2>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/banane.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Bananes</h3>
+                    <p>En stock</p>
+                    <p>
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/manioc.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Mandarines</h3>
+                    <p>En stock</p>
+                    <p>
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/noix.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Citron</h3>
+                    <p>En stock</p>
+                    <p>
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h2>Noix et produits du cacao</h2>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/manioc.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Fèves de cacao</h3>
+                    <p>Produit indisponible pour le moment</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/noix.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Jus de cacao</h3>
+                    <p>En stock</p>
+                    <p class="reduced">
+                        Quantité achetée : 2
+                    </p>
+                    <p class="expanded">
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                        <a href="#"><i class="fa fa-refresh fa-2x"></i></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/noix.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Bitter-cola</h3>
+                    <p>En stock</p>
+                    <p>
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/noix.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Noix de Cola</h3>
+                    <p>En stock</p>
+                    <p>
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h2>Légumes</h2>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/manioc.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Avocats</h3>
+                    <p>En stock</p>
+                    <p>
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/manioc.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Arbres à ail</h3>
+                    <p>En stock</p>
+                    <p>
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="one_product">
+                <div class="left_product_part">
+                    <img src="/static/img/manioc.jpg"/>
+                </div>
+                <div class="right_product_part">
+                    <h3>Manioc</h3>
+                    <p>En stock</p>
+                    <p>
+                        <input style="width:100px;" placeholder="Quantité" type="number"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        -->
     </div>
 {% endblock %}

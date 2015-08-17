@@ -14,6 +14,25 @@ NUMBER_OF_NEWS_BY_PAGE = 10
 class ShopPage(TemplateView):
     template_name = "core/shop_page.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = [
+            {'name': 'Fruits', 'products': [
+                {'name': 'Bananes', 'stock': 10, 'bought': 1, 'img': 'bananes.jpg'},
+                {'name': 'Mandarines', 'stock': 10, 'bought': 1, 'img': 'mandarines.jpg'},
+                {'name': 'Citron', 'stock': 5, 'bought': 2, 'img': 'citrons.jpg'}, ]},
+            {'name': 'Noix et produits du cacao', 'products': [
+                {'name': 'Fèves de cacao', 'stock': 1, 'bought': 0, 'img': 'cacao.jpg'},
+                {'name': 'Jus de cacao', 'stock': 0, 'bought': 0, 'img': 'cacao.jpg'},
+                {'name': 'Bitter-cola', 'stock': 5, 'bought': 2, 'img': 'bitter.jpg'},
+                {'name': 'Noix de Cola', 'stock': 12, 'bought': 1, 'img': 'cola.jpg'}, ]},
+            {'name': 'Légumes', 'products': [
+                {'name': 'Avocats', 'stock': 3, 'bought': 3, 'img': 'avocats.jpg'},
+                {'name': 'Manioc', 'stock': 15, 'bought': 2, 'img': 'manioc.jpg'},
+                {'name': 'Arbres à ail', 'stock': 15, 'bought': 1, 'img': 'ail.jpg'}, ]},
+        ]
+        return context
+
 
 class NewsPage(DetailView):
     model = News
