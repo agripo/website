@@ -1,0 +1,117 @@
+<section id="boxes">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 col-sm-6">
+                <div class="one-box">
+                    <div class="up" style="background-image: url('/static/img/my_account.jpg');">
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="down">
+                        <h4>Mon compte</h4>
+                        <div>
+                            <p>
+                                {% if user.email %}
+                                    Bienvenue {{ user.email }}
+                                    <a class="btn navbar-btn" id="id_logout" href="{% url 'logout' %}">
+                                        <i class="fa fa-sign-out"></i>
+                                        Déconnexion
+                                    </a>
+                                {% else %}
+                                    <a class="btn navbar-btn" id="id_login" href="#">
+                                        <i class="fa fa-sign-in"></i>
+                                        Se connecter
+                                    </a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="one-box one-box-redim-hover">
+                    <div class="up" style="background-image: url('/static/img/cart.jpg');">
+
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+                    <div class="down">
+                        <h4>Panier</h4>
+                        <div class="reduced">
+                            <p>
+                                Votre panier contient 16 produits pour un total de 6700 XAF.
+                            </p>
+                        </div>
+                        <div class="expanded">
+                            <p>
+                                2kg de Manioc, 3kg de Bananes, 1L d'huile de palme, 2kg de noix,
+                                2kg de fèves de cacao, 1L de jus de cacao, 1kg d'avocat, 2kg de citron
+                                1kg de bitter-cola et 1kg de mandarine.<br />
+                                Total : 6700 XAF
+                            </p>
+                        </div>
+                        <div class="">
+                            <a href="#">Valider la commande</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="one-box one-box-redim-hover">
+                    <div class="up" style="background-image: url('/static/img/book_your_stay.jpg');">
+
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-suitcase"></i>
+                    </div>
+                    <div class="down">
+                        <h4>Réserver votre séjour</h4>
+                        <div class="reduced">
+                            <p>
+                                Venez découvrir notre patrimoine de manière responsable.
+                            </p>
+                        </div>
+                        <div class="expanded">
+                            <p>
+                                Venez découvrir Tayap et profiter de nos activités thématiques en
+                                préservant l'environnement et en améliorant le bien-être des habitants
+                                locaux.
+                            </p>
+                            <p>
+                                <a href="#">Accéder au formulaire</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="one-box one-box-redim-hover">
+                    <div class="up" style="background-image: url('/static/img/donate.jpg');">
+
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="down">
+                        <h4>Faire un don</h4>
+                        <div class="reduced">
+                            <p>
+                                Nous vous remercions d'encourager notre initiative.
+                            </p>
+                        </div>
+                        <div class="expanded">
+                            <p>
+                                Nous vous remercions d'encourager notre initiative avec votre don.
+                            </p>
+                            <p>
+                                <a href="#">Accéder à la page des dons</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
