@@ -233,13 +233,53 @@
     </div>
 </section>
 
-<section id="offer">
+<section id="news_box">
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-                <h2>Dernière actualité</h2>
-                <h3><a href="{% url "one_news_page" last_news.pk %}">{{ last_news.title }}</a></h3>
-                <p>{{ last_news.content }}</p>
+            <style>
+                #news_box h5{
+                    font-weight: bold;
+                }
+                #news_box .date{
+                    font-weight: normal;
+                }
+                #displayed_news .one{
+                    display:none;
+                }
+                #displayed_news_1:checked ~ .row #news_1_selector,
+                #displayed_news_2:checked ~ .row #news_2_selector,
+                #displayed_news_3:checked ~ .row #news_3_selector{
+                    color: #3c763d;
+                }
+                #displayed_news_1:checked ~ #displayed_news #news_1,
+                #displayed_news_2:checked ~ #displayed_news #news_2,
+                #displayed_news_3:checked ~ #displayed_news #news_3{
+                    display: block;
+                }
+            </style>
+                <h2>Dernières actualités</h2>
+                {% for one in last_news %}
+                    <input class="hidden" type="radio" name="shown_news" id="displayed_news_{{ forloop.counter }}"/>
+                {% endfor %}
+                <div class="row">
+                    {% for one in last_news %}
+                        <div id="news_{{ forloop.counter }}_selector" class="one_news col-md-4 text-center">
+                            <label for="displayed_news_{{ forloop.counter }}">
+                                <h5>{{ one.title|truncatewords:4 }}</h5>
+                                <div class="date">{{ one.publication_date|date }}</div>
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="displayed_news">
+                    {% for one in last_news %}
+                        <div class="one" id="news_{{ forloop.counter }}">
+                            <h3><a href="{% url "one_news_page" one.pk %}">{{ one.title }}</a></h3>
+                            <p>{{ one.content|truncatechars:250 }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="col-md-3">
                 <h2>Jeu/Webdoc/BD</h2>
