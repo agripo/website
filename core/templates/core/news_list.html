@@ -12,9 +12,25 @@
             }
             .list_one_news{
                 height:250px;
+                border: 4px solid rgba(0,0,0,0.1);
+                margin-bottom: 25px;
+                transition: border-color 1s;
+            }
+            .list_one_news h3{
+                border-bottom: 4px solid rgba(0,0,0,0.1);
+                transition: border-color 1s;
+                padding-bottom: 5px;
+            }
+            .list_one_news:hover,
+            .list_one_news:hover h3{
+                border-color: #3c763d;
             }
         </style>
         <div class="row">
+            <div class="col-md-12">
+                <h1>Nos actualités</h1>
+                <p>{% lorem %}</p>
+            </div>
             {% for news in news_list %}
                 <div class="col-md-4">
                     <div class="list_one_news">
@@ -24,6 +40,9 @@
                         </h3>
                         <div class="text-center">
                             {{ news.content|striptags|truncatechars:150 }}
+                        </div><br />
+                        <div class="text-center">
+                            <a href="{% url "one_news_page" news.pk %}" class="button">Aller à l'actualité</a>
                         </div>
                     </div>
                 </div>

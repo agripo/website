@@ -1,11 +1,16 @@
 a{
     color: #3c763d;
 }
-
+h1{
+    padding-top: 20px;
+}
 section.carousel{
     padding-top: 0;
 }
 
+.page_submenus div{
+    margin-bottom: 10px;
+}
 section#social_lang,
 section#id_uses_cookies_section{
     margin: 0;
@@ -15,6 +20,9 @@ section#id_uses_cookies_section{
 }
 section#social_lang{
     padding: 0;
+}
+#products{
+    margin-bottom: 50px;
 }
 #products .one img{
     width: 100%;
@@ -26,7 +34,15 @@ section#social_lang{
 .really-big{
     font-size: 40px;
 }
-
+#main_content{
+    margin-bottom: 50px;
+}
+#boxes{
+    padding-top: 25px;
+    margin-top: 25px;
+    padding-bottom: 25px;
+    background-color: #101010;
+}
 #boxes .row > div{
     padding: 5px;
 }
@@ -36,6 +52,7 @@ section#social_lang{
     max-width: 500px;
     margin: 0 auto 0 auto;
     overflow: hidden;
+    background-color: #f0f0f0;
 }
 #boxes .one-box,
 #boxes .one-box div{

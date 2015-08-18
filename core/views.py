@@ -11,6 +11,12 @@ import core.exceptions as core_exceptions
 NUMBER_OF_NEWS_BY_PAGE = 9
 
 
+class SubMenusPage(TemplateView):
+
+    def get_template_names(self):
+        return 'core/submenus/{}.html'.format(self.kwargs['page'])
+
+
 class ShopPage(TemplateView):
     template_name = "core/shop_page.html"
 

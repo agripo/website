@@ -20,7 +20,7 @@
     <!-- CUSTOM STYLE CSS -->
     <link href="/static/css/base.css" rel="stylesheet"/>
     <!-- GOOGLE FONT -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+<!--    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>-->
 
     <script src="/static/js/base.js"></script>
 </head>
@@ -45,52 +45,15 @@
 </div>
 <div id="navbar_spacer"></div>
 
-
-<!--/.NAVBAR END-->
 {% if not cookies_notification_shown %}
-    <section id="id_uses_cookies_section">
-        <div class="container" style="margin-top: 25px">
-            <div class="row">
-                <div class="col-md-10">
-                    This website uses cookies to ensure a better user experience.
-                    Learn more about our cookies policy <a href="">here</a>.
-                </div>
-                <div class="col-md-2">
-                    <a href="#" id="id_uses_cookies">Hide this message</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include "core/boxes/cookies.html" %}
 {% endif %}
 
 {% if display_slideshow %}
     {% slideshow slideshow_images %}
 {% endif %}
 
-
-<section id="social_lang">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-3">
-                <span class="navbar-text social_icons">
-                    <a href="#"><i class="fa fa-facebook-square fa-3x"></i></a>
-                    <a href="#"><i class="fa fa-twitter-square fa-3x"></i></a>
-                    <a href="#"><i class="fa fa-google-plus-square fa-3x"></i></a>
-                    <a href="#"><i class="fa fa-linkedin-square fa-3x"></i></a>
-                </span>
-            </div>
-            <div class="col-md-3 col-md-offset-6 col-sm-3 col-sm-offset-6">
-                <span class="navbar-text navbar-right">
-                    <a href="#">
-                        <i class="fa fa-flag fa-3x"></i>
-                        <div style="display:inline-block">Views in<br />English</div>
-                    </a>
-                </span>
-            </div>
-        </div>
-    </div>
-</section>
-
+{% include "core/boxes/social_lang.html" %}
 
 <section id="main_content">
     <div class="container">
@@ -104,182 +67,11 @@
     </div>
 </section>
 
+{% include "core/boxes/boxes.html" %}
 
-<section id="boxes">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-3 col-sm-6">
-                <div class="one-box">
-                    <div class="up" style="background-image: url('/static/img/my_account.jpg');">
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-user"></i>
-                    </div>
-                    <div class="down">
-                        <h4>Mon compte</h4>
-                        <div>
-                            <p>
-                                {% if user.email %}
-                                    Bienvenue {{ user.email }}
-                                    <a class="btn navbar-btn" id="id_logout" href="{% url 'logout' %}">
-                                        <i class="fa fa-sign-out"></i>
-                                        Déconnexion
-                                    </a>
-                                {% else %}
-                                    <a class="btn navbar-btn" id="id_login" href="#">
-                                        <i class="fa fa-sign-in"></i>
-                                        Se connecter
-                                    </a>
-                                {% endif %}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="one-box one-box-redim-hover">
-                    <div class="up" style="background-image: url('/static/img/cart.jpg');">
+{% include "core/boxes/news.html" %}
 
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-shopping-cart"></i>
-                    </div>
-                    <div class="down">
-                        <h4>Panier</h4>
-                        <div class="reduced">
-                            <p>
-                                Votre panier contient 16 produits pour un total de 6700 XAF.
-                            </p>
-                        </div>
-                        <div class="expanded">
-                            <p>
-                                2kg de Manioc, 3kg de Bananes, 1L d'huile de palme, 2kg de noix,
-                                2kg de fèves de cacao, 1L de jus de cacao, 1kg d'avocat, 2kg de citron
-                                1kg de bitter-cola et 1kg de mandarine.<br />
-                                Total : 6700 XAF
-                            </p>
-                        </div>
-                        <div class="">
-                            <a href="#">Valider la commande</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="one-box one-box-redim-hover">
-                    <div class="up" style="background-image: url('/static/img/book_your_stay.jpg');">
-
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-suitcase"></i>
-                    </div>
-                    <div class="down">
-                        <h4>Réserver votre séjour</h4>
-                        <div class="reduced">
-                            <p>
-                                Venez découvrir notre patrimoine de manière responsable.
-                            </p>
-                        </div>
-                        <div class="expanded">
-                            <p>
-                                Venez découvrir Tayap et profiter de nos activités thématiques en
-                                préservant l'environnement et en améliorant le bien-être des habitants
-                                locaux.
-                            </p>
-                            <p>
-                                <a href="#">Accéder au formulaire</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="one-box one-box-redim-hover">
-                    <div class="up" style="background-image: url('/static/img/donate.jpg');">
-
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-heart"></i>
-                    </div>
-                    <div class="down">
-                        <h4>Faire un don</h4>
-                        <div class="reduced">
-                            <p>
-                                Nous vous remercions d'encourager notre initiative.
-                            </p>
-                        </div>
-                        <div class="expanded">
-                            <p>
-                                Nous vous remercions d'encourager notre initiative avec votre don.
-                            </p>
-                            <p>
-                                <a href="#">Accéder à la page des dons</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="news_box">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <h2>Dernières actualités</h2>
-                {% for one in last_news %}
-                    <input {% if forloop.first %}checked="checked"{% endif %} class="hidden" type="radio" name="shown_news" id="displayed_news_{{ forloop.counter }}"/>
-                {% endfor %}
-                <div id="displayed_news">
-                    {% for one in last_news %}
-                        <div class="one" id="news_{{ forloop.counter }}">
-                            <h3><a href="{% url "one_news_page" one.pk %}">{{ one.title }}</a></h3>
-                            <p>{{ one.content|truncatechars:250 }}</p>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="row">
-                    {% for one in last_news %}
-                        <div id="news_{{ forloop.counter }}_selector" class="one_news col-md-4 text-center">
-                            <label for="displayed_news_{{ forloop.counter }}" class="one_news_selector">
-                                <h5>{{ one.title|truncatewords:4 }}</h5>
-                                <div class="date">{{ one.publication_date|date }}</div>
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <h2>Jeu/Webdoc/BD</h2>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--/.INTRO END-->
-<section id="products">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Produits vedettes</h2>
-            </div>
-            <div class="col-xs-6 col-sm-3 one">
-                <img src="/static/img/banane.jpg">
-            </div>
-            <div class="col-xs-6 col-sm-3 one">
-                <img src="/static/img/manioc.jpg">
-            </div>
-            <div class="col-xs-6 col-sm-3 one">
-                <img src="/static/img/noix.jpg">
-            </div>
-            <div class="col-xs-6 col-sm-3 one">
-                <img src="/static/img/graines.jpg">
-            </div>
-        </div>
-    </div>
-</section>
-<br /><br />
+{% include "core/boxes/products.html" %}
 
 <section class="partners-block">
     <div class="container">

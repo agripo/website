@@ -1,33 +1,40 @@
-<ul class="nav navbar-nav navbar-right">
+<ul class="nav navbar-nav navbar-right" id="text_menus">
     <script>
-        var displayed_menu = null;
         call_after_dom_is_loaded(function($){
-            $('.dropdownz').click(function(ev, el){
-                $('.submenu').hide();
-                submenu = ev.target.dataset.toggleElement;
-                if(displayed_menu != submenu){
-                    $('#'+submenu).toggle();
-                    displayed_menu = submenu;
-                }else{
-                    displayed_menu = null;
-                }
-            });
+            function is_menu_displayed(){
+                return !($('#text_menus li a').is(":hidden"));
+            }
+            var displayed_menu = null;
+            var do_we_display_submenus = is_menu_displayed();
+            if(do_we_display_submenus) {
+                $('.dropdownz').click(function (ev, el) {
+                    $('.submenu').hide();
+                    submenu = ev.target.dataset.toggleElement;
+                    if (displayed_menu != submenu) {
+                        $('#' + submenu).toggle();
+                        displayed_menu = submenu;
+                    } else {
+                        displayed_menu = null;
+                    }
+                    return false;
+                });
+            }
         });
     </script>
     <li class="dropdownz">
-        <a href="vergers_eco.html" class="dropdown-toggle" data-toggle-element="submenu_1" data-toggle="dropdown">AGRIPO <b class="caret"></b></a>
+        <a href="{% url "menu_page" page="agripo" %}" data-toggle-element="submenu_1">AGRIPO <b class="caret"></b></a>
     </li>
     <li class="dropdownz">
-        <a href="agroforesterie.html" class="dropdown-toggle" data-toggle-element="submenu_2" data-toggle="dropdown">PROGRAMMES <b class="caret"></b></a>
+        <a href="{% url "menu_page" page="programmes" %}" data-toggle-element="submenu_2">PROGRAMMES <b class="caret"></b></a>
     </li>
     <li class="dropdownz">
-        <a href="ecotourisme.html" class="dropdown-toggle" data-toggle-element="submenu_3" data-toggle="dropdown">ÉCOTOURISME <b class="caret"></b></a>
+        <a href="{% url "menu_page" page="ecotourisme" %}" data-toggle-element="submenu_3">ÉCOTOURISME <b class="caret"></b></a>
    </li>
     <li class="dropdownz">
-        <a href="a-propos.html" class="dropdown-toggle" data-toggle-element="submenu_4" data-toggle="dropdown">BOUTIQUE <b class="caret"></b></a>
+        <a href="{% url "menu_page" page="boutique" %}" data-toggle-element="submenu_4">BOUTIQUE <b class="caret"></b></a>
     </li>
     <li class="dropdownz">
-        <a href="bibliotheque.html" class="dropdown-toggle" data-toggle-element="submenu_5" data-toggle="dropdown">BIBLIOTHÈQUE <b class="caret"></b></a>
+        <a href="{% url "menu_page" page="bibliotheque" %}" data-toggle-element="submenu_5">BIBLIOTHÈQUE <b class="caret"></b></a>
     </li>
 
 </ul>
