@@ -8,7 +8,7 @@ from django.utils import timezone
 import core.exceptions as core_exceptions
 
 
-NUMBER_OF_NEWS_BY_PAGE = 10
+NUMBER_OF_NEWS_BY_PAGE = 9
 
 
 class ShopPage(TemplateView):

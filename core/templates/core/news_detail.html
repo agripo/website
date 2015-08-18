@@ -13,7 +13,10 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h1 id="id_news_title">{{ news.title }}</h1>
+            <h1 id="id_news_title">
+                {{ news.title }}<br />
+                <span class="small">{{ news.publication_date|date }}</span>
+            </h1>
             <div>{{ news.content }}</div>
         </div>
     </div>
@@ -28,7 +31,7 @@
                     {% if nav_previous %}
                         <a href="{% url "one_news_page" nav_previous.pk %}">
                             <h4>{{ nav_previous.title }}</h4>
-                            ({{ nav_previous.publication_date }})
+                            ({{ nav_previous.publication_date|date }})
                         </a>
                     {% else %}
                         <h4>Aucune actualité plus ancienne</h4>
@@ -41,7 +44,7 @@
                     {% if nav_next %}
                         <a href="{% url "one_news_page" nav_next.pk %}">
                             <h4>{{ nav_next.title }}</h4>
-                            ({{ nav_next.publication_date }})
+                            ({{ nav_next.publication_date|date }})
                         </a>
                     {% else %}
                         <h4>Aucune actualité plus récente</h4>
