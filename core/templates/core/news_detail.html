@@ -5,6 +5,12 @@
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
 
 {% block main_content %}
+    <div class="row breadcrumbs">
+        <div class="col-md-12">
+            <a href="{% url "news_page" %}">Toutes les actualités</a>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <h1 id="id_news_title">{{ news.title }}</h1>

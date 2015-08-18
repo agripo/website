@@ -21,18 +21,8 @@
     <link href="/static/css/base.css" rel="stylesheet"/>
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <script>
-        var _func_to_call_after_dom_is_loaded = [];
-        function call_after_dom_is_loaded(callback){
-            _func_to_call_after_dom_is_loaded.push(callback);
-        }
-        function dom_is_loaded($){
-            for(callback in _func_to_call_after_dom_is_loaded){
-                func = _func_to_call_after_dom_is_loaded[callback];
-                func($);
-            }
-        }
-    </script>
+
+    <script src="/static/js/base.js"></script>
 </head>
 <body id="{% block page_name %}id_unknown_page{% endblock %}">
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -237,46 +227,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-            <style>
-                #news_box h5{
-                    font-weight: bold;
-                }
-                #news_box .date{
-                    font-weight: normal;
-                }
-                #displayed_news .one{
-                    display:none;
-                }
-                #displayed_news_1:checked ~ .row #news_1_selector,
-                #displayed_news_2:checked ~ .row #news_2_selector,
-                #displayed_news_3:checked ~ .row #news_3_selector{
-                    color: #3c763d;
-                }
-                #displayed_news_1:checked ~ #displayed_news #news_1,
-                #displayed_news_2:checked ~ #displayed_news #news_2,
-                #displayed_news_3:checked ~ #displayed_news #news_3{
-                    display: block;
-                }
-            </style>
                 <h2>Dernières actualités</h2>
                 {% for one in last_news %}
-                    <input class="hidden" type="radio" name="shown_news" id="displayed_news_{{ forloop.counter }}"/>
+                    <input {% if forloop.first %}checked="checked"{% endif %} class="hidden" type="radio" name="shown_news" id="displayed_news_{{ forloop.counter }}"/>
                 {% endfor %}
-                <div class="row">
-                    {% for one in last_news %}
-                        <div id="news_{{ forloop.counter }}_selector" class="one_news col-md-4 text-center">
-                            <label for="displayed_news_{{ forloop.counter }}">
-                                <h5>{{ one.title|truncatewords:4 }}</h5>
-                                <div class="date">{{ one.publication_date|date }}</div>
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div>
                 <div id="displayed_news">
                     {% for one in last_news %}
                         <div class="one" id="news_{{ forloop.counter }}">
                             <h3><a href="{% url "one_news_page" one.pk %}">{{ one.title }}</a></h3>
                             <p>{{ one.content|truncatechars:250 }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    {% for one in last_news %}
+                        <div id="news_{{ forloop.counter }}_selector" class="one_news col-md-4 text-center">
+                            <label for="displayed_news_{{ forloop.counter }}" class="one_news_selector">
+                                <h5>{{ one.title|truncatewords:4 }}</h5>
+                                <div class="date">{{ one.publication_date|date }}</div>
+                            </label>
                         </div>
                     {% endfor %}
                 </div>
@@ -369,27 +338,10 @@
 <script src="/static/plugins/jquery-1.10.2.js"></script>
 <!-- BOOTSTRAP SCRIPTS  -->
 <script src="/static/plugins/bootstrap.js"></script>
-<!-- CUSTOM SCRIPTS  -->
-<!--<script src="/static/js/custom.js"></script>-->
-{% if not cookies_notification_shown %}
-    <script>
-        call_after_dom_is_loaded(function($){
-            console.log("We add the event for cookies");
-            $('#id_uses_cookies').click(function(){
-                console.log("CLicked!");
-                $.get(
-                        '{% url 'using_cookies_accepted' %}',
-                        function(){
-                            $('#id_uses_cookies_section').hide();
-                        }
-                );
-                return false;
-            });
-        });
-    </script>
-{% endif %}
+<!-- Vars & dom is loaded  -->
 <script>
     $(function($){
+        URL_COOKIES_ACCEPTED = '{% url 'using_cookies_accepted' %}';
         dom_is_loaded($);
     });
 </script>

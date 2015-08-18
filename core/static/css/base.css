@@ -160,3 +160,28 @@ ul#submenu_5 li{
     font-size: 80%;
 }
 /* End of menus & submenus */
+
+/* News box */
+#news_box h5{
+    font-weight: bold;
+}
+#news_box .date{
+    font-weight: normal;
+}
+#displayed_news .one{
+    display:none;
+}
+.one_news_selector{
+    cursor:pointer;
+}
+#displayed_news_1:checked ~ .row #news_1_selector,
+#displayed_news_2:checked ~ .row #news_2_selector,
+#displayed_news_3:checked ~ .row #news_3_selector{
+    color: #3c763d;
+}
+#displayed_news_1:checked ~ #displayed_news #news_1,
+#displayed_news_2:checked ~ #displayed_news #news_2,
+#displayed_news_3:checked ~ #displayed_news #news_3{
+    display: block;
+}
+/* end of news box */
