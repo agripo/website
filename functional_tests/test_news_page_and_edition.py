@@ -75,6 +75,8 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.browser.find_element_by_id(news_page_alpha.id_field_content).send_keys(the_news_content)
         self.select_option_by_text(news_page_alpha.id_field_writer, user_alpha.username, ValueError)
         self.browser.find_element_by_css_selector('input[name="_save"]').click()
+        # He selects an icon for this news
+        self.fail('There should be an icon selector')
 
         # He waits for for the confirmation to show up
         self.wait_for(lambda: self.browser.find_element_by_css_selector("li.success"), 10)

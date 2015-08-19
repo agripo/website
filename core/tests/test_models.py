@@ -147,3 +147,16 @@ class NewsModelTest(TestCase):
         after = timezone.now()
         self.assertGreater(news.publication_date, before)
         self.assertLess(news.publication_date, after)
+
+    def test_news_can_have_an_icon(self):
+        user = self._create_user().add_to_managers()
+        pub = datetime.date.today() - datetime.timedelta(1)
+        n = News(title="Title", content="Content", writer=user, publication_date=pub, icon="star")
+        n.save()  # should not raise
+
+    def test_news_icon_defaults_to_(self):
+        user = self._create_user().add_to_managers()
+        pub = datetime.date.today() - datetime.timedelta(1)
+        n = News(title="Title", content="Content", writer=user, publication_date=pub)
+        n.save()  # should not raise
+        self.assertEqual(n.icon, 'comment')
