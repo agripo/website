@@ -47,6 +47,10 @@ class NewsPage(DetailView):
         context = super().get_context_data(**kwargs)
         context['nav_previous'] = context['object'].get_previous()
         context['nav_next'] = context['object'].get_next()
+        from .sample_news_icons import icons
+        from random import random
+        icons_count = len(icons)
+        context['icon'] = icons[int(random() * icons_count)]
         return context
 
 
@@ -66,7 +70,6 @@ class NewsListPage(ListView):
         context = super().get_context_data(**kwargs)
         for news in context['news_list']:
             news.icon = icons[int(random() * icons_count)]
-        print(context)
         return context
 
 def index_view(request):

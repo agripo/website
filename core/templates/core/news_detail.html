@@ -10,10 +10,12 @@
             <a href="{% url "news_page" %}">Toutes les actualités</a>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <h1 id="id_news_title">
+                <span class="news-icon">
+                    <i class="fa fa-{{ icon }}"></i>
+                </span>
                 {{ news.title }}<br />
                 <span class="small">{{ news.publication_date|date }}</span>
             </h1>
