@@ -59,6 +59,16 @@ class NewsListPage(ListView):
         return News.objects.filter(
             publication_date__lte=timezone.now(), is_active=True).order_by('-publication_date')
 
+    def get_context_data(self, **kwargs):
+        from .sample_news_icons import icons
+        from random import random
+        icons_count = len(icons)
+        context = super().get_context_data(**kwargs)
+        for news in context['news_list']:
+            news.icon = icons[int(random() * icons_count)]
+        print(context)
+        return context
+
 def index_view(request):
     slideshow_images = [
         {'src': '/static/img/diapo_1.jpg', 'alt': 'One image', 'caption': 'Tayap est un petit village du Cameroun.'},

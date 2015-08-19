@@ -20,10 +20,30 @@
                 border-bottom: 4px solid rgba(0,0,0,0.1);
                 transition: border-color 1s;
                 padding-bottom: 5px;
+                margin-top: 5px;
+            }
+            .list_one_news .icon{
+                border: 4px solid rgba(0,0,0,0.1);
+                color: rgba(0,0,0,0.1);
+                width: 36px;
+                height: 36px;
+                border-radius: 18px;
+                line-height: 30px;
+                text-align: center;
+                margin: -18px auto 0 auto;
+                background-color: white;
+                transition: all 1s;
+            }
+            .list_one_news:hover .icon{
+                border-color: #3c763d;
+                color: #3c763d;
             }
             .list_one_news:hover,
             .list_one_news:hover h3{
                 border-color: #3c763d;
+            }
+            .one_news_content{
+                padding-bottom: 10px;
             }
         </style>
         <div class="row">
@@ -34,13 +54,16 @@
             {% for news in news_list %}
                 <div class="col-md-4">
                     <div class="list_one_news">
+                        <div class="icon">
+                            <i class="fa fa-{{ news.icon }}"></i>
+                        </div>
                         <h3 class="one_news_title">
                             <a href="{% url "one_news_page" news.pk %}">{{ news.title|truncatechars:40 }}</a><br />
                             <span class="small">{{ news.publication_date|date }}</span>
                         </h3>
-                        <div class="text-center">
+                        <div class="text-center one_news_content">
                             {{ news.content|striptags|truncatechars:150 }}
-                        </div><br />
+                        </div>
                         <div class="text-center">
                             <a href="{% url "one_news_page" news.pk %}" class="button">Aller à l'actualité</a>
                         </div>
