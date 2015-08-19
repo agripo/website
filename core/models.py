@@ -27,9 +27,21 @@ class AgripoUser(User):
         proxy = True
 
 
+class Icon(models.Model):
+    icon = models.CharField(max_length=28, unique=True)
+
+    def __str__(self):
+        return 'Icon {}'.format(self.icon)
+
+
+def get_comment_icon_id():
+    return Icon.objects.get(icon="comment").pk
+
+
 class News(models.Model):
     title = models.CharField(max_length=120, blank=False)
     is_active = models.BooleanField(default=True)
+    icon = models.ForeignKey(Icon, blank=False, default=get_comment_icon_id)
     content = models.TextField(blank=False)
     creation_date = models.DateField(auto_now_add=True)
     edition_date = models.DateField(auto_now=True)
