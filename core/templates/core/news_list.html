@@ -55,7 +55,7 @@
                 <div class="col-md-4">
                     <div class="list_one_news">
                         <div class="icon">
-                            <i class="fa fa-{{ news.icon }}"></i>
+                            <i class="fa fa-{{ news.icon.icon }}"></i>
                         </div>
                         <h3 class="one_news_title">
                             <a href="{% url "one_news_page" news.pk %}">{{ news.title|truncatechars:40 }}</a><br />

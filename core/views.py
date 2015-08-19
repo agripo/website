@@ -47,10 +47,6 @@ class NewsPage(DetailView):
         context = super().get_context_data(**kwargs)
         context['nav_previous'] = context['object'].get_previous()
         context['nav_next'] = context['object'].get_next()
-        from .sample_news_icons import icons
-        from random import random
-        icons_count = len(icons)
-        context['icon'] = icons[int(random() * icons_count)]
         return context
 
 
@@ -63,14 +59,6 @@ class NewsListPage(ListView):
         return News.objects.filter(
             publication_date__lte=timezone.now(), is_active=True).order_by('-publication_date')
 
-    def get_context_data(self, **kwargs):
-        from .sample_news_icons import icons
-        from random import random
-        icons_count = len(icons)
-        context = super().get_context_data(**kwargs)
-        for news in context['news_list']:
-            news.icon = icons[int(random() * icons_count)]
-        return context
 
 def index_view(request):
     slideshow_images = [

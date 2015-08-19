@@ -119,3 +119,5 @@ class NewsViewsTest(CoreTestCase):
         self.fill_with_entries(5)
         response = self.client.get(reverse('one_news_page', kwargs={'pk': 3}))
         self.assertContains(response, 'href="{}"'.format(reverse('one_news_page', kwargs={'pk': 2})))
+
+    #@todo add tests for the presence of the icon

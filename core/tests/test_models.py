@@ -160,3 +160,5 @@ class NewsModelTest(TestCase):
         n = News(title="Title", content="Content", writer=user, publication_date=pub)
         n.save()  # should not raise
         self.assertEqual(n.icon, 'comment')
+
+    #@todo: check that the Icons model contains the icons
