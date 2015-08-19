@@ -81,7 +81,7 @@ class NewsViewsTest(CoreTestCase):
     def test_display_max_news_if_more_than_pagination(self):
         self.insert_x_news(NUMBER_OF_NEWS_BY_PAGE + 5, "One news title", "Content for #{}")
         response = self.client.get(reverse('news_page'))
-        self.assertContains(response, "One news title", NUMBER_OF_NEWS_BY_PAGE)
+        self.assertContains(response, 'class="one_news_title"', NUMBER_OF_NEWS_BY_PAGE)
 
     def fill_with_entries(self, entries_count=NUMBER_OF_NEWS_BY_PAGE + 10):
         writer = self.create_writer_if_none(None)
