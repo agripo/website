@@ -34,6 +34,14 @@ SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
 SERVER_TYPE_PRODUCTION = "PRODUCTION"
 SERVER_TYPE_STAGING = "STAGING"
 SERVER_TYPE = SERVER_TYPE_DEVELOPMENT
+SERVER_URL = "not.a.real.server:1234"
+
+# Defining the server url for the tests on the staging server
+import sys
+for arg in sys.argv:
+    if 'liveserver' in arg and "-staging." in arg:
+        SERVER_URL = arg.split('=')[1]
+        SERVER_TYPE = SERVER_TYPE_STAGING
 
 # Application definition
 

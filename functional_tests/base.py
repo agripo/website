@@ -25,7 +25,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         if is_production_server():
             cls.server_url = 'http://not_a_valid_domain_name/at_all'
         elif is_staging_server():
-            cls.server_url = 'http://' + settings.STAGING_SERVER
+            cls.server_url = 'http://' + settings.SERVER_URL
         else:
             super().setUpClass()
             cls.server_url = cls.live_server_url
@@ -98,6 +98,9 @@ class FunctionalTest(StaticLiveServerTestCase):
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
 
+    def wait(self, duration):
+        time.sleep(duration)
+
     def wait_for_element_with_id(self, element_id, timeout=30):
         WebDriverWait(self.browser, timeout=timeout).until(
             lambda b: b.find_element_by_id(element_id),
@@ -156,7 +159,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         return function_with_assertion()
 
     def show_page(self, page, timeout=DEFAULT_WAIT, searched_element='id_top_container'):
-        self.browser.get("{}/{}".format(self.server_url, page))
+        if page[0] != '/':
+            page = '/{}'.format(page)
+        self.browser.get("{}{}".format(self.server_url, page))
         return self.wait_for(lambda: self.browser.find_element_by_id(searched_element), timeout)
 
     def show_admin_page(self, *args):
@@ -185,7 +190,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         else:
             HomePage(self).show()
         self.wait_to_be_logged_in()
-        return User.objects.get(email=email)
+        return self
 
     def add_user_to_managers(self, email):
         user = User.objects.get(email=email)

@@ -1,12 +1,13 @@
 from core.models import News
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
 from django.utils import timezone
+from django.core.management import call_command
 
 import core.exceptions as core_exceptions
-
+from core.authentication import is_production_server
 
 NUMBER_OF_NEWS_BY_PAGE = 9
 
@@ -74,6 +75,14 @@ def index_view(request):
 def using_cookies_accepted(request):
     request.session['cookies_notification_shown'] = True
     return HttpResponse("OK")
+
+
+def populate_db(request, news_count):
+    if is_production_server():
+        return Http404()
+
+    call_command('populatedb', news_count=news_count)
+    return HttpResponse('<div id="ok">Successfully created {} news</div>'.format(news_count))
 
 
 def auto_connect(request, email, manager=False):
