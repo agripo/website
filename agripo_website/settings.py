@@ -29,23 +29,11 @@ DOMAIN = "localhost"
 
 ALLOWED_HOSTS = [DOMAIN]
 
-# Some constants for dev/staging and production server
-PRODUCTION_SERVER = "www.agripo.net"
-STAGING_SERVER = "staging.agripo.net"
+# Some constants for dev, staging and production server
 SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
 SERVER_TYPE_PRODUCTION = "PRODUCTION"
 SERVER_TYPE_STAGING = "STAGING"
-
-# Finding out which one is running
-import sys
 SERVER_TYPE = SERVER_TYPE_DEVELOPMENT
-for arg in sys.argv:
-    if 'liveserver' in arg:
-        server = arg.split('=')[1]
-        if server == PRODUCTION_SERVER:
-            SERVER_TYPE = SERVER_TYPE_PRODUCTION
-        elif server == STAGING_SERVER:
-            SERVER_TYPE = SERVER_TYPE_STAGING
 
 # Application definition
 
@@ -60,17 +48,20 @@ INSTALLED_APPS = (
     'functional_tests',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # Using some apps only on !production servers
 if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
     INSTALLED_APPS += (
         'debug_toolbar',
     )
+    # Adding the auto-connect backend
+    AUTHENTICATION_BACKENDS += (
+        'core.authentication.NewUserAutoconnectionModelBackend',
+    )
 
-# Adding the auto-connect backend
-AUTHENTICATION_BACKENDS = (
-    'core.authentication.NewUserAutoconnectionModelBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
