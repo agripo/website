@@ -1,5 +1,5 @@
 from fabric.contrib.files import append, exists, sed
-from fabric.api import env, local, run
+from fabric.api import env, local, run, put
 import random
 import datetime
 
@@ -10,11 +10,6 @@ VIRTUALENV_FOLDER_NAME = 'env'
 env.forward_agent = True
 
 STAGING = False
-
-def restart_gunicorn():
-    site_folder = '/home/%s/sites/%s' % (env.user, env.host)
-    source_folder = site_folder + '/source'
-    _restart_gunicorn(source_folder)
 
 
 def deploy(tag):
@@ -37,7 +32,6 @@ def deploy(tag):
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
-    _restart_gunicorn(source_folder)
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -107,6 +101,3 @@ def _update_static_files(source_folder):
 
 def _update_database(source_folder):
     run(_get_manage_dot_py_command(source_folder) + ' migrate --noinput')
-
-def _restart_gunicorn(source_folder):
-    run("sh {}/deploy_tools/restart_gunicorn.sh".format(source_folder))
