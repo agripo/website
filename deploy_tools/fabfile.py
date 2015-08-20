@@ -12,7 +12,9 @@ env.forward_agent = True
 STAGING = False
 
 def restart_gunicorn():
-    _restart_gunicorn()
+    site_folder = '/home/%s/sites/%s' % (env.user, env.host)
+    source_folder = site_folder + '/source'
+    _restart_gunicorn(source_folder)
 
 
 def deploy(tag):
@@ -35,23 +37,27 @@ def deploy(tag):
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
-    _restart_gunicorn()
+    _restart_gunicorn(source_folder)
 
 
 def _create_directory_structure_if_necessary(site_folder):
+    run('mkdir -p {}'.format(site_folder))
+    directories = ""
     for subfolder in ('database', 'static', VIRTUALENV_FOLDER_NAME, 'source'):
-        run('mkdir -p %s/%s' % (site_folder, subfolder))
+        directories = "{} {}".format(directories, subfolder)
+
+    run('cd {} && mkdir -p {}'.format(site_folder, directories))
 
 
 def _get_latest_source(source_folder, deploy_tag):
-    local("git push --tags")
+    local("git push && git push --tags")
 
     if exists(source_folder + '/.git'):
         run('cd %s && git fetch' % (source_folder,))
     else:
         run('git clone %s %s' % (REPO_URL, source_folder))
 
-    run('cd %s && git reset --hard "%s"' % (source_folder, deploy_tag))
+    run('cd %s && git reset --hard %s' % (source_folder, deploy_tag))
 
     if not STAGING:
         # We add a tag to mark the deployment
@@ -102,5 +108,5 @@ def _update_static_files(source_folder):
 def _update_database(source_folder):
     run(_get_manage_dot_py_command(source_folder) + ' migrate --noinput')
 
-def _restart_gunicorn():
-    run("ps aux | grep gunicorn | grep {} | awk '{{ print $2 }}' | xargs kill -HUP".format(env.host))
+def _restart_gunicorn(source_folder):
+    run("sh {}/deploy_tools/restart_gunicorn.sh".format(source_folder))
