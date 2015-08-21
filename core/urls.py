@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'shop/$', views.ShopPage.as_view(), name="shop_page"),
     url(r'menu_(?P<page>[a-z_]+)/$', views.SubMenusPage.as_view(), name="menu_page"),
     url(r'news/(?P<pk>[0-9]+)/$', views.NewsPage.as_view(), name="one_news_page"),
-    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/shared/favicon.ico', permanent=True)),
 ]
 
 if is_staging_server() or is_development_server():
