@@ -1,3 +1,4 @@
+{% load slideshow %}
 <section id="news_box">
     <div class="container">
         <div class="row">
@@ -25,8 +26,15 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-md-3">
-                <h2>Jeu/Webdoc/BD</h2>
+            <style>
+                .bd_webdoc_slideshow .carousel-inner > .item > img,
+                .bd_webdoc_slideshow .carousel-inner > .item > a > img {
+                    margin: 0 auto;
+                }
+
+            </style>
+            <div class="col-md-3 bd_webdoc_slideshow">
+                {% slideshow bd_webdoc_slideshow %}
             </div>
         </div>
     </div>

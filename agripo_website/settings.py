@@ -98,6 +98,7 @@ TEMPLATES = [
 
                 'core.context_processors.cookies_notification',
                 'core.context_processors.last_news_box',
+                'core.context_processors.bd_webdoc_slideshow',
             ],
         },
     },
