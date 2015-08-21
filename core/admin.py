@@ -1,5 +1,7 @@
 from django.contrib import admin
 from core.models import News, AgripoUser
+from solo.admin import SingletonModelAdmin
+from core.models import SiteConfiguration
 
 
 class NewsAdmin(admin.ModelAdmin):
@@ -20,4 +22,5 @@ class NewsAdmin(admin.ModelAdmin):
         js = ("js/icon_selector.js",)
 
 
+admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(News, NewsAdmin)

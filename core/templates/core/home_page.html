@@ -1,5 +1,11 @@
 {% extends 'core/base.html' %}
+{% load solo_tags %}
 
 {% block page_name %}id_home_page{% endblock %}
 
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    {% get_solo 'core.SiteConfiguration' as my_config %}
+    {{ my_config.homepage_content | safe }}
+{% endblock %}

@@ -58,7 +58,21 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'core',
     'functional_tests',
+    # external apps
+    'solo',
+    'ckeditor',
 )
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+        'toolbar': 'full',
+    },
+}
+
+MEDIA_ROOT = '{}/media/'.format(BASE_DIR)
+MEDIA_URL = '/media/'
 
 # Using some apps only on !production servers
 if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
