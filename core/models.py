@@ -2,6 +2,20 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
 from django.utils import timezone
+from solo.models import SingletonModel
+from ckeditor.fields import RichTextField
+
+
+class SiteConfiguration(SingletonModel):
+    site_title = models.CharField(max_length=255, default='Site title', verbose_name='Titre du site', help_text="Titre du site (dans l'onglet du navigateur)")
+    news_count = models.IntegerField(default=9, verbose_name='Actualités', help_text="Nombre de news dans la liste des news")
+    homepage_content = RichTextField(config_name='awesome_ckeditor', verbose_name='Page d\'accueil', help_text="Contenu de la page d'accueil")
+
+    def __str__(self):
+        return "Configuration générale"
+
+    class Meta:
+        verbose_name = "Configuration générale"
 
 
 class AgripoUser(User):

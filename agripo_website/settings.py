@@ -54,6 +54,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'core',
     'functional_tests',
+    # external apps
+    'solo',
+    'ckeditor',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -70,6 +73,16 @@ if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
         'core.authentication.NewUserAutoconnectionModelBackend',
     )
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+        'toolbar': 'full',
+    },
+}
+
+MEDIA_ROOT = '{}/media/'.format(BASE_DIR)
+MEDIA_URL = '/media/'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
