@@ -18,6 +18,13 @@ SCREEN_DUMP_LOCATION = os.path.join(
 )
 
 
+def quit_if_possible(browser):
+    try:
+        browser.quit()
+    except ProcessLookupError:
+        pass
+
+
 class FunctionalTest(StaticLiveServerTestCase):
 
     @classmethod

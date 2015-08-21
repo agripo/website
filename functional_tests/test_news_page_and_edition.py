@@ -7,15 +7,8 @@ from django.utils import timezone
 import time
 
 
-from .base import FunctionalTest
+from .base import FunctionalTest, quit_if_possible
 from .page_news import NewsPage
-
-
-def quit_if_possible(browser):
-    try:
-        browser.quit()
-    except ProcessLookupError:
-        pass
 
 
 class NewsAndNewsListPagesTest(FunctionalTest):
@@ -79,6 +72,8 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         # He selects an icon for this news
         #@todo : create a test for the icon selector
 
+        #@todo : create tests to check that the icons are present in all pages where the news are shown
+
         # He waits for for the confirmation to show up
         self.wait_for(lambda: self.browser.find_element_by_css_selector("li.success"), 10)
         self.assertEqual(self.browser.current_url, self.server_url+'/admin/core/news/')
@@ -103,6 +98,8 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         # and sees the news is displayed correctly
         news_element = self.browser.find_element_by_id(NewsPage.id_news_title) # Should not raise
         self.assertEqual(news_element.text[:25], the_news_title[:25])
+
+        #@todo : He shoud also take a look at the news block at the bottom of the page
 
         # Alpha modifies this last news, as there was a typo in it
         self.browser = alpha_browser
@@ -140,4 +137,5 @@ class NewsAndNewsListPagesTest(FunctionalTest):
 
         # He still gets a 403 error, as he isn't in the managers group
         time.sleep(5)
-        self.fail('This is where we are!')
+
+        self.fail('Some tests are missing here !')
