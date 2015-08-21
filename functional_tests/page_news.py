@@ -20,6 +20,3 @@ class NewsPage(object):
 
         self.test.show_page(reverse("news_page"))
         return self
-
-    def _is_news_page(self):
-        return self.test.browser.find_element_by_id(self.id_page)

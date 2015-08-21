@@ -113,11 +113,6 @@ class NewsViewsTest(CoreTestCase):
     def test_context_contains_reference_to_older_entry(self):
         self.fill_with_entries(5)
         response = self.client.get(reverse('one_news_page', kwargs={'pk': 3}))
-        self.assertContains(response, 'href="{}"'.format(reverse('one_news_page', kwargs={'pk': 4})))
-
-    def test_context_contains_reference_to_older_entry(self):
-        self.fill_with_entries(5)
-        response = self.client.get(reverse('one_news_page', kwargs={'pk': 3}))
         self.assertContains(response, 'href="{}"'.format(reverse('one_news_page', kwargs={'pk': 2})))
 
     #@todo add tests for the presence of the icon in the pages
