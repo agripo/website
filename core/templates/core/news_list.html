@@ -6,14 +6,66 @@
 
 {% block main_content %}
     <div id="id_news_list_container">
-
+        <style>
+            #id_news_list_container h3{
+                text-align: center;
+            }
+            .list_one_news{
+                height:250px;
+                border: 4px solid rgba(0,0,0,0.1);
+                margin-bottom: 25px;
+                transition: border-color 1s;
+            }
+            .list_one_news h3{
+                border-bottom: 4px solid rgba(0,0,0,0.1);
+                transition: border-color 1s;
+                padding-bottom: 5px;
+                margin-top: 5px;
+            }
+            .list_one_news .icon{
+                border: 4px solid rgba(0,0,0,0.1);
+                color: rgba(0,0,0,0.1);
+                width: 36px;
+                height: 36px;
+                border-radius: 18px;
+                line-height: 30px;
+                text-align: center;
+                margin: -18px auto 0 auto;
+                background-color: white;
+                transition: all 1s;
+            }
+            .list_one_news:hover .icon{
+                border-color: #3c763d;
+                color: #3c763d;
+            }
+            .list_one_news:hover,
+            .list_one_news:hover h3{
+                border-color: #3c763d;
+            }
+            .one_news_content{
+                padding-bottom: 10px;
+            }
+        </style>
         <div class="row">
+            <div class="col-md-12">
+                <h1>Nos actualités</h1>
+                <p>{% lorem %}</p>
+            </div>
             {% for news in news_list %}
                 <div class="col-md-4">
-                    <div>
-                        <h3 class="one_news_title"><a href="{% url "one_news_page" news.pk %}">{{ news.title }}</a></h3>
-                        <div class="text-center">
+                    <div class="list_one_news">
+                        <div class="icon">
+                            <i class="fa fa-{{ news.icon.icon }}"></i>
+                        </div>
+                        <h3 class="one_news_title">
+                            <a href="{% url "one_news_page" news.pk %}">{{ news.title|truncatechars:40 }}</a><br />
+                            <span class="small">{{ news.publication_date|date }}</span>
+                        </h3>
+                        <div class="text-center one_news_content">
                             {{ news.content|striptags|truncatechars:150 }}
+                        </div>
+                        <div class="text-center">
+                            <a href="{% url "one_news_page" news.pk %}" class="button">Aller à l'actualité</a>
                         </div>
                     </div>
                 </div>
@@ -21,18 +73,18 @@
         </div>
     </div>
 
-    <div class="pagination">
+    <div class="pagination_block">
         <div class="row">
             <div class="col-md-12">
                 <div class="step-links text-center">
                     {% if page_obj.has_previous %}
                         <a href="?page={{ page_obj.previous_page_number }}">previous</a>
                     {% endif %}
-
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <span class="current">
                         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                     </span>
-
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     {% if page_obj.has_next %}
                         <a class="pagination-next" href="?page={{ page_obj.next_page_number }}">next</a>
                     {% endif %}

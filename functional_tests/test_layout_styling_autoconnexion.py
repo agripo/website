@@ -119,5 +119,12 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # He closes the box, then reload the page. He notices that the box doesn't appear anymore
         self.browser.find_element_by_id(home.id_page_uses_cookies).click()
+        self.wait(2)  # The server may need time to receive the js query
         self.browser.refresh()
         self.assertElementNotFoundById(home.id_page_uses_cookies)
+
+        #@todo : add test for small screen to display a submenu page instead of a submenu block
+
+        #@todo : add test for big screen to display a submenu block instead of a submenu page
+
+        self.fail('There are missing tests here')

@@ -1,18 +1,44 @@
 from core.models import News
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
 from django.utils import timezone
+from django.core.management import call_command
 
 import core.exceptions as core_exceptions
+from core.authentication import is_production_server
+
+NUMBER_OF_NEWS_BY_PAGE = 9
 
 
-NUMBER_OF_NEWS_BY_PAGE = 10
+class SubMenusPage(TemplateView):
+
+    def get_template_names(self):
+        return 'core/submenus/{}.html'.format(self.kwargs['page'])
 
 
 class ShopPage(TemplateView):
     template_name = "core/shop_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = [
+            {'name': 'Fruits', 'products': [
+                {'name': 'Bananes', 'stock': 10, 'bought': 1, 'img': 'bananes.jpg'},
+                {'name': 'Mandarines', 'stock': 10, 'bought': 1, 'img': 'mandarines.jpg'},
+                {'name': 'Citron', 'stock': 5, 'bought': 2, 'img': 'citrons.jpg'}, ]},
+            {'name': 'Noix et produits du cacao', 'products': [
+                {'name': 'Fèves de cacao', 'stock': 1, 'bought': 0, 'img': 'cacao.jpg'},
+                {'name': 'Jus de cacao', 'stock': 0, 'bought': 0, 'img': 'cacao.jpg'},
+                {'name': 'Bitter-cola', 'stock': 5, 'bought': 2, 'img': 'bitter.jpg'},
+                {'name': 'Noix de Cola', 'stock': 12, 'bought': 1, 'img': 'cola.jpg'}, ]},
+            {'name': 'Légumes', 'products': [
+                {'name': 'Avocats', 'stock': 3, 'bought': 3, 'img': 'avocats.jpg'},
+                {'name': 'Manioc', 'stock': 15, 'bought': 2, 'img': 'manioc.jpg'},
+                {'name': 'Arbres à ail', 'stock': 15, 'bought': 1, 'img': 'ail.jpg'}, ]},
+        ]
+        return context
 
 
 class NewsPage(DetailView):
@@ -34,11 +60,16 @@ class NewsListPage(ListView):
         return News.objects.filter(
             publication_date__lte=timezone.now(), is_active=True).order_by('-publication_date')
 
+
 def index_view(request):
-    slideshow_images = [
-        {'src': '/static/img/1.jpg', 'alt': 'One image', 'caption': 'Tayap est un petit village du Cameroun.'},
-        {'src': '/static/img/2.jpg', 'alt': 'Another image', 'caption': 'Agripo est un groupement de Tayap.'},
-    ]
+    slideshow_images = {
+        'carousel_id': 'home_main_carousel',
+        'images': [
+            {'src': '/static/img/diapo_1.jpg', 'alt': 'One image', 'caption': 'Tayap est un petit village du Cameroun.'},
+            {'src': '/static/img/diapo_2.jpg', 'alt': 'Another image', 'caption': 'Agripo est un groupement de Tayap.'},
+            {'src': '/static/img/diapo_3.jpg', 'alt': 'A third image', 'caption': 'Agripo est un groupement de Tayap.'},
+        ]
+    }
     user = request.user
     return render(request, 'core/home_page.html',
                   {'display_slideshow': True, 'slideshow_images': slideshow_images, 'user': user})
@@ -47,6 +78,14 @@ def index_view(request):
 def using_cookies_accepted(request):
     request.session['cookies_notification_shown'] = True
     return HttpResponse("OK")
+
+
+def populate_db(request, news_count):
+    if is_production_server():
+        return Http404()
+
+    call_command('populatedb', news_count=news_count)
+    return HttpResponse('<div id="ok">Successfully created {} news</div>'.format(news_count))
 
 
 def auto_connect(request, email, manager=False):

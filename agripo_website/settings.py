@@ -29,23 +29,19 @@ DOMAIN = "localhost"
 
 ALLOWED_HOSTS = [DOMAIN]
 
-# Some constants for dev/staging and production server
-PRODUCTION_SERVER = "www.agripo.net"
-STAGING_SERVER = "staging.agripo.net"
+# Some constants for dev, staging and production server
 SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
 SERVER_TYPE_PRODUCTION = "PRODUCTION"
 SERVER_TYPE_STAGING = "STAGING"
-
-# Finding out which one is running
-import sys
 SERVER_TYPE = SERVER_TYPE_DEVELOPMENT
+SERVER_URL = "not.a.real.server:1234"
+
+# Defining the server url for the tests on the staging server
+import sys
 for arg in sys.argv:
-    if 'liveserver' in arg:
-        server = arg.split('=')[1]
-        if server == PRODUCTION_SERVER:
-            SERVER_TYPE = SERVER_TYPE_PRODUCTION
-        elif server == STAGING_SERVER:
-            SERVER_TYPE = SERVER_TYPE_STAGING
+    if 'liveserver' in arg and "-staging." in arg:
+        SERVER_URL = arg.split('=')[1]
+        SERVER_TYPE = SERVER_TYPE_STAGING
 
 # Application definition
 
@@ -63,6 +59,20 @@ INSTALLED_APPS = (
     'ckeditor',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Using some apps only on !production servers
+if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+    # Adding the auto-connect backend
+    AUTHENTICATION_BACKENDS += (
+        'core.authentication.NewUserAutoconnectionModelBackend',
+    )
+
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 CKEDITOR_CONFIGS = {
@@ -73,18 +83,6 @@ CKEDITOR_CONFIGS = {
 
 MEDIA_ROOT = '{}/media/'.format(BASE_DIR)
 MEDIA_URL = '/media/'
-
-# Using some apps only on !production servers
-if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
-
-# Adding the auto-connect backend
-AUTHENTICATION_BACKENDS = (
-    'core.authentication.NewUserAutoconnectionModelBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -112,6 +110,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'core.context_processors.cookies_notification',
+                'core.context_processors.last_news_box',
+                'core.context_processors.bd_webdoc_slideshow',
             ],
         },
     },
@@ -126,7 +126,7 @@ WSGI_APPLICATION = 'agripo_website.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3'),
     }
 }
 

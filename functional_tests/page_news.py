@@ -14,10 +14,9 @@ class NewsPage(object):
     def __init__(self, test):
         self.test = test
 
-    def show(self):
-        self.test.browser.get(self.test.server_url+reverse("news_page"))
-        self.test.wait_for(self._is_news_page)
-        return self
+    def show(self, force_reload=False):
+        if force_reload:
+            self.test.show_page('/')
 
-    def _is_news_page(self):
-        return self.test.browser.find_element_by_id(self.id_page)
+        self.test.show_page(reverse("news_page"))
+        return self

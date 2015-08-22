@@ -33,10 +33,14 @@ def is_staging_server():
     return USED_SERVER_TYPE == settings.SERVER_TYPE_STAGING
 
 
+def get_username_from_email(email):
+    return email.replace("@", " ")
+
+
 class NewUserAutoconnectionModelBackend(object):
 
     def authenticate(self, email):
-        username = email.replace("@", " ")
+        username = get_username_from_email(email)
         if is_production_server():
             raise NoAutoConnectionOnProductionServer
 

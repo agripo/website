@@ -1,19 +1,212 @@
+/* Google's Open Sans font-face */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+
 a{
     color: #3c763d;
 }
-
+h1{
+    padding-top: 20px;
+}
 section.carousel{
     padding-top: 0;
 }
 
-section#connection,
+.page_submenus div{
+    margin-bottom: 10px;
+}
+section#social_lang,
 section#id_uses_cookies_section{
     margin: 0;
     padding: 8px;
     background-color: #101010;
     color: #808080;
 }
-
-#navbar_spacer{
-    height:55px;
+section#social_lang{
+    padding: 0;
 }
+#products{
+    margin-bottom: 50px;
+}
+#products .one img{
+    width: 100%;
+}
+#navbar_spacer{
+    height:80px;
+}
+
+.really-big{
+    font-size: 40px;
+}
+#main_content{
+    margin-bottom: 50px;
+}
+#boxes{
+    padding-top: 25px;
+    margin-top: 25px;
+    padding-bottom: 25px;
+    background-color: #101010;
+}
+#boxes .row > div{
+    padding: 5px;
+}
+#boxes .one-box {
+    border: 4px solid rgba(0,0,0,0.1);
+    height: 280px;
+    max-width: 500px;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+#boxes .one-box,
+#boxes .one-box div{
+    transition: all 0.5s;
+}
+#boxes .one-box .fixed-bottom{
+    position:absolute;
+    bottom:0;
+}
+#boxes .one-box .up {
+    width: 100%;
+    height: 140px;
+    border-bottom: 4px solid rgba(0,0,0,0.1);
+    background-color: grey;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+#boxes .one-box .icon {
+    width: 50px;
+    height: 50px;
+    margin: -25px auto 0 auto;
+    border-radius: 25px;
+    border: 4px solid rgba(0,0,0,0.1);
+    text-align: center;
+    line-height: 40px;
+    font-size: 25px;
+    background-color: white;
+}
+#boxes .one-box.one-box-redim-hover:hover .up{
+    height: 50px;
+}
+#boxes .one-box.one-box-redim-hover:hover .expanded,
+#boxes .one-box.one-box-redim-hover .reduced{
+    display: block;
+}
+#boxes .expanded p{
+    line-height: normal;
+}
+#boxes .one-box.one-box-redim-hover .expanded,
+#boxes .one-box.one-box-redim-hover:hover .reduced{
+    display: none;
+}
+#boxes .one-box.one-box-redim-hover:hover .down{
+    height: 230px;
+}
+#boxes .one-box .down h4{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#boxes .one-box:hover,
+#boxes .one-box:hover .up,
+#boxes .one-box:hover .icon{
+    border-color: #3c763d;
+}
+#boxes .one-box:hover .icon{
+    color: #3c763d;
+}
+
+.partners-block {
+    padding-bottom:50px;
+    background: url(/static/img/diapo_1.jpg) no-repeat 50% 50%;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+    display: block;
+    height: auto;
+    min-height:300px;
+    color:#fff;
+}
+.partners-block img{
+    padding: 5px 25px 5px 25px;
+}
+
+/* Menus & submenus */
+#submenus{
+    margin-top:50px;
+}
+ul.submenu{
+    display:none;
+}
+ul.submenu{
+    text-align: center;
+    width: 100%;
+}
+ul li a{
+    display:inline-block;
+    width: 100%;
+    height: 100%;
+}
+ul li a:hover{
+    text-decoration: none;
+    background-color: #030303;
+}
+ul.submenu li {
+    border-radius: 3px;
+    padding: 5px;
+    vertical-align: top;
+    margin: 5px;
+    width: 160px;
+    display:inline-block;
+    text-align: center;
+    background-color: #080808;
+    vertical-align: middle;
+}
+ul#submenu_1 li{
+    height: 73px;
+}
+ul#submenu_2 li{
+    height: 78px;
+}
+ul#submenu_3 li,
+ul#submenu_4 li,
+ul#submenu_5 li{
+    height: 50px;
+}
+.submenu_description{
+    font-size: 80%;
+}
+/* End of menus & submenus */
+
+/* News box */
+#news_box h5{
+    font-weight: bold;
+}
+#news_box .date{
+    font-weight: normal;
+}
+#displayed_news .one{
+    display:none;
+}
+.one_news_selector{
+    cursor:pointer;
+}
+#displayed_news_1:checked ~ .row #news_1_selector,
+#displayed_news_2:checked ~ .row #news_2_selector,
+#displayed_news_3:checked ~ .row #news_3_selector{
+    color: #3c763d;
+}
+#displayed_news_1:checked ~ #displayed_news #news_1,
+#displayed_news_2:checked ~ #displayed_news #news_2,
+#displayed_news_3:checked ~ #displayed_news #news_3{
+    display: block;
+}
+/* end of news box */

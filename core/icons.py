@@ -1,3 +1,4 @@
+
 icons = {
     'Web Application Icons': [
         'adjust', 'anchor', 'archive', 'area-chart', 'arrows', 'arrows-h', 'arrows-v', 'asterisk', 'at', 'automobile', 'balance-scale', 'ban', 'bank', 'bar-chart', 'bar-chart-o', 'barcode', 'bars', 'battery-0', 'battery-1',
@@ -64,3 +65,14 @@ icons = {
         'windows', 'wordpress', 'xing', 'xing-square', 'y-combinator', 'y-combinator-square', 'yahoo', 'yc', 'yc-square', 'yelp', 'youtube', 'youtube-play', 'youtube-square', ],
     'Medical Icons': ['ambulance', 'h-square', 'heart', 'heart-o', 'heartbeat', 'hospital-o', 'medkit', 'plus-square', 'stethoscope', 'user-md', 'wheelchair'],
 }
+
+def import_icons(icon_model):
+    global icons
+    if icon_model.objects.all().count() == 0:
+        done = []
+        for cat in icons:
+            for icon in icons[cat]:
+                if icon not in done:
+                    i = icon_model(icon=icon)
+                    i.save()
+                    done.append(icon)
