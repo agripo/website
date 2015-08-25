@@ -1,40 +1,50 @@
-{% load slideshow %}
 <section id="news_box">
     <div class="container">
         <div class="row">
-            <div class="col-md-9">
-                <h2>Dernières actualités</h2>
-                {% for one in last_news %}
-                    <input {% if forloop.first %}checked="checked"{% endif %} class="hidden" type="radio" name="shown_news" id="displayed_news_{{ forloop.counter }}"/>
-                {% endfor %}
-                <div id="displayed_news">
-                    {% for one in last_news %}
-                        <div class="one" id="news_{{ forloop.counter }}">
-                            <h3><a href="{% url "one_news_page" one.pk %}">{{ one.title }}</a></h3>
-                            <p>{{ one.content|truncatechars:250 }}</p>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="row">
-                    {% for one in last_news %}
-                        <div id="news_{{ forloop.counter }}_selector" class="one_news col-md-4 text-center">
-                            <label for="displayed_news_{{ forloop.counter }}" class="one_news_selector">
-                                <h5>{{ one.title|truncatewords:4 }}</h5>
-                                <div class="date">{{ one.publication_date|date }}</div>
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div>
+            <div class="col-lg-12">
+                <h3>Actualités</h3>
             </div>
-            <style>
-                .bd_webdoc_slideshow .carousel-inner > .item > img,
-                .bd_webdoc_slideshow .carousel-inner > .item > a > img {
-                    margin: 0 auto;
-                }
+        </div>
 
-            </style>
-            <div class="col-md-3 bd_webdoc_slideshow">
-                {% slideshow bd_webdoc_slideshow %}
+        <div class="row news_container">
+            {% for one in last_news %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>
+                                <a href="{% url "one_news_page" one.pk %}">
+                                    <i class="fa fa-{{ one.icon.icon }}"></i>
+                                    {{ one.title | truncatechars:22 }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{ one.content|truncatechars:250 }}</p>
+                            <p>
+                                <a class="btn navbar-btn" id="id_see_more" href="#">
+                                    <i class="fa fa-plus"></i>
+                                    Lire l'article
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            <a href="#">
+                                Webdocumentaire
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>{% lorem %}</p>
+                        <a href="#" class="btn btn-default">Learn More</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

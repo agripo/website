@@ -6,17 +6,15 @@
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
 
 {% block main_content %}
-<div class="row text-center">
-    <div class="col-md-1 align-right really-big">
-        <i class="fa fa-quote-left"></i>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><i class="fa fa-fw fa-check"></i>Bienvenue sur le site d'AGRIPO</h4>
+        </div>
+        <div class="panel-body">
+            <p>
+                {% get_solo 'core.SiteConfiguration' as my_config %}
+                {{ my_config.homepage_content | safe }}
+            </p>
+        </div>
     </div>
-    <div class="col-md-10">
-        <h1>Bienvenue sur le site d'AGRIPO</h1>
-    	{% get_solo 'core.SiteConfiguration' as my_config %}
-    	{{ my_config.homepage_content | safe }}
-    </div>
-    <div class="col-md-1 align-left really-big">
-        <i class="fa fa-quote-right"></i>
-    </div>
-</div>
 {% endblock %}
