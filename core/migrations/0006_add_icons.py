@@ -2,19 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-from core import icons
+from core.icons import import_icons
 
 
-def add_icons(apps, schema_editor):
+def _add_icons(apps, schema_editor):
     Icon = apps.get_model("core", "Icon")
-    done = []
+    import_icons(Icon)
 
-    for cat in icons:
-        for icon in icons[cat]:
-            if icon not in done:
-                i = Icon(icon=icon)
-                i.save()
-                done.append(icon)
 
 class Migration(migrations.Migration):
 
@@ -23,5 +17,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(add_icons, reverse_code=lambda *args, **kwargs: True)
+        migrations.RunPython(_add_icons, reverse_code=lambda *args, **kwargs: True)
     ]

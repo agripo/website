@@ -5,40 +5,55 @@
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
 
 {% block main_content %}
+    <div class="row breadcrumbs">
+        <div class="col-md-12">
+            <a href="{% url "news_page" %}">Toutes les actualités</a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
-            <h1 id="id_news_title">{{ news.title }}</h1>
+            <h1 id="id_news_title">
+                <span class="news-icon">
+                    <i class="fa fa-{{ news.icon.icon }}"></i>
+                </span>
+                {{ news.title }}<br />
+                <span class="small">{{ news.publication_date|date }}</span>
+            </h1>
             <div>{{ news.content }}</div>
         </div>
     </div>
     {% if nav_previous or nav_next %}
         <div id="news_nav" class="row text-center" style="margin-top:50px">
-            <div class="col-md-12">
-                <h4>Autres actualités</h4>
-            </div>
-
             <div class="col-md-4">
                 <div>
-                    {% if nav_previous %}
-                        <a href="{% url "one_news_page" nav_previous.pk %}">
-                            <h4>{{ nav_previous.title }}</h4>
-                            ({{ nav_previous.publication_date }})
+                    <h4>Actualité suivante</h4>
+                    {% if nav_next %}
+                        <a href="{% url "one_news_page" nav_next.pk %}">
+                            <h4>
+                                <i class="fa fa-{{ nav_next.icon.icon }}"></i>
+                                {{ nav_next.title }}
+                            </h4>
+                            ({{ nav_next.publication_date|date }})
                         </a>
                     {% else %}
-                        <h4>Aucune actualité plus ancienne</h4>
+                        <h4>Aucune actualité plus récente</h4>
                     {% endif %}
                 </div>
             </div>
             <div class="col-md-4"></div>
             <div class="col-md-4 text-center">
                 <div>
-                    {% if nav_next %}
-                        <a href="{% url "one_news_page" nav_next.pk %}">
-                            <h4>{{ nav_next.title }}</h4>
-                            ({{ nav_next.publication_date }})
+                    <h4>Actualité précédente</h4>
+                    {% if nav_previous %}
+                        <a href="{% url "one_news_page" nav_previous.pk %}">
+                            <h4>
+                                <i class="fa fa-{{ nav_previous.icon.icon }}"></i>
+                                {{ nav_previous.title }}
+                            </h4>
+                            ({{ nav_previous.publication_date|date }})
                         </a>
                     {% else %}
-                        <h4>Aucune actualité plus récente</h4>
+                        <h4>Aucune actualité plus ancienne</h4>
                     {% endif %}
                 </div>
             </div>

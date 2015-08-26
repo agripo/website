@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.test import TestCase
 from django.utils import timezone
 
-from core.models import AgripoUser as User, News
+from core.models import AgripoUser as User, News, Icon
 import datetime
 
 
@@ -151,7 +151,8 @@ class NewsModelTest(TestCase):
     def test_news_can_have_an_icon(self):
         user = self._create_user().add_to_managers()
         pub = datetime.date.today() - datetime.timedelta(1)
-        n = News(title="Title", content="Content", writer=user, publication_date=pub, icon="star")
+        icon = Icon.objects.get(icon="star")
+        n = News(title="Title", content="Content", writer=user, publication_date=pub, icon=icon)
         n.save()  # should not raise
 
     def test_news_icon_defaults_to_(self):
@@ -159,4 +160,7 @@ class NewsModelTest(TestCase):
         pub = datetime.date.today() - datetime.timedelta(1)
         n = News(title="Title", content="Content", writer=user, publication_date=pub)
         n.save()  # should not raise
-        self.assertEqual(n.icon, 'comment')
+        icon = Icon.objects.get(icon="comment")
+        self.assertEqual(n.icon, icon)
+
+    #@todo: check that the Icons model contains the icons

@@ -1,19 +1,18 @@
-a{
-    color: #3c763d;
+a,
+a:hover{
+    color: #3d4d0b;
 }
-
-section.carousel{
-    padding-top: 0;
+.navbar-text a:hover{
+    color: white;
 }
+#myCarousel{
+    height: 280px;
+    overflow: hidden;
 
-section#connection,
-section#id_uses_cookies_section{
-    margin: 0;
-    padding: 8px;
-    background-color: #101010;
-    color: #808080;
 }
-
-#navbar_spacer{
-    height:55px;
+#social_lang {
+    background-color: #809C65;
+}
+#social_lang .container .row .navbar-text{
+    margin: 5px 0;
 }

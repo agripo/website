@@ -1,24 +1,36 @@
 
-<section class="text-center carousel">
-    <div id="carousel-example" class="carousel slide" data-ride="carousel">
+<header id="myCarousel" class="carousel slide">
+    <div id="{{ data.carousel_id }}" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for image in data.images %}
+                <li data-target="#{{ data.carousel_id }}" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
         <div class="carousel-inner">
-            {% for image in images %}
-            <div class="item {% if forloop.first %}active{% endif %}">
-                <img src="{{ image.src }}" alt="{{ image.alt }}"/>
-                <div class="carousel-caption">
-                    <h4 class="back-light">
-                        {{ image.caption }}
-                    </h4>
+            {% for image in data.images %}
+                <div class="item {% if forloop.first %}active{% endif %}">
+                    {% if image.title %}
+                        <h2>{{ image.title }}</h2>
+                    {% endif %}
+                    <img src="{{ image.src }}" alt="{{ image.alt }}"/>
+                    {% if image.caption %}
+                        <div class="carousel-caption">
+                            <h4 class="back-light">
+                                {{ image.caption }}
+                            </h4>
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
             {% endfor %}
         </div>
 
-        <ol class="carousel-indicators">
-            {% for image in images %}
-                <li data-target="#carousel-example" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
-            {% endfor %}
-        </ol>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
     </div>
-</section>
+</header>
 <!--/.SLIDESHOW END-->

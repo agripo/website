@@ -22,8 +22,9 @@ class Command(BaseCommand):
 
         faker = FakerFactory.create('fr_FR')
 
-        for i in range(0, options['news_count']):
+        for i in range(0, int(options['news_count'])):
             the_news = News(
+                pk=i+1,
                 title=faker.sentence(),
                 content="\n".join(faker.paragraphs()),
                 writer=manager

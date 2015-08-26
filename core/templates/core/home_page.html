@@ -6,6 +6,15 @@
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
 
 {% block main_content %}
-    {% get_solo 'core.SiteConfiguration' as my_config %}
-    {{ my_config.homepage_content | safe }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><i class="fa fa-fw fa-check"></i>Bienvenue sur le site d'AGRIPO</h4>
+        </div>
+        <div class="panel-body">
+            <p>
+                {% get_solo 'core.SiteConfiguration' as my_config %}
+                {{ my_config.homepage_content | safe }}
+            </p>
+        </div>
+    </div>
 {% endblock %}
