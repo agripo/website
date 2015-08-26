@@ -1,15 +1,14 @@
-from core.authentication import get_username_from_email
-from core.models import News, Icon
-from core.views import NUMBER_OF_NEWS_BY_PAGE
 from django.core.urlresolvers import reverse
 from selenium import webdriver
-from django.utils import timezone
 import time
 
-
+from core.models import SiteConfiguration
+from core.authentication import get_username_from_email
+from core.models import News, Icon
 from .base import FunctionalTest, quit_if_possible
 from .page_news import NewsPage
 
+config = SiteConfiguration.objects.get()
 
 class NewsAndNewsListPagesTest(FunctionalTest):
 
@@ -28,7 +27,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.create_autoconnected_session(user_alpha_email, as_manager=True)
 
         # # Prepopulating the news page
-        randomly_created_news_count = NUMBER_OF_NEWS_BY_PAGE * 2 + 1
+        randomly_created_news_count = config.news_count * 2 + 1
         self.populate_db(randomly_created_news_count)
 
         # He goes to the news page
@@ -38,9 +37,9 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.addCleanup(lambda: quit_if_possible(alpha_browser))
 
         # He sees that there are already some news on the page, and a paginator for the next ones
-        all_news = self.browser.find_elements_by_css_selector('h3.one_news_title')
+        all_news = self.browser.find_elements_by_css_selector('#id_news_list_container .news_container h4')
         self.assertEqual(
-            len(all_news), NUMBER_OF_NEWS_BY_PAGE, 'Did not find the right number of news on the page')
+            len(all_news), config.news_count, 'Did not find the right number of news on the page')
         self.browser.find_element_by_css_selector('.pagination_block a.pagination-next')  # should not raise an error
 
         # Bravo, his friend, also goes to this page, but without connexion
@@ -82,7 +81,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.browser = bravo_browser
         news_page_bravo.show(True)
 
-        all_news = self.browser.find_elements_by_css_selector('.one_news_title')
+        all_news = self.browser.find_elements_by_css_selector('#id_news_list_container .news_container h4')
         found = False
         for one_news in all_news:
             if the_news_title[:25] in one_news.text:
