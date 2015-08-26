@@ -10,7 +10,6 @@ import core.exceptions as core_exceptions
 from core.authentication import is_production_server
 from core.models import SiteConfiguration
 
-NUMBER_OF_NEWS_BY_PAGE = 9
 config = SiteConfiguration.objects.get()
 
 
@@ -56,7 +55,6 @@ class NewsPage(DetailView):
 class NewsListPage(ListView):
     template = "core/news_list.html"
     context_object_name = "news_list"
-    paginate_by = NUMBER_OF_NEWS_BY_PAGE
 
     def get_queryset(self):
         return News.objects.filter(
