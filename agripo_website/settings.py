@@ -27,7 +27,7 @@ DEBUG = True
 
 DOMAIN = "localhost"
 
-ALLOWED_HOSTS = [DOMAIN]
+ALLOWED_HOSTS = [DOMAIN, 'agripo-dev.brice.xyz', ]
 
 # Some constants for dev, staging and production server
 SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
@@ -52,15 +52,23 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'core',
     'functional_tests',
     # external apps
     'solo',
     'ckeditor',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 )
+
+SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 # Using some apps only on !production servers
@@ -72,6 +80,36 @@ if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
     AUTHENTICATION_BACKENDS += (
         'core.authentication.NewUserAutoconnectionModelBackend',
     )
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# auth and allauth settings
+LOGIN_URL = "/"
+LOGIN_REDIRECT_URL = "/"
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = False
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_QUERY_EMAIL = False
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'gender', ],
+        'EXCHANGE_TOKEN': True,
+        #'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.4'}}
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
@@ -100,7 +138,7 @@ ROOT_URLCONF = 'agripo_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['template', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

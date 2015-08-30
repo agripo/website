@@ -61,7 +61,12 @@ class NewsListPage(ListView):
             publication_date__lte=timezone.now(), is_active=True).order_by('-publication_date')
 
     def get_paginate_by(self, queryset):
-        return config.news_count
+        try:
+            config = SiteConfiguration.objects.get()
+            count = config.news_count
+        except SiteConfiguration.DoesNotExist:
+            count = 9
+        return count
 
 
 def index_view(request):
