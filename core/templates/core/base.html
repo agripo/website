@@ -120,9 +120,10 @@
                             {% else %}
                                 <p>
                                     {% load socialaccount %}
-                                    <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="oauth2" %}">
+                                    {% providers_media_js %}
+                                    <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="js_sdk" %}">
                                         <i class="fa fa-facebook-official"></i>
-                                        avec Facebook
+                                        Facebook Connect
                                     </a><br />
 
                                     <a class="btn navbar-btn" id="id_login" href="#">
