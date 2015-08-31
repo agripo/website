@@ -1,12 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from solo.models import SingletonModel
 from ckeditor.fields import RichTextField
+from django.contrib.sessions.backends.db import SessionStore
 
 
 SITECONF_DEFAULT_NEWS_COUNT = 9
+session = SessionStore()
 
 
 class SiteConfiguration(SingletonModel):
@@ -53,6 +56,43 @@ class Icon(models.Model):
 
 def get_comment_icon_id():
     return Icon.objects.get(icon="comment").pk
+
+
+class ProductCategory(models.Model):
+    name = models.CharField(max_length=28, blank=False, null=False, unique=True)
+
+    def clean(self):
+        if self.name == '':
+            raise ValidationError('Empty category name')
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=28, blank=False, null=False, unique=True)
+    category = models.ForeignKey(ProductCategory, blank=False, null=False)
+    price = models.PositiveIntegerField()
+
+    def clean(self):
+        if self.name == '':
+            raise ValidationError('Empty product name')
+
+        if self.price <= 0:
+            raise ValidationError('Price should be bigger than zero')
+
+    def _get_session_key(self):
+        return "product_{}_quantity".format(self.pk)
+
+    def set_cart_quantity(self, quantity):
+        if not self.id:
+            raise Exception("Adding to cart on an unsaved object")
+        session[self._get_session_key()] = quantity
+
+    def get_cart_quantity(self):
+        if self._get_session_key() in session:
+            return session[self._get_session_key()]
+        return 0
+
+    def stock(self):
+        return 10
 
 
 class News(models.Model):

@@ -1,8 +1,36 @@
+import random
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from faker import Factory as FakerFactory
 
-from core.models import News, AgripoUser
+from core.models import News, Product, AgripoUser, ProductCategory
+
+
+def insert_random_category():
+    faker = FakerFactory.create('fr_FR')
+    the_category = ProductCategory(
+        name=faker.sentence(nb_words=4),)
+    the_category.save()
+    return the_category
+
+
+def insert_random_product(category):
+    faker = FakerFactory.create('fr_FR')
+    the_product = Product(
+        name=faker.sentence(nb_words=2),
+        price=random.randint(100, 10000),
+        category=category
+    )
+    the_product.save()
+    return the_product
+
+
+def insert_random_categories_and_products(categories_count=5, products_count=5):
+    for i in range(0, categories_count):
+        cat = insert_random_category()
+        for j in range(0, products_count):
+            insert_random_product(cat)
+
 
 class Command(BaseCommand):
     help = 'Creates some random entries in the database for demo purpose'
@@ -15,21 +43,39 @@ class Command(BaseCommand):
             dest="news_count",
             help='Number of news to insert (defaults to 10)')
 
+        parser.add_argument('--categories-count',
+            type=int,
+            default=4,
+            dest="categories_count",
+            help="Number of products' categories to insert (defaults to 4)")
+
+        parser.add_argument('--products-count',
+            type=int,
+            default=5,
+            dest="products_count",
+            help='Number of products to insert in each category (defaults to 5)')
+
     def handle(self, *args, **options):
         manager, created = AgripoUser.objects.get_or_create(username="Manager", password="random_password")
-        manager.save()
-        manager.add_to_managers()
+        if created:
+            manager.add_to_managers()
 
         faker = FakerFactory.create('fr_FR')
 
         for i in range(0, int(options['news_count'])):
             the_news = News(
-                pk=i+1,
                 title=faker.sentence(),
                 content="\n".join(faker.paragraphs()),
-                writer=manager
+                writer=manager,
+                creation_date=timezone.now()
             )
             the_news.publication_date = timezone.now() - timezone.timedelta(i)
             the_news.save()
 
-        self.stdout.write('Successfully created {} news'.format(options['news_count']))
+        categories_count = int(options['categories_count'])
+        products_count = int(options['products_count'])
+        insert_random_categories_and_products(
+            categories_count=categories_count, products_count=products_count)
+
+        self.stdout.write('Successfully created {} news and {} products in {} categories'.format(
+            options['news_count'], products_count * categories_count, categories_count))

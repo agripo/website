@@ -7,10 +7,11 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.common.exceptions import WebDriverException, TimeoutException
 from faker import Factory as FakerFactory
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 from core.authentication import is_production_server, is_staging_server
 from .page_home_page import HomePage
-from core.models import AgripoUser as User
+from core.models import AgripoUser as User, Icon
 
 DEFAULT_WAIT = 5
 SCREEN_DUMP_LOCATION = os.path.join(
@@ -26,6 +27,12 @@ def quit_if_possible(browser):
 
 
 class FunctionalTest(StaticLiveServerTestCase):
+
+    def populate_db(self, news_count=0, products_count=0):
+        from core.icons import import_icons
+        import_icons(Icon)
+        url = reverse('populate_db', kwargs={'news_count': news_count, 'products_count': products_count})
+        self.show_page(url, searched_element="ok")
 
     @classmethod
     def setUpClass(cls):

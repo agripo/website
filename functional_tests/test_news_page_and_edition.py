@@ -4,19 +4,13 @@ import time
 
 from core.models import SiteConfiguration
 from core.authentication import get_username_from_email
-from core.models import News, Icon
 from .base import FunctionalTest, quit_if_possible
 from .page_news import NewsPage
+
 
 config = SiteConfiguration.objects.get()
 
 class NewsAndNewsListPagesTest(FunctionalTest):
-
-    def populate_db(self, count):
-        from core.icons import import_icons
-        import_icons(Icon)
-        url = reverse('populate_db', kwargs={'news_count': count})
-        self.show_page(url, searched_element="ok")
 
     def test_can_add_news_to_news_page(self):
         faker = self.faker

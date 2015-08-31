@@ -1,10 +1,15 @@
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
 import datetime
+from django.contrib.sites.models import Site
+from allauth.socialaccount.models import SocialApp
 
 from core.authentication import force_production_server
-from core.models import AgripoUser as User, News, SiteConfiguration
+from core.models import AgripoUser as User, News, SiteConfiguration, Product
+from core.management.commands.populatedb import (
+    insert_random_categories_and_products, insert_random_category)
 
 
 config = SiteConfiguration.objects.get()
@@ -12,6 +17,13 @@ NUMBER_OF_NEWS_BY_PAGE = config.news_count
 
 
 class CoreTestCase(TestCase):
+
+    def setUp(self):
+        # We add a SocialApp as we get an error if it's not done
+        app = SocialApp(pk=1, provider="facebook", name="Facebook", client_id="001122334455667",
+                        secret="00112233445566778899aabbccddeeff")
+        app.sites.add(Site.objects.get_current().id)
+        app.save()
 
     def tearDown(self):
         # We reset the session to the default (dev/staging/prod) server
@@ -26,9 +38,35 @@ class CoreTestCase(TestCase):
 
 class ShopViewTest(CoreTestCase):
 
+    def _shop_page_contains(self, text, quantity):
+        response = self.client.get(reverse('shop_page'))
+        self.assertContains(response, text, quantity)
+
     def test_use_template(self):
         response = self.client.get(reverse('shop_page'))
         self.assertTemplateUsed(response, 'core/shop_page.html')
+
+    def test_display_all_products(self):
+        insert_random_categories_and_products(5, 4)
+        self._shop_page_contains('class="one_product"', 20)
+
+    def test_display_message_for_products_out_of_stock(self):
+        self.fail("Test not implemented yet")
+
+    def test_display_all_categories(self):
+        insert_random_categories_and_products(5, 0)
+        self._shop_page_contains('class="one_product_category"', 5)
+
+    def test_display_message_for_empty_categories(self):
+        insert_random_categories_and_products(2, 1)
+        insert_random_categories_and_products(2, 0)
+        self._shop_page_contains('class="one_product_category_empty"', 2)
+
+    def test_prefill_quantity_from_cart(self):
+        insert_random_categories_and_products(2, 2)
+        prod = Product.objects.get(pk=1)
+        prod.set_cart_quantity(2)
+        self._shop_page_contains('<span>{} unités</span>'.format(2), 1)
 
 
 class LoginViewTest(CoreTestCase):
