@@ -77,9 +77,9 @@ if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
         'debug_toolbar',
     )
     # Adding the auto-connect backend
-    AUTHENTICATION_BACKENDS += (
+    AUTHENTICATION_BACKENDS = (
         'core.authentication.NewUserAutoconnectionModelBackend',
-    )
+    ) + AUTHENTICATION_BACKENDS
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
