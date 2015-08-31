@@ -8,9 +8,7 @@ from django.core.management import call_command
 
 import core.exceptions as core_exceptions
 from core.authentication import is_production_server
-from core.models import SiteConfiguration
-
-config = SiteConfiguration.objects.get()
+from core.models import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 
 
 class SubMenusPage(TemplateView):
@@ -65,7 +63,7 @@ class NewsListPage(ListView):
             config = SiteConfiguration.objects.get()
             count = config.news_count
         except SiteConfiguration.DoesNotExist:
-            count = 9
+            count = SITECONF_DEFAULT_NEWS_COUNT
         return count
 
 
