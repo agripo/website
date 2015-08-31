@@ -8,9 +8,7 @@ from django.core.management import call_command
 
 import core.exceptions as core_exceptions
 from core.authentication import is_production_server
-from core.models import SiteConfiguration
-
-config = SiteConfiguration.objects.get()
+from core.models import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 
 
 class SubMenusPage(TemplateView):
@@ -61,7 +59,12 @@ class NewsListPage(ListView):
             publication_date__lte=timezone.now(), is_active=True).order_by('-publication_date')
 
     def get_paginate_by(self, queryset):
-        return config.news_count
+        try:
+            config = SiteConfiguration.objects.get()
+            count = config.news_count
+        except SiteConfiguration.DoesNotExist:
+            count = SITECONF_DEFAULT_NEWS_COUNT
+        return count
 
 
 def index_view(request):

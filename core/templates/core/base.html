@@ -32,6 +32,7 @@
     <script src="/static/js/base.js"></script>
 </head>
 <body id="{% block page_name %}id_unknown_page{% endblock %}">
+{% block body %}
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -87,14 +88,17 @@
 			<div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-shopping-cart"></i>
-                        Panier
+                        {% if user.id %}
+                            <i class="fa fa-shopping-cart"></i>
+                            Panier
+                        {% else %}
+                            <i class="fa fa-sign-in"></i>
+                            Se connecter
+                        {% endif %}
                     </div>
                     <div class="panel-body">
-
-
-                            {% if user.email %}
-                                <p>Bienvenue {{ user.email }} !</p>
+                            {% if user.id %}
+                                <p>Bienvenue {{ user.first_name }} {{ user.last_name }} !</p>
                                 <p>
                                     <a class="btn navbar-btn" id="id_logout" href="{% url 'logout' %}">
                                         <i class="fa fa-sign-out"></i>
@@ -115,9 +119,16 @@
                                 </p>
                             {% else %}
                                 <p>
+                                    {% load socialaccount %}
+                                    {% providers_media_js %}
+                                    <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="js_sdk" %}">
+                                        <i class="fa fa-facebook-official"></i>
+                                        Facebook Connect
+                                    </a><br />
+
                                     <a class="btn navbar-btn" id="id_login" href="#">
                                         <i class="fa fa-sign-in"></i>
-                                        Se connecter
+                                        avec id / mot de passe
                                     </a>
                                 </p>
                             {% endif %}
@@ -227,5 +238,8 @@
         dom_is_loaded($);
     });
 </script>
+{% endblock %}
+{% block extra_body %}
+{% endblock extra_body %}
 </body>
 </html>

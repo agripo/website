@@ -7,6 +7,8 @@ from .page_home_page import HomePage
 
 class LayoutAndStylingTest(FunctionalTest):
 
+    #@todo : Test the connexion with facebook (with a test account)
+
     @skip
     def test_can_autoconnect_and_connect_with_persona(self):
         # Alpha goes to the home page

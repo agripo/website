@@ -19,6 +19,7 @@ from core import urls as core_urls
 from django.conf import settings
 
 urlpatterns = [
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include(core_urls)),
