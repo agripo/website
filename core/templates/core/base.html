@@ -119,12 +119,14 @@
                                 </p>
                             {% else %}
                                 <p>
-                                    {% load socialaccount %}
-                                    {% providers_media_js %}
-                                    <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="js_sdk" %}">
-                                        <i class="fa fa-facebook-official"></i>
-                                        Facebook Connect
-                                    </a><br />
+                                    {% if show_facebook_connector %}
+                                        {% load socialaccount %}
+                                        {% providers_media_js %}
+                                        <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="js_sdk" %}">
+                                            <i class="fa fa-facebook-official"></i>
+                                            Facebook Connect
+                                        </a><br />
+                                    {% endif %}
 
                                     <a class="btn navbar-btn" id="id_login" href="#">
                                         <i class="fa fa-sign-in"></i>

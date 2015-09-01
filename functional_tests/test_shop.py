@@ -15,6 +15,7 @@ class ShopPageTest(FunctionalTest):
         self.create_autoconnected_session(user_alpha_email, as_manager=True)
 
         # He goes to the products edition page
+        self.not_implemented()
 
         # He adds a product to the shop in an existing category
 
@@ -26,9 +27,6 @@ class ShopPageTest(FunctionalTest):
 
         # He has his friend bravo to look at the shop page, unconnected, and to confirm that the new
         # product is there with the good data
-
-        time.sleep(5)
-        self.fail('This is where we are!')
 
     def test_can_command_products(self):
         # # We should add some products automatically

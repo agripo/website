@@ -36,12 +36,18 @@ SERVER_TYPE_STAGING = "STAGING"
 SERVER_TYPE = SERVER_TYPE_DEVELOPMENT
 SERVER_URL = "not.a.real.server:1234"
 
+TESTING_FUNCTIONALITIES = False
+
 # Defining the server url for the tests on the staging server
 import sys
 for arg in sys.argv:
     if 'liveserver' in arg and "-staging." in arg:
         SERVER_URL = arg.split('=')[1]
         SERVER_TYPE = SERVER_TYPE_STAGING
+
+    if 'testing' in arg:
+        TESTING_FUNCTIONALITIES = True
+
 
 # Application definition
 
@@ -94,6 +100,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = False
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_QUERY_EMAIL = False
+
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'js_sdk',
@@ -150,6 +157,7 @@ TEMPLATES = [
                 'core.context_processors.cookies_notification',
                 'core.context_processors.last_news_box',
                 'core.context_processors.bd_webdoc_slideshow',
+                'core.context_processors.allauth_activation'
             ],
         },
     },

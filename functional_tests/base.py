@@ -13,6 +13,7 @@ from core.authentication import is_production_server, is_staging_server
 from .page_home_page import HomePage
 from core.models import AgripoUser as User, Icon
 
+
 DEFAULT_WAIT = 5
 SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
@@ -55,13 +56,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         # @todo remove this when it is not needed anymore (should be done by the migration #3
         from django.contrib.auth.models import Group, Permission
         if not Group.objects.all():
-            managers_group = Group(name="managers")
-            managers_group.save()
-            managers_group.permissions.add(
-                Permission.objects.get(codename='add_news'),
-                Permission.objects.get(codename='change_news'),
-                Permission.objects.get(codename='delete_news')
-            )
+            from core.models import make_permissions
+            make_permissions(Group, Permission)
         # End of the removable stuff
 
     def tearDown(self):
