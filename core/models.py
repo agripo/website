@@ -1,4 +1,5 @@
-from django.db import models
+from core.exceptions import AddedMoreToCartThanAvailable, CantSetCartQuantityOnUnsavedProduct
+from django.db import models, IntegrityError
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
 from django.core.exceptions import ValidationError
@@ -27,6 +28,16 @@ class SiteConfiguration(SingletonModel):
 
 
 class AgripoUser(User):
+
+    def is_farmer(self):
+        return self.groups.filter(name="farmers").exists()
+
+    def add_to_farmers(self):
+        if not self.email:
+            raise IntegrityError("The farmers must have a valid email set in their account")
+        self.groups.add(Group.objects.get(name="farmers"))
+        self.save()
+        return self
 
     def is_manager(self):
         return self.is_staff
@@ -76,6 +87,8 @@ class Product(models.Model):
     name = models.CharField(max_length=28, blank=False, null=False, unique=True)
     category = models.ForeignKey(ProductCategory, blank=False, null=False)
     price = models.PositiveIntegerField()
+    farmers = models.ManyToManyField(AgripoUser, through="Stock")
+    stock = models.PositiveIntegerField(default=0)
 
     def clean(self):
         if self.name == '':
@@ -89,7 +102,11 @@ class Product(models.Model):
 
     def set_cart_quantity(self, quantity):
         if not self.id:
-            raise Exception("Adding to cart on an unsaved object")
+            raise CantSetCartQuantityOnUnsavedProduct
+
+        if quantity > self.available_stock():
+            raise AddedMoreToCartThanAvailable
+
         session[self._get_session_key()] = quantity
 
     def get_cart_quantity(self):
@@ -97,8 +114,11 @@ class Product(models.Model):
             return session[self._get_session_key()]
         return 0
 
-    def stock(self):
-        return 10
+    def available_stock(self):
+        return self.stock
+
+    def is_available(self):
+        return self.available_stock() > 0
 
 
 class News(models.Model):
@@ -142,11 +162,29 @@ class News(models.Model):
             is_active=True).order_by('-publication_date')[0:3]
 
 
-def make_permissions(Group, Permission):
-    managers_group = Group(name="managers")
-    managers_group.save()
-    managers_group.permissions.add(
-        Permission.objects.get(codename='add_news'),
-        Permission.objects.get(codename='change_news'),
-        Permission.objects.get(codename='delete_news')
-    )
+class Stock(models.Model):
+    product = models.ForeignKey(Product, related_name="one_farmers_stock")
+    farmer = models.ForeignKey(AgripoUser, limit_choices_to={"is_farmer": True})
+    stock = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ("product", "farmer", )
+
+    def save(self, *args, **kwargs):
+        if not self.farmer.is_farmer():
+            raise IntegrityError("Only farmers have stocks")
+
+        return super().save(*args, **kwargs)
+
+    def set(self, stock):
+        """
+        Updating the stock for this product in this farmer's account and on the product's general data
+        :param stock: The new stock for this product and for this farmer
+        :return: the Stock object
+        """
+        self.product.stock -= self.stock
+        self.stock = stock
+        self.save()
+        self.product.stock += self.stock
+        self.product.save()
+        return self

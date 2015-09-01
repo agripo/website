@@ -56,8 +56,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         # @todo remove this when it is not needed anymore (should be done by the migration #3
         from django.contrib.auth.models import Group, Permission
         if not Group.objects.all():
-            from core.models import make_permissions
+            from core.data_migrations import make_permissions, create_farmers_group
             make_permissions(Group, Permission)
+            create_farmers_group(Group)
         # End of the removable stuff
 
     def tearDown(self):

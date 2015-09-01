@@ -1,3 +1,4 @@
+from core.exceptions import AddedMoreToCartThanAvailable
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 
@@ -18,13 +19,8 @@ class ProductCategoryModelTest(CoreTestCase):
 
 class ProductsModelTest(CoreTestCase):
 
-    def _create_category(self):
-        cat = ProductCategory(name="Cat 1")
-        cat.save()
-        return cat
-
     def test_product_should_have_a_name(self):
-        cat = self._create_category()
+        cat = self.create_category()
         prod = Product(category=cat, price=100)
         self.assertRaises(ValidationError, prod.full_clean)
 
@@ -33,32 +29,39 @@ class ProductsModelTest(CoreTestCase):
         self.assertRaises(IntegrityError, prod.save)
 
     def test_product_price_cant_be_zero(self):
-        cat = self._create_category()
+        cat = self.create_category()
         prod = Product(category=cat, name="Prod 1", price=0)
         self.assertRaises(ValidationError, prod.full_clean)
 
     def test_product_cant_be_negative(self):
-        cat = self._create_category()
+        cat = self.create_category()
         prod = Product(category=cat, name="Prod 1", price=-10)
         self.assertRaises(ValidationError, prod.full_clean)
 
     def test_can_set_cart_quantity(self):
-        cat = self._create_category()
-        prod = Product(category=cat, name="Prod 1", price=10)
-        prod.save()
+        cat = self.create_category()
+        prod = self.create_product(cat, stock=10)
         prod.set_cart_quantity(5)  # should not raise
         self.assertEqual(prod.get_cart_quantity(), 5)
 
     def test_set_cart_quantity_updates_session(self):
-        cat = self._create_category()
-        prod = Product(category=cat, name="Prod 1", price=10)
-        prod.save()
+        cat = self.create_category()
+        prod = self.create_product(cat, stock=10)
         prod.set_cart_quantity(5)  # should not raise
-        prod = Product.objects.get(name="Prod 1")  # reloads the object from the db
+        prod = Product.objects.get(name="Product")  # reloads the object from the db
         self.assertEqual(prod.get_cart_quantity(), 5)
 
+    def _test_cant_add_more_than_available_to_cart(self):
+        cat = self.create_category()
+        prod = self.create_product(cat, stock=0)
+        prod.set_cart_quantity(5)  # should raise an error
+
+    def test_cant_add_more_than_available_to_cart(self):
+        self.assertRaises(
+            AddedMoreToCartThanAvailable, self._test_cant_add_more_than_available_to_cart)
+
     def test_product_quantity_defaults_to_zero(self):
-        cat = self._create_category()
+        cat = self.create_category()
         prod = Product(pk=10, category=cat, name="Prod 1", price=10)
         prod.save()
         self.assertEqual(prod.get_cart_quantity(), 0)

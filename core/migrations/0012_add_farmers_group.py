@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 from django.contrib.auth.management import create_permissions
 
-from core.data_migrations import make_permissions
+from core.data_migrations import create_farmers_group
 
 
 def _make_permissions(apps, schema_editor):
@@ -13,16 +13,14 @@ def _make_permissions(apps, schema_editor):
     apps.models_module = None
 
     Group = apps.get_model("auth", "Group")
-    Permission = apps.get_model("auth", "Permission")
 
-    make_permissions(Group, Permission)
+    create_farmers_group(Group)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0002_news'),
-        ('auth', '0006_require_contenttypes_0002'),
+        ('core', '0011_product_and_category'),
     ]
 
     operations = [
