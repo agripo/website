@@ -83,6 +83,15 @@ class FunctionalTest(StaticLiveServerTestCase):
                 return True
         return False
 
+    def not_implemented(self):
+        self.fail("Test not implemented yet")
+
+    def dev_point(self, delay=0):
+        if delay:
+            time.sleep(delay)
+
+        self.fail("Active development pointer")
+
     def take_screenshot(self):
         filename = self._get_filename() + '.png'
         print('screenshotting to', filename)

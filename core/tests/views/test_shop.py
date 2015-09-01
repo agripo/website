@@ -1,16 +1,12 @@
 from django.core.urlresolvers import reverse
 
-from .core import CoreTestCase
-from core.models import SiteConfiguration, Product
+from core.tests.views.base import ViewsBaseTestCase
+from core.models import Product
 from core.management.commands.populatedb import (
     insert_random_categories_and_products)
 
 
-config = SiteConfiguration.objects.get()
-NUMBER_OF_NEWS_BY_PAGE = config.news_count
-
-
-class ShopViewTest(CoreTestCase):
+class ShopViewTest(ViewsBaseTestCase):
 
     def _shop_page_contains(self, text, quantity):
         response = self.client.get(reverse('shop_page'))

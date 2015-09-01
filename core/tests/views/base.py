@@ -1,7 +1,7 @@
-from django.test import TestCase
 from django.contrib.sites.models import Site
 from allauth.socialaccount.models import SocialApp
 
+from core.tests.base import CoreTestCase
 from core.authentication import force_production_server
 from core.models import SiteConfiguration
 
@@ -10,7 +10,7 @@ config = SiteConfiguration.objects.get()
 NUMBER_OF_NEWS_BY_PAGE = config.news_count
 
 
-class CoreTestCase(TestCase):
+class ViewsBaseTestCase(CoreTestCase):
 
     def setUp(self):
         # We add a SocialApp as we get an error if it's not done

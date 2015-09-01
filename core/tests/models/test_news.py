@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from django.test import TestCase
 from django.utils import timezone
 
+from core.tests.base import CoreTestCase
 from core.models import AgripoUser as User, News, Icon
 import datetime
 
@@ -14,7 +14,7 @@ class MockToday(datetime.date):
         return cls(2010, 1, 1)
 
 
-class NewsModelTest(TestCase):
+class NewsModelTest(CoreTestCase):
 
     def _create_user(self, username="Jean-Claude"):
         return User.objects.create(username=username, password="my_pass")

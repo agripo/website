@@ -1,13 +1,9 @@
-from .core import CoreTestCase
+from core.tests.views.base import ViewsBaseTestCase
 from core.authentication import force_production_server
-from core.models import AgripoUser as User, SiteConfiguration
+from core.models import AgripoUser as User
 
 
-config = SiteConfiguration.objects.get()
-NUMBER_OF_NEWS_BY_PAGE = config.news_count
-
-
-class LoginViewTest(CoreTestCase):
+class LoginViewTest(ViewsBaseTestCase):
 
     def test_can_auto_connect_with_new_email(self):
         page = self.auto_connect('alpha@test.com')

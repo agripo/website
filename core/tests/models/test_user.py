@@ -1,9 +1,8 @@
-from django.test import TestCase
-
+from core.tests.base import CoreTestCase
 from core.models import AgripoUser as User
 
 
-class UserModelTest(TestCase):
+class UserModelTest(CoreTestCase):
 
     def test_add_to_managers_returns_user(self):
         user = User(username="Jean-Claude", password="my_pass").add_to_managers()

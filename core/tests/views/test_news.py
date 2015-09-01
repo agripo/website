@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 import datetime
 
-from .core import CoreTestCase
+from core.tests.views.base import ViewsBaseTestCase
 from core.models import AgripoUser as User, News, SiteConfiguration
 
 
@@ -10,7 +10,7 @@ config = SiteConfiguration.objects.get()
 NUMBER_OF_NEWS_BY_PAGE = config.news_count
 
 
-class NewsViewsTest(CoreTestCase):
+class NewsViewsTest(ViewsBaseTestCase):
 
     def create_writer_if_none(self, writer):
         if not writer:
@@ -72,4 +72,11 @@ class NewsViewsTest(CoreTestCase):
         response = self.client.get(reverse('one_news_page', kwargs={'pk': 3}))
         self.assertContains(response, 'href="{}"'.format(reverse('one_news_page', kwargs={'pk': 2})))
 
-    #@todo add tests for the presence of the icon in the pages
+    def test_icon_is_found_for_every_news_in_list(self):
+        self.not_implemented()
+
+    def test_icon_is_found_on_news_page_in_title(self):
+        self.not_implemented()
+
+    def test_icon_is_found_on_news_page_in_previous_and_next(self):
+        self.not_implemented()

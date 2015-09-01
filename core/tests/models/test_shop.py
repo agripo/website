@@ -1,11 +1,11 @@
-from django.test import TestCase
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 
+from core.tests.base import CoreTestCase
 from core.models import ProductCategory, Product
 
 
-class ProductCategoryModelTest(TestCase):
+class ProductCategoryModelTest(CoreTestCase):
 
     def test_category_should_have_a_name(self):
         cat = ProductCategory()
@@ -16,7 +16,7 @@ class ProductCategoryModelTest(TestCase):
         cat.save()  # Should not raise
 
 
-class ProductsModelTest(TestCase):
+class ProductsModelTest(CoreTestCase):
 
     def _create_category(self):
         cat = ProductCategory(name="Cat 1")
