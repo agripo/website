@@ -1,4 +1,5 @@
 from core.exceptions import AddedMoreToCartThanAvailable, CantSetCartQuantityOnUnsavedProduct
+from django.conf import settings
 from django.db import models, IntegrityError
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
@@ -82,13 +83,35 @@ class ProductCategory(models.Model):
         if self.name == '':
             raise ValidationError('Empty category name')
 
+    def __str__(self):
+        return "{} : {}".format(self.id, self.name)
+
+    class Meta:
+        verbose_name = "Catégorie"
+        verbose_name_plural = "Catégories"
+
 
 class Product(models.Model):
-    name = models.CharField(max_length=28, blank=False, null=False, unique=True)
-    category = models.ForeignKey(ProductCategory, blank=False, null=False)
-    price = models.PositiveIntegerField()
+    name = models.CharField(
+        max_length=28, blank=False, null=False, unique=True,verbose_name="Nom",
+        help_text="Nom affiché dans les fiches produits")
+    category = models.ForeignKey(
+        ProductCategory, blank=False, null=False, verbose_name="Catégorie",
+        help_text="Catégorie sous laquelle apparaît ce produit.")
+    price = models.PositiveIntegerField(verbose_name="Prix unitaire")
+    image = models.ImageField(
+        upload_to='products', blank=True, null=True, default="default/not_found.jpg", verbose_name="Image",
+        help_text="Cette image représente le produit.<br />"
+                  "Elle doit faire 150x150px. "
+                  "Si la largeur est différente de la hauteur, l'image apparaitra déformée."
+    )
     farmers = models.ManyToManyField(AgripoUser, through="Stock")
-    stock = models.PositiveIntegerField(default=0)
+    stock = models.PositiveIntegerField(
+        default=0,
+        help_text="Champ alimenté automatiquement en fonction des déclarations des fermiers.")
+
+    def __str__(self):
+        return "{} : {}".format(self.id, self.name)
 
     def clean(self):
         if self.name == '':
@@ -96,6 +119,12 @@ class Product(models.Model):
 
         if self.price <= 0:
             raise ValidationError('Price should be bigger than zero')
+
+    def image_tag(self):
+        return u'<img src="{}" style="width:150px;height:140px;"/>'.format(settings.MEDIA_URL + str(self.image))
+
+    image_tag.short_description = 'Miniature'
+    image_tag.allow_tags = True
 
     def _get_session_key(self):
         return "product_{}_quantity".format(self.pk)
@@ -119,6 +148,13 @@ class Product(models.Model):
 
     def is_available(self):
         return self.available_stock() > 0
+
+    is_available.__name__ = "Disponible"
+    is_available.boolean = True
+
+    class Meta:
+        verbose_name = "Produit"
+        verbose_name_plural = "Produits"
 
 
 class News(models.Model):
@@ -160,6 +196,10 @@ class News(models.Model):
         return News.objects.filter(
             publication_date__lt=timezone.now(),
             is_active=True).order_by('-publication_date')[0:3]
+
+    class Meta:
+        verbose_name = "Actualité"
+        verbose_name_plural = "Actualités"
 
 
 class Stock(models.Model):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import News, AgripoUser
+from core.models import News, AgripoUser, Product
 from solo.admin import SingletonModelAdmin
 from core.models import SiteConfiguration
 
@@ -22,5 +22,17 @@ class NewsAdmin(admin.ModelAdmin):
         js = ("js/icon_selector.js",)
 
 
+class ProductAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('General settings', {'fields': ['id', 'image_tag', 'image', 'name', 'category', 'price', 'stock', ]}),
+    ]
+
+    list_display = ('__str__', 'category', 'price', 'stock', 'is_available')
+
+    list_filter = ['category',]
+    readonly_fields = ('id', 'stock', 'image_tag',)
+
+
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(News, NewsAdmin)
+admin.site.register(Product, ProductAdmin)
