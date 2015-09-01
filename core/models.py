@@ -204,7 +204,7 @@ class News(models.Model):
 
 class Stock(models.Model):
     product = models.ForeignKey(Product, related_name="one_farmers_stock")
-    farmer = models.ForeignKey(AgripoUser, limit_choices_to={"is_farmer": True})
+    farmer = models.ForeignKey(AgripoUser, limit_choices_to=Q(groups__name='farmers'))
     stock = models.PositiveIntegerField(default=0)
 
     class Meta:

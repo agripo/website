@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import News, AgripoUser, Product
+from core.models import News, Product, Stock
 from solo.admin import SingletonModelAdmin
 from core.models import SiteConfiguration
 
@@ -33,6 +33,18 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('id', 'stock', 'image_tag',)
 
 
+class StockAdmin(admin.ModelAdmin):
+    fields = [
+        'product', 'farmer', 'stock',
+    ]
+
+    list_display = ('product', 'farmer', 'stock')
+
+    list_filter = ['farmer', 'product', ]
+
+
+
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(News, NewsAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Stock, StockAdmin)
