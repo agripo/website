@@ -66,6 +66,8 @@ icons = {
     'Medical Icons': ['ambulance', 'h-square', 'heart', 'heart-o', 'heartbeat', 'hospital-o', 'medkit', 'plus-square', 'stethoscope', 'user-md', 'wheelchair'],
 }
 
+UNUSED_ICON = 'pied-piper-alt'
+
 def import_icons(icon_model):
     global icons
     if icon_model.objects.all().count() == 0:

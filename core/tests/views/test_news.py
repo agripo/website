@@ -1,10 +1,11 @@
+import random
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 import datetime
 
 from core.tests.views.base import ViewsBaseTestCase
-from core.models import AgripoUser as User, News, SiteConfiguration
-
+from core.models import AgripoUser as User, News, SiteConfiguration, Icon
+from core.icons import UNUSED_ICON
 
 config = SiteConfiguration.objects.get()
 NUMBER_OF_NEWS_BY_PAGE = config.news_count
@@ -17,12 +18,16 @@ class NewsViewsTest(ViewsBaseTestCase):
             writer = User.objects.create(username="Writer Boy", email="writer@mail.com", password="")
         return writer
 
-    def insert_news(self, title, content, writer=None, publication_date=None):
+    def insert_news(self, title, content, writer=None, publication_date=None, icon=None):
         writer = self.create_writer_if_none(writer)
         if not publication_date:
             # We define it in the past
             publication_date = timezone.now() - datetime.timedelta(10)
-        return News.objects.create(title=title, content=content, writer=writer, publication_date=publication_date)
+        if not icon:
+            random_idx = random.randint(0, Icon.objects.count() - 1)
+            icon = Icon.objects.all()[random_idx]
+        return News.objects.create(
+            title=title, content=content, writer=writer, publication_date=publication_date, icon=icon)
 
     def insert_x_news(self, number, title, content, writer=None, publication_date=None):
         writer = self.create_writer_if_none(writer)
@@ -44,7 +49,8 @@ class NewsViewsTest(ViewsBaseTestCase):
         writer = self.create_writer_if_none(None)
         for i in range(1, entries_count + 1):
             pub = timezone.now() - timezone.timedelta(i - 5)
-            self.insert_news("News #{}".format(i), "content", writer, publication_date=pub)
+            icon = Icon.objects.get(pk=i)
+            self.insert_news("News #{}".format(i), "content", writer, publication_date=pub, icon=icon)
 
     def fill_with_entries_and_get_page(self, page_num=1):
         self.fill_with_entries()
@@ -72,11 +78,12 @@ class NewsViewsTest(ViewsBaseTestCase):
         response = self.client.get(reverse('one_news_page', kwargs={'pk': 3}))
         self.assertContains(response, 'href="{}"'.format(reverse('one_news_page', kwargs={'pk': 2})))
 
-    def test_icon_is_found_for_every_news_in_list(self):
-        self.not_implemented()
-
     def test_icon_is_found_on_news_page_in_title(self):
-        self.not_implemented()
-
-    def test_icon_is_found_on_news_page_in_previous_and_next(self):
-        self.not_implemented()
+        self.fill_with_entries(10)
+        # Using the tenth to be sure not to find the icon in other modules
+        news = News.objects.get(pk=10)
+        news.icon = Icon.objects.get(icon=UNUSED_ICON)
+        news.save()
+        response = self.client.get(reverse('one_news_page', kwargs={'pk': 10}))
+        self.assertContains(
+            response, '<i class="fa fa-{}"></i>'.format(UNUSED_ICON))

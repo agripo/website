@@ -7,6 +7,8 @@ from solo.models import SingletonModel
 from ckeditor.fields import RichTextField
 from django.contrib.sessions.backends.db import SessionStore
 
+from core.icons import UNUSED_ICON
+
 
 SITECONF_DEFAULT_NEWS_COUNT = 9
 session = SessionStore()
@@ -54,6 +56,10 @@ class Icon(models.Model):
         return 'Icon {}'.format(self.icon)
 
 
+def all_but_forbidden_icon():
+    return ~models.Q(icon=UNUSED_ICON)
+
+
 def get_comment_icon_id():
     return Icon.objects.get(icon="comment").pk
 
@@ -98,7 +104,7 @@ class Product(models.Model):
 class News(models.Model):
     title = models.CharField(max_length=120, blank=False)
     is_active = models.BooleanField(default=True)
-    icon = models.ForeignKey(Icon, blank=False, default=get_comment_icon_id)
+    icon = models.ForeignKey(Icon, blank=False, default=get_comment_icon_id, limit_choices_to=all_but_forbidden_icon)
     content = models.TextField(blank=False)
     creation_date = models.DateField(auto_now_add=True)
     edition_date = models.DateField(auto_now=True)
