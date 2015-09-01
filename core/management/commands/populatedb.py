@@ -5,21 +5,25 @@ from faker import Factory as FakerFactory
 
 from core.models import News, Product, AgripoUser, ProductCategory
 
+faker = FakerFactory.create('fr_FR')
+faker.seed(1000)
 
 def insert_random_category():
-    faker = FakerFactory.create('fr_FR')
     the_category = ProductCategory(
         name=faker.sentence(nb_words=4),)
     the_category.save()
     return the_category
 
 
-def insert_random_product(category):
-    faker = FakerFactory.create('fr_FR')
+def insert_random_product(category=None, stock=0):
+    if not category:
+        category = insert_random_category()
+
     the_product = Product(
         name=faker.sentence(nb_words=2),
         price=random.randint(100, 10000),
-        category=category
+        category=category,
+        stock=stock
     )
     the_product.save()
     return the_product

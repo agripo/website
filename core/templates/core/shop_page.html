@@ -82,8 +82,10 @@
                                         Quantité achetée : <span>{{ prod.get_cart_quantity }} unités</span>
                                     </p>
                                     <p class="expanded">
-                                        <input style="width:100px;" placeholder="Quantité" type="number" value="{{ prod.get_cart_quantity }}"/>
-                                        <input type="submit" value="OK"/>
+                                        <form action="#">
+                                            <input name="quantity" style="width:100px;" placeholder="Quantité" type="number" value="{{ prod.get_cart_quantity }}"/>
+                                            <input type="submit" value="OK"/>
+                                        </form>
                                     </p>
                                 {% else %}
                                     <p>Produit indisponible pour le moment</p>

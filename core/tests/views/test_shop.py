@@ -1,10 +1,10 @@
-from core.exceptions import CantSetCartQuantityOnUnsavedProduct
+from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCartThanAvailable
 from django.core.urlresolvers import reverse
 
 from core.tests.views.base import ViewsBaseTestCase
 from core.models import Product
 from core.management.commands.populatedb import (
-    insert_random_categories_and_products, insert_random_category)
+    insert_random_categories_and_products, insert_random_category, insert_random_product)
 
 
 class ShopViewTest(ViewsBaseTestCase):
@@ -22,11 +22,15 @@ class ShopViewTest(ViewsBaseTestCase):
         self._shop_page_contains('class="one_product"', 20)
 
     def test_display_message_for_products_out_of_stock(self):
-        self.not_implemented()
+        insert_random_categories_and_products(5, 4)
+        self._shop_page_contains('Produit indisponible pour le moment', 20)
+
+    def _test_limit_cart_quantity_to_stock(self):
+        prod = insert_random_product(stock=2)
+        prod.set_cart_quantity(5)
 
     def test_limit_cart_quantity_to_stock(self):
-        insert_random_categories_and_products(2, 1)
-        self.not_implemented()
+        self.assertRaises(AddedMoreToCartThanAvailable, self._test_limit_cart_quantity_to_stock)
 
     def test_display_all_categories(self):
         insert_random_categories_and_products(5, 0)
@@ -38,8 +42,7 @@ class ShopViewTest(ViewsBaseTestCase):
         self._shop_page_contains('class="one_product_category_empty"', 2)
 
     def test_prefill_quantity_from_cart(self):
-        insert_random_categories_and_products(2, 2)
-        prod = Product.objects.get(pk=1)
+        prod = insert_random_product(stock=3)
         prod.set_cart_quantity(2)
         self._shop_page_contains('<span>{} unités</span>'.format(2), 1)
 
@@ -51,3 +54,18 @@ class ShopViewTest(ViewsBaseTestCase):
     def test_set_cart_quantity_requires_saved_product(self):
         self.assertRaises(CantSetCartQuantityOnUnsavedProduct,
                           self._test_set_cart_quantity_requires_saved_product)
+
+    def test_product_has_a_default_image(self):
+        insert_random_categories_and_products(2, 2)
+        self._shop_page_contains('src="/media/default/not_found.jpg"', 4)
+
+    def test_product_default_image_is_loaded(self):
+        response = self.client.get("/media/default/not_found.jpg")
+        self.assertEqual(response.status_code, 200)
+
+    def test_may_set_quantity_on_available_products(self):
+        for i in range(0, 10):
+            insert_random_product(stock=0)
+        for i in range(0, 10):
+            insert_random_product(stock=10)
+        self._shop_page_contains('input name="quantity"', 10)
