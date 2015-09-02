@@ -7,6 +7,17 @@ from .page_home_page import HomePage
 
 class LayoutAndStylingTest(FunctionalTest):
 
+    def switch_to_new_window(self, text_in_title):
+        retries = 60
+        while retries > 0:
+            for handle in self.browser.window_handles:
+                self.browser.switch_to.window(handle)
+                if text_in_title in self.browser.title:
+                    return
+            retries -= 1
+            time.sleep(0.5)
+        self.fail('could not find window')
+
     def test_connect_with_persona(self):
         # Alpha goes to the home page
         home = HomePage(self).show()
@@ -20,6 +31,9 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # He connects through persona
         connect_button.click()
+
+        # A Persona login box appears
+        self.switch_to_new_window('Mozilla Persona')
 
         # A Persona login box appears. He switches to it
         ## Getting the last opened window
@@ -37,11 +51,13 @@ class LayoutAndStylingTest(FunctionalTest):
         # The Persona window closes
         self.browser.switch_to.window(window_handle)
 
+        time.sleep(5)
+
         # He goes back to the home page to verify he is connected again
         self.wait_to_be_logged_in()
 
         # He confirms he's connected
-        home.check_connection_status(False)
+        home.check_connection_status(True)
 
         # Refreshing the page, he sees it's a real session login,
         # not just a one-off for that page

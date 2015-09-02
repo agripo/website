@@ -4,8 +4,10 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 from django.contrib.auth.management import create_permissions
 
+from core.models import make_permissions
 
-def make_permissions(apps, schema_editor):
+
+def _make_permissions(apps, schema_editor):
     apps.models_module = True
     create_permissions(apps, verbosity=0)
     apps.models_module = None
@@ -13,13 +15,7 @@ def make_permissions(apps, schema_editor):
     Group = apps.get_model("auth", "Group")
     Permission = apps.get_model("auth", "Permission")
 
-    managers_group = Group(name="managers")
-    managers_group.save()
-    managers_group.permissions.add(
-        Permission.objects.get(codename='add_news'),
-        Permission.objects.get(codename='change_news'),
-        Permission.objects.get(codename='delete_news')
-    )
+    make_permissions(Group, Permission)
 
 
 class Migration(migrations.Migration):
@@ -30,5 +26,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(make_permissions, reverse_code=lambda *args, **kwargs: True)
+        migrations.RunPython(_make_permissions, reverse_code=lambda *args, **kwargs: True)
     ]
