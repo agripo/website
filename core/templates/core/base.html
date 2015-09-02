@@ -85,57 +85,64 @@
             </div>
 
             <!-- and the vertical menu on the right -->
-			<div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        {% if user.id %}
+            <div class="col-md-4">
+                {% if user.id %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
                             <i class="fa fa-shopping-cart"></i>
                             Panier
-                        {% else %}
-                            <i class="fa fa-sign-in"></i>
-                            Se connecter
-                        {% endif %}
-                    </div>
-                    <div class="panel-body">
-                            {% if user.id %}
+                        </div>
+                        <div class="panel-body">
+                            {% if user.first_name %}
                                 <p>Bienvenue {{ user.first_name }} {{ user.last_name }} !</p>
-                                <p>
-                                    <a class="btn navbar-btn" id="id_logout" href="{% url 'logout' %}">
-                                        <i class="fa fa-sign-out"></i>
-                                        Déconnexion
-                                    </a>
-                                </p>
-                                <p>
-                                    2kg de Manioc, 3kg de Bananes, 1L d'huile de palme, 2kg de noix,
-                                    2kg de fèves de cacao, 1L de jus de cacao, 1kg d'avocat, 2kg de citron
-                                    1kg de bitter-cola et 1kg de mandarine.<br />
-                                    Total : 6700 XAF
-                                </p>
-                                <p>
-                                    <a class="btn navbar-btn" id="id_checkout" href="#">
-                                        <i class="fa fa-check"></i>
-                                        Valider la commande
-                                    </a>
-                                </p>
                             {% else %}
-                                <p>
-                                    {% if show_facebook_connector %}
-                                        {% load socialaccount %}
-                                        {% providers_media_js %}
-                                        <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="js_sdk" %}">
-                                            <i class="fa fa-facebook-official"></i>
-                                            Facebook Connect
-                                        </a><br />
-                                    {% endif %}
-
-                                    <a class="btn navbar-btn" id="id_login" href="#">
-                                        <i class="fa fa-sign-in"></i>
-                                        avec id / mot de passe
-                                    </a>
-                                </p>
+                                <p>Bienvenue {{ user.email }} !</p>
                             {% endif %}
+                            <p>
+                                <a class="btn navbar-btn" id="id_logout" href="{% url 'logout' %}">
+                                    <i class="fa fa-sign-out"></i>
+                                    Déconnexion
+                                </a>
+                            </p>
+                            <p>
+                                2kg de Manioc, 3kg de Bananes, 1L d'huile de palme, 2kg de noix,
+                                2kg de fèves de cacao, 1L de jus de cacao, 1kg d'avocat, 2kg de citron
+                                1kg de bitter-cola et 1kg de mandarine.<br />
+                                Total : 6700 XAF
+                            </p>
+                            <p>
+                                <a class="btn navbar-btn" id="id_checkout" href="#">
+                                    <i class="fa fa-check"></i>
+                                    Valider la commande
+                                </a>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                {% else %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-sign-in"></i>
+                            Se connecter grâce à
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                {% load socialaccount %}
+                                {% providers_media_js %}
+                                {% if show_facebook_connector %}
+                                    <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="js_sdk" %}">
+                                        <i class="fa fa-facebook-official"></i>
+                                        Facebook Connect
+                                    </a><br />
+                                {% endif %}
+                                
+                                <a id="id_login_persona" class="btn navbar-btn" href="{% provider_login_url "persona" %}">
+                                    <i class="fa fa-at"></i>
+                                    Votre adresse email
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
 
                 <!-- Partners block, if needed -->
                 <div class="panel panel-default">
