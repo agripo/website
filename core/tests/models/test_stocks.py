@@ -18,8 +18,7 @@ class StockModelTest(CoreTestCase):
         the_stock = Stock(product=product, farmer=user)
         if save:
             the_stock.save()
-            if stock > 0:
-                the_stock.set(stock)
+            the_stock.set(stock)  # This calls save() in the background
         elif stock > 0:
             raise Exception("Can't use _create_stock() with stock>0 and save=False together")
 
@@ -48,6 +47,7 @@ class StockModelTest(CoreTestCase):
         prod = stock.product
         self.assertEqual(prod.stock, 10)
         stock.set(5)
+        self.assertEqual(prod.stock, 5)
         user = self.create_user("Jean-Pierre").add_to_farmers()
         self._create_stock(product=prod, user=user, stock=10)
         self.assertEqual(prod.stock, 15)
@@ -55,6 +55,10 @@ class StockModelTest(CoreTestCase):
     def test_empty_stock_is_not_available(self):
         stock = self._create_stock(stock=0)
         self.assertFalse(stock.product.is_available())
+
+    def test_product_with_stock_is_available(self):
+        stock = self._create_stock(stock=5)
+        self.assertTrue(stock.product.is_available())
 
     def test_available_stock(self):
         stock = self._create_stock(stock=5)

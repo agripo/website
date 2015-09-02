@@ -210,11 +210,16 @@ class Stock(models.Model):
     class Meta:
         unique_together = ("product", "farmer", )
 
-    def save(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._active_stock = self.stock
+
+    def save(self):
         if not self.farmer.is_farmer():
             raise IntegrityError("Only farmers have stocks")
 
-        return super().save(*args, **kwargs)
+        self.set(self.stock)
+        return super().save()
 
     def set(self, stock):
         """
@@ -222,9 +227,9 @@ class Stock(models.Model):
         :param stock: The new stock for this product and for this farmer
         :return: the Stock object
         """
-        self.product.stock -= self.stock
         self.stock = stock
-        self.save()
-        self.product.stock += self.stock
+        self.product.stock -= self._active_stock
+        self.product.stock += stock
         self.product.save()
+        self._active_stock = stock
         return self
