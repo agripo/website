@@ -25,9 +25,9 @@ SECRET_KEY = '%%w$#6a@7(@m2u6rup^lob1i49dhl82-iuuex207@t5a%zoypc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DOMAIN = "localhost"
+DOMAIN = 'agripo-dev.brice.xyz'
 
-ALLOWED_HOSTS = [DOMAIN, 'agripo-dev.brice.xyz', ]
+ALLOWED_HOSTS = [DOMAIN, ]
 
 # Some constants for dev, staging and production server
 SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.facebook',
 )
 
@@ -95,6 +96,8 @@ ACCOUNT_EMAIL_VERIFICATION = False
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_QUERY_EMAIL = False
 SOCIALACCOUNT_PROVIDERS = {
+    'persona':
+        {'AUDIENCE': DOMAIN},
     'facebook': {
         'METHOD': 'js_sdk',
         'SCOPE': ['email', 'public_profile'],

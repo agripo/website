@@ -7,26 +7,13 @@ from .page_home_page import HomePage
 
 class LayoutAndStylingTest(FunctionalTest):
 
-    #@todo : Test the connexion with facebook (with a test account)
-
-    @skip
-    def test_can_autoconnect_and_connect_with_persona(self):
+    def test_connect_with_persona(self):
         # Alpha goes to the home page
         home = HomePage(self).show()
         window_handle = self.browser.current_window_handle
 
         # He sees he's not connected
         home.check_connection_status(False)
-
-        # He gets connected automatically using the test environment
-        self.create_autoconnected_session("alpha@mail.com")
-
-        # He goes back to the home page to verify he is connected
-        home.show()
-        content_autoconnected = self.get_body_content()
-
-        # He sees he is, and he disconnects
-        self.logout()
 
         # He now sees he is disconnected
         connect_button = home.get_login_button()
@@ -52,13 +39,9 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # He goes back to the home page to verify he is connected again
         self.wait_to_be_logged_in()
-        home.show()
-        content_with_persona = self.get_body_content()
 
-        # He confirms that the content of the page is the same as with the other login
-        self.assertHTMLEqual(
-            content_autoconnected.replace('alpha@mail.com', '[EMAIL]'),
-            content_with_persona.replace('alpha@mockmyid.com', '[EMAIL]'))
+        # He confirms he's connected
+        home.check_connection_status(False)
 
         # Refreshing the page, he sees it's a real session login,
         # not just a one-off for that page
