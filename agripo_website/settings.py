@@ -35,7 +35,7 @@ SERVER_URL = "not.a.real.server:1234"
 
 TESTING_FUNCTIONALITIES = False
 
-DOMAIN = 'agripo-dev.brice.xyz'
+DOMAIN = "agripo-dev.brice.xyz"
 
 # Defining the server url for the tests on the staging server
 import sys

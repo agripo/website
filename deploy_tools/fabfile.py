@@ -64,7 +64,7 @@ def _get_latest_source(source_folder, deploy_tag):
 def _update_settings(source_folder, site_name):
     settings_path = '{}/{}/settings.py'.format(source_folder, MAIN_APP)
     sed(settings_path, "DEBUG = True", "DEBUG = False")
-    sed(settings_path, "DOMAIN = 'agripo-dev.brice.xyz'", 'DOMAIN = "%s"' % (site_name,))
+    sed(settings_path, 'DOMAIN = "agripo-dev.brice.xyz"', 'DOMAIN = "%s"' % (site_name,))
     if STAGING:
         sed(settings_path, 'SERVER_TYPE = SERVER_TYPE_DEVELOPMENT', 'SERVER_TYPE = SERVER_TYPE_STAGING')
     else:
