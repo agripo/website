@@ -25,9 +25,6 @@ SECRET_KEY = '%%w$#6a@7(@m2u6rup^lob1i49dhl82-iuuex207@t5a%zoypc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DOMAIN = "localhost"
-
-ALLOWED_HOSTS = [DOMAIN, 'agripo-dev.brice.xyz', ]
 
 # Some constants for dev, staging and production server
 SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
@@ -36,12 +33,24 @@ SERVER_TYPE_STAGING = "STAGING"
 SERVER_TYPE = SERVER_TYPE_DEVELOPMENT
 SERVER_URL = "not.a.real.server:1234"
 
+TESTING_FUNCTIONALITIES = False
+
+DOMAIN = 'agripo-dev.brice.xyz'
+
 # Defining the server url for the tests on the staging server
 import sys
 for arg in sys.argv:
     if 'liveserver' in arg and "-staging." in arg:
         SERVER_URL = arg.split('=')[1]
         SERVER_TYPE = SERVER_TYPE_STAGING
+
+    if 'testing' in arg:
+        TESTING_FUNCTIONALITIES = True
+        print("Functional Tests mode (without facebook)\n")
+        DOMAIN = "localhost:8081"
+
+
+ALLOWED_HOSTS = [DOMAIN, ]
 
 # Application definition
 
@@ -61,7 +70,7 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.persona',
 )
 
 SITE_ID = 1
@@ -94,8 +103,16 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = False
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_QUERY_EMAIL = False
+
 SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
+    'persona':
+        {'AUDIENCE': DOMAIN}}
+
+if not TESTING_FUNCTIONALITIES:
+    INSTALLED_APPS += (
+        'allauth.socialaccount.providers.facebook',
+    )
+    SOCIALACCOUNT_PROVIDERS['facebook'] = {
         'METHOD': 'js_sdk',
         'SCOPE': ['email', 'public_profile'],
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
@@ -107,9 +124,8 @@ SOCIALACCOUNT_PROVIDERS = {
             'last_name',
             'gender', ],
         'EXCHANGE_TOKEN': True,
-        #'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.4'}}
+        'VERSION': 'v2.4'}
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
@@ -150,6 +166,7 @@ TEMPLATES = [
                 'core.context_processors.cookies_notification',
                 'core.context_processors.last_news_box',
                 'core.context_processors.bd_webdoc_slideshow',
+                'core.context_processors.allauth_activation'
             ],
         },
     },

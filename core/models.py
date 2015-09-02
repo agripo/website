@@ -94,3 +94,13 @@ class News(models.Model):
         return News.objects.filter(
             publication_date__lt=timezone.now(),
             is_active=True).order_by('-publication_date')[0:3]
+
+
+def make_permissions(Group, Permission):
+    managers_group = Group(name="managers")
+    managers_group.save()
+    managers_group.permissions.add(
+        Permission.objects.get(codename='add_news'),
+        Permission.objects.get(codename='change_news'),
+        Permission.objects.get(codename='delete_news')
+    )
