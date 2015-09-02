@@ -19,7 +19,8 @@ class ShopViewTest(ViewsBaseTestCase):
 
     def test_display_all_products(self):
         insert_random_categories_and_products(5, 4)
-        self._shop_page_contains('class="one_product"', 20)
+        for prod in Product.objects.all():
+            self._shop_page_contains('id="product_{}"'.format(prod.id), 1)
 
     def test_display_message_for_products_out_of_stock(self):
         insert_random_categories_and_products(5, 4)
@@ -44,7 +45,7 @@ class ShopViewTest(ViewsBaseTestCase):
     def test_prefill_quantity_from_cart(self):
         prod = insert_random_product(stock=3)
         prod.set_cart_quantity(2)
-        self._shop_page_contains('<span>{} unités</span>'.format(2), 1)
+        self._shop_page_contains('<input name="quantity" value="{}"'.format(2), 1)
 
     def _test_set_cart_quantity_requires_saved_product(self):
         cat = insert_random_category()

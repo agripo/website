@@ -7,56 +7,14 @@
 {% block main_content %}
     <div class="row" id="shop">
         <style>
-            #shop h2{
-                margin: 50px 0 0 0;
-            }
-            .one_product{
-                position: relative;
+            .product_image{
                 display: block;
-                padding: 10px;
-                height: 150px;
-                width: 100%;
-                margin-top: 0;
-                margin-bottom: 15px;
-            }
-            .one_product:hover .left_product_part,
-            .one_product:hover .right_product_part{
-                border-color: #3c763d;
-            }
-            .left_product_part{
-                display: inline-block;
-                position: absolute;
-                left: 0;
+                float: left;
                 width: 40%;
                 height: 150px;
-                border: 4px solid rgba(0,0,0,0.1);
                 overflow: hidden;
                 text-align: center;
-            }
-            .left_product_part img {
-                max-width: 100%;
-                min-height: 150px;
-            }
-            .right_product_part{
-                width: 60%;
-                height: 150px;
-                left: 40%;
-                display: inline-block;
-                position: absolute;
-                padding: 5px;
-                border: 4px solid rgba(0,0,0,0.1);
-                border-left: none;
-            }
-            .one_product .expanded,
-            .one_product:hover .reduced{
-                display: none;
-            }
-            .one_product:hover .expanded,
-            .one_product .reduced{
-                display: block;
-            }
-            p.expanded input[type="submit"]{
-                width: 45px;
+                margin-right: 5px;
             }
         </style>
         <div class="col-md-12">
@@ -70,26 +28,33 @@
                 </div>
                 {% for prod in cat.product_set.all %}
                     <div class="col-md-6">
-                        <div class="one_product">
-                            <div class="left_product_part">
-                                <img src="/media/{{ prod.image }}"/>
+                        <div class="panel panel-default" id="product_{{ prod.id }}">
+                            <div class="panel-heading">
+                                <i class="fa fa-shopping-cart"></i>
+                                {{ prod.name }}
                             </div>
-                            <div class="right_product_part">
-                                <h3>{{ prod.name }}</h3>
-                                {% if prod.stock > 0 %}
-                                    <p>En stock</p>
-                                    <p class="reduced">
-                                        Quantité achetée : <span>{{ prod.get_cart_quantity }} unités</span>
+                            <div class="panel-body">
+                                <div class="product_image">
+                                    <img src="/media/{{ prod.image }}"/>
+                                </div>
+                                <div class="product_description">
+                                    <p>
+                                        <strong>Prix unitaire :</strong>
+                                        {{ product.price }}&nbsp;FCFA
                                     </p>
-                                    <p class="expanded">
+                                    {% if prod.is_available %}
                                         <form action="#">
-                                            <input name="quantity" style="width:100px;" placeholder="Quantité" type="number" value="{{ prod.get_cart_quantity }}"/>
-                                            <input type="submit" value="OK"/>
+                                            <p>En stock</p>
+                                            <p>
+                                                Quantité achetée :
+                                                <input name="quantity" value="{{ prod.get_cart_quantity }}" style="width:100px;" placeholder="Quantité" type="number"/>
+                                                <input type="submit" value="OK"/>
+                                            </p>
                                         </form>
-                                    </p>
-                                {% else %}
-                                    <p>Produit indisponible pour le moment</p>
-                                {% endif %}
+                                    {% else %}
+                                        <p>Produit indisponible pour le moment</p>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
