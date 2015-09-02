@@ -17,21 +17,21 @@ def insert_random_category():
     return the_category
 
 
-def insert_random_product(category=None, stock=0):
+def insert_random_product(category=None, stock=0, random_image=True):
     if not category:
         category = insert_random_category()
 
-    # Getting random image
-    images = glob.glob("{}/products/*.jpg".format(settings.MEDIA_ROOT))
-    image = images[random.randint(0, len(images) - 1)].replace(settings.MEDIA_ROOT, "")
+    args = {'name':faker.sentence(nb_words=2),
+        'price':random.randint(100, 10000),
+        'category':category,
+        'stock':stock,}
 
-    the_product = Product(
-        name=faker.sentence(nb_words=2),
-        price=random.randint(100, 10000),
-        category=category,
-        stock=stock,
-        image=image
-    )
+    if random_image:
+        # Getting random image
+        images = glob.glob("{}/products/*.jpg".format(settings.MEDIA_ROOT))
+        args['image'] = images[random.randint(0, len(images) - 1)].replace(settings.MEDIA_ROOT, "")
+
+    the_product = Product(**args)
     the_product.save()
     return the_product
 

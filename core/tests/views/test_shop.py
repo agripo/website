@@ -57,8 +57,8 @@ class ShopViewTest(ViewsBaseTestCase):
                           self._test_set_cart_quantity_requires_saved_product)
 
     def test_product_has_a_default_image(self):
-        insert_random_categories_and_products(2, 2)
-        self._shop_page_contains('src="/media/default/not_found.jpg"', 4)
+        insert_random_product(random_image=False)
+        self._shop_page_contains('src="/media/default/not_found.jpg"', 1)
 
     def test_product_default_image_is_loaded(self):
         response = self.client.get("/media/default/not_found.jpg")
