@@ -21,10 +21,8 @@ def insert_random_product(category=None, stock=0, random_image=True):
     if not category:
         category = insert_random_category()
 
-    args = {'name':faker.sentence(nb_words=2),
-        'price':random.randint(100, 10000),
-        'category':category,
-        'stock':stock,}
+    args = dict(name=faker.sentence(nb_words=2), price=random.randint(100, 10000),
+                category=category, stock=stock)
 
     if random_image:
         # Getting random image
