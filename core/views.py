@@ -68,11 +68,12 @@ def using_cookies_accepted(request):
     return HttpResponse("OK")
 
 
-def populate_db(request, news_count, products_count):
+def populate_db(request, news_count, products_count, categories_count):
     if is_production_server():
         return Http404()
 
-    call_command('populatedb', news_count=news_count, products_count=products_count)
+    call_command('populatedb',
+                 news_count=news_count, products_count=products_count, categories_count=categories_count)
     return HttpResponse('<div id="ok">Successfully created {} news</div>'.format(news_count))
 
 

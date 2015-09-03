@@ -24,6 +24,6 @@ if is_staging_server() or is_development_server():
             views.auto_connect, {'manager': False}, name='auto_connect'),
         url(r'^core/auto_manager_login/(?P<email>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+)$',
             views.auto_connect, {'manager': True}, name='auto_manager_connect'),
-        url(r'^core/populatedb/(?P<news_count>[0-9]+)/(?P<products_count>[0-9]+)/$',
+        url(r'^core/populatedb/(?P<news_count>[0-9]+)/(?P<products_count>[0-9]+)/(?P<categories_count>[0-9]+)/$',
             views.populate_db, name='populate_db'),
     )
