@@ -1,5 +1,6 @@
 import os
 import time
+from core.data_migrations import insert_all_permissions
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
@@ -12,7 +13,7 @@ from django.core.urlresolvers import reverse
 from core.authentication import is_production_server, is_staging_server
 from .page_home_page import HomePage
 from core.models import AgripoUser as User, Icon
-
+from core.models import SiteConfiguration
 
 DEFAULT_WAIT = 5
 SCREEN_DUMP_LOCATION = os.path.join(
@@ -29,10 +30,11 @@ def quit_if_possible(browser):
 
 class FunctionalTest(StaticLiveServerTestCase):
 
-    def populate_db(self, news_count=0, products_count=0):
+    def populate_db(self, news_count=0, products_count=0, categories_count=0):
         from core.icons import import_icons
         import_icons(Icon)
-        url = reverse('populate_db', kwargs={'news_count': news_count, 'products_count': products_count})
+        url = reverse('populate_db', kwargs=dict(
+            news_count=news_count, products_count=products_count, categories_count=categories_count))
         self.show_page(url, searched_element="ok")
 
     @classmethod
@@ -53,13 +55,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.implicitly_wait(DEFAULT_WAIT)
         self.faker = FakerFactory.create('fr_FR')
 
-        # @todo remove this when it is not needed anymore (should be done by the migration #3
-        from django.contrib.auth.models import Group, Permission
+        # @todo remove this when it is not needed anymore (should be done by the migration #3 and some others
+        from django.contrib.auth.models import Group
         if not Group.objects.all():
-            from core.data_migrations import make_permissions, create_farmers_group
-            make_permissions(Group, Permission)
-            create_farmers_group(Group)
+            insert_all_permissions()
         # End of the removable stuff
+
+        self.config = SiteConfiguration.objects.get()
 
     def tearDown(self):
         if self._test_has_failed():
@@ -67,7 +69,7 @@ class FunctionalTest(StaticLiveServerTestCase):
                 os.makedirs(SCREEN_DUMP_LOCATION)
             for ix, handle in enumerate(self.browser.window_handles):
                 self._windowid = ix
-                self.browser.switch_to_window(handle)
+                self.browser.switch_to.window(handle)
                 self.take_screenshot()
                 self.dump_html()
         self.browser.quit()
@@ -88,6 +90,13 @@ class FunctionalTest(StaticLiveServerTestCase):
             time.sleep(delay)
 
         self.fail("Active development pointer")
+
+    def admin_save(self, next_page=None):
+        self.browser.find_element_by_css_selector('input[name="_save"]').click()
+        # We wait for the confirmation to show up
+        self.wait_for(lambda: self.browser.find_element_by_css_selector("li.success"), 10)
+        if next_page:
+            self.assertEqual(self.browser.current_url, self.server_url+next_page)
 
     def take_screenshot(self):
         filename = self._get_filename() + '.png'

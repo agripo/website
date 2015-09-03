@@ -9,6 +9,7 @@ class HomeTest(FunctionalTest):
 
     def test_display_and_update_homepage(self):
         faker = self.faker
+        faker.seed(1000)
 
         # Alpha gets connected as manager
         user_alpha_email = faker.email()
@@ -31,7 +32,9 @@ class HomeTest(FunctionalTest):
         editor.insert_content(title)
         bold_button.click()
         editor.insert_content("\n")
-        editor.insert_content("\n".join(content))
+        for p in content:
+            editor.insert_content(p)
+            editor.insert_content("\n")
 
         self.browser.find_element_by_css_selector('input[name="_save"]').click()
 

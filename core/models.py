@@ -87,8 +87,8 @@ class ProductCategory(models.Model):
         return "{} : {}".format(self.id, self.name)
 
     class Meta:
-        verbose_name = "Catégorie"
-        verbose_name_plural = "Catégories"
+        verbose_name = "Catégorie de produits"
+        verbose_name_plural = "Catégories de produits"
 
 
 class Product(models.Model):
@@ -98,7 +98,7 @@ class Product(models.Model):
     category = models.ForeignKey(
         ProductCategory, blank=False, null=False, verbose_name="Catégorie",
         help_text="Catégorie sous laquelle apparaît ce produit.")
-    price = models.PositiveIntegerField(verbose_name="Prix unitaire")
+    price = models.PositiveIntegerField(verbose_name="Prix unitaire", default=0, blank=False, null=False)
     image = models.ImageField(
         upload_to='products', blank=True, null=True, default="default/not_found.jpg", verbose_name="Image",
         help_text="Cette image représente le produit.<br />"

@@ -28,10 +28,10 @@
                 </div>
                 {% for prod in cat.product_set.all %}
                     <div class="col-md-6">
-                        <div class="panel panel-default" id="product_{{ prod.id }}">
+                        <div class="panel panel-default one_product" id="product_{{ prod.id }}">
                             <div class="panel-heading">
                                 <i class="fa fa-shopping-cart"></i>
-                                {{ prod.name }}
+                                <span class="product_name">{{ prod.name }}</span>
                             </div>
                             <div class="panel-body">
                                 <div class="product_image">

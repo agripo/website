@@ -1,14 +1,10 @@
 from django.core.urlresolvers import reverse
 from selenium import webdriver
-import time
 
-from core.models import SiteConfiguration
 from core.authentication import get_username_from_email
-from .base import FunctionalTest, quit_if_possible
-from .page_news import NewsPage
+from functional_tests.base import FunctionalTest, quit_if_possible
+from functional_tests.page_news import NewsPage
 
-
-config = SiteConfiguration.objects.get()
 
 class NewsAndNewsListPagesTest(FunctionalTest):
 
@@ -21,7 +17,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.create_autoconnected_session(user_alpha_email, as_manager=True)
 
         # # Prepopulating the news page
-        randomly_created_news_count = config.news_count * 2 + 1
+        randomly_created_news_count = self.config.news_count * 2 + 1
         self.populate_db(randomly_created_news_count)
 
         # He goes to the news page
@@ -33,7 +29,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         # He sees that there are already some news on the page, and a paginator for the next ones
         all_news = self.browser.find_elements_by_css_selector('#id_news_list_container .news_container h4')
         self.assertEqual(
-            len(all_news), config.news_count, 'Did not find the right number of news on the page')
+            len(all_news), self.config.news_count, 'Did not find the right number of news on the page')
         self.browser.find_element_by_css_selector('.pagination_block a.pagination-next')  # should not raise an error
 
         # Bravo, his friend, also goes to this page, but without connexion
@@ -61,15 +57,12 @@ class NewsAndNewsListPagesTest(FunctionalTest):
             'input#{} ~ span a'.format(news_page_alpha.id_field_publication_date_time)).click()
         self.browser.find_element_by_id(news_page_alpha.id_field_content).send_keys(the_news_content)
         self.select_option_by_text(news_page_alpha.id_field_writer, user_alpha_username, ValueError)
-        self.browser.find_element_by_css_selector('input[name="_save"]').click()
+        self.admin_save('/admin/core/news/')
+
         # He selects an icon for this news
         #@todo : create a test for the icon selector
 
         #@todo : create tests to check that the icons are present in all pages where the news are shown
-
-        # He waits for the confirmation to show up
-        self.wait_for(lambda: self.browser.find_element_by_css_selector("li.success"), 10)
-        self.assertEqual(self.browser.current_url, self.server_url+'/admin/core/news/')
 
         # Bravo refreshes his screen, and sees that brand new news
         self.browser = bravo_browser
