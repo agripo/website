@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import News, Product, Stock
+from core.models import News, Product, Stock, ProductCategory
 from solo.admin import SingletonModelAdmin
 from core.models import SiteConfiguration
 
@@ -20,6 +20,14 @@ class NewsAdmin(admin.ModelAdmin):
             "all": ("css/icon_selector.css", "css/font-awesome.min.css")
         }
         js = ("js/icon_selector.js",)
+
+
+class ProductCategoryAdmin(admin.ModelAdmin):
+    fields = ['id', 'name', ]
+
+    list_display = ('__str__', )
+
+    readonly_fields = ('id', )
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -43,8 +51,8 @@ class StockAdmin(admin.ModelAdmin):
     list_filter = ['farmer', 'product', ]
 
 
-
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(News, NewsAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(ProductCategory, ProductCategoryAdmin)
 admin.site.register(Stock, StockAdmin)
