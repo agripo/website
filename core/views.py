@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
@@ -7,8 +8,56 @@ from django.core.management import call_command
 
 import core.exceptions as core_exceptions
 from core.authentication import is_production_server
-from core.models import SiteConfiguration, ProductCategory, News, SITECONF_DEFAULT_NEWS_COUNT
+from core.models import SiteConfiguration, ProductCategory, News, SITECONF_DEFAULT_NEWS_COUNT, Product
 
+
+def get_cart(request):
+    """
+    Sends a JSON object containing the products and quantities in current cart
+    """
+    cart_products = Product.static_get_cart_products()
+    data = dict()
+    data['products'] = []
+    total = 0
+    for cart_product in cart_products:
+        product = Product.objects.get(id=cart_product['id'])
+        product_total = cart_product['quantity'] * product.price
+        data['products'].append(
+            dict(id=cart_product['id'], name=product.name, quantity=cart_product['quantity'], price=product_total)
+        )
+        total += product_total
+
+    data['total'] = total
+    return JsonResponse(data)
+
+
+def set_product_quantity(request, product=0, quantity=0):
+    the_product = Product.objects.get(id=product)
+    quantity = int(quantity)
+
+    if not the_product.is_available():
+        data = {'error': "NO_STOCK"}
+    else:
+        try:
+            the_product.set_cart_quantity(quantity)
+        except core_exceptions.AddedMoreToCartThanAvailable:
+            data = {'error': "NOT_ENOUGH_STOCK", 'max': the_product.available_stock()}
+        else:
+            data = {"new_quantity": quantity}
+
+    return JsonResponse(data)
+
+
+class RequiresJs(TemplateView):
+    template_name = "core/requires_js.html"
+
+    def post(self, *args, **kwargs):
+        return super().get(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['back_link'] = self.request.GET['back']
+        return context
 
 class SubMenusPage(TemplateView):
 
@@ -93,7 +142,11 @@ def auto_connect(request, email, manager=False):
         else:
             connected_as = "user"
 
+        if request.GET and request.GET['as_farmer']:
+            user.add_to_farmers()
+
         login(request, user)
         return HttpResponse("{} is connected as {}".format(email, connected_as))
+
 
     raise core_exceptions.AutoConnectionUnknownError("New user not found")

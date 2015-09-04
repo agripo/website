@@ -17,11 +17,14 @@ def insert_random_category():
     return the_category
 
 
-def insert_random_product(category=None, stock=0, random_image=True):
+def insert_random_product(category=None, stock=0, random_image=True, price=0):
     if not category:
         category = insert_random_category()
 
-    args = dict(name=faker.sentence(nb_words=2), price=random.randint(100, 10000),
+    if price == 0:
+        price = random.randint(100, 10000)
+
+    args = dict(name=faker.sentence(nb_words=2), price=price,
                 category=category, stock=stock)
 
     if random_image:

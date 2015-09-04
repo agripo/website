@@ -1,3 +1,4 @@
+import re
 from core.exceptions import AddedMoreToCartThanAvailable, CantSetCartQuantityOnUnsavedProduct
 from django.conf import settings
 from django.db import models, IntegrityError
@@ -126,9 +127,6 @@ class Product(models.Model):
     image_tag.short_description = 'Miniature'
     image_tag.allow_tags = True
 
-    def _get_session_key(self):
-        return "product_{}_quantity".format(self.pk)
-
     def set_cart_quantity(self, quantity):
         if not self.id:
             raise CantSetCartQuantityOnUnsavedProduct
@@ -136,7 +134,10 @@ class Product(models.Model):
         if quantity > self.available_stock():
             raise AddedMoreToCartThanAvailable
 
-        session[self._get_session_key()] = quantity
+        if quantity == 0:
+            del session[self._get_session_key()]
+        else:
+            session[self._get_session_key()] = quantity
 
     def get_cart_quantity(self):
         if self._get_session_key() in session:
@@ -151,6 +152,33 @@ class Product(models.Model):
 
     is_available.__name__ = "Disponible"
     is_available.boolean = True
+
+    def _get_session_key(self):
+        return Product.static_get_session_key(self.pk)
+
+    @staticmethod
+    def static_get_session_key(product_id):
+        return "product_{}_quantity".format(product_id)
+
+    @staticmethod
+    def static_get_cart_products():
+        pattern = re.compile("^{}$".format(Product.static_get_session_key("([0-9]+)")))
+        ret = []
+        for element in sorted(session.keys()):
+            match = pattern.search(element)
+            if match:
+                ret.append(dict(
+                    id=int(match.group(1)), quantity=session[element], session_key=element))
+
+        return ret
+
+    @staticmethod
+    def clear_cart():
+        pattern = re.compile("^{}$".format(Product.static_get_session_key("([0-9]+)")))
+        for element in sorted(session.keys()):
+            match = pattern.search(element)
+            if match:
+                del session[element]
 
     class Meta:
         verbose_name = "Produit"

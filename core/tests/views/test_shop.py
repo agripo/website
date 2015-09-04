@@ -70,3 +70,58 @@ class ShopViewTest(ViewsBaseTestCase):
         for i in range(0, 10):
             insert_random_product(stock=10)
         self._shop_page_contains('input name="quantity"', 10)
+
+
+class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
+
+    def test_cant_add_product_with_no_stock(self):
+        insert_random_product(stock=0, price=100)
+        response = self.client.get(reverse('set_product_quantity', kwargs=dict(product=1, quantity=1)))
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'), {'error': "NO_STOCK"}
+        )
+
+    def test_cant_add_more_products_than_stock(self):
+        insert_random_product(stock=1, price=100)
+        response = self.client.get(reverse('set_product_quantity', kwargs=dict(product=1, quantity=2)))
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'), {'error': "NOT_ENOUGH_STOCK", 'max': 1}
+        )
+
+    def test_added_product_to_cart_are_in_session(self, product_id=1, price=100, quantity=1):
+        insert_random_product(stock=10, price=price)
+        response = self.client.get(reverse('set_product_quantity',
+                                           kwargs=dict(product=product_id, quantity=quantity)))
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'), {"new_quantity": quantity}
+        )
+
+    def test_get_cart_with_empty_cart_returns_corresponding_json(self):
+        response = self.client.get(reverse('get_cart'))
+
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'),
+            {'products': [], 'total': 0, })
+
+    def test_get_cart_returns_corresponding_json(self):
+        self.test_added_product_to_cart_are_in_session()
+        self.test_added_product_to_cart_are_in_session(product_id=2, price=1000, quantity=2)
+        response = self.client.get(reverse('get_cart'))
+
+        products = Product.objects.all()
+
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'),
+            {'products': [
+                {'id': 1, 'name': products[0].name, 'quantity': 1, 'price': 100},
+                {'id': 2, 'name': products[1].name, 'quantity': 2, 'price': 2000}, ],
+                'total': 2100, })
+
+    def test_setting_quantity_to_zero_removes_entry_in_session(self):
+        self.test_added_product_to_cart_are_in_session()
+        self.client.get(reverse('set_product_quantity',
+                                           kwargs=dict(product=1, quantity=0)))
+        response = self.client.get(reverse('get_cart'))
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'),
+            {'products': [], 'total': 0, })

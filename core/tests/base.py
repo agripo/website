@@ -1,9 +1,13 @@
 from django.test import TestCase
 
 from core.models import ProductCategory, AgripoUser as User, Product
+from core.models import SiteConfiguration
 
 
 class CoreTestCase(TestCase):
+
+    def setUp(self):
+        self.config = SiteConfiguration.objects.get()
 
     def not_implemented(self):
         self.fail("Test not implemented yet")

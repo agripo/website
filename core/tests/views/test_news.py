@@ -4,11 +4,8 @@ from django.utils import timezone
 import datetime
 
 from core.tests.views.base import ViewsBaseTestCase
-from core.models import AgripoUser as User, News, SiteConfiguration, Icon
+from core.models import AgripoUser as User, News, Icon
 from core.icons import UNUSED_ICON
-
-config = SiteConfiguration.objects.get()
-NUMBER_OF_NEWS_BY_PAGE = config.news_count
 
 
 class NewsViewsTest(ViewsBaseTestCase):
@@ -35,17 +32,22 @@ class NewsViewsTest(ViewsBaseTestCase):
             self.insert_news(title.format(i), content.format(i), writer, publication_date=publication_date)
 
     def test_display_all_news_if_less_than_pagination(self):
-        self.insert_x_news(NUMBER_OF_NEWS_BY_PAGE, "News #{}", "Content for #{}")
+        number_of_news = self.config.news_count
+        self.insert_x_news(number_of_news, "News #{}", "Content for #{}")
         response = self.client.get(reverse('news_page'))
         self.assertContains(response, "News #{}".format(0))
-        self.assertContains(response, "News #{}".format(NUMBER_OF_NEWS_BY_PAGE - 1))
+        self.assertContains(response, "News #{}".format(number_of_news - 1))
 
     def test_display_max_news_if_more_than_pagination(self):
-        self.insert_x_news(NUMBER_OF_NEWS_BY_PAGE + 5, "One news title", "Content for #{}")
+        number_of_news = self.config.news_count
+        self.insert_x_news(number_of_news + 5, "One news title", "Content for #{}")
         response = self.client.get(reverse('news_page'))
-        self.assertContains(response, 'One news title', NUMBER_OF_NEWS_BY_PAGE + 3)  # There are 3 boxes in the bottom module
+        self.assertContains(response, 'One news title', number_of_news + 3)  # There are 3 boxes in the bottom module
 
-    def fill_with_entries(self, entries_count=NUMBER_OF_NEWS_BY_PAGE + 10):
+    def fill_with_entries(self, entries_count=0):
+        if entries_count == 0:
+            entries_count = self.config.news_count + 10
+
         writer = self.create_writer_if_none(None)
         for i in range(1, entries_count + 1):
             pub = timezone.now() - timezone.timedelta(i - 5)
@@ -57,8 +59,9 @@ class NewsViewsTest(ViewsBaseTestCase):
         return self.client.get(reverse('news_page') + "?page=" + str(page_num))
 
     def test_display_recent_entries(self):
+        number_of_news = self.config.news_count
         response = self.fill_with_entries_and_get_page()
-        for i in range(5, NUMBER_OF_NEWS_BY_PAGE + 5):
+        for i in range(5, number_of_news + 5):
             self.assertContains(response, "News #{}".format(i))
 
     def test_future_entries(self):
@@ -66,12 +69,14 @@ class NewsViewsTest(ViewsBaseTestCase):
         self.assertNotContains(response, "News #{}".format(4))
 
     def test_hide_older_entries_from_front_page(self):
+        number_of_news = self.config.news_count
         response = self.fill_with_entries_and_get_page()
-        self.assertNotContains(response, "News #{}".format(6 + NUMBER_OF_NEWS_BY_PAGE))
+        self.assertNotContains(response, "News #{}".format(6 + number_of_news))
 
     def test_display_older_posts_on_following_pagination_pages(self):
+        number_of_news = self.config.news_count
         response = self.fill_with_entries_and_get_page(2)
-        self.assertContains(response, "News #{}".format(6 + NUMBER_OF_NEWS_BY_PAGE))
+        self.assertContains(response, "News #{}".format(6 + number_of_news))
 
     def test_context_contains_reference_to_older_entry(self):
         self.fill_with_entries(5)

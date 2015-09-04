@@ -18,26 +18,21 @@ function dom_is_loaded($){
     }
 }
 
-/* news module rotation */
-call_after_dom_is_loaded(function($){
-    active_news = 0;
-    loop_around_the_news = true
-    news = $('input[name="shown_news"]');
-    next_news = function(){
-        if(loop_around_the_news) {
-            active_news += 1;
-            if(active_news > 2){
-                active_news = 0;
-            }
-            news[active_news].checked = true;
-            window.setTimeout(next_news, NEWS_MODULE_ROTATION_DELAY);
-        }
-    };
+/* Shop add to cart */
+call_after_dom_is_loaded(function(){
+    $("form.add_to_cart").submit(function(ev){
+        form = ev.target.closest("form");
+        id = $(form).find('input[name="id"]').val();
+        quantity = $(form).find('input[name="quantity"]').val();
 
-    window.setTimeout(next_news, NEWS_MODULE_ROTATION_DELAY);
-    $('.one_news_selector').click(function(){
-        loop_around_the_news = false;
-    })
+        $.GET('')
+
+        $(form).find('.add_to_cart_confirm_message').fadeIn();
+        window.setTimeout(function(){
+            $(form).find('.add_to_cart_confirm_message').fadeOut();
+        }, 5000);
+        return false;
+    });
 });
 
 /* Cookies notification */

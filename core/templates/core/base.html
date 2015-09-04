@@ -86,7 +86,10 @@
 
             <!-- and the vertical menu on the right -->
             <div class="col-md-4">
-                <div class="panel panel-default">
+                <script>
+                    set_product_quantity_link = '{% url "set_product_quantity" product="00000" quantity="00000" %}'
+                </script>
+                <div class="panel panel-default shop_cart_module">
                     <div class="panel-heading">
                         <i class="fa fa-shopping-cart"></i>
                         Panier
@@ -98,30 +101,29 @@
                             {% else %}
                                 <p>Bienvenue {{ user.email }} !</p>
                             {% endif %}
+                            <p>
+                                <a class="btn navbar-btn" id="id_logout" href="{% url 'logout' %}">
+                                    <i class="fa fa-sign-out"></i>
+                                    Déconnexion
+                                </a>
+                            </p>
                             <hr />
                             <h4>Contenu de votre panier</h4>
-                            <ul>
-                                <li>
-                                    2kg de Manioc, 1800 XAF
+                            <p class="cart_is_empty" {% if not cart.empty %}style="display:none"{% endif %}>
+                                Votre panier est vide
+                            </p>
+                            <ul class="cart_contents">
+                            </ul>
+                            <ul class="cart_contents_model" style="display:none">
+                                <li data-product-id="[id]">
+                                    [quantity][unit] de [product], [price] XAF
                                     <a class="btn" href="#">
                                         <i class="fa fa-trash"></i> Delete
                                     </a>
                                 </li>
-                                <li>
-                                    3kg de Bananes, 3500 XAF
-                                    <a class="btn" href="#">
-                                      <i class="fa fa-trash"></i> Delete
-                                    </a>
-                                </li>
-                                <li>
-                                    1kg de noix, 2400 XAF
-                                    <a class="btn" href="#">
-                                      <i class="fa fa-trash"></i> Delete
-                                    </a>
-                                </li>
                             </ul>
                             <p>
-                                Total : <strong>6700 XAF</strong>
+                                Total : <strong id="cart_module_total">0 XAF</strong>
                             </p>
                             <hr />
                             <h4>Poursuivre votre commande</h4>

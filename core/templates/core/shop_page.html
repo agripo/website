@@ -16,6 +16,17 @@
                 text-align: center;
                 margin-right: 5px;
             }
+            .add_to_cart_confirm_message {
+                display: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            .add_to_cart_confirm_message .fa{
+                color: limegreen;
+            }
+            .add_to_cart_not_available .fa{
+                color: red;
+            }
         </style>
         <div class="col-md-12">
             <h1>Bienvenue dans notre boutique</h1>
@@ -43,16 +54,25 @@
                                         {{ product.price }}&nbsp;FCFA
                                     </p>
                                     {% if prod.is_available %}
-                                        <form action="#">
+                                        <form action="{% url "requires_js" %}?back={{ request.get_full_path }}" method="post" class="add_to_cart">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ prod.id }}"/>
                                             <p>En stock</p>
-                                            <p>
+                                            <p class="add_to_cart_form">
                                                 Quantité achetée :
-                                                <input name="quantity" value="{{ prod.get_cart_quantity }}" style="width:100px;" placeholder="Quantité" type="number"/>
+                                                <input name="quantity" value="{{ prod.get_cart_quantity }}" type="number" style="width:100px;" placeholder="Quantité" type="number"/>
                                                 <input type="submit" value="OK"/>
+                                            </p>
+                                            <p class="add_to_cart_confirm_message">
+                                                <i class="fa fa-check"></i>
+                                                Panier mis à jour avec succès
                                             </p>
                                         </form>
                                     {% else %}
-                                        <p>Produit indisponible pour le moment</p>
+                                        <p class="add_to_cart_not_available">
+                                            <i class="fa fa-exclamation"></i>
+                                            Produit indisponible pour le moment
+                                        </p>
                                     {% endif %}
                                 </div>
                             </div>
