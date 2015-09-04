@@ -134,9 +134,10 @@ class FunctionalTest(StaticLiveServerTestCase):
         WebDriverWait(self.browser, timeout=timeout).until(
             lambda b: b.find_element_by_id(element_id),
             'Could not find element with id {}. Page text was:\n{}'.format(
-                element_id, self.browser.find_element_by_tag_name('body').text
+                element_id, self.browser.find_element_by_id(element_id)
             )
         )
+        return self.browser.find_element_by_id(element_id)
 
     def click_link(self, link, timeout=10):
         if timeout > 0:
@@ -193,14 +194,17 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.get("{}{}".format(self.server_url, page))
         return self.wait_for(lambda: self.browser.find_element_by_id(searched_element), timeout)
 
-    def show_admin_page(self, *args):
-        self.show_page('admin/', searched_element="user-tools")
-        next_page = '/admin/'
-        for arg in args:
-            next_page += arg + "/"
-            self.click_link(next_page, timeout=10)
+    def show_admin_page(self, *args, directly=False):
+        if not directly:
+            self.show_page('admin/', searched_element="user-tools")
+            next_page = '/admin/'
+            for arg in args:
+                next_page += arg + "/"
+                self.click_link(next_page, timeout=10)
+        else:
+            self.show_page('admin/{}/'.format("/".join(args)), searched_element="user-tools")
 
-    def create_autoconnected_session(self, email, as_manager=False):
+    def create_autoconnected_session(self, email, as_manager=False, as_farmer=False):
         active_page = self.browser.current_url
         # We visit the page that immediately creates the session :
         if as_manager:
@@ -209,10 +213,11 @@ class FunctionalTest(StaticLiveServerTestCase):
         else:
             page = 'auto_login'
             connected_as = "user"
-        self.browser.get("{}/core/{}/{}".format(self.server_url, page, email))
+        self.browser.get("{}/core/{}/{}?as_farmer={}".format(self.server_url, page, email, as_farmer))
         # We check that we are authenticated
         body = self.browser.find_element_by_css_selector('body')
         self.assertEqual("{} is connected as {}".format(email, connected_as), body.text)
+
         # We go back to previous page or home page if there was none
         if active_page != "about:blank":
             self.browser.get(active_page)
