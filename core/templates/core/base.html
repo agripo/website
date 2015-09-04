@@ -86,48 +86,70 @@
 
             <!-- and the vertical menu on the right -->
             <div class="col-md-4">
-                {% if user.id %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-shopping-cart"></i>
-                            Panier
-                        </div>
-                        <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-shopping-cart"></i>
+                        Panier
+                    </div>
+                    <div class="panel-body">
+                        {% if user.id %}
                             {% if user.first_name %}
                                 <p>Bienvenue {{ user.first_name }} {{ user.last_name }} !</p>
                             {% else %}
                                 <p>Bienvenue {{ user.email }} !</p>
                             {% endif %}
+                            <hr />
+                            <h4>Contenu de votre panier</h4>
+                            <ul>
+                                <li>
+                                    2kg de Manioc, 1800 XAF
+                                    <a class="btn" href="#">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </a>
+                                </li>
+                                <li>
+                                    3kg de Bananes, 3500 XAF
+                                    <a class="btn" href="#">
+                                      <i class="fa fa-trash"></i> Delete
+                                    </a>
+                                </li>
+                                <li>
+                                    1kg de noix, 2400 XAF
+                                    <a class="btn" href="#">
+                                      <i class="fa fa-trash"></i> Delete
+                                    </a>
+                                </li>
+                            </ul>
                             <p>
-                                <a class="btn navbar-btn" id="id_logout" href="{% url 'logout' %}">
-                                    <i class="fa fa-sign-out"></i>
-                                    Déconnexion
-                                </a>
+                                Total : <strong>6700 XAF</strong>
                             </p>
+                            <hr />
+                            <h4>Poursuivre votre commande</h4>
+                            {% url 'shop_page' as shop_url %}
+                            {% if request.get_full_path != shop_url %}
+                                <p>
+                                    <a class="btn" id="id_checkout" href="{{ shop_url }}">
+                                        <i class="fa fa-pencil"></i>
+                                        Modifier votre commande
+                                    </a>
+                                </p>
+                            {% endif %}
                             <p>
-                                2kg de Manioc, 3kg de Bananes, 1L d'huile de palme, 2kg de noix,
-                                2kg de fèves de cacao, 1L de jus de cacao, 1kg d'avocat, 2kg de citron
-                                1kg de bitter-cola et 1kg de mandarine.<br />
-                                Total : 6700 XAF
-                            </p>
-                            <p>
-                                <a class="btn navbar-btn" id="id_checkout" href="#">
+                                <a class="btn" id="id_checkout" href="#">
                                     <i class="fa fa-check"></i>
                                     Valider la commande
                                 </a>
                             </p>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-sign-in"></i>
-                            Se connecter grâce à
-                        </div>
-                        <div class="panel-body">
+                        {% else %}
                             <p>
                                 {% load socialaccount %}
                                 {% providers_media_js %}
+                                <p>
+                                    Connectez-vous pour profiter de notre boutique en ligne.
+                                </p>
+                                <p>
+                                    Se connecter avec :
+                                </p>
                                 {% if show_facebook_connector %}
                                     <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="js_sdk" %}">
                                         <i class="fa fa-facebook-official"></i>
@@ -140,9 +162,9 @@
                                     Votre adresse email
                                 </a>
                             </p>
-                        </div>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
 
                 <!-- Partners block, if needed -->
                 <div class="panel panel-default">
