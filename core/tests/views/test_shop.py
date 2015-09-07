@@ -72,6 +72,52 @@ class ShopViewTest(ViewsBaseTestCase):
         self._shop_page_contains('input name="quantity"', 10)
 
 
+class ShopCheckoutTest(ViewsBaseTestCase):
+
+    def test_cant_display_checkout_page_without_products_in_the_cart(self):
+        response = self.client.get(reverse('checkout'))
+        self.assertRedirects(response, reverse("shop_page"), 302)
+
+    def test_checkout_form_uses_right_template(self):
+        insert_random_product(stock=1, price=100)
+        self.client.get(reverse('set_product_quantity', kwargs=dict(product=1, quantity=1)))
+        response = self.client.get(reverse('checkout'))
+        self.assertTemplateUsed(response, 'core/checkout.html')
+
+    def _add_products_to_cart(self, number):
+        rep = dict(total=0, products=[])
+        for i in range(1, number + 1):
+            insert_random_product(stock=i, price=i * 100)
+            self.client.get(reverse('set_product_quantity', kwargs=dict(product=i, quantity=i)))
+            rep['total'] += i * i * 100
+            rep['products'].append(dict(quantity=i, product=Product.objects.get(pk=i)))
+
+        return rep
+
+    def test_display_right_products(self):
+        cart = self._add_products_to_cart(3)
+        response = self.client.get(reverse('checkout'))
+        for prod in cart['products']:
+            self.assertContains(response, 'id="bought_product_{}"'.format(prod['product'].id))
+
+    def test_display_products_unit_prices(self):
+        cart = self._add_products_to_cart(3)
+        response = self.client.get(reverse('checkout'))
+        for prod in cart['products']:
+            self.assertContains(response, '{} XAF'.format(prod['product'].price))
+
+    def test_display_products_quantity_prices(self):
+        cart = self._add_products_to_cart(3)
+        response = self.client.get(reverse('checkout'))
+        for prod in cart['products']:
+            self.assertContains(response, '{} XAF'.format(prod['product'].price * prod['quantity']))
+
+    def test_display_right_total_price(self):
+        cart = self._add_products_to_cart(3)
+        response = self.client.get(reverse('checkout'))
+        self.assertContains(response, '{} XAF'.format(cart['total']))
+
+
 class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
 
     def test_cant_add_product_with_no_stock(self):

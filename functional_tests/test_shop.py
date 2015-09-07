@@ -108,8 +108,7 @@ class ShopPageTest(FunctionalTest):
         self.add_products_to_cart(1, 1)  # the first's quantity is changed to 1
 
         # He clicks the validation button
-        self.browser.find_element_by_id('id_checkout').click()
-        self.wait_for_element_with_id("checkout_form")
+        self.click_link(reverse('checkout'))
 
         # He selects his destination (Yaoundé), and gets a confirmation for his command
         self.dev_point(5)

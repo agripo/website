@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'using_cookies_accepted/$', views.using_cookies_accepted, name="using_cookies_accepted"),
     url(r'news/$', views.NewsListPage.as_view(), name="news_page"),
     url(r'shop/$', views.ShopPage.as_view(), name="shop_page"),
+    url(r'shop/checkout$', views.checkout, name="checkout"),
     url(r'shop/get_cart$', views.get_cart, name="get_cart"),
     url(r'^shop/set_product_quantity/(?P<product>[0-9]+)/(?P<quantity>[0-9]+)/', views.set_product_quantity,
         name="set_product_quantity"),

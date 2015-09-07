@@ -109,7 +109,7 @@
                                 </a>
                             </p>
                             <hr />
-                            <h4>Contenu de votre panier</h4>
+                            <h4>Votre panier</h4>
                             <p id="cart_is_empty" style="display:none"t_>
                                 Votre panier est vide
                             </p>
@@ -126,22 +126,25 @@
                                 Total : <strong id="cart_module_total"><span>0</span> XAF</strong>
                             </p>
                             <hr />
-                            <h4>Poursuivre votre commande</h4>
+                            <h4>Votre commande</h4>
                             {% url 'shop_page' as shop_url %}
                             {% if request.get_full_path != shop_url %}
                                 <p>
-                                    <a class="btn" id="id_checkout" href="{{ shop_url }}">
+                                    <a class="btn" id="id_checkout" href="{% url "shop_page" %}">
                                         <i class="fa fa-pencil"></i>
                                         Modifier votre commande
                                     </a>
                                 </p>
                             {% endif %}
-                            <p>
-                                <a class="btn" id="id_checkout" href="#">
-                                    <i class="fa fa-check"></i>
-                                    Valider la commande
-                                </a>
-                            </p>
+                            {% url 'checkout' as checkout_url %}
+                            {% if request.get_full_path != checkout_url %}
+                                <p>
+                                    <a class="btn" id="id_checkout" href="{% url "checkout" %}">
+                                        <i class="fa fa-check"></i>
+                                        Valider la commande
+                                    </a>
+                                </p>
+                            {% endif %}
                         {% else %}
                             <p>
                                 {% load socialaccount %}

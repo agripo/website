@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
+from django.core.urlresolvers import reverse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
@@ -46,6 +47,25 @@ def set_product_quantity(request, product=0, quantity=0):
             data = {"new_quantity": quantity}
 
     return JsonResponse(data)
+
+
+def checkout(request):
+    cart_products = Product.static_get_cart_products()
+    if not cart_products:
+        return HttpResponseRedirect(reverse("shop_page"))
+
+    template_name = "core/checkout.html"
+    context = {'products': [], 'total': 0}
+    for product in cart_products:
+        product_data = Product.objects.get(id=product['id'])
+        product_total = product['quantity'] * product_data.price
+        context['products'].append({
+            'product': product_data,
+            'quantity': product['quantity'],
+            'total': product_total})
+        context['total'] += product_total
+
+    return render(request, template_name, context)
 
 
 class RequiresJs(TemplateView):
