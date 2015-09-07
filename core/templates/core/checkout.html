@@ -36,6 +36,7 @@
                 #checkout_recap td:first-child{
                     width: 58%;
                     text-align: left;
+                    padding: 2px;
                 }
                 #checkout_recap th:nth-child(3),
                 #checkout_recap td:nth-child(3){
@@ -53,6 +54,7 @@
                     {% for product in products %}
                         <tr id="bought_product_{{ product.product.id }}">
                             <td>
+                                <img src="/media/{{ product.product.image }}" style="width: 2em"/>
                                 {{ product.product.name }}
                             </td>
                             <td>
