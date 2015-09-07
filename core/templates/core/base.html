@@ -87,7 +87,8 @@
             <!-- and the vertical menu on the right -->
             <div class="col-md-4">
                 <script>
-                    set_product_quantity_link = '{% url "set_product_quantity" product="00000" quantity="00000" %}'
+                    URL_ADD_TO_CART = "{% url "set_product_quantity" "111111" "222222" %}";
+                    URL_GET_CART = "{% url "get_cart" %}";
                 </script>
                 <div class="panel panel-default shop_cart_module">
                     <div class="panel-heading">
@@ -109,21 +110,20 @@
                             </p>
                             <hr />
                             <h4>Contenu de votre panier</h4>
-                            <p class="cart_is_empty" {% if not cart.empty %}style="display:none"{% endif %}>
+                            <p id="cart_is_empty" style="display:none"t_>
                                 Votre panier est vide
                             </p>
-                            <ul class="cart_contents">
+                            <ul id="cart_contents">
+                                <li>Javascript doit être activé pour pouvoir utiliser le panier</li>
                             </ul>
-                            <ul class="cart_contents_model" style="display:none">
-                                <li data-product-id="[id]">
-                                    [quantity][unit] de [product], [price] XAF
-                                    <a class="btn" href="#">
-                                        <i class="fa fa-trash"></i> Delete
-                                    </a>
+                            <ul id="cart_contents_model" style="display:none">
+                                <li data-product-id="ID">
+                                    <strong>QUANTITY</strong> × <strong>NAME</strong>, PRICE XAF
+                                    <!--<a class="btn" href="#"><i class="fa fa-trash"></i></a>-->
                                 </li>
                             </ul>
-                            <p>
-                                Total : <strong id="cart_module_total">0 XAF</strong>
+                            <p id="cart_total">
+                                Total : <strong id="cart_module_total"><span>0</span> XAF</strong>
                             </p>
                             <hr />
                             <h4>Poursuivre votre commande</h4>

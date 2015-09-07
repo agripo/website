@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait, Select
-from selenium.common.exceptions import WebDriverException, TimeoutException
+from selenium.common.exceptions import WebDriverException, TimeoutException, ElementNotVisibleException
 from faker import Factory as FakerFactory
 from django.utils import timezone
 from django.core.urlresolvers import reverse
@@ -91,6 +91,15 @@ class FunctionalTest(StaticLiveServerTestCase):
 
         self.fail("Active development pointer")
 
+    def assert_is_hidden(self, element_id, by='id'):
+        try:
+            if by == 'id':
+                el = self.browser.find_element_by_id(element_id)
+            el.click()
+            self.fail("Element {} should have been hidden")
+        except ElementNotVisibleException:
+            pass
+
     def admin_save(self, next_page=None):
         self.browser.find_element_by_css_selector('input[name="_save"]').click()
         # We wait for the confirmation to show up
@@ -133,9 +142,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for_element_with_id(self, element_id, timeout=30):
         WebDriverWait(self.browser, timeout=timeout).until(
             lambda b: b.find_element_by_id(element_id),
-            'Could not find element with id {}. Page text was:\n{}'.format(
-                element_id, self.browser.find_element_by_id(element_id)
-            )
+            'Could not find element with id {}.'.format(element_id)
         )
         return self.browser.find_element_by_id(element_id)
 

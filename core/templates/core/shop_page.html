@@ -16,6 +16,8 @@
                 text-align: center;
                 margin-right: 5px;
             }
+            .add_to_cart_not_enough_stock_message,
+            .add_to_cart_no_stock_message,
             .add_to_cart_confirm_message {
                 display: none;
                 margin-bottom: 0;
@@ -24,6 +26,8 @@
             .add_to_cart_confirm_message .fa{
                 color: limegreen;
             }
+            .add_to_cart_not_enough_stock_message .fa,
+            .add_to_cart_no_stock_message .fa,
             .add_to_cart_not_available .fa{
                 color: red;
             }
@@ -54,7 +58,7 @@
                                         {{ product.price }}&nbsp;FCFA
                                     </p>
                                     {% if prod.is_available %}
-                                        <form action="{% url "requires_js" %}?back={{ request.get_full_path }}" method="post" class="add_to_cart">
+                                        <form action="{% url "requires_js" %}?back={{ request.get_full_path }}" method="post" class="add_to_cart" onsubmit="return false">
                                             {% csrf_token %}
                                             <input type="hidden" name="id" value="{{ prod.id }}"/>
                                             <p>En stock</p>
@@ -66,6 +70,14 @@
                                             <p class="add_to_cart_confirm_message">
                                                 <i class="fa fa-check"></i>
                                                 Panier mis à jour avec succès
+                                            </p>
+                                            <p class="add_to_cart_not_enough_stock_message">
+                                                <i class="fa fa-exclamation"></i>
+                                                Quantité en stock insuffisante. Veuillez limiter votre commande à QUANTITY unités.
+                                            </p>
+                                            <p class="add_to_cart_no_stock_message">
+                                                <i class="fa fa-exclamation"></i>
+                                                Produit indisponible
                                             </p>
                                         </form>
                                     {% else %}

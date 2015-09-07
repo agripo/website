@@ -4,7 +4,7 @@ import time
 from .base import FunctionalTest
 from django.core.urlresolvers import reverse
 from .page_shop import ShopPage
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -12,7 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 class ShopPageTest(FunctionalTest):
 
-    def add_products_to_cart(self, number):
+    def add_products_to_cart(self, number, quantity=1):
         all_products = self.browser.find_elements_by_css_selector('.one_product_category .one_product')
         count = 0
         for i in range(0, len(all_products)):
@@ -22,19 +22,17 @@ class ShopPageTest(FunctionalTest):
                 pass
             else:
                 prod.clear()
-                prod.send_keys('1')
+                prod.send_keys(quantity)
                 all_products[i].find_element_by_css_selector("input[type='submit']").click()
                 searched = ".add_to_cart_confirm_message"
                 WebDriverWait(all_products[i], timeout=10).until(
                     lambda b: b.find_element_by_css_selector(searched),
-                    'Could not find element with id {}. Page text was:\n{}'.format(
-                        searched, all_products[i].find_element_by_css_selector(searched)
-                    )
+                    'Could not find element with css selector "{}".'.format(searched)
                 )
 
                 count += 1
                 if count == number:
-                    break
+                    return prod
 
     def test_can_add_edit_command_products(self):
         faker = self.faker
@@ -46,6 +44,7 @@ class ShopPageTest(FunctionalTest):
 
         # Alpha gets connected as manager after having gone to the shop page
         shop = ShopPage(self).show()
+
         self.create_autoconnected_session(user_alpha_email, as_manager=True, as_farmer=True)
 
         # He goes to the products edition page
@@ -59,7 +58,7 @@ class ShopPageTest(FunctionalTest):
         self.browser.find_element_by_id(shop.id_field_price).send_keys('100')
         self.admin_save('/admin/core/product/')
 
-        # He then adds som stock for two products
+        # He then adds some stock for two products
         go_directly = False
         for i in range(2, 6):
             self.show_admin_page("core", 'stock', 'add', directly=go_directly)
@@ -82,34 +81,31 @@ class ShopPageTest(FunctionalTest):
             found, "New product not found on shop page (searched '{}')".format(the_product_name))
 
         # He sees his cart is empty
-        self.assertContains(page, "Votre panier est vide")
+        self.browser.find_element_by_id("cart_is_empty")  # should not raise
 
         # He adds two products to his cart
         self.add_products_to_cart(2)
 
         # He sees that those items are listed in his cart
-        self.assertNotContains(page, "Votre panier est vide")
-        cart_products = self.browser.find_elements_by_css_selector('ul.cart_contents li')
+        self.assert_is_hidden("cart_is_empty")
+        cart_products = self.browser.find_elements_by_css_selector('#cart_contents li')
         self.assertEqual(len(cart_products), 2)
 
         # He deletes a product from his cart
-        first = cart_products[0]
-        first.find_element_by_tag_name("a").click()
-        self.wait_for_element_with_id("product_removed_successfully")
-        self.assertNotContains(page, "Votre panier est vide")
+        self.add_products_to_cart(1, quantity=0)
+        self.assert_is_hidden("cart_is_empty")
 
         # He sees there still is one
-        all_products = self.browser.find_elements_by_css_selector('.one_product_category .one_product')
-        self.assertEqual(len(all_products), 1)
+        cart_products = self.browser.find_elements_by_css_selector('#cart_contents li')
+        self.assertEqual(len(cart_products), 1)
 
-        # He deletes the other product from his cart, which gives him an empty cart
-        first = cart_products[1]
-        first.find_element_by_tag_name("a").click()
-        self.wait_for_element_with_id("product_removed_successfully")
-        self.assertContains(page, "Votre panier est vide")
+        # He deletes the other product from his cart, which gives him back an empty cart
+        self.add_products_to_cart(2, quantity=0)
+        self.browser.find_element_by_id("cart_is_empty")  # should not raise
 
         # He adds again two products
-        self.add_products_to_cart(2)
+        self.add_products_to_cart(2, 2)  # two products with quantity = 2
+        self.add_products_to_cart(1, 1)  # the first's quantity is changed to 1
 
         # He clicks the validation button
         self.browser.find_element_by_id('id_checkout').click()
