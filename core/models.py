@@ -110,6 +110,9 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(
         default=0,
         help_text="Champ alimenté automatiquement en fonction des déclarations des fermiers.")
+    bought = models.PositiveIntegerField(
+        default=0,
+        help_text="Champ alimenté automatiquement en fonction des commandes passées")
 
     def __str__(self):
         return "{} : {}".format(self.id, self.name)
@@ -139,13 +142,23 @@ class Product(models.Model):
         else:
             session[self._get_session_key()] = quantity
 
+        return self
+
     def get_cart_quantity(self):
         if self._get_session_key() in session:
             return session[self._get_session_key()]
         return 0
 
+    def buy(self, quantity):
+        if self.available_stock() < quantity:
+            raise AddedMoreToCartThanAvailable()
+
+        self.bought += quantity
+        self.save()
+        return self
+
     def available_stock(self):
-        return self.stock
+        return self.stock - self.bought
 
     def is_available(self):
         return self.available_stock() > 0
@@ -261,3 +274,58 @@ class Stock(models.Model):
         self.product.save()
         self._active_stock = stock
         return self
+
+
+class DeliveryPoint(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+    description = models.TextField(max_length=512)
+
+
+class Delivery(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    delivery_point = models.ForeignKey(DeliveryPoint)
+
+
+class Command(models.Model):
+    """
+    A command is the listing of the products for one customer in one delivery
+    """
+    customer = models.ForeignKey(AgripoUser)
+    delivery = models.ForeignKey(Delivery)
+    date = models.DateTimeField(auto_now_add=True)
+    products = models.ManyToManyField(Product, through="CommandProduct")
+    sent = models.BooleanField(default=False)
+
+    def validate(self):
+        # We get the products from the cart
+        products = Product.static_get_cart_products()
+        for product in products:
+            the_product = Product.objects.get(id=product['id'])
+            cp = CommandProduct(command=self, product=the_product, quantity=product['quantity'])
+            cp.save()
+            the_product.buy(product['quantity'])
+
+        Product.clear_cart()
+
+    def is_sent(self):
+        return self.sent
+
+    def send(self):
+        self.sent = True
+        self.save()
+        return self
+
+
+class CommandProduct(models.Model):
+    command = models.ForeignKey(Command)
+    product = models.ForeignKey(Product)
+    quantity = models.PositiveSmallIntegerField()
+
+    def clean(self):
+        if self.quantity <= 0:
+            raise ValidationError('Quantity must be bigger than 0')
+
+        return super().clean()
+
+    class Meta:
+        unique_together = ('command', 'product', )

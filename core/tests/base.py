@@ -17,7 +17,10 @@ class CoreTestCase(TestCase):
         cat.save()
         return cat
 
-    def create_product(self, category, stock=0):
+    def create_product(self, category=None, stock=0):
+        if not category:
+            category = self.create_category()
+
         prod = Product(name="Product", category=category, price=100, stock=stock)
         prod.save()
         return prod
