@@ -186,7 +186,7 @@ class Product(models.Model):
         return ret
 
     @staticmethod
-    def clear_cart():
+    def static_clear_cart():
         pattern = re.compile("^{}$".format(Product.static_get_session_key("([0-9]+)")))
         for element in sorted(session.keys()):
             match = pattern.search(element)
@@ -280,21 +280,45 @@ class DeliveryPoint(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.TextField(max_length=512)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Lieu de livraison"
+        verbose_name_plural = "Lieux de livraison"
+
 
 class Delivery(models.Model):
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
     delivery_point = models.ForeignKey(DeliveryPoint)
+
+    def __str__(self):
+        return "{} à {}".format(self.date.strftime("Le %d/%m à %Hh%M"), self.delivery_point.name)
+
+    class Meta:
+        verbose_name = "Date de livraison"
+        verbose_name_plural = "Dates de livraison"
+
+
+class CustomerData(models.Model):
+    customer = models.OneToOneField(AgripoUser)
+    phone = models.CharField(max_length=15)
 
 
 class Command(models.Model):
     """
     A command is the listing of the products for one customer in one delivery
     """
-    customer = models.ForeignKey(AgripoUser)
-    delivery = models.ForeignKey(Delivery)
+    customer = models.ForeignKey(AgripoUser, null=True)
+    delivery = models.ForeignKey(Delivery, verbose_name="Lieu de livraison",
+                                 help_text="Sélectionnez le lieu de livraison")
     date = models.DateTimeField(auto_now_add=True)
     products = models.ManyToManyField(Product, through="CommandProduct")
     sent = models.BooleanField(default=False)
+    message = models.TextField(
+        max_length=256, null=True, default="", verbose_name="Message",
+        help_text="Informations supplémentaires en rapport avec votre commande")
+    total = models.PositiveIntegerField(default=0)
 
     def validate(self):
         # We get the products from the cart
@@ -305,7 +329,7 @@ class Command(models.Model):
             cp.save()
             the_product.buy(product['quantity'])
 
-        Product.clear_cart()
+        Product.static_clear_cart()
 
     def is_sent(self):
         return self.sent

@@ -82,8 +82,29 @@
         <div class="panel-heading">
             <h4>Vos données</h4>
         </div>
+        <style>
+            textarea.textarea-3-lines{
+                height: 5em;
+            }
+        </style>
         <div class="panel-body">
-            bla
+            <form method="post" role="form">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div style="text-align: center">
+                        <a href="{% url "shop_page" %}">
+                            <button type="button" class="btn btn-danger">
+                                <i class="fa fa-arrow-left"></i>
+                                Retourner dans la boutique
+                            </button>
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i> Valider la commande
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}

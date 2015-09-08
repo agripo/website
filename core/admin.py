@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import News, Product, Stock, ProductCategory
+from core.models import News, Product, Stock, ProductCategory, Delivery, DeliveryPoint
 from solo.admin import SingletonModelAdmin
 from core.models import SiteConfiguration
 
@@ -51,8 +51,21 @@ class StockAdmin(admin.ModelAdmin):
     list_filter = ['farmer', 'product', ]
 
 
+class DeliveryPointAdmin(admin.ModelAdmin):
+    fields = ['name', 'description', ]
+
+
+class DeliveryAdmin(admin.ModelAdmin):
+    fields = ['date', 'delivery_point']
+    list_display = ['date', 'delivery_point']
+    list_filter = ['date']
+
+
+
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(News, NewsAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductCategory, ProductCategoryAdmin)
 admin.site.register(Stock, StockAdmin)
+admin.site.register(Delivery, DeliveryAdmin)
+admin.site.register(DeliveryPoint, DeliveryPointAdmin)

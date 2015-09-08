@@ -1,6 +1,7 @@
 from core.exceptions import AddedMoreToCartThanAvailable
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.utils import timezone
 
 from core.tests.base import CoreTestCase
 from core.models import ProductCategory, Product, DeliveryPoint, Delivery, Command, CommandProduct
@@ -12,12 +13,21 @@ class ShopCoreTestCase(CoreTestCase):
 
 class DeliveryModelTest(ShopCoreTestCase):
 
+    def test_has_an_explicit__str__(self):
+        dp = self.create_delivery_point(name="Point")
+        self.assertNotEquals(dp.__str__(), 'DeliveryPoint object')
+
     def test_must_have_a_deliverypoint(self):
         d = Delivery()
         self.assertRaises(IntegrityError, d.save)
 
 
 class DeliveryPointModelTest(ShopCoreTestCase):
+
+    def test_has_an_explicit__str__(self):
+        dp = self.create_delivery_point(name="Point")
+        d = Delivery(date=timezone.now(), delivery_point=dp)
+        self.assertNotEquals(d.__str__(), 'Delivery object')
 
     def test_fullname_is_unique(self):
         dp = DeliveryPoint(name="One name")
@@ -29,8 +39,9 @@ class DeliveryPointModelTest(ShopCoreTestCase):
 class CommandProductModelTest(ShopCoreTestCase):
 
     def test_quantity_cant_be_0(self):
+        product = self.create_product(stock=5)
+        product.set_cart_quantity(2)
         command = self.create_command()
-        product = self.create_product()
         cp = CommandProduct(command=command, product=product, quantity=0)
         with self.assertRaises(ValidationError):
             cp.full_clean()
@@ -58,11 +69,11 @@ class CommandModelTest(ShopCoreTestCase):
             command.full_clean()
 
     def _validate_command(self, product=None, available_quantity=10, bought_quantity=5):
-        command = self.create_command()
         if not product:
             product = self.create_product(stock=available_quantity)
 
         product.set_cart_quantity(bought_quantity)  # should not raise
+        command = self.create_command()
         command.validate()
         return command
 
@@ -84,8 +95,8 @@ class CommandModelTest(ShopCoreTestCase):
 
     def test_cant_validate_command_when_stock_isnt_enough(self):
         product = self.create_product(stock=10)
-        command = self.create_command()
         product.set_cart_quantity(10)
+        command = self.create_command()
         product.stock = 8
         product.save()
 

@@ -1,3 +1,4 @@
+from core.forms import CheckoutForm
 from django.test import TestCase
 
 from core.models import ProductCategory, AgripoUser as User, Product, DeliveryPoint, Delivery, Command
@@ -29,13 +30,17 @@ class CoreTestCase(TestCase):
     def create_command(self, user=None, delivery=None, delivery_point_name="One delivery point"):
         if not user:
             user = self.create_user()
+
         if not delivery:
             delivery = self.create_delivery(delivery_point_name=delivery_point_name)
 
-        command = Command(delivery=delivery, customer=user)
-        command.full_clean()
-        command.save()
+        if not Product.static_get_cart_products():
+            product = self.create_product(stock=5)
+            product.save()
+            product.set_cart_quantity(2)
 
+        command = Command(delivery=delivery, customer=user)
+        command.save()
         return command
 
     def create_category(self):

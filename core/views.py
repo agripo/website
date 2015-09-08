@@ -2,14 +2,15 @@ from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse, HttpResponseRedirect
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, TemplateView, CreateView
 from django.utils import timezone
 from django.core.management import call_command
 
 import core.exceptions as core_exceptions
+from core.forms import CheckoutForm
 from core.authentication import is_production_server
-from core.models import SiteConfiguration, ProductCategory, News, SITECONF_DEFAULT_NEWS_COUNT, Product
+from core.models import SiteConfiguration, ProductCategory, News, SITECONF_DEFAULT_NEWS_COUNT, Product, Command
 
 
 def get_cart(request):
@@ -49,23 +50,42 @@ def set_product_quantity(request, product=0, quantity=0):
     return JsonResponse(data)
 
 
-def checkout(request):
-    cart_products = Product.static_get_cart_products()
-    if not cart_products:
-        return HttpResponseRedirect(reverse("shop_page"))
-
+class Checkout(CreateView):
+    model = Command
+    form_class = CheckoutForm
     template_name = "core/checkout.html"
-    context = {'products': [], 'total': 0}
-    for product in cart_products:
-        product_data = Product.objects.get(id=product['id'])
-        product_total = product['quantity'] * product_data.price
-        context['products'].append({
-            'product': product_data,
-            'quantity': product['quantity'],
-            'total': product_total})
-        context['total'] += product_total
 
-    return render(request, template_name, context)
+    def get_success_url(self):
+        return reverse("command_successfull")
+
+    def get_form_kwargs(self, **kwargs):
+        form_kwargs = super().get_form_kwargs(**kwargs)
+        form_kwargs["customer"] = self.request.user
+        return form_kwargs
+
+    def dispatch(self, request, *args, **kwargs):
+        cart_products = Product.static_get_cart_products()
+        if not cart_products:
+            return redirect(reverse("shop_page"))
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        cart_products = Product.static_get_cart_products()
+        context['products'] = []
+        context['total'] = 0
+        for product in cart_products:
+            product_data = Product.objects.get(id=product['id'])
+            product_total = product['quantity'] * product_data.price
+            context['products'].append({
+                'product': product_data,
+                'quantity': product['quantity'],
+                'total': product_total})
+            context['total'] += product_total
+
+        return context
 
 
 class RequiresJs(TemplateView):
