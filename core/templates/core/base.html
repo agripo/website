@@ -71,6 +71,21 @@
 
 {% include "core/boxes/social_lang.html" %}
 <br />
+
+{% if messages %}
+    <section id="messages_container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}
+
 <section id="main_content">
     <div class="container">
         <div class="row">
