@@ -4,41 +4,10 @@ from django.db import IntegrityError
 
 from core.tests.base import CoreTestCase
 from core.models import ProductCategory, Product, DeliveryPoint, Delivery, Command, CommandProduct
-from django.utils import timezone
 
 
 class ShopCoreTestCase(CoreTestCase):
-
-    def _create_delivery_point(self, name="One delivery point"):
-        dp = DeliveryPoint(name=name, description="On fridays, at 10 o'clock, in Yaoundé")
-        dp.save()
-        return dp
-
-    def _create_delivery(self, delivery_point=None, delivery_point_name="One delivery point"):
-        if not delivery_point:
-            delivery_point = self._create_delivery_point(name=delivery_point_name)
-
-        delivery = Delivery(date=timezone.now(), delivery_point=delivery_point)
-        delivery.save()
-        return delivery
-
-    def _create_command(self, user=None, delivery=None, delivery_point_name="One delivery point"):
-        if not user:
-            user = self.create_user()
-        if not delivery:
-            delivery = self._create_delivery(delivery_point_name=delivery_point_name)
-
-        command = Command(delivery=delivery, customer=user)
-        command.full_clean()
-        command.save()
-
-        return command
-
-    def _create_product(self):
-        cat = self.create_category()
-        prod = Product(category=cat, price=100)
-        prod.save()
-        return prod
+    pass
 
 
 class DeliveryModelTest(ShopCoreTestCase):
@@ -59,42 +28,37 @@ class DeliveryPointModelTest(ShopCoreTestCase):
 
 class CommandProductModelTest(ShopCoreTestCase):
 
-    def _test_quantity_cant_be_0(self):
-        command = self._create_command()
-        product = self._create_product()
-        cp = CommandProduct(command=command, product=product, quantity=0)
-        cp.full_clean()
-        cp.save()
-
     def test_quantity_cant_be_0(self):
-        self.assertRaises(ValidationError, self._test_quantity_cant_be_0)
+        command = self.create_command()
+        product = self.create_product()
+        cp = CommandProduct(command=command, product=product, quantity=0)
+        with self.assertRaises(ValidationError):
+            cp.full_clean()
 
 
 class CommandModelTest(ShopCoreTestCase):
 
     def test_user_may_have_multiple_commands_for_different_deliveries(self):
         user = self.create_user()
-        delivery = self._create_delivery(delivery_point_name="Point 1")
-        delivery2 = self._create_delivery(delivery_point_name="Point 2")
-        self._create_command(user=user, delivery=delivery)
-        self._create_command(user=user, delivery=delivery2)  # Should not raise
+        delivery = self.create_delivery(delivery_point_name="Point 1")
+        delivery2 = self.create_delivery(delivery_point_name="Point 2")
+        self.create_command(user=user, delivery=delivery)
+        self.create_command(user=user, delivery=delivery2)  # Should not raise
 
     def test_user_may_have_multiple_commands_for_same_delivery(self):
         user = self.create_user()
-        delivery = self._create_delivery()
-        self._create_command(user=user, delivery=delivery)
-        self._create_command(user=user, delivery=delivery)  # Should not raise
-
-    def _test_command_must_have_a_user_set(self):
-        delivery = self._create_delivery()
-        command = Command(delivery=delivery)
-        command.full_clean()
+        delivery = self.create_delivery()
+        self.create_command(user=user, delivery=delivery)
+        self.create_command(user=user, delivery=delivery)  # Should not raise
 
     def test_command_must_have_a_user_set(self):
-        self.assertRaises(ValidationError, self._test_command_must_have_a_user_set)
+        delivery = self.create_delivery()
+        command = Command(delivery=delivery)
+        with self.assertRaises(ValidationError):
+            command.full_clean()
 
     def _validate_command(self, product=None, available_quantity=10, bought_quantity=5):
-        command = self._create_command()
+        command = self.create_command()
         if not product:
             product = self.create_product(stock=available_quantity)
 
@@ -120,7 +84,7 @@ class CommandModelTest(ShopCoreTestCase):
 
     def test_cant_validate_command_when_stock_isnt_enough(self):
         product = self.create_product(stock=10)
-        command = self._create_command()
+        command = self.create_command()
         product.set_cart_quantity(10)
         product.stock = 8
         product.save()
@@ -153,12 +117,10 @@ class ProductCategoryModelTest(ShopCoreTestCase):
 
 class ProductsModelTest(ShopCoreTestCase):
 
-    def _test_cant_buy_more_than_stock(self):
-        product = self.create_product(stock=10)
-        product.buy(15)
-
     def test_cant_buy_more_than_stock(self):
-        self.assertRaises(AddedMoreToCartThanAvailable, self._test_cant_buy_more_than_stock)
+        product = self.create_product(stock=10)
+        with self.assertRaises(AddedMoreToCartThanAvailable):
+            product.buy(15)
 
     def test_buy_updates_available_stock(self):
         product = self.create_product(stock=10)
@@ -211,14 +173,11 @@ class ProductsModelTest(ShopCoreTestCase):
         prod = Product.objects.get(name="Product")  # reloads the object from the db
         self.assertEqual(prod.get_cart_quantity(), 5)
 
-    def _test_cant_add_more_than_available_to_cart(self):
+    def test_cant_add_more_than_available_to_cart(self):
         cat = self.create_category()
         prod = self.create_product(cat, stock=0)
-        prod.set_cart_quantity(5)  # should raise an error
-
-    def test_cant_add_more_than_available_to_cart(self):
-        self.assertRaises(
-            AddedMoreToCartThanAvailable, self._test_cant_add_more_than_available_to_cart)
+        with self.assertRaises(AddedMoreToCartThanAvailable):
+            prod.set_cart_quantity(5)
 
     def test_product_quantity_defaults_to_zero(self):
         cat = self.create_category()
