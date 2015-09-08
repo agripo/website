@@ -112,3 +112,5 @@ class ShopPageTest(FunctionalTest):
 
         # He selects his destination (Yaoundé), and gets a confirmation for his command
         self.dev_point(5)
+
+        # He notices that the cart is empty, and the button to checkout is not there anymore
