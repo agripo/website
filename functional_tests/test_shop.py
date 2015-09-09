@@ -114,3 +114,24 @@ class ShopPageTest(FunctionalTest):
         self.dev_point(5)
 
         # He notices that the cart is empty, and the button to checkout is not there anymore
+
+    def test_farmer_admin(self):
+        # # Some products are added to the shop
+        self
+        self.dev_point()
+
+        # Alpha, an administrator, goes to the administration page of a product and notes the stock
+
+        # Bravo, a farmer, goes to the shop page
+
+        # Alpha and bravo see the exact same page, except for the connection box, and
+        # a stock management box shown only to Bravo
+
+        # Bravo follows his stock management link
+
+        # He sees a page listing all the products, and showing his stocks for each of them.
+
+        # He updates his stock for the product viewed by alpha and saves
+
+        # Alpha refreshes the page, and confirms that the new calculated stock has been majored
+        # by the same amount
