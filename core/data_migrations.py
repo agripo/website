@@ -1,12 +1,17 @@
+import datetime
 from faker import Factory as FakerFactory
+
 
 def insert_all_permissions():
     from django.contrib.auth.models import Group, Permission
-    from core.models import SiteConfiguration
+    from core.models.general import SiteConfiguration
+    from core.models.shop import Delivery, DeliveryPoint
+
     make_permissions(Group, Permission)
     add_permissions_for_prod_stock_and_conf(Group, Permission)
     create_farmers_group(Group)
     save_site_configuration(SiteConfiguration)
+    create_one_year_deliveries_for_deliverypoint(DeliveryPoint, Delivery)
 
 
 def make_permissions(Group, Permission):
@@ -50,3 +55,21 @@ def save_site_configuration(SiteConfiguration):
         conf.news_count = 4
         conf.homepage_content = "<p>{}</p>".format("</p><p>".join(faker.paragraphs()))
         conf.save()
+
+
+def create_base_deliverypoints_and_deliveries(DeliveryPoint, Delivery):
+    counter = 1
+    for town in ['Douala', 'Yaoundé', 'Tayap']:
+        point = DeliveryPoint.objects.get_or_create(
+            pk=counter, defaults={'name': town, 'description': "Livraison à {}".format(town)})
+        create_one_year_deliveries_for_deliverypoint(Delivery, point)
+
+
+def create_one_year_deliveries_for_deliverypoint(Delivery, delivery_point):
+    next_friday = datetime.date.today()
+    while next_friday.weekday() != 4:
+        next_friday += datetime.timedelta(1)
+
+    for i in range(0, 51):
+        date = next_friday + datetime.timedelta(i * 7)
+        #Delivery.objects.get_or_create(date=date, delivery_point=delivery_point)

@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, TemplateView, CreateView
@@ -10,7 +10,9 @@ from django.core.management import call_command
 import core.exceptions as core_exceptions
 from core.forms import CheckoutForm
 from core.authentication import is_production_server
-from core.models import SiteConfiguration, ProductCategory, News, SITECONF_DEFAULT_NEWS_COUNT, Product, Command
+from core.models.news import News
+from core.models.shop import Product, ProductCategory, Command
+from core.models.general import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 
 
 def get_cart(request):
@@ -99,6 +101,7 @@ class RequiresJs(TemplateView):
         context['back_link'] = self.request.GET['back']
         return context
 
+
 class SubMenusPage(TemplateView):
 
     def get_template_names(self):
@@ -142,9 +145,12 @@ def index_view(request):
     slideshow_images = {
         'carousel_id': 'home_main_carousel',
         'images': [
-            {'src': '/static/img/diapo_1.jpg', 'alt': 'One image', 'caption': 'Tayap est un petit village du Cameroun.'},
-            {'src': '/static/img/diapo_2.jpg', 'alt': 'Another image', 'caption': 'Agripo est un groupement de Tayap.'},
-            {'src': '/static/img/diapo_3.jpg', 'alt': 'A third image', 'caption': 'Agripo est un groupement de Tayap.'},
+            {'src': '/static/img/diapo_1.jpg', 'alt': 'One image',
+             'caption': 'Tayap est un petit village du Cameroun.'},
+            {'src': '/static/img/diapo_2.jpg', 'alt': 'Another image',
+             'caption': 'Agripo est un groupement de Tayap.'},
+            {'src': '/static/img/diapo_3.jpg', 'alt': 'A third image',
+             'caption': 'Agripo est un groupement de Tayap.'},
         ]
     }
     user = request.user
@@ -187,6 +193,5 @@ def auto_connect(request, email, manager=False):
 
         login(request, user)
         return HttpResponse("{} is connected as {}".format(email, connected_as))
-
 
     raise core_exceptions.AutoConnectionUnknownError("New user not found")

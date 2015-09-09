@@ -1,6 +1,6 @@
 from core.tests.views.base import ViewsBaseTestCase
 from core.authentication import force_production_server
-from core.models import AgripoUser as User
+from core.models.users import AgripoUser as User
 
 
 class LoginViewTest(ViewsBaseTestCase):

@@ -1,6 +1,8 @@
 from django import forms
 
-from core.models import Command, Product, CommandProduct, AgripoUser
+from core.models.users import AgripoUser
+from core.models.shop import Product, Command, CommandProduct
+
 
 class CheckoutForm(forms.ModelForm):
 
@@ -16,8 +18,9 @@ class CheckoutForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['message'].required = False
 
-    def save(self):
-        command = super().save(commit=False)
+    def save(self, **kwargs):
+        kwargs['commit'] = False
+        command = super().save(**kwargs)
         command.customer = AgripoUser.objects.get(pk=self.customer.pk)
         command.save()
         cart_products = Product.static_get_cart_products()

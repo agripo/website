@@ -39,6 +39,7 @@ DOMAIN = "agripo-dev.brice.xyz"
 
 # Defining the server url for the tests on the staging server
 import sys
+
 for arg in sys.argv:
     if 'liveserver' in arg and "-staging." in arg:
         SERVER_URL = arg.split('=')[1]
@@ -85,9 +86,8 @@ if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
         'debug_toolbar',
     )
     # Adding the auto-connect backend
-    AUTHENTICATION_BACKENDS = (
-        'core.authentication.NewUserAutoconnectionModelBackend',
-    ) + AUTHENTICATION_BACKENDS
+    AUTHENTICATION_BACKENDS = ('core.authentication.NewUserAutoconnectionModelBackend',) \
+                              + AUTHENTICATION_BACKENDS
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -207,15 +207,15 @@ if SERVER_TYPE != SERVER_TYPE_DEVELOPMENT:
     STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
 LOGGING = {
-   'version': 1,
-   'disable_existing_loggers': False,
-   'handlers': {
-       'console': {
-           'level': 'DEBUG',
-           'class': 'logging.StreamHandler',
-       },
-   },
-   'loggers': {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
         'django': {
             'handlers': ['console'],
         },
@@ -228,4 +228,3 @@ LOGGING = {
     },
     'root': {'level': 'INFO'},
 }
-

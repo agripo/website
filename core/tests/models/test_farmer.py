@@ -1,7 +1,7 @@
 from django.db import IntegrityError
 
 from core.tests.base import CoreTestCase
-from core.models import AgripoUser as User
+from core.models.users import AgripoUser as User
 
 
 class FarmerModelTest(CoreTestCase):

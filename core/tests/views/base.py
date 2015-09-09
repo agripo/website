@@ -1,9 +1,9 @@
-from core.models import Product
 from django.contrib.sites.models import Site
 from allauth.socialaccount.models import SocialApp
 
 from core.tests.base import CoreTestCase
 from core.authentication import force_production_server
+from core.models.shop import Product
 
 
 class ViewsBaseTestCase(CoreTestCase):

@@ -11,9 +11,9 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 
 from core.authentication import is_production_server, is_staging_server
-from .page_home_page import HomePage
-from core.models import AgripoUser as User, Icon
-from core.models import SiteConfiguration
+from core.models.general import Icon, SiteConfiguration
+from core.models.users import AgripoUser as User
+from functional_tests.page_home_page import HomePage
 
 DEFAULT_WAIT = 5
 SCREEN_DUMP_LOCATION = os.path.join(
@@ -50,7 +50,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         if is_production_server():
             self.fail("Tests should never be launched on production server")
-            return
+
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(DEFAULT_WAIT)
         self.faker = FakerFactory.create('fr_FR')
@@ -105,7 +105,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         # We wait for the confirmation to show up
         self.wait_for(lambda: self.browser.find_element_by_css_selector("li.success"), 10)
         if next_page:
-            self.assertEqual(self.browser.current_url, self.server_url+next_page)
+            self.assertEqual(self.browser.current_url, "{}{}".format(self.server_url, next_page))
 
     def take_screenshot(self):
         filename = self._get_filename() + '.png'
@@ -237,11 +237,11 @@ class FunctionalTest(StaticLiveServerTestCase):
         user = User.objects.get(email=email)
         user.add_to_managers()
 
-    def select_option_by_text(self, select_id, option_text, raised_error_if_not_found=None):
-        return self.select_option(select_id, "text", option_text, raised_error_if_not_found)
+    def select_option_by_text(self, select_id, option_text, raise_error_if_not_found=True):
+        return self.select_option(select_id, "text", option_text, raise_error_if_not_found)
 
-    def select_option_by_index(self, select_id, index, raised_error_if_not_found=None):
-        return self.select_option(select_id, "index", index, raised_error_if_not_found)
+    def select_option_by_index(self, select_id, index, raise_error_if_not_found=True):
+        return self.select_option(select_id, "index", index, raise_error_if_not_found)
 
     def select_option(self, select_id, by, value, raise_error_if_not_found=True):
         select = Select(self.browser.find_element_by_id(select_id))

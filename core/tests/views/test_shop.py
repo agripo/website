@@ -2,7 +2,7 @@ from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCart
 from django.core.urlresolvers import reverse
 
 from core.tests.views.base import ViewsBaseTestCase
-from core.models import Product
+from core.models.shop import Product
 from core.management.commands.populatedb import (
     insert_random_categories_and_products, insert_random_category, insert_random_product)
 

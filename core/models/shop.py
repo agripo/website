@@ -1,80 +1,13 @@
 import re
-from core.exceptions import AddedMoreToCartThanAvailable, CantSetCartQuantityOnUnsavedProduct
 from django.conf import settings
-from django.db import models, IntegrityError
-from django.contrib.auth.models import User, Group
-from django.db.models import Q
 from django.core.exceptions import ValidationError
+from django.db import models, IntegrityError
+from django.db.models import Q
 from django.utils import timezone
-from solo.models import SingletonModel
-from ckeditor.fields import RichTextField
-from django.contrib.sessions.backends.db import SessionStore
 
-from core.icons import UNUSED_ICON
-
-
-SITECONF_DEFAULT_NEWS_COUNT = 9
-session = SessionStore()
-
-
-class SiteConfiguration(SingletonModel):
-    site_title = models.CharField(max_length=255, default='Site title', verbose_name='Titre du site', help_text="Titre du site (dans l'onglet du navigateur)")
-    news_count = models.IntegerField(default=SITECONF_DEFAULT_NEWS_COUNT, verbose_name='Actualités', help_text="Nombre de news dans la liste des news")
-    homepage_content = RichTextField(config_name='awesome_ckeditor', verbose_name='Page d\'accueil', help_text="Contenu de la page d'accueil")
-
-    def __str__(self):
-        return "Configuration générale"
-
-    class Meta:
-        verbose_name = "Configuration générale"
-
-
-class AgripoUser(User):
-
-    def is_farmer(self):
-        return self.groups.filter(name="farmers").exists()
-
-    def add_to_farmers(self):
-        if not self.email:
-            raise IntegrityError("The farmers must have a valid email set in their account")
-        self.groups.add(Group.objects.get(name="farmers"))
-        self.save()
-        return self
-
-    def is_manager(self):
-        return self.is_staff
-
-    def add_to_managers(self):
-        self.is_staff = True
-        self.save()
-        self.groups.add(Group.objects.get(name="managers"))
-        return self
-
-    def is_admin(self):
-        return self.is_superuser
-
-    def add_to_admins(self):
-        self.is_superuser = True
-        self.save()
-        return self
-
-    class Meta:
-        proxy = True
-
-
-class Icon(models.Model):
-    icon = models.CharField(max_length=28, unique=True)
-
-    def __str__(self):
-        return 'Icon {}'.format(self.icon)
-
-
-def all_but_forbidden_icon():
-    return ~models.Q(icon=UNUSED_ICON)
-
-
-def get_comment_icon_id():
-    return Icon.objects.get(icon="comment").pk
+from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCartThanAvailable
+from core.models.general import session
+from core.models.users import AgripoUser
 
 
 class ProductCategory(models.Model):
@@ -94,7 +27,7 @@ class ProductCategory(models.Model):
 
 class Product(models.Model):
     name = models.CharField(
-        max_length=28, blank=False, null=False, unique=True,verbose_name="Nom",
+        max_length=28, blank=False, null=False, unique=True, verbose_name="Nom",
         help_text="Nom affiché dans les fiches produits")
     category = models.ForeignKey(
         ProductCategory, blank=False, null=False, verbose_name="Catégorie",
@@ -199,51 +132,6 @@ class Product(models.Model):
         verbose_name_plural = "Produits"
 
 
-class News(models.Model):
-    title = models.CharField(max_length=120, blank=False)
-    is_active = models.BooleanField(default=True)
-    icon = models.ForeignKey(Icon, blank=False, default=get_comment_icon_id, limit_choices_to=all_but_forbidden_icon)
-    content = models.TextField(blank=False)
-    creation_date = models.DateField(auto_now_add=True)
-    edition_date = models.DateField(auto_now=True)
-    publication_date = models.DateTimeField(default=None, null=True, blank=True, unique=True)
-    writer = models.ForeignKey(AgripoUser, limit_choices_to=Q(is_staff=True))
-
-    def __str__(self):
-        return "{id} : {title} ({pub_date})".format(
-            id=self.pk, title=self.title, pub_date=self.publication_date)
-
-    def save(self, *args, **kwargs):
-        if not self.publication_date:
-            self.publication_date = timezone.now()
-        super().save(*args, **kwargs)
-
-    def get_edition_date(self, no_edition_return=None):
-        if self.creation_date == self.edition_date:
-            return no_edition_return
-        return self.edition_date
-
-    def get_previous(self):
-        return News.objects.filter(
-            publication_date__lt=self.publication_date,
-            is_active=True).order_by('-publication_date').first()
-
-    def get_next(self):
-        return News.objects.filter(
-            publication_date__gt=self.publication_date,
-            is_active=True).order_by('publication_date').first()
-
-    @staticmethod
-    def get_last():
-        return News.objects.filter(
-            publication_date__lt=timezone.now(),
-            is_active=True).order_by('-publication_date')[0:3]
-
-    class Meta:
-        verbose_name = "Actualité"
-        verbose_name_plural = "Actualités"
-
-
 class Stock(models.Model):
     product = models.ForeignKey(Product, related_name="one_farmers_stock")
     farmer = models.ForeignKey(AgripoUser, limit_choices_to=Q(groups__name='farmers'))
@@ -256,12 +144,12 @@ class Stock(models.Model):
         super().__init__(*args, **kwargs)
         self._active_stock = self.stock
 
-    def save(self):
+    def save(self, **kwargs):
         if not self.farmer.is_farmer():
             raise IntegrityError("Only farmers have stocks")
 
         self.set(self.stock)
-        return super().save()
+        return super().save(**kwargs)
 
     def set(self, stock):
         """
@@ -299,11 +187,6 @@ class Delivery(models.Model):
     class Meta:
         verbose_name = "Date de livraison"
         verbose_name_plural = "Dates de livraison"
-
-
-class CustomerData(models.Model):
-    customer = models.OneToOneField(AgripoUser)
-    phone = models.CharField(max_length=15)
 
 
 class Command(models.Model):

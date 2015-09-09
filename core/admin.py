@@ -1,7 +1,9 @@
 from django.contrib import admin
-from core.models import News, Product, Stock, ProductCategory, Delivery, DeliveryPoint
 from solo.admin import SingletonModelAdmin
-from core.models import SiteConfiguration
+
+from core.models.news import News
+from core.models.shop import Product, Stock, ProductCategory, Delivery, DeliveryPoint
+from core.models.general import SiteConfiguration
 
 
 class NewsAdmin(admin.ModelAdmin):
@@ -37,7 +39,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     list_display = ('__str__', 'category', 'price', 'stock', 'is_available')
 
-    list_filter = ['category',]
+    list_filter = ['category', ]
     readonly_fields = ('id', 'stock', 'image_tag',)
 
 
@@ -59,7 +61,6 @@ class DeliveryAdmin(admin.ModelAdmin):
     fields = ['date', 'delivery_point']
     list_display = ['date', 'delivery_point']
     list_filter = ['date']
-
 
 
 admin.site.register(SiteConfiguration, SingletonModelAdmin)

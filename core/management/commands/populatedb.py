@@ -1,15 +1,18 @@
 import random
 import glob
 from django.conf import settings
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db import IntegrityError
 from django.utils import timezone
 from faker import Factory as FakerFactory
 
-from core.models import News, Product, AgripoUser, ProductCategory
+from core.models.news import News
+from core.models.shop import Product, ProductCategory
+from core.models.users import AgripoUser
 
 faker = FakerFactory.create('fr_FR')
 faker.seed(1000)
+
 
 def insert_random_category(silent=False):
     the_category, created = ProductCategory.objects.get_or_create(name=faker.sentence(nb_words=4), )
@@ -52,7 +55,7 @@ def insert_random_categories_and_products(categories_count=5, products_count=5, 
         cat = insert_random_category(silent=silent)
 
         for j in range(0, products_count):
-           insert_random_product(cat, stock=stock, silent=silent)
+            insert_random_product(cat, stock=stock, silent=silent)
 
 
 class Command(BaseCommand):

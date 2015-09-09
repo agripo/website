@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from django.utils import timezone
 
 from core.tests.base import CoreTestCase
-from core.models import ProductCategory, Product, DeliveryPoint, Delivery, Command, CommandProduct
+from core.models.shop import ProductCategory, Product, DeliveryPoint, Delivery, Command, CommandProduct
 
 
 class ShopCoreTestCase(CoreTestCase):

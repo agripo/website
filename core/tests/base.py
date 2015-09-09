@@ -1,8 +1,8 @@
-from core.forms import CheckoutForm
 from django.test import TestCase
 
-from core.models import ProductCategory, AgripoUser as User, Product, DeliveryPoint, Delivery, Command
-from core.models import SiteConfiguration
+from core.models.shop import ProductCategory, Product, DeliveryPoint, Delivery, Command
+from core.models.users import AgripoUser as User
+from core.models.general import SiteConfiguration
 from django.utils import timezone
 
 

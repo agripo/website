@@ -1,10 +1,5 @@
-from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCartThanAvailable
-from django.core.urlresolvers import reverse
-
 from core.tests.base import CoreTestCase
-from core.models import Product, Command
 from core.forms import CheckoutForm
-
 
 
 class CheckoutFormTest(CoreTestCase):

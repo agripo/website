@@ -2,7 +2,7 @@ import logging
 from django.conf import settings
 
 from core.exceptions import NoAutoConnectionOnProductionServer, NoAutoConnectionWithExistingUser
-from core.models import AgripoUser as User
+from core.models.users import AgripoUser as User
 
 logger = logging.getLogger(__name__)
 

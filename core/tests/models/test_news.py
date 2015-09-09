@@ -1,10 +1,12 @@
+import datetime
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.utils import timezone
 
 from core.tests.base import CoreTestCase
-from core.models import AgripoUser as User, News, Icon
-import datetime
+from core.models.news import News
+from core.models.general import Icon
+from core.models.users import AgripoUser as User
 
 
 class MockToday(datetime.date):
@@ -107,5 +109,4 @@ class NewsModelTest(CoreTestCase):
         icon = Icon.objects.get(icon="comment")
         self.assertEqual(n.icon, icon)
 
-    #@todo: check that the Icons model contains the icons
-
+    # @todo: check that the Icons model contains the icons

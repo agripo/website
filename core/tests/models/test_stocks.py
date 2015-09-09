@@ -2,7 +2,7 @@ from core.exceptions import AddedMoreToCartThanAvailable
 from django.db import IntegrityError
 
 from core.tests.base import CoreTestCase
-from core.models import Stock
+from core.models.shop import Stock
 
 
 class StockModelTest(CoreTestCase):

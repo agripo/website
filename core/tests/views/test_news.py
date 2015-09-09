@@ -1,10 +1,12 @@
 import random
+import datetime
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-import datetime
 
 from core.tests.views.base import ViewsBaseTestCase
-from core.models import AgripoUser as User, News, Icon
+from core.models.news import News
+from core.models.general import Icon
+from core.models.users import AgripoUser as User
 from core.icons import UNUSED_ICON
 
 

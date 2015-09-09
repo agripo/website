@@ -111,13 +111,14 @@ class ShopPageTest(FunctionalTest):
         self.click_link(reverse('checkout'))
 
         # He selects his destination (Yaoundé), and gets a confirmation for his command
-        self.dev_point(5)
+        self.select_option_by_index('id_delivery', 2, True)
+        self.dev_point(10)
 
         # He notices that the cart is empty, and the button to checkout is not there anymore
 
     def test_farmer_admin(self):
         # # Some products are added to the shop
-        self
+        self.populate_db(categories_count=2, products_count=2)
         self.dev_point()
 
         # Alpha, an administrator, goes to the administration page of a product and notes the stock
