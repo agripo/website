@@ -56,7 +56,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.browser.find_element_by_css_selector(
             'input#{} ~ span a'.format(news_page_alpha.id_field_publication_date_time)).click()
         self.browser.find_element_by_id(news_page_alpha.id_field_content).send_keys(the_news_content)
-        self.select_option_by_text(news_page_alpha.id_field_writer, user_alpha_username, ValueError)
+        self.select_option_by_text(news_page_alpha.id_field_writer, user_alpha_username)
         self.admin_save('/admin/core/news/')
 
         # He selects an icon for this news

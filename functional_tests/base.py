@@ -238,11 +238,29 @@ class FunctionalTest(StaticLiveServerTestCase):
         user.add_to_managers()
 
     def select_option_by_text(self, select_id, option_text, raised_error_if_not_found=None):
+        return self.select_option(select_id, "text", option_text, raised_error_if_not_found)
+
+    def select_option_by_index(self, select_id, index, raised_error_if_not_found=None):
+        return self.select_option(select_id, "index", index, raised_error_if_not_found)
+
+    def select_option(self, select_id, by, value, raise_error_if_not_found=True):
         select = Select(self.browser.find_element_by_id(select_id))
+        index = 0
         for opt in select.options:
-            if opt.text == option_text:
+            if by == "text" and opt.text == value:
                 opt.click()
                 return
 
-        if raised_error_if_not_found:
-            raise raised_error_if_not_found('"{}" not found in the select #{}'.format(option_text, select_id))
+            if by == "index" and index == value:
+                opt.click()
+                return
+
+            index += 1
+
+        if raise_error_if_not_found:
+            if by == "index":
+                error_message = 'No option with index {} in the select #{}'
+            else:
+                error_message = 'Option with value "{}" not found in the select #{}'
+
+            raise ValueError(error_message.format(value, select_id))
