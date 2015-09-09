@@ -138,7 +138,8 @@ class Product(models.Model):
             raise AddedMoreToCartThanAvailable
 
         if quantity == 0:
-            del session[self._get_session_key()]
+            if self._get_session_key() in session:
+                del session[self._get_session_key()]
         else:
             session[self._get_session_key()] = quantity
 
