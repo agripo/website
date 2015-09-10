@@ -21,6 +21,15 @@ class DeliveryModelTest(ShopCoreTestCase):
         d = Delivery()
         self.assertRaises(IntegrityError, d.save)
 
+    def test_bought_products_are_listed(self):
+        self.not_implemented()
+
+    def test_same_product_from_multiple_commands_are_added(self):
+        self.not_implemented()
+
+    def test_total_price_calculated_correctly(self):
+        self.not_implemented()
+
 
 class DeliveryPointModelTest(ShopCoreTestCase):
 

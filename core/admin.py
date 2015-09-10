@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.utils import timezone
 from solo.admin import SingletonModelAdmin
 
 from core.models.news import News
-from core.models.shop import Product, Stock, ProductCategory, Delivery, DeliveryPoint
+from core.models.shop import Product, Stock, ProductCategory, PastDelivery, FutureDelivery, DeliveryPoint
 from core.models.general import SiteConfiguration
 
 
@@ -57,10 +58,39 @@ class DeliveryPointAdmin(admin.ModelAdmin):
     fields = ['name', 'description', ]
 
 
-class DeliveryAdmin(admin.ModelAdmin):
+class BaseDeliveryAdmin(admin.ModelAdmin):
     fields = ['date', 'delivery_point']
-    list_display = ['date', 'delivery_point']
-    list_filter = ['date']
+    list_display = ['__str__']
+    list_filter = ['date', 'delivery_point']
+    ordering = ['date']
+
+
+class PastDeliveryAdmin(BaseDeliveryAdmin):
+    fields = ['date', 'delivery_point', 'products']
+    readonly_fields = ('products', )
+
+    def products(self, obj):
+        products_data = obj.products()
+        products_texts = []
+        for product in products_data['products']:
+            the_product = products_data['products'][product]
+            products_texts.append(
+                "{} × {}".format(products_data['total'][product], the_product.product.name))
+
+        if products_texts:
+            return "{}\n\nMontant total : {}".format(
+                "\n".join(products_texts), products_data['total_price'])
+
+        return "Aucune commande n'a été passée pour cette livraison"
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(date__lt=timezone.now)
+
+
+class FutureDeliveryAdmin(BaseDeliveryAdmin):
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(date__gte=timezone.now)
 
 
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
@@ -68,5 +98,6 @@ admin.site.register(News, NewsAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductCategory, ProductCategoryAdmin)
 admin.site.register(Stock, StockAdmin)
-admin.site.register(Delivery, DeliveryAdmin)
+admin.site.register(PastDelivery, PastDeliveryAdmin)
+admin.site.register(FutureDelivery, FutureDeliveryAdmin)
 admin.site.register(DeliveryPoint, DeliveryPointAdmin)

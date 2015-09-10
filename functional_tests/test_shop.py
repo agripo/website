@@ -116,6 +116,8 @@ class ShopPageTest(FunctionalTest):
 
         # He notices that the cart is empty, and the button to checkout is not there anymore
 
+        # He goes to the delivery admin page and sees the summary of his command
+
     def test_farmer_admin(self):
         # # Some products are added to the shop
         self.populate_db(categories_count=2, products_count=2)

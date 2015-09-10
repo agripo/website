@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 from faker import Factory as FakerFactory
 
 
@@ -60,16 +60,18 @@ def save_site_configuration(SiteConfiguration):
 def create_base_deliverypoints_and_deliveries(DeliveryPoint, Delivery):
     counter = 1
     for town in ['Douala', 'Yaoundé', 'Tayap']:
-        point = DeliveryPoint.objects.get_or_create(
+        point, created = DeliveryPoint.objects.get_or_create(
             pk=counter, defaults={'name': town, 'description': "Livraison à {}".format(town)})
         create_one_year_deliveries_for_deliverypoint(Delivery, point)
+        counter += 1
 
 
 def create_one_year_deliveries_for_deliverypoint(Delivery, delivery_point):
-    next_friday = datetime.date.today()
+    next_friday = timezone.now()
     while next_friday.weekday() != 4:
-        next_friday += datetime.timedelta(1)
+        next_friday += timezone.timedelta(1)
 
     for i in range(0, 51):
-        date = next_friday + datetime.timedelta(i * 7)
-        #Delivery.objects.get_or_create(date=date, delivery_point=delivery_point)
+        date = next_friday + timezone.timedelta(i * 7)
+        Delivery.objects.get_or_create(date=date, delivery_point=delivery_point)
+        print("Created delivery for {} at {}".format(date, delivery_point.name))

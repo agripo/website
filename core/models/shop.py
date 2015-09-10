@@ -179,14 +179,52 @@ class DeliveryPoint(models.Model):
 
 class Delivery(models.Model):
     date = models.DateTimeField(default=timezone.now)
-    delivery_point = models.ForeignKey(DeliveryPoint)
+    delivery_point = models.ForeignKey(DeliveryPoint, verbose_name="Lieu de livraison")
 
     def __str__(self):
         return "{} à {}".format(self.date.strftime("Le %d/%m à %Hh%M"), self.delivery_point.name)
 
+    def products(self):
+        total = {}
+        products = {}
+        total_price = 0
+        commands = self.commands.all()
+        for command in commands:
+            total_price += command.total
+            commandproducts = command.commandproduct_set.all()
+            for product in commandproducts:
+                if product.id not in total:
+                    total[product.id] = 0
+                    products[product.id] = product
+
+                total[product.id] += product.quantity
+
+        return {
+            'total': total,
+            'products': products,
+            'total_price': total_price,
+            'commands': commands
+        }
+
     class Meta:
         verbose_name = "Date de livraison"
         verbose_name_plural = "Dates de livraison"
+
+
+class FutureDelivery(Delivery):
+
+    class Meta:
+        proxy = True
+        verbose_name = "Livraison future/planifiée"
+        verbose_name_plural = "Livraisons futures/planifiées"
+
+
+class PastDelivery(Delivery):
+
+    class Meta:
+        proxy = True
+        verbose_name = "Livraison passée/effectuée"
+        verbose_name_plural = "Livraisons passées/effectuées"
 
 
 class Command(models.Model):
@@ -194,8 +232,9 @@ class Command(models.Model):
     A command is the listing of the products for one customer in one delivery
     """
     customer = models.ForeignKey(AgripoUser, null=True)
-    delivery = models.ForeignKey(Delivery, verbose_name="Lieu de livraison",
-                                 help_text="Sélectionnez le lieu de livraison")
+    delivery = models.ForeignKey(
+        Delivery, verbose_name="Lieu de livraison", related_name="commands",
+        help_text="Sélectionnez le lieu de livraison")
     date = models.DateTimeField(auto_now_add=True)
     products = models.ManyToManyField(Product, through="CommandProduct")
     sent = models.BooleanField(default=False)
