@@ -5,6 +5,8 @@ from django.db import models, IntegrityError
 from django.db.models import Q
 from django.utils import timezone
 
+from admin_helper.models import number_setter
+
 from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCartThanAvailable
 from core.models.general import session
 from core.models.users import AgripoUser
@@ -135,7 +137,9 @@ class Product(models.Model):
 class Stock(models.Model):
     product = models.ForeignKey(Product, related_name="one_farmers_stock")
     farmer = models.ForeignKey(AgripoUser, limit_choices_to=Q(groups__name='farmers'))
-    stock = models.PositiveIntegerField(default=0)
+    stock = models.PositiveIntegerField(default=0, verbose_name="Stock")
+
+    stock_setter = number_setter(stock, step=1)
 
     class Meta:
         unique_together = ("product", "farmer", )

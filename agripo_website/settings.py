@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'core',
+    'admin_helper',
     'functional_tests',
     # external apps
     'solo',

@@ -49,7 +49,7 @@ class StockAdmin(admin.ModelAdmin):
         'product', 'farmer', 'stock',
     ]
 
-    list_display = ('product', 'farmer', 'stock')
+    list_display = ('product', 'farmer', 'stock_setter')
 
     list_filter = ['farmer', 'product', ]
 
