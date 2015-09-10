@@ -1,4 +1,6 @@
+import string
 from django.db.models import IntegerField, BooleanField
+from django.utils.crypto import random
 
 
 def on_off_setter(field):
@@ -17,18 +19,28 @@ def on_off_setter(field):
     return setter
 
 
-def number_setter(field, width=30):
+def number_setter(field, width=30, step=1):
 
     def setter(self):
         if not isinstance(field, IntegerField):
             raise Exception("This field should be an Integer or one of its descendants")
 
         value = getattr(self, field.name)
-        url = '{}/{}/set_number/'.format(self._get_pk_val(), field.name)
-        input = '<input name="number" type="number" value="{}" style="width:{}px"/>'.format(value, width)
-        submit = '<input type="image" src="/static/admin/img/icon_changelink.gif"/>'
-        form = '<form action="{}" method="GET">{}{}</form>'.format(url, input, submit)
-        return form
+
+        def get_link(num, side):
+            num = value + num if side == "+" else value - num
+            url = '{}/{}/set_number/?number={}'.format(self._get_pk_val(), field.name, num)
+            return '&nbsp;<a href="{}">{}</a>&nbsp;'.format(url, num)
+
+        ret = ""
+        for i in [3 * step, 2 * step, step]:
+            ret = ret + get_link(i, '-')
+
+        ret += "<strong>{}</sctrong>".format(value)
+        for i in [step, 2 * step, 3 * step]:
+            ret = ret + get_link(i + 1, '+')
+
+        return ret
 
     setter.short_description = field.verbose_name
     setter.allow_tags = True
