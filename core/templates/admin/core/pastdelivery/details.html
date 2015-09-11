@@ -1,0 +1,164 @@
+{% extends 'admin/base_site.html' %}
+{% load mathfilters %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/admin/">Home</a> >
+        <a href="/admin/core/">Général</a> >
+        <a href="/admin/core/pastdelivery/">Livraisons passées/effectuées</a> >
+        <a href="/admin/core/pastdelivery/{{ delivery.pk }}">{{ delivery }}</a> >
+        Détails
+    </div>
+{% endblock %}
+
+
+<div id="content" class="{% block coltype %}colM{% endblock %}">
+    {% block content %}
+        <div id="content-main">
+            <div>
+                <fieldset class="module aligned ">
+                    <h2>Produits à récupérer chez les agriculteurs</h2>
+                    <p>
+                        <style>
+                            .recap th:nth-child(3),
+                            .recap th:nth-child(4),
+                            .recap td:nth-child(3),
+                            .recap td:nth-child(4){
+                                text-align: right;
+                            }
+                        </style>
+                        <table class="recap">
+                            <tr>
+                                <th>Qté</th>
+                                <th>Produit</th>
+                                <th>P.U.</th>
+                                <th>Total</th>
+                                <th>Disponibilité</th>
+                            </tr>
+                            {% for k, total in delivery.details.total.items %}
+                                <tr>
+                                    <td>{{ total.quantity }}</td>
+                                    <td>
+                                        <img src="/media{{ total.product.product.image }}" style="width:2em; vertical-align: middle"/>
+                                        {{ total.product.product.name }}
+                                    </td>
+                                    <td>
+                                        {{ total.product.product.price }}
+                                    </td>
+                                    <td>
+                                        {{ total.product.product.price|mul:total.quantity }}
+                                    </td>
+                                    <td>
+                                        {% for stock in total.product.product.one_farmers_stock.all %}
+                                            <div>{{ stock.farmer }} : {{ stock.stock }}</div>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <th>Total</th>
+                                <th>{{ delivery.details.total_price }}</th>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </p>
+                </fieldset>
+            </div>
+        </div>
+        <br class="clear" />
+        <div>
+            <fieldset class="module aligned ">
+                <h2>Commandes incluses dans cette livraison</h2>
+                {% for command in delivery.details.commands %}
+                    <div>
+                        <h3>Commande n°{{ command.pk }}</h3>
+                        <p>
+                            <strong>Nom / email :</strong> {{ command.customer.name }} {{ command.customer.email }}<br />
+                            <strong>Téléphone :</strong> {{ command.customer.phone }}<br />
+                            <strong>Comme du :</strong> {{ command.date }}<br />
+                            <strong>Livraison : </strong> {{ delivery }}
+                        </p>
+                        <p>
+                            <table class="recap">
+                                <tr>
+                                    <th>Qté</th>
+                                    <th>Produit</th>
+                                    <th>P.U.</th>
+                                    <th>Total</th>
+                                </tr>
+                                {% for commandproduct in command.commandproduct_set.all %}
+                                    <tr>
+                                        <td>
+                                            {{ commandproduct.quantity }}
+                                        </td>
+                                        <td>
+                                            <img src="/media{{ commandproduct.product.image }}" style="width:2em; vertical-align: middle"/>
+                                            {{ commandproduct.product.name }}
+                                        </td>
+                                        <td>
+                                            {{ commandproduct.product.price }}
+                                        </td>
+                                        <td>
+                                            {{ commandproduct.product.price|mul:commandproduct.quantity }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </p>
+                        <p><strong>Total de la commande :</strong> {{ command.total }}</p>
+                        {% if command.message %}
+                            <p>
+                                Message : <i>{{ command.message }}</i>
+                            </p>
+                        {% endif %}
+                    </div>
+                    {% if not forloop.last %}
+                        <br />
+                        <br />
+                        <hr />
+                        <br />
+                        <br />
+                    {% endif %}
+                {% endfor %}
+            </fieldset>
+        </div>
+        <br class="clear" />
+        <div>
+            <fieldset class="module aligned ">
+                <h2>Comment gérer cette livraison ?</h2>
+                <ol>
+                    <li>
+                        Imprimez cette page. Son contenu vous servira pour la préparation de la tournée de
+                        récupération des produits, et pour les récaputilatifs et factures pour vos clients.
+                    </li>
+                    <li>
+                        Le premier tableau affiche les quantités nécessaires pour cette livraison, et
+                        pour chaque produit, les stocks disponibles chez chacun des agriculteurs.
+                        Vous pouvez alors planifier votre tournée pour récupérer les produits en fonction
+                        de ces informations.
+                    </li>
+                    <li>
+                        Pendant la récupération, rappelez bien aux agriculeurs de mettre à jour leurs stocks
+                        disponibles sur leur interface, sans quoi, on pourrait ne pas pouvoir leur commander leurs
+                        produits, ou au contraire, des clients pourraient leur commander des produits qu'ils n'ont
+                        plus en stock. Au besoin, vous pouvez vous aussi ajuster les stocks des agriculteurs depuis
+                        la page Accueil › Général › Stocks.
+                    </li>
+                    <li>
+                        Une fois la récupération effectuée entièrement, vous pouvez préparer les commandes
+                        individuelles en fonction des tableaux imrpimés intitulés "Commande n°XXX".
+                    </li>
+                    <li>
+                        Pour plus de clarté, une fois la livraison prête, vous pouvez la marquer comme réalisée
+                        depuis la liste des commandes en cliquant sur le bouton
+                        <img src="/static/admin/img/icon-no.gif"/>, ce qui la fera passer
+                        à l'état <img src="/static/admin/img/icon-yes.gif"/>.
+                    </li>
+                </ol>
+            </fieldset>
+        </div>
+        <br class="clear" />
+    {% endblock %}
+</div>

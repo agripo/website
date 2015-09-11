@@ -1,17 +1,20 @@
+from django.conf.urls import patterns
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
+from django.template import RequestContext
 from django.views.generic import ListView, DetailView, TemplateView, CreateView
 from django.utils import timezone
 from django.core.management import call_command
+from django.contrib.admin.views.decorators import staff_member_required
 
 import core.exceptions as core_exceptions
 from core.forms import CheckoutForm
 from core.authentication import is_production_server
 from core.models.news import News
-from core.models.shop import Product, ProductCategory, Command
+from core.models.shop import Product, ProductCategory, Command, PastDelivery, Delivery
 from core.models.general import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 
 
@@ -195,3 +198,16 @@ def auto_connect(request, email, manager=False):
         return HttpResponse("{} is connected as {}".format(email, connected_as))
 
     raise core_exceptions.AutoConnectionUnknownError("New user not found")
+
+
+@staff_member_required
+def delivery_details(request, id):
+    template = 'admin/core/pastdelivery/details.html'
+    delivery = Delivery.objects.get(pk=id)
+    commands = Command.objects.filter(delivery=delivery)
+
+    return render_to_response(template, {
+        'title': 'Détails de la livraison "{}"'.format(delivery),
+        'delivery': delivery,
+        'commands': commands
+    }, context_instance=RequestContext(request))

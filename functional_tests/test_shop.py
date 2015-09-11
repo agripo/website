@@ -118,6 +118,15 @@ class ShopPageTest(FunctionalTest):
 
         # He goes to the delivery admin page and sees the summary of his command
 
+        # He writes the delivery as done from the deliveries list
+
+        # He goes to the delivery's detail form, and confirms it has been set as done
+
+        # He sees in thedeliveries list that there are deliveries without commands (no links)
+        # and ons with commands (with a link)
+
+        # He follows a link, and sees there are instructions, list of products, and commands
+
     def test_farmer_admin(self):
         # # Some products are added to the shop
         self.populate_db(categories_count=2, products_count=2)

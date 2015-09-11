@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'shop/$', views.ShopPage.as_view(), name="shop_page"),
     url(r'shop/checkout$', views.Checkout.as_view(), name="checkout"),
     url(r'shop/get_cart$', views.get_cart, name="get_cart"),
+    url(r'^admin/core/delivery/(?P<id>[0-9]+)/details/$', views.delivery_details, name="delivery_details"),
     url(r'shop/command_successfull', TemplateView.as_view(
         template_name="core/command_successfull.html"), name="command_successfull"),
     url(r'^shop/set_product_quantity/(?P<product>[0-9]+)/(?P<quantity>[0-9]+)/', views.set_product_quantity,

@@ -22,8 +22,8 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^admin/', include('admin_helper.urls')),
-    url(r'^admin/', include(admin.site.urls)),
     url(r'', include(core_urls)),
+    url(r'^admin/', include(admin.site.urls)),
 ]
 
 if settings.DEBUG:

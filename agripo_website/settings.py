@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.persona',
+    'mathfilters',
 )
 
 SITE_ID = 1

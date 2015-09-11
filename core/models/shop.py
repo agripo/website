@@ -1,11 +1,12 @@
 import re
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from django.db import models, IntegrityError
 from django.db.models import Q
 from django.utils import timezone
 
-from admin_helper.models import number_setter
+from admin_helper.models import number_setter, on_off_setter
 
 from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCartThanAvailable
 from core.models.general import session
@@ -184,28 +185,33 @@ class DeliveryPoint(models.Model):
 class Delivery(models.Model):
     date = models.DateTimeField(default=timezone.now)
     delivery_point = models.ForeignKey(DeliveryPoint, verbose_name="Lieu de livraison")
+    done = models.BooleanField(default=False, verbose_name="Livraison effectuée")
+
+    done_setter = on_off_setter(done)
 
     def __str__(self):
         return "{} à {}".format(self.date.strftime("Le %d/%m à %Hh%M"), self.delivery_point.name)
 
-    def products(self):
+    @staticmethod
+    def details_link(pk=None):
+        link = reverse("delivery_details", kwargs=dict(id=pk))
+        return link
+
+    def details(self):
         total = {}
-        products = {}
         total_price = 0
         commands = self.commands.all()
         for command in commands:
             total_price += command.total
             commandproducts = command.commandproduct_set.all()
-            for product in commandproducts:
-                if product.id not in total:
-                    total[product.id] = 0
-                    products[product.id] = product
+            for commandproduct in commandproducts:
+                if commandproduct.product.pk not in total:
+                    total[commandproduct.product.pk] = dict(quantity=0, product=commandproduct, total=0)
 
-                total[product.id] += product.quantity
+                total[commandproduct.product.pk]['quantity'] += commandproduct.quantity
 
         return {
             'total': total,
-            'products': products,
             'total_price': total_price,
             'commands': commands
         }
@@ -213,6 +219,7 @@ class Delivery(models.Model):
     class Meta:
         verbose_name = "Date de livraison"
         verbose_name_plural = "Dates de livraison"
+
 
 
 class FutureDelivery(Delivery):
@@ -247,6 +254,9 @@ class Command(models.Model):
         help_text="Informations supplémentaires en rapport avec votre commande")
     total = models.PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return "{} : {}".format(self.date, self.customer)
+
     def validate(self):
         # We get the products from the cart
         products = Product.static_get_cart_products()
@@ -271,6 +281,9 @@ class CommandProduct(models.Model):
     command = models.ForeignKey(Command)
     product = models.ForeignKey(Product)
     quantity = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return "{} / {}".format(self.command, self.product)
 
     def clean(self):
         if self.quantity <= 0:

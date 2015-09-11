@@ -1,9 +1,10 @@
 from django.contrib import admin
+from django.db.models import Q
 from django.utils import timezone
 from solo.admin import SingletonModelAdmin
 
 from core.models.news import News
-from core.models.shop import Product, Stock, ProductCategory, PastDelivery, FutureDelivery, DeliveryPoint
+from core.models.shop import Product, Stock, ProductCategory, PastDelivery, FutureDelivery, DeliveryPoint, Delivery
 from core.models.general import SiteConfiguration
 
 
@@ -59,38 +60,33 @@ class DeliveryPointAdmin(admin.ModelAdmin):
 
 
 class BaseDeliveryAdmin(admin.ModelAdmin):
-    fields = ['date', 'delivery_point']
-    list_display = ['__str__']
-    list_filter = ['date', 'delivery_point']
-    ordering = ['date']
+    fields = ['date', 'delivery_point', 'done', 'details']
+    list_display = ['__str__', 'done_setter', 'details']
+    readonly_fields = ['details']
+    list_filter = ['delivery_point', 'done']
+    ordering = ['-date']
+
+    def details(self, obj):
+        count = obj.commands.count()
+        if count > 0:
+            return '<a href="{}">Préparer la livraison des {} commandes</a>'.format(
+                Delivery.details_link(pk=obj.pk), count)
+
+        return "Aucune commande pour cette livraison"
+    details.allow_tags = True
 
 
 class PastDeliveryAdmin(BaseDeliveryAdmin):
-    fields = ['date', 'delivery_point', 'products']
-    readonly_fields = ('products', )
-
-    def products(self, obj):
-        products_data = obj.products()
-        products_texts = []
-        for product in products_data['products']:
-            the_product = products_data['products'][product]
-            products_texts.append(
-                "{} × {}".format(products_data['total'][product], the_product.product.name))
-
-        if products_texts:
-            return "{}\n\nMontant total : {}".format(
-                "\n".join(products_texts), products_data['total_price'])
-
-        return "Aucune commande n'a été passée pour cette livraison"
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(date__lt=timezone.now)
+        return super().get_queryset(request).filter(Q(date__lte=timezone.now) | Q(done=True))
 
 
 class FutureDeliveryAdmin(BaseDeliveryAdmin):
+    ordering = ['date']
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(date__gte=timezone.now)
+        return super().get_queryset(request).filter(date__gte=timezone.now, done=False)
 
 
 admin.site.register(SiteConfiguration, SingletonModelAdmin)

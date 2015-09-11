@@ -17,17 +17,38 @@ class DeliveryModelTest(ShopCoreTestCase):
         dp = self.create_delivery_point(name="Point")
         self.assertNotEquals(dp.__str__(), 'DeliveryPoint object')
 
+    def test_can_set_the_delivery_as_done(self):
+        self.not_implemented()
+
+    def test_new_deliveries_are_not_done(self):
+        self.not_implemented()
+
+    def test_delivery_not_available_for_selection_if_already_done(self):
+        self.not_implemented()
+
+    def test_list_next_6_deliveries_for_selection_only(self):
+        self.not_implemented()
+
+    def test_generates_a_details_link_when_there_are_commands(self):
+        self.not_implemented()
+
+    def test_doesnt_generates_a_details_link_when_there_are_no_commands(self):
+        self.not_implemented()
+
     def test_must_have_a_deliverypoint(self):
         d = Delivery()
         self.assertRaises(IntegrityError, d.save)
 
-    def test_bought_products_are_listed(self):
+    def test_details_bought_products_are_listed(self):
         self.not_implemented()
 
-    def test_same_product_from_multiple_commands_are_added(self):
+    def test_details_same_product_from_multiple_commands_are_added(self):
         self.not_implemented()
 
-    def test_total_price_calculated_correctly(self):
+    def test_details_total_price_calculated_correctly(self):
+        self.not_implemented()
+
+    def test_details_list_all_commands(self):
         self.not_implemented()
 
 
