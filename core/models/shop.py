@@ -6,8 +6,6 @@ from django.db import models, IntegrityError
 from django.db.models import Q
 from django.utils import timezone
 
-from admin_helper.models import number_setter, on_off_setter
-
 from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCartThanAvailable
 from core.models.general import session
 from core.models.users import AgripoUser
@@ -140,8 +138,6 @@ class Stock(models.Model):
     farmer = models.ForeignKey(AgripoUser, limit_choices_to=Q(groups__name='farmers'))
     stock = models.PositiveIntegerField(default=0, verbose_name="Stock")
 
-    stock_setter = number_setter(stock, step=1)
-
     class Meta:
         unique_together = ("product", "farmer", )
 
@@ -186,8 +182,6 @@ class Delivery(models.Model):
     date = models.DateTimeField(default=timezone.now)
     delivery_point = models.ForeignKey(DeliveryPoint, verbose_name="Lieu de livraison")
     done = models.BooleanField(default=False, verbose_name="Livraison effectuée")
-
-    done_setter = on_off_setter(done)
 
     def __str__(self):
         return "{} à {}".format(self.date.strftime("Le %d/%m à %Hh%M"), self.delivery_point.name)

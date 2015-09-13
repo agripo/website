@@ -3,18 +3,20 @@ from django.db.models import Q
 from django.utils import timezone
 from solo.admin import SingletonModelAdmin
 
+from admin_helper.admin import AdminHelperAdmin
+
 from core.models.news import News
 from core.models.shop import Product, Stock, ProductCategory, PastDelivery, FutureDelivery, DeliveryPoint, Delivery
 from core.models.general import SiteConfiguration
 
 
-class NewsAdmin(admin.ModelAdmin):
+class NewsAdmin(AdminHelperAdmin):
     fieldsets = [
         ('General settings', {'fields': ['id', 'title', 'is_active', 'icon', 'publication_date']}),
         ('Contents - French', {'fields': ['content', "writer"], 'classes': ('grp-collapse grp-closed',)},),
     ]
 
-    list_display = ('__str__', 'is_active', 'publication_date', 'writer')
+    list_display = ('id', 'title', 'is_active', 'publication_date', 'writer')
 
     list_filter = ['is_active', 'publication_date', 'writer']
     readonly_fields = ('id',)
@@ -26,42 +28,43 @@ class NewsAdmin(admin.ModelAdmin):
         js = ("js/icon_selector.js",)
 
 
-class ProductCategoryAdmin(admin.ModelAdmin):
+class ProductCategoryAdmin(AdminHelperAdmin):
     fields = ['id', 'name', ]
 
-    list_display = ('__str__', )
+    list_display = ('id', 'name',)
 
     readonly_fields = ('id', )
 
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(AdminHelperAdmin):
     fieldsets = [
         ('General settings', {'fields': ['id', 'image_tag', 'image', 'name', 'category', 'price', 'stock', ]}),
     ]
 
-    list_display = ('__str__', 'category', 'price', 'stock', 'is_available')
+    list_display = ('id', 'name', 'category', 'price', 'stock', 'is_available')
 
     list_filter = ['category', ]
     readonly_fields = ('id', 'stock', 'image_tag',)
 
 
-class StockAdmin(admin.ModelAdmin):
+class StockAdmin(AdminHelperAdmin):
     fields = [
         'product', 'farmer', 'stock',
     ]
 
-    list_display = ('product', 'farmer', 'stock_setter')
+    list_display = ('product', 'farmer', 'stock')
 
     list_filter = ['farmer', 'product', ]
 
 
-class DeliveryPointAdmin(admin.ModelAdmin):
+class DeliveryPointAdmin(AdminHelperAdmin):
     fields = ['name', 'description', ]
+    list_display = ['id', 'name']
 
 
-class BaseDeliveryAdmin(admin.ModelAdmin):
+class BaseDeliveryAdmin(AdminHelperAdmin):
     fields = ['date', 'delivery_point', 'done', 'details']
-    list_display = ['__str__', 'done_setter', 'details']
+    list_display = ['id', 'date', 'delivery_point', 'done', 'details']
     readonly_fields = ['details']
     list_filter = ['delivery_point', 'done']
     ordering = ['-date']
