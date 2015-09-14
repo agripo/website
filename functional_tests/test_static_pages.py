@@ -41,6 +41,8 @@ class StaticPagesTest(FunctionalTest):
         self._go_to_page_from_menu("ecotourisme", "hebergements")
         self._go_to_page_from_menu("ecotourisme", "services", [
             "service-classes-vertes", "service-agrotourisme", "service-sentier-des-grottes"])
+        self._go_to_page_from_menu("bibliotheque", "photos-et-videos", [
+            "photos-agroforesterie", "photos-ecotourisme", "photos-microfinance-solidaire"])
 
     def test_display_all_static_pages_big_screen(self):
         self.browser.set_window_size(1280, 500)
