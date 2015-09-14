@@ -28,6 +28,10 @@ class StaticPagesTest(FunctionalTest):
 
         # He follows the pages' links one by one
         self._go_to_page_from_menu("Agripo", "qui-sommes-nous")
+        self._go_to_page_from_menu("ecotourisme", "informations-pratiques")
+        self._go_to_page_from_menu("ecotourisme", "cameroun")
+        self._go_to_page_from_menu("ecotourisme", "village-de-tayap")
+        self._go_to_page_from_menu("ecotourisme", "hebergements")
 
         sleep(5)
 
