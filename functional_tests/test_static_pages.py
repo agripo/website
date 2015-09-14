@@ -44,6 +44,7 @@ class StaticPagesTest(FunctionalTest):
         self._go_to_page_from_menu("bibliotheque", "photos-et-videos", [
             "photos-agroforesterie", "photos-ecotourisme", "photos-microfinance-solidaire"])
         self._go_to_page_from_menu("bibliotheque", "ressources-documentaires")
+        self._go_to_page_from_menu("bibliotheque", "magazines-et-presse")
 
     def test_display_all_static_pages_big_screen(self):
         self.browser.set_window_size(1280, 500)
