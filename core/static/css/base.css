@@ -16,3 +16,8 @@ a:hover{
 #social_lang .container .row .navbar-text{
     margin: 5px 0;
 }
+h1{
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
