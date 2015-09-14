@@ -11,7 +11,7 @@ class StaticPagesTest(FunctionalTest):
         super().setUp()
         call_command('loaddata', 'core/flatpages_contents.json')
 
-    def _go_to_page_from_menu(self, menu, page):
+    def _go_to_page_from_menu(self, menu, page, subpages = []):
         if self._small_screen:
             self.browser.find_element_by_css_selector(".navbar-toggle").click()
 
@@ -21,6 +21,13 @@ class StaticPagesTest(FunctionalTest):
         self.click_link(link)
         self.wait_for(lambda: self.browser.find_element_by_css_selector(
             '[data-url="{}"]'.format(link)), 10)
+
+        for subpage in subpages:
+            sublink = "/{}/".format(subpage)
+            self.click_link(sublink)
+            self.wait_for(lambda: self.browser.find_element_by_css_selector(
+                '[data-url="{}"]'.format(sublink)), 10)
+            self.show_page(link)  # we go back, to have the links
 
     def _test_display_all_static_pages(self):
         # Alpha goes to the home page
@@ -32,8 +39,8 @@ class StaticPagesTest(FunctionalTest):
         self._go_to_page_from_menu("ecotourisme", "cameroun")
         self._go_to_page_from_menu("ecotourisme", "village-de-tayap")
         self._go_to_page_from_menu("ecotourisme", "hebergements")
-
-        sleep(5)
+        self._go_to_page_from_menu("ecotourisme", "services", [
+            "service-classes-vertes", "service-agrotourisme", "service-sentier-des-grottes"])
 
     def test_display_all_static_pages_big_screen(self):
         self.browser.set_window_size(1280, 500)
