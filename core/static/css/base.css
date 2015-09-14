@@ -21,3 +21,8 @@ h1{
     margin: 0;
     padding: 0;
 }
+.pad-bottom{
+}
+.pad-bottom > div{
+    margin-bottom: 40px;
+}
