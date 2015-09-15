@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait, Select
-from selenium.common.exceptions import WebDriverException, TimeoutException
+from selenium.common.exceptions import WebDriverException, TimeoutException, StaleElementReferenceException
 from faker import Factory as FakerFactory
 from django.utils import timezone
 
@@ -13,7 +13,7 @@ from .page_home_page import HomePage
 from core.models import AgripoUser as User
 
 
-DEFAULT_WAIT = 5
+DEFAULT_TIMEOUT = 5
 SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
 )
@@ -43,7 +43,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.fail("Tests should never be launched on production server")
             return
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(DEFAULT_WAIT)
+        self.browser.implicitly_wait(0)
         self.faker = FakerFactory.create('fr_FR')
 
         # @todo remove this when it is not needed anymore (should be done by the migration #3
@@ -104,25 +104,59 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait(self, duration):
         time.sleep(duration)
 
-    def wait_for_element_with_id(self, element_id, timeout=30):
+    def wait_for_element_with_id(self, element_id, timeout=DEFAULT_TIMEOUT):
+        selector = '#{}'.format(element_id)
+        return self.wait_for_element_with_selector(selector, timeout)
+
+    def wait_for_element_with_selector(self, selector, timeout=DEFAULT_TIMEOUT):
         WebDriverWait(self.browser, timeout=timeout).until(
-            lambda b: b.find_element_by_id(element_id),
-            'Could not find element with id {}. Page text was:\n{}'.format(
-                element_id, self.browser.find_element_by_tag_name('body').text
+            lambda b: b.find_element_by_css_selector(selector),
+            'Could not find element with selector "{}". Page text was:\n{}'.format(
+                selector, self.browser.find_element_by_tag_name('body').text
             )
         )
+        return self.browser.find_element_by_css_selector(selector)
 
-    def click_link(self, link, timeout=10):
+    def wait_for_stale(self, existing_element, timeout=DEFAULT_TIMEOUT):
+
+        def element_has_gone_stale(element):
+            try:
+                element.is_displayed()
+                return False
+            except StaleElementReferenceException:
+                return True
+
+        while not element_has_gone_stale(existing_element):
+            timeout -= 0.1
+            self.wait(0.1)
+            if timeout <= 0:
+                raise Exception("The element {} never became stale".format(existing_element))
+
+    def click_link(self, link, timeout=DEFAULT_TIMEOUT, search_in=None, changes_page=True):
         if timeout > 0:
-            self.wait_for_link_with_destination(link, timeout=timeout)
-        self.get_link_by_destination(link).click()
+            self.wait_for_link_with_destination(link, timeout=timeout, search_in=search_in)
 
-    def get_link_by_destination(self, destination):
-        return self.browser.find_element_by_css_selector('a[href="{}"]'.format(destination))
+        link = self.get_link_by_destination(link, search_in=search_in)
+        link.click()
+        if changes_page:
+            start_time = time.time()
+            self.wait_for_stale(link)
 
-    def wait_for_link_with_destination(self, destination, timeout=10):
+    def wait_for_element_to_be_displayed(self, element, timeout=DEFAULT_TIMEOUT):
+        self.wait_for(
+            lambda: self.assertTrue(element.is_displayed()), timeout, exception=AssertionError)
+
+        return element
+
+    def get_link_by_destination(self, destination, search_in=None):
+        if not search_in:
+            search_in = self.browser
+
+        return search_in.find_element_by_css_selector('a[href="{}"]'.format(destination))
+
+    def wait_for_link_with_destination(self, destination, timeout=DEFAULT_TIMEOUT, search_in=None):
         WebDriverWait(self, timeout=timeout).until(
-            lambda b: b.get_link_by_destination(destination),
+            lambda b: b.get_link_by_destination(destination, search_in=search_in),
             'Could not find link with href={}. Page text was:\n{}'.format(
                 destination, self.browser.find_element_by_tag_name('body').text
             )
@@ -151,17 +185,18 @@ class FunctionalTest(StaticLiveServerTestCase):
             return True
         self.fail("The element {} shouldn't have been found in the dom".format(element_id))
 
-    def wait_for(self, function_with_assertion, timeout=DEFAULT_WAIT):
+    def wait_for(self, function_with_assertion, timeout=DEFAULT_TIMEOUT, exception=(AssertionError, WebDriverException)):
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
                 return function_with_assertion()
-            except (AssertionError, WebDriverException):
+            except exception:
+                print("Exception intercepted")
                 time.sleep(0.1)
         # one more try, which will raise any errors if they are outstanding
         return function_with_assertion()
 
-    def show_page(self, page, timeout=DEFAULT_WAIT, searched_element='id_top_container'):
+    def show_page(self, page, timeout=DEFAULT_TIMEOUT, searched_element='id_top_container'):
         if page[0] != '/':
             page = '/{}'.format(page)
         self.browser.get("{}{}".format(self.server_url, page))
@@ -172,7 +207,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         next_page = '/admin/'
         for arg in args:
             next_page += arg + "/"
-            self.click_link(next_page, timeout=10)
+            self.click_link(next_page, timeout=DEFAULT_TIMEOUT)
 
     def create_autoconnected_session(self, email, as_manager=False):
         active_page = self.browser.current_url

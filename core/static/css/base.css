@@ -16,8 +16,18 @@ a:hover{
 #social_lang .container .row .navbar-text{
     margin: 5px 0;
 }
-h1{
+.panel-heading h1,
+.panel-heading h2,
+.panel-heading h3,
+.panel-heading h4{
     font-size: 18px;
     margin: 0;
     padding: 0;
+}
+.panel-heading h1{
+    font-width: bold;
+    text-align: center;
+}
+.pad-bottom > div{
+    margin-bottom: 40px;
 }

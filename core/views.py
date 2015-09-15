@@ -1,5 +1,6 @@
 from core.models import News
 from django.contrib.auth import authenticate, login
+from django.contrib.flatpages.models import FlatPage
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
@@ -53,6 +54,11 @@ class NewsPage(DetailView):
 class NewsListPage(ListView):
     template = "core/news_list.html"
     context_object_name = "news_list"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['intro'] = FlatPage.objects.get(url="/intro-liste-actualites/")
+        return context
 
     def get_queryset(self):
         return News.objects.filter(
