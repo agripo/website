@@ -6,7 +6,7 @@ class RichTextEditor(object):
         self.test = test
         self.browser = test.browser
         self.field_id = field_id
-        self.editor_frame = self.browser.find_element_by_css_selector(
+        self.editor_frame = self.test.wait_for_element_with_selector(
             'iframe[title="Rich Text Editor, {}"]'.format(self.field_id))
 
     def _activate(self, frame=None):
