@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait, Select
-from selenium.common.exceptions import WebDriverException, TimeoutException
+from selenium.common.exceptions import WebDriverException, TimeoutException, StaleElementReferenceException
 from faker import Factory as FakerFactory
 from django.utils import timezone
 
@@ -13,6 +13,7 @@ from .page_home_page import HomePage
 from core.models import AgripoUser as User
 
 
+IMPLICIT_WAIT = 0
 DEFAULT_WAIT = 5
 SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
@@ -43,7 +44,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.fail("Tests should never be launched on production server")
             return
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(DEFAULT_WAIT)
+        self.browser.implicitly_wait(IMPLICIT_WAIT)
         self.faker = FakerFactory.create('fr_FR')
 
         # @todo remove this when it is not needed anymore (should be done by the migration #3
@@ -112,17 +113,40 @@ class FunctionalTest(StaticLiveServerTestCase):
             )
         )
 
-    def click_link(self, link, timeout=10):
+    def wait_for_stale(self, existing_element, timeout=10):
+
+        def element_has_gone_stale(element):
+            try:
+                element.is_displayed()
+                return False
+            except StaleElementReferenceException:
+                return True
+
+        while not element_has_gone_stale(existing_element):
+            timeout -= 0.1
+            self.wait(0.1)
+            if timeout <= 0:
+                raise Exception("The element {} never became stale".format(existing_element))
+
+    def click_link(self, link, timeout=10, search_in=None, changes_page=True):
         if timeout > 0:
-            self.wait_for_link_with_destination(link, timeout=timeout)
-        self.get_link_by_destination(link).click()
+            self.wait_for_link_with_destination(link, timeout=timeout, search_in=search_in)
 
-    def get_link_by_destination(self, destination):
-        return self.browser.find_element_by_css_selector('a[href="{}"]'.format(destination))
+        link = self.get_link_by_destination(link, search_in=search_in)
+        link.click()
+        if changes_page:
+            start_time = time.time()
+            self.wait_for_stale(link)
 
-    def wait_for_link_with_destination(self, destination, timeout=10):
+    def get_link_by_destination(self, destination, search_in=None):
+        if not search_in:
+            search_in = self.browser
+
+        return search_in.find_element_by_css_selector('a[href="{}"]'.format(destination))
+
+    def wait_for_link_with_destination(self, destination, timeout=10, search_in=None):
         WebDriverWait(self, timeout=timeout).until(
-            lambda b: b.get_link_by_destination(destination),
+            lambda b: b.get_link_by_destination(destination, search_in=search_in),
             'Could not find link with href={}. Page text was:\n{}'.format(
                 destination, self.browser.find_element_by_tag_name('body').text
             )
@@ -151,12 +175,13 @@ class FunctionalTest(StaticLiveServerTestCase):
             return True
         self.fail("The element {} shouldn't have been found in the dom".format(element_id))
 
-    def wait_for(self, function_with_assertion, timeout=DEFAULT_WAIT):
+    def wait_for(self, function_with_assertion, timeout=DEFAULT_WAIT, exception=(AssertionError, WebDriverException)):
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
                 return function_with_assertion()
-            except (AssertionError, WebDriverException):
+            except exception:
+                print("Exception intercepted")
                 time.sleep(0.1)
         # one more try, which will raise any errors if they are outstanding
         return function_with_assertion()

@@ -45,7 +45,12 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # He logs in with his other email address
         ## Uses mockmyid.com for test email
-        self.browser.find_element_by_id('authentication_email').send_keys('alpha@mockmyid.com')
+        self.wait_for_element_with_id('authentication_email')
+        email_field = self.browser.find_element_by_id("authentication_email")
+        self.assertTrue(self.wait_for(
+            lambda: self.assertTrue(email_field.is_displayed()), 10, exception=AssertionError),
+            "Email field should be displayed by now...")
+        email_field.send_keys('alpha@mockmyid.com')
         self.browser.find_element_by_tag_name('button').click()
 
         # The Persona window closes
