@@ -5,13 +5,23 @@ a:hover{
 .navbar-text a:hover{
     color: white;
 }
+#bottom_social_networks p a{
+    color: #3d4d0b;
+}
+#bottom_social_networks p a:hover{
+    color: #3b3b1f;
+}
+#social_lang,
+body .navbar-inverse {
+    background-color: #3b3b1f;
+}
+#social_lang{
+    background-color: #809C65;
+}
 #myCarousel{
     height: 280px;
     overflow: hidden;
 
-}
-#social_lang {
-    background-color: #809C65;
 }
 #social_lang .container .row .navbar-text{
     margin: 5px 0;
