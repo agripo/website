@@ -54,6 +54,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(0)
         self.faker = FakerFactory.create('fr_FR')
+        self.faker.seed(None)
 
         # @todo remove this when it is not needed anymore (should be done by the migration #3 and some others
         from django.contrib.auth.models import Group
@@ -110,6 +111,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.wait_for(lambda: self.browser.find_element_by_css_selector("li.success"), 10)
         if next_page:
             self.assertEqual(self.browser.current_url, "{}{}".format(self.server_url, next_page))
+
+        return self.browser.find_element_by_css_selector("li.success").get_attribute('innerHTML')
 
     def take_screenshot(self):
         filename = self._get_filename() + '.png'

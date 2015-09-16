@@ -9,7 +9,6 @@ class HomeTest(FunctionalTest):
 
     def test_display_and_update_homepage(self):
         faker = self.faker
-        faker.seed(1000)
 
         # Alpha gets connected as manager
         user_alpha_email = faker.email()
@@ -21,12 +20,14 @@ class HomeTest(FunctionalTest):
         self.addCleanup(lambda: quit_if_possible(alpha_browser))
 
         # Alpha creates a content for the home page with a bold first sentence, and set the news number to 8
+        faker.seed(1000)  # There sometimes are problems with generated texts, so we send some that is working
         title = faker.sentence()
         content = faker.paragraphs()
         self.browser = alpha_browser
         self.show_admin_page("core", 'siteconfiguration')  # Base admin page
 
         editor = RichTextEditor(self, home_alpha.id_admin_homepage_content)
+        editor.empty_content()
         bold_button = self.browser.find_element_by_css_selector(".cke_button__bold")
         bold_button.click()
         editor.insert_content(title)

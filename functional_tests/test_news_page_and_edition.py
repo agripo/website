@@ -28,7 +28,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.addCleanup(lambda: quit_if_possible(alpha_browser))
 
         # He sees that there are already some news on the page, and a paginator for the next ones
-        all_news = self.browser.find_elements_by_css_selector('#id_news_list_container .news_container h4')
+        all_news = self.browser.find_elements_by_css_selector('#id_news_list_container .news_container h2')
         self.assertEqual(
             len(all_news), self.config.news_count, 'Did not find the right number of news on the page')
         self.browser.find_element_by_css_selector('.pagination_block a.pagination-next')  # should not raise an error

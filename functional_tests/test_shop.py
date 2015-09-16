@@ -1,19 +1,22 @@
-import time
-
+import re
 
 from .base import FunctionalTest
 from django.core.urlresolvers import reverse
 from .page_shop import ShopPage
-from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
-from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 
 class ShopPageTest(FunctionalTest):
 
-    def add_products_to_cart(self, number, quantity=1):
-        all_products = self.browser.find_elements_by_css_selector('.one_product_category .one_product')
+    def add_products_to_cart(self, number=1, quantity=1, product_id=None):
+        if product_id:
+            number = 1
+            all_products = [self.browser.find_element_by_id('product_{}'.format(product_id))]
+        else:
+            all_products = self.browser.find_elements_by_css_selector('.one_product_category .one_product')
+
         count = 0
         for i in range(0, len(all_products)):
             try:
@@ -37,7 +40,6 @@ class ShopPageTest(FunctionalTest):
     def test_can_add_edit_command_products(self):
         faker = self.faker
         user_alpha_email = faker.email()  # We want a different email each time (for staging)
-        faker.seed(1000)
 
         # The shop already contains some products
         self.populate_db(categories_count=2, products_count=2)
@@ -56,19 +58,17 @@ class ShopPageTest(FunctionalTest):
         select = Select(self.browser.find_element_by_id(shop.id_field_category))
         select.select_by_index(2)
         self.browser.find_element_by_id(shop.id_field_price).send_keys('100')
-        self.admin_save('/admin/core/product/')
+        message = self.admin_save('/admin/core/product/')
+        new_product_id = re.compile("[^0-9]+([0-9]+)[^0-9]+").match(message).group(1)
 
-        # He then adds some stock for two products
-        go_directly = False
-        for i in range(2, 6):
-            self.show_admin_page("core", 'stock', 'add', directly=go_directly)
-            select = Select(self.browser.find_element_by_id('id_product'))
-            select.select_by_index(i)
-            select = Select(self.browser.find_element_by_id('id_farmer'))
-            select.select_by_index(1)
-            self.browser.find_element_by_id('id_stock').send_keys('100')
-            self.admin_save('/admin/core/stock/')
-            go_directly = True
+        # He then adds some stock for this product
+        self.show_admin_page("core", 'stock', 'add')
+        select = Select(self.browser.find_element_by_id('id_product'))
+        select.select_by_value(new_product_id)
+        select = Select(self.browser.find_element_by_id('id_farmer'))
+        select.select_by_index(1)
+        self.browser.find_element_by_id('id_stock').send_keys('10')
+        self.admin_save('/admin/core/stock/')
 
         # He confirms the shop page contains the new product
         page = shop.show()
@@ -106,6 +106,9 @@ class ShopPageTest(FunctionalTest):
         # He adds again two products
         self.add_products_to_cart(2, 2)  # two products with quantity = 2
         self.add_products_to_cart(1, 1)  # the first's quantity is changed to 1
+
+        # He adds the entire quantity of the new product
+        self.add_products_to_cart(quantity=10, product_id=new_product_id)
 
         # He clicks the validation button
         self.click_link(reverse('checkout'))
