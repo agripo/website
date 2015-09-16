@@ -3,7 +3,7 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.db import models
 from solo.models import SingletonModel
 
-from core.icons import UNUSED_ICON
+from core.data.icons import UNUSED_ICON
 
 
 SITECONF_DEFAULT_NEWS_COUNT = 9

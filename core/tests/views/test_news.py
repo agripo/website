@@ -1,13 +1,13 @@
 import random
 import datetime
+
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-
 from core.tests.views.base import ViewsBaseTestCase
 from core.models.news import News
 from core.models.general import Icon
 from core.models.users import AgripoUser as User
-from core.icons import UNUSED_ICON
+from core.data.icons import UNUSED_ICON
 
 
 class NewsViewsTest(ViewsBaseTestCase):

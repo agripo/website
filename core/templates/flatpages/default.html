@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block page_name %}id_shop_page{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 data-url="{{ flatpage.url }}">{{ flatpage.title }}</h1>
+        </div>
+        <div class="panel-body">
+            {{ flatpage.content }}
+        </div>
+    </div>
+{% endblock %}

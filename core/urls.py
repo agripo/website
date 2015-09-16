@@ -2,6 +2,7 @@ from core.authentication import is_staging_server, is_development_server
 from django.conf.urls import url, patterns
 from django.contrib.auth.views import logout
 from django.views.generic import RedirectView, TemplateView
+from django.contrib.flatpages import views as flatpages_views
 
 from core import views
 
@@ -35,3 +36,7 @@ if is_staging_server() or is_development_server():
         url(r'^core/populatedb/(?P<news_count>[0-9]+)/(?P<products_count>[0-9]+)/(?P<categories_count>[0-9]+)/$',
             views.populate_db, name='populate_db'),
     )
+
+urlpatterns += [
+    url(r'^(?P<url>.*/)$', flatpages_views.flatpage),
+]

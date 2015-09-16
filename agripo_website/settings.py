@@ -35,11 +35,10 @@ SERVER_URL = "not.a.real.server:1234"
 
 TESTING_FUNCTIONALITIES = False
 
-DOMAIN = "agripo-dev.brice.xyz"
+DOMAIN = 'agripo-dev.brice.xyz'
 
 # Defining the server url for the tests on the staging server
 import sys
-
 for arg in sys.argv:
     if 'liveserver' in arg and "-staging." in arg:
         SERVER_URL = arg.split('=')[1]
@@ -62,6 +61,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.flatpages',
     'core',
     'admin_helper',
     'functional_tests',
@@ -88,8 +88,9 @@ if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
         'debug_toolbar',
     )
     # Adding the auto-connect backend
-    AUTHENTICATION_BACKENDS = ('core.authentication.NewUserAutoconnectionModelBackend',) \
-                              + AUTHENTICATION_BACKENDS
+    AUTHENTICATION_BACKENDS = (
+        'core.authentication.NewUserAutoconnectionModelBackend',
+    ) + AUTHENTICATION_BACKENDS
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -148,7 +149,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
+    'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'agripo_website.urls'

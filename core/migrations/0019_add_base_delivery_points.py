@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations
 
-from core.data_migrations import create_base_deliverypoints_and_deliveries
+from core.data.data_migrations import create_base_deliverypoints_and_deliveries
 
 
 def _make_data_migration(apps, schema_editor):

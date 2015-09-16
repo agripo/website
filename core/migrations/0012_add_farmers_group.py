@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations
 from django.contrib.auth.management import create_permissions
 
-from core.data_migrations import create_farmers_group
+from core.data.data_migrations import create_farmers_group
 
 
 def _make_permissions(apps, schema_editor):

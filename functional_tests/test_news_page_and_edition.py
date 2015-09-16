@@ -10,6 +10,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
 
     def test_can_add_news_to_news_page(self):
         faker = self.faker
+        self.insert_flat_pages_contents()
 
         # Alpha gets connected as manager
         user_alpha_email = faker.email()

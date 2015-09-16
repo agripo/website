@@ -45,14 +45,15 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # He logs in with his other email address
         ## Uses mockmyid.com for test email
-        self.browser.find_element_by_id('authentication_email').send_keys('alpha@mockmyid.com')
+        element = self.wait_for_element_with_id('authentication_email')
+        self.wait_for_element_to_be_displayed(element).send_keys('alpha@mockmyid.com')
         self.browser.find_element_by_tag_name('button').click()
 
         # The Persona window closes
         self.browser.switch_to.window(window_handle)
 
         # He goes back to the home page to verify he is connected again
-        self.wait_to_be_logged_in()
+        self.wait_to_be_logged_in(timeout=20)  # It may be quite long...
 
         # He confirms he's connected
         home.check_connection_status(True)
