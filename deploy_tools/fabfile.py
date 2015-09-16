@@ -32,6 +32,7 @@ def deploy(tag):
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
+    _update_flatpages(source_folder)
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -101,3 +102,7 @@ def _update_static_files(source_folder):
 
 def _update_database(source_folder):
     run(_get_manage_dot_py_command(source_folder) + ' migrate --noinput')
+
+
+def _update_flatpages(source_folder):
+    run(_get_manage_dot_py_command(source_folder) + ' loaddata core/flatpages_contents.json')
