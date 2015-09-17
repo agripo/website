@@ -5,10 +5,10 @@ a:hover{
 .navbar-text a:hover{
     color: white;
 }
-#bottom_social_networks p a{
+#bottom_social_networks a{
     color: #3d4d0b;
 }
-#bottom_social_networks p a:hover{
+#bottom_social_networks a:hover{
     color: #3b3b1f;
 }
 #social_lang,
