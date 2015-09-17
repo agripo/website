@@ -5,7 +5,7 @@
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
 
 {% block main_content %}
-    <div class="row" id="shop">
+    <div id="shop">
         <style>
             .product_image{
                 display: block;
@@ -32,68 +32,76 @@
                 color: red;
             }
         </style>
-        <div class="col-md-12">
-            <h1>Bienvenue dans notre boutique</h1>
-            <p>{% lorem %}</p>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Bienvenue dans notre boutique</h1>
+                <p>{% lorem %}</p>
+            </div>
         </div>
-        {% for cat in categories %}
-            <div class="one_product_category">
-                <div class="col-md-12">
-                    <h2>{{ cat.name }}</h2>
-                </div>
-                {% for prod in cat.product_set.all %}
-                    <div class="col-md-6">
-                        <div class="panel panel-default one_product" id="product_{{ prod.id }}">
-                            <div class="panel-heading">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="product_name">{{ prod.name }}</span>
-                            </div>
-                            <div class="panel-body">
-                                <div class="product_image">
-                                    <img src="/media/{{ prod.image }}"/>
+        <hr />
+        <div class="row">
+            {% for cat in categories %}
+                <div class="one_product_category">
+                    <div class="col-md-12">
+                        <h2>{{ cat.name }}</h2>
+                    </div>
+                    {% for prod in cat.product_set.all %}
+                        <div class="col-md-6">
+                            <div class="panel panel-default one_product" id="product_{{ prod.id }}">
+                                <div class="panel-heading">
+                                    <h3>
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span class="product_name">{{ prod.name }}</span>
+                                    </h3>
                                 </div>
-                                <div class="product_description">
-                                    <p>
-                                        <strong>Prix unitaire :</strong>
-                                        {{ product.price }}&nbsp;FCFA
-                                    </p>
-                                    {% if prod.is_available %}
-                                        <form action="{% url "requires_js" %}?back={{ request.get_full_path }}" method="post" class="add_to_cart" onsubmit="return false">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="id" value="{{ prod.id }}"/>
-                                            <p>En stock</p>
-                                            <p class="add_to_cart_form">
-                                                Quantité achetée :
-                                                <input name="quantity" value="{{ prod.get_cart_quantity }}" type="number" style="width:100px;" placeholder="Quantité" type="number"/>
-                                                <input type="submit" value="OK"/>
-                                            </p>
-                                            <p class="add_to_cart_confirm_message">
-                                                <i class="fa fa-check"></i>
-                                                Panier mis à jour avec succès
-                                            </p>
-                                            <p class="add_to_cart_not_enough_stock_message">
-                                                <i class="fa fa-exclamation"></i>
-                                                Quantité en stock insuffisante. Veuillez limiter votre commande à QUANTITY unités.
-                                            </p>
-                                            <p class="add_to_cart_no_stock_message">
-                                                <i class="fa fa-exclamation"></i>
-                                                Produit indisponible
-                                            </p>
-                                        </form>
-                                    {% else %}
-                                        <p class="add_to_cart_not_available">
-                                            <i class="fa fa-exclamation"></i>
-                                            Produit indisponible pour le moment
+                                <div class="panel-body">
+                                    <div class="product_image">
+                                        <img src="/media/{{ prod.image }}"/>
+                                    </div>
+                                    <div class="product_description">
+                                        <p>
+                                            <strong>Prix unitaire :</strong>
+                                            {{ product.price }}&nbsp;FCFA
                                         </p>
-                                    {% endif %}
+                                        {% if prod.is_available %}
+                                            <form action="{% url "requires_js" %}?back={{ request.get_full_path }}" method="post" class="add_to_cart" onsubmit="return false">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id" value="{{ prod.id }}"/>
+                                                <p>En stock</p>
+                                                <p class="add_to_cart_form">
+                                                    Quantité achetée :
+                                                    <input name="quantity" value="{{ prod.get_cart_quantity }}" type="number" style="width:100px;" placeholder="Quantité" type="number"/>
+                                                    <input type="submit" value="OK"/>
+                                                </p>
+                                                <p class="add_to_cart_confirm_message">
+                                                    <i class="fa fa-check"></i>
+                                                    Panier mis à jour avec succès
+                                                </p>
+                                                <p class="add_to_cart_not_enough_stock_message">
+                                                    <i class="fa fa-exclamation"></i>
+                                                    Quantité en stock insuffisante. Veuillez limiter votre commande à QUANTITY unités.
+                                                </p>
+                                                <p class="add_to_cart_no_stock_message">
+                                                    <i class="fa fa-exclamation"></i>
+                                                    Produit indisponible
+                                                </p>
+                                            </form>
+                                        {% else %}
+                                            <p class="add_to_cart_not_available">
+                                                <i class="fa fa-exclamation"></i>
+                                                Produit indisponible pour le moment
+                                            </p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% empty %}
-                    <div class="one_product_category_empty">Il n'y a aucun produit dans cette catégorie pour le moment</div>
-                {% endfor %}
-            </div>
-        {% endfor %}
+                    {% empty %}
+                        <div class="one_product_category_empty">Il n'y a aucun produit dans cette catégorie pour le moment</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

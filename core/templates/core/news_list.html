@@ -6,20 +6,15 @@
 
 {% block main_content %}
     <div id="id_news_list_container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h1>{{ intro.title }}</h1>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            {{ intro.content|safe }}
-                        </p>
-                    </div>
-                </div>
-            </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ intro.title }}</h1>
+                <p>{{ intro.content|safe }}</p>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
             <div class="row news_container">
                 {% for news in news_list %}
                     <div class="col-md-6 col-sm-6">
