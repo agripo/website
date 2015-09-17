@@ -19,12 +19,9 @@
                             </h4>
                         </div>
                         <div class="panel-body">
-                            <p>{{ one.content|truncatechars:250 }}</p>
+                            <p>{{ one.content|truncatechars:200 }}</p>
                             <p>
-                                <a class="btn navbar-btn" id="id_see_more" href="#">
-                                    <i class="fa fa-plus"></i>
-                                    Lire l'article
-                                </a>
+                                <a href="{% url "one_news_page" one.pk %}" class="btn btn-default btn-primary">Lire l'article complet</a>
                             </p>
                         </div>
                     </div>
