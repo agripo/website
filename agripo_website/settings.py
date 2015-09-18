@@ -40,7 +40,7 @@ DOMAIN = "agripo-dev.brice.xyz"
 # Defining the server url for the tests on the staging server
 import sys
 for arg in sys.argv:
-    if 'liveserver' in arg and "-staging." in arg:
+    if 'liveserver' in arg and "staging." in arg:
         SERVER_URL = arg.split('=')[1]
         SERVER_TYPE = SERVER_TYPE_STAGING
 
@@ -49,7 +49,7 @@ for arg in sys.argv:
         print("Functional Tests mode (without facebook)\n")
         DOMAIN = "localhost:8081"
 
-ALLOWED_HOSTS = [DOMAIN, ]
+ALLOWED_HOSTS = [DOMAIN, "127.0.0.1"]
 
 # Application definition
 
