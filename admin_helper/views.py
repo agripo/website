@@ -13,7 +13,7 @@ def _prepare(request, url):
 
     object = get_object_or_404(model, pk=object_id)
     user = request.user
-    if not user.has_perm("{}.{}".format(app_label, model_name), object):
+    if not user.has_perm("{}.change_{}".format(app_label, model_name)):
         raise PermissionDenied
 
     return object, field

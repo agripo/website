@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-from core.icons import import_icons
+from core.data.icons import import_icons
 
 
 def _add_icons(apps, schema_editor):

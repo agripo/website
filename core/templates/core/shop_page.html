@@ -5,244 +5,103 @@
 {% block header_text %}Welcome to Agripo's new website{% endblock %}
 
 {% block main_content %}
-    <div class="row" id="shop">
+    <div id="shop">
         <style>
-            #shop h2{
-                margin: 50px 0 0 0;
-            }
-            .one_product{
-                position: relative;
+            .product_image{
                 display: block;
-                padding: 10px;
-                height: 150px;
-                width: 100%;
-                margin-top: 0;
-                margin-bottom: 15px;
-            }
-            .one_product:hover .left_product_part,
-            .one_product:hover .right_product_part{
-                border-color: #3c763d;
-            }
-            .left_product_part{
-                display: inline-block;
-                position: absolute;
-                left: 0;
+                float: left;
                 width: 40%;
                 height: 150px;
-                border: 4px solid rgba(0,0,0,0.1);
                 overflow: hidden;
                 text-align: center;
+                margin-right: 5px;
             }
-            .left_product_part img {
-                max-width: 100%;
-                min-height: 150px;
-            }
-            .right_product_part{
-                width: 60%;
-                height: 150px;
-                left: 40%;
-                display: inline-block;
-                position: absolute;
-                padding: 5px;
-                border: 4px solid rgba(0,0,0,0.1);
-                border-left: none;
-            }
-            .one_product .expanded,
-            .one_product:hover .reduced{
+            .add_to_cart_not_enough_stock_message,
+            .add_to_cart_no_stock_message,
+            .add_to_cart_confirm_message {
                 display: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
             }
-            .one_product:hover .expanded,
-            .one_product .reduced{
-                display: block;
+            .add_to_cart_confirm_message .fa{
+                color: limegreen;
             }
-            p.expanded input[type="submit"]{
-                width: 45px;
+            .add_to_cart_not_enough_stock_message .fa,
+            .add_to_cart_no_stock_message .fa,
+            .add_to_cart_not_available .fa{
+                color: red;
             }
         </style>
-        <div class="col-md-12">
-            <h1>Bienvenue dans notre boutique</h1>
-            <p>{% lorem %}</p>
-        </div>
-        {% for cat in categories %}
+
+        <div class="row">
             <div class="col-md-12">
-                <h2>{{ cat.name }}</h2>
+                <h1>Bienvenue dans notre boutique</h1>
+                <p>{% lorem %}</p>
             </div>
-            {% for prod in cat.products %}
-                <div class="col-md-6">
-                    <div class="one_product">
-                        <div class="left_product_part">
-                            <img src="/static/img/shop/{{ prod.img }}"/>
-                        </div>
-                        <div class="right_product_part">
-                            <h3>{{ prod.name }}</h3>
-                            {% if prod.stock > 0 %}
-                                <p>En stock</p>
-                                <p class="reduced">
-                                    Quantité achetée : {{ prod.bought }}
-                                </p>
-                                <p class="expanded">
-                                    <input style="width:100px;" placeholder="Quantité" type="number" value="{{ prod.bought }}"/>
-                                    <input type="submit" value="OK"/>
-                                </p>
-                            {% else %}
-                                <p>Produit indisponible pour le moment</p>
-                            {% endif %}
-                        </div>
+        </div>
+        <hr />
+        <div class="row">
+            {% for cat in categories %}
+                <div class="one_product_category">
+                    <div class="col-md-12">
+                        <h2>{{ cat.name }}</h2>
                     </div>
+                    {% for prod in cat.product_set.all %}
+                        <div class="col-md-6">
+                            <div class="panel panel-default one_product" id="product_{{ prod.id }}">
+                                <div class="panel-heading">
+                                    <h3>
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span class="product_name">{{ prod.name }}</span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="product_image">
+                                        <img src="/media/{{ prod.image }}"/>
+                                    </div>
+                                    <div class="product_description">
+                                        <p>
+                                            <strong>Prix unitaire :</strong>
+                                            {{ product.price }}&nbsp;FCFA
+                                        </p>
+                                        {% if prod.is_available %}
+                                            <form action="{% url "requires_js" %}?back={{ request.get_full_path }}" method="post" class="add_to_cart" onsubmit="return false">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id" value="{{ prod.id }}"/>
+                                                <p>En stock</p>
+                                                <p class="add_to_cart_form">
+                                                    Quantité achetée :
+                                                    <input name="quantity" value="{{ prod.get_cart_quantity }}" type="number" style="width:100px;" placeholder="Quantité" type="number"/>
+                                                    <input type="submit" value="OK"/>
+                                                </p>
+                                                <p class="add_to_cart_confirm_message">
+                                                    <i class="fa fa-check"></i>
+                                                    Panier mis à jour avec succès
+                                                </p>
+                                                <p class="add_to_cart_not_enough_stock_message">
+                                                    <i class="fa fa-exclamation"></i>
+                                                    Quantité en stock insuffisante. Veuillez limiter votre commande à QUANTITY unités.
+                                                </p>
+                                                <p class="add_to_cart_no_stock_message">
+                                                    <i class="fa fa-exclamation"></i>
+                                                    Produit indisponible
+                                                </p>
+                                            </form>
+                                        {% else %}
+                                            <p class="add_to_cart_not_available">
+                                                <i class="fa fa-exclamation"></i>
+                                                Produit indisponible pour le moment
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="one_product_category_empty">Il n'y a aucun produit dans cette catégorie pour le moment</div>
+                    {% endfor %}
                 </div>
             {% endfor %}
-        {% endfor %}
-    <!--
-        <div class="col-md-12">
-            <h2>Fruits</h2>
         </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/banane.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Bananes</h3>
-                    <p>En stock</p>
-                    <p>
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/manioc.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Mandarines</h3>
-                    <p>En stock</p>
-                    <p>
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/noix.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Citron</h3>
-                    <p>En stock</p>
-                    <p>
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <h2>Noix et produits du cacao</h2>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/manioc.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Fèves de cacao</h3>
-                    <p>Produit indisponible pour le moment</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/noix.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Jus de cacao</h3>
-                    <p>En stock</p>
-                    <p class="reduced">
-                        Quantité achetée : 2
-                    </p>
-                    <p class="expanded">
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                        <a href="#"><i class="fa fa-refresh fa-2x"></i></a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/noix.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Bitter-cola</h3>
-                    <p>En stock</p>
-                    <p>
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/noix.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Noix de Cola</h3>
-                    <p>En stock</p>
-                    <p>
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <h2>Légumes</h2>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/manioc.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Avocats</h3>
-                    <p>En stock</p>
-                    <p>
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/manioc.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Arbres à ail</h3>
-                    <p>En stock</p>
-                    <p>
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="one_product">
-                <div class="left_product_part">
-                    <img src="/static/img/manioc.jpg"/>
-                </div>
-                <div class="right_product_part">
-                    <h3>Manioc</h3>
-                    <p>En stock</p>
-                    <p>
-                        <input style="width:100px;" placeholder="Quantité" type="number"/>
-                    </p>
-                </div>
-            </div>
-        </div>
-        -->
     </div>
 {% endblock %}

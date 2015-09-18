@@ -1,0 +1,110 @@
+{% extends 'core/base.html' %}
+
+{% block page_name %}shop_checkout{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>
+                <i class="fa fa-shopping-cart"></i>
+                Votre commande
+            </h4>
+        </div>
+        <div class="panel-body">
+            <p>{% lorem 1 %}</p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Contenu de la commande</h4>
+        </div>
+        <div class="panel-body">
+            <style>
+                #checkout_recap{
+                    width: 100%;
+                }
+                #checkout_recap th,
+                #checkout_recap td{
+                    width: 14%;
+                    text-align: right;
+                }
+                #checkout_recap th:first-child,
+                #checkout_recap td:first-child{
+                    width: 58%;
+                    text-align: left;
+                    padding: 2px;
+                }
+                #checkout_recap th:nth-child(3),
+                #checkout_recap td:nth-child(3){
+                    text-align: center;
+                }
+            </style>
+            <div class="col-md-12">
+                <table id="checkout_recap" style="width: 100%">
+                    <tr>
+                        <th style="width: 60%">Produit</th>
+                        <th style="width: 15%">Prix unitaire</th>
+                        <th style="width: 10%">Quantité</th>
+                        <th style="width: 15%">Total</th>
+                    </tr>
+                    {% for product in products %}
+                        <tr id="bought_product_{{ product.product.id }}">
+                            <td>
+                                <img src="/media/{{ product.product.image }}" style="width: 2em"/>
+                                {{ product.product.name }}
+                            </td>
+                            <td>
+                                {{ product.product.price }} XAF
+                            </td>
+                            <td>
+                                {{ product.quantity }}
+                            </td>
+                            <td>
+                                {{ product.total }} XAF
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <th>Total : </th>
+                        <th>{{ total }} XAF</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Vos données</h4>
+        </div>
+        <style>
+            textarea.textarea-3-lines{
+                height: 5em;
+            }
+        </style>
+        <div class="panel-body">
+            <form method="post" role="form">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div style="text-align: center">
+                        <a href="{% url "shop_page" %}">
+                            <button type="button" class="btn btn-danger">
+                                <i class="fa fa-arrow-left"></i>
+                                Retourner dans la boutique
+                            </button>
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i> Valider la commande
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

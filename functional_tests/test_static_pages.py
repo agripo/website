@@ -30,6 +30,7 @@ class StaticPagesTest(FunctionalTest):
             self.show_page(link)  # we go back, to have the links
 
     def _test_display_all_static_pages(self):
+        self.insert_flat_pages_contents()
         # Alpha goes to the home page
         HomePage(self).show()
 

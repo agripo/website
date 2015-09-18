@@ -34,11 +34,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // We get the models structure for this admin page
-    $.get('admin_helper_model_structure/', function(ret){
-        for(var id in ret.fields){
-            var field = ret.fields[id];
-            $('.column-'+field['name']).addClass('admin-helper-editable-column');
-            manage_field($(".field-"+field['name']), field);
-        }
-    });
+    if($("#changelist").length) {
+        $.get('admin_helper_model_structure/', function (ret) {
+            for (var id in ret.fields) {
+                var field = ret.fields[id];
+                $('.column-' + field['name']).addClass('admin-helper-editable-column');
+                manage_field($(".field-" + field['name']), field);
+            }
+        });
+    }
 }, false);

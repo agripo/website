@@ -52,10 +52,8 @@ class LayoutAndStylingTest(FunctionalTest):
         # The Persona window closes
         self.browser.switch_to.window(window_handle)
 
-        time.sleep(5)
-
         # He goes back to the home page to verify he is connected again
-        self.wait_to_be_logged_in()
+        self.wait_to_be_logged_in(timeout=20)  # It may be quite long...
 
         # He confirms he's connected
         home.check_connection_status(True)
@@ -125,8 +123,11 @@ class LayoutAndStylingTest(FunctionalTest):
         self.browser.refresh()
         self.assertElementNotFoundById(home.id_page_uses_cookies)
 
-        #@todo : add test for small screen to display a submenu page instead of a submenu block
+        # He opens the page with a smaller browser
+        self.dev_point()
 
-        #@todo : add test for big screen to display a submenu block instead of a submenu page
+        # He can see that the menu is displayed vertically now
 
-        self.fail('There are missing tests here')
+        # He opens the page with a browser with javascript deactivated
+
+        # He can see that the menu now leads him to some intermediate pages

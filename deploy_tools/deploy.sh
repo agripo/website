@@ -18,11 +18,9 @@ fi
 
 if [ $type = "staging" ]
     then
-        server="agripo-staging.brice.xyz"
+        server="staging.agripo-website.brice.xyz"
     else
-        server="agripo.brice.xyz"
+        server="www.agripo-website.brice.xyz"
 fi
 
 fab deploy:$1 --host=$server
-
-ssh brice.xyz "bash /home/brice/sites/agripo-staging.brice.xyz/source/deploy_tools/restart_gunicorn.sh"

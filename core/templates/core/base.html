@@ -71,6 +71,21 @@
 
 {% include "core/boxes/social_lang.html" %}
 <br />
+
+{% if messages %}
+    <section id="messages_container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}
+
 <section id="main_content">
     <div class="container">
         <div class="row">
@@ -86,13 +101,19 @@
 
             <!-- and the vertical menu on the right -->
             <div class="col-md-4">
-                {% if user.id %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <script>
+                    URL_ADD_TO_CART = "{% url "set_product_quantity" "111111" "222222" %}";
+                    URL_GET_CART = "{% url "get_cart" %}";
+                </script>
+                <div class="panel panel-default shop_cart_module">
+                    <div class="panel-heading">
+                        <h4>
                             <i class="fa fa-shopping-cart"></i>
                             Panier
-                        </div>
-                        <div class="panel-body">
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        {% if user.id %}
                             {% if user.first_name %}
                                 <p>Bienvenue {{ user.first_name }} {{ user.last_name }} !</p>
                             {% else %}
@@ -104,30 +125,53 @@
                                     Déconnexion
                                 </a>
                             </p>
-                            <p>
-                                2kg de Manioc, 3kg de Bananes, 1L d'huile de palme, 2kg de noix,
-                                2kg de fèves de cacao, 1L de jus de cacao, 1kg d'avocat, 2kg de citron
-                                1kg de bitter-cola et 1kg de mandarine.<br />
-                                Total : 6700 XAF
+                            <hr />
+                            <h4>Votre panier</h4>
+                            <p id="cart_is_empty" style="display:none"t_>
+                                Votre panier est vide
                             </p>
-                            <p>
-                                <a class="btn navbar-btn" id="id_checkout" href="#">
-                                    <i class="fa fa-check"></i>
-                                    Valider la commande
-                                </a>
+                            <ul id="cart_contents">
+                                <li>Javascript doit être activé pour pouvoir utiliser le panier</li>
+                            </ul>
+                            <ul id="cart_contents_model" style="display:none">
+                                <li data-product-id="ID">
+                                    <strong>QUANTITY</strong> × <strong>NAME</strong>, PRICE XAF
+                                    <!--<a class="btn" href="#"><i class="fa fa-trash"></i></a>-->
+                                </li>
+                            </ul>
+                            <p id="cart_total">
+                                Total : <strong id="cart_module_total"><span>0</span> XAF</strong>
                             </p>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-sign-in"></i>
-                            Se connecter grâce à
-                        </div>
-                        <div class="panel-body">
+                            <hr />
+                            <h4>Votre commande</h4>
+                            {% url 'shop_page' as shop_url %}
+                            {% if request.get_full_path != shop_url %}
+                                <p>
+                                    <a class="btn" id="id_checkout" href="{% url "shop_page" %}">
+                                        <i class="fa fa-pencil"></i>
+                                        Modifier votre commande
+                                    </a>
+                                </p>
+                            {% endif %}
+                            {% url 'checkout' as checkout_url %}
+                            {% if request.get_full_path != checkout_url %}
+                                <p>
+                                    <a class="btn" id="id_checkout" href="{% url "checkout" %}">
+                                        <i class="fa fa-check"></i>
+                                        Valider la commande
+                                    </a>
+                                </p>
+                            {% endif %}
+                        {% else %}
                             <p>
                                 {% load socialaccount %}
                                 {% providers_media_js %}
+                                <p>
+                                    Connectez-vous pour profiter de notre boutique en ligne.
+                                </p>
+                                <p>
+                                    Se connecter avec :
+                                </p>
                                 {% if show_facebook_connector %}
                                     <a class="btn navbar-btn" href="{% provider_login_url "facebook" method="js_sdk" %}">
                                         <i class="fa fa-facebook-official"></i>
@@ -140,14 +184,16 @@
                                     Votre adresse email
                                 </a>
                             </p>
-                        </div>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
 
                 <!-- Partners block, if needed -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Partners
+                        <h4>
+                            Partners
+                        </h4>
                     </div>
 
                     <div class="panel-body">
@@ -209,13 +255,17 @@
                 </p>
                 <a href="/qui-sommes-nous/" class="btn btn-primary btn-block">En savoir plus</a>
             </div>
-            <div class="col-md-3 col-sm-6" id="bottom_social_networks">
+            <div class="col-md-3 col-sm-6">
                 <h4><strong>RÉSEAUX SOCIAUX</strong></h4>
+                <p id="bottom_social_networks">
+                    <a class="one_social_button" target="_blank" href="https://www.facebook.com/AgriculteursProfessionnelsDuCameroun"><i class="fa fa-facebook-square fa-3x"></i></a>
+                    <a class="one_social_button" target="_blank" href="https://twitter.com/COOPAGRIPO"><i class="fa fa-twitter-square fa-3x"></i></a>
+                    <a class="one_social_button" target="_blank" href="https://www.linkedin.com/profile/view?id=AAIAAArp93EBgbDIykka0-CeR3LMmszhpRlMMwc&trk=nav_responsive_tab_profile_pic"><i class="fa fa-linkedin-square fa-3x"></i></a>
+                </p>
+                <hr />
+                <h4><strong>PARTENARIATS</strong></h4>
                 <p>
-                    <a target="_blank" href="https://www.facebook.com/AgriculteursProfessionnelsDuCameroun"><i class="fa fa-facebook-square fa-3x"></i></a>
-                    <a target="_blank" href="https://twitter.com/COOPAGRIPO"><i class="fa fa-twitter-square fa-3x"></i></a>
-                    <a target="_blank" href="https://www.linkedin.com/profile/view?id=AAIAAArp93EBgbDIykka0-CeR3LMmszhpRlMMwc&trk=nav_responsive_tab_profile_pic"><i class="fa fa-linkedin-square fa-3x"></i></a>
-                    <a target="_blank" href="#"><i class="fa fa-google-plus-square fa-3x"></i></a>
+                    <a href="/devenir-partenaire/" class="btn btn-primary btn-block">Devenir partenaire</a>
                 </p>
             </div>
             <div class="col-md-3 col-sm-6">
@@ -227,12 +277,13 @@
                 <p>
                     <a href="/nous-contacter/" class="btn btn-primary btn-block">Nous contacter</a>
                 </p>
-                <p>
-                    <a href="/devenir-partenaire/" class="btn btn-primary btn-block">Devenir partenaire</a>
-                </p>
             </div>
             <div class="col-md-3 col-sm-6">
                 <h4><strong>MENTIONS LÉGALES</strong></h4>
+                <p>
+                    © 2015 AGRIPO - Tous droits réservés
+                </p>
+                <hr />
                 <p>
                     <a href="/credits-mentions-legales/" class="btn btn-primary btn-block">
                         Crédits et mentions légales

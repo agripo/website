@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load solo_tags %}
+
+{% block page_name %}id_home_page{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><i class="fa fa-fw fa-check"></i>Commande enregitrée</h4>
+        </div>
+        <div class="panel-body">
+            <p>
+                Votre commande a été enregistrée avec succès.
+            </p>
+            <p>
+                Un mail vous a été envoyé pour vous le confirmer.
+            </p>
+            <p>
+                Si vous voulez ajouter des produits à cette commande, n'hésitez pas à passer une commande
+                supplémentaire contenant les produits à ajouter.
+            </p>
+            <p>
+                En cas de soucis avec cette commande, contactez nous au plus vite avec le formulaire de
+                contact de ce site.
+            </p>
+            <p>
+                Toute notre équipe vous remercie pour votre confiance.
+            </p>
+        </div>
+    </div>
+{% endblock %}

@@ -5,10 +5,10 @@ a:hover{
 .navbar-text a:hover{
     color: white;
 }
-#bottom_social_networks p a{
+#bottom_social_networks a{
     color: #3d4d0b;
 }
-#bottom_social_networks p a:hover{
+#bottom_social_networks a:hover{
     color: #3b3b1f;
 }
 #social_lang,
@@ -30,9 +30,10 @@ body .navbar-inverse {
 .panel-heading h2,
 .panel-heading h3,
 .panel-heading h4{
-    font-size: 18px;
+    font-size: 16px;
     margin: 0;
     padding: 0;
+    color: #3d4d0b;
 }
 .panel-heading h1{
     font-width: bold;

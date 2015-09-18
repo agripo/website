@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='news',
             name='icon',
-            field=models.ForeignKey(to='core.Icon', default=core.models.get_comment_icon_id),
+            field=models.ForeignKey(to='core.Icon', default=core.models.general.get_comment_icon_id),
         ),
     ]

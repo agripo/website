@@ -17,14 +17,16 @@ def deploy(tag):
 
     print("Deploying tag {} to {}".format(tag, env.host))
 
-    if '-staging.' in env.host:
+    server_type_name = "production"
+    if 'staging.' in env.host:
         STAGING = True
+        server_type_name = "staging"
     else:
         # We never deploy on anything else than the 'deploy' tag, which should stay on the Master branch
         if "deploy_" not in tag:
             raise Exception('Deployment on production is limited to the "deploy" tag')
 
-    site_folder = '/home/%s/sites/%s' % (env.user, env.host)
+    site_folder = '/home/%s/sites/%s' % (env.user, server_type_name)
     source_folder = site_folder + '/source'
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder, tag)
@@ -33,6 +35,7 @@ def deploy(tag):
     _update_static_files(source_folder)
     _update_database(source_folder)
     _update_flatpages(source_folder)
+    _restart_gunicorn(server_type_name)
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -50,6 +53,7 @@ def _get_latest_source(source_folder, deploy_tag):
     if exists(source_folder + '/.git'):
         run('cd %s && git fetch' % (source_folder,))
     else:
+        run('cd {}/.. && mv source old_source 2>/dev/null'.format(source_folder))
         run('git clone %s %s' % (REPO_URL, source_folder))
 
     run('cd %s && git reset --hard %s' % (source_folder, deploy_tag))
@@ -65,7 +69,9 @@ def _get_latest_source(source_folder, deploy_tag):
 def _update_settings(source_folder, site_name):
     settings_path = '{}/{}/settings.py'.format(source_folder, MAIN_APP)
     sed(settings_path, "DEBUG = True", "DEBUG = False")
-    sed(settings_path, 'DOMAIN = "localhost"', 'DOMAIN = "%s"' % (site_name,))
+    ip = local('dig +short {}'.format(site_name), capture=True)
+    sed(settings_path, 'ALLOWED_HOSTS = [DOMAIN, "127.0.0.1"]', 'ALLOWED_HOSTS = [DOMAIN, "{}"]'.format(ip))
+    sed(settings_path, 'DOMAIN = "agripo-dev.brice.xyz"', 'DOMAIN = "%s"' % (site_name,))
     if STAGING:
         sed(settings_path, 'SERVER_TYPE = SERVER_TYPE_DEVELOPMENT', 'SERVER_TYPE = SERVER_TYPE_STAGING')
     else:
@@ -106,3 +112,6 @@ def _update_database(source_folder):
 
 def _update_flatpages(source_folder):
     run(_get_manage_dot_py_command(source_folder) + ' loaddata core/flatpages_contents.json')
+
+def _restart_gunicorn(server_type_name):
+    run("sudo /root/reload_gunicorn/{}.sh".format(server_type_name))

@@ -24,3 +24,8 @@ class RichTextEditor(object):
         self._activate()
         self.browser.find_element_by_css_selector("body").send_keys(content)
         self._deactivate()
+
+    def empty_content(self):
+        self._activate()
+        self.browser.execute_script("document.getElementsByTagName('body')[0].innerHTML = '';")
+        self._deactivate()
