@@ -1,0 +1,5 @@
+.admin-helper-editable-column .text{
+    background: transparent url(/static/admin/img/icon_changelink.gif) no-repeat left;
+    margin-left: 4px;
+    padding-left: 10px;
+}

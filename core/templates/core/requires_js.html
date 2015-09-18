@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block page_name %}id_shop_page{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    <div class="row" id="requires_js">
+        <div class="col-md-12">
+            <h1>
+                <i class="fa fa-exclamation-triangle"></i>
+                Erreur !
+            </h1>
+            <p>
+                JavaScript n'est pas activé sur votre ordinateur.
+            </p>
+            <p>
+                Afin de profiter pleinement des fonctionnalités de ce site internet, il est impératif
+                d'activer javaScript.
+            </p>
+            <p>
+                Voici les <a href="http://www.enable-javascript.com/fr/" target="_blank">
+                instructions pour activer JavaScript dans votre navigateur Web</a>
+            </p>
+            <p>
+                Pour retourner à la page où vous étiez précédemment,
+                <a href="{{ back_link }}">cliquez ici</a>.
+            </p>
+        </div>
+    </div>
+{% endblock %}

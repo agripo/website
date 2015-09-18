@@ -1,3 +1,14 @@
+class CantSetCartQuantityOnUnsavedProduct(Exception):
+
+    def __str__(self):
+        return "Adding to cart on an unsaved object"
+
+
+class AddedMoreToCartThanAvailable(Exception):
+
+    def __str__(self):
+        return "We may not add more to cart than available"
+
 
 class NoAutoConnectionWithExistingUser(Exception):
     """ We may only autoconnect new users """

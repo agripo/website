@@ -4,5 +4,5 @@ register = template.Library()
 
 
 @register.inclusion_tag('core/slideshow_tag.html')
-def slideshow(images):
-    return {'images': images}
+def slideshow(data):
+    return {'data': data}

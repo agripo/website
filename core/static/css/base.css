@@ -1,19 +1,44 @@
-a{
-    color: #3c763d;
+a,
+a:hover{
+    color: #3d4d0b;
 }
-
-section.carousel{
-    padding-top: 0;
+.navbar-text a:hover{
+    color: white;
 }
+#bottom_social_networks a{
+    color: #3d4d0b;
+}
+#bottom_social_networks a:hover{
+    color: #3b3b1f;
+}
+#social_lang,
+body .navbar-inverse {
+    background-color: #3b3b1f;
+}
+#social_lang{
+    background-color: #809C65;
+}
+#myCarousel{
+    height: 280px;
+    overflow: hidden;
 
-section#connection,
-section#id_uses_cookies_section{
+}
+#social_lang .container .row .navbar-text{
+    margin: 5px 0;
+}
+.panel-heading h1,
+.panel-heading h2,
+.panel-heading h3,
+.panel-heading h4{
+    font-size: 16px;
     margin: 0;
-    padding: 8px;
-    background-color: #101010;
-    color: #808080;
+    padding: 0;
+    color: #3d4d0b;
 }
-
-#navbar_spacer{
-    height:55px;
+.panel-heading h1{
+    font-width: bold;
+    text-align: center;
+}
+.pad-bottom > div{
+    margin-bottom: 40px;
 }

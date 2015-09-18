@@ -1,8 +1,10 @@
 class HomePage(object):
-    id_login = "id_login"
+    id_login = "id_login_persona"
     id_logout = "id_logout"
     id_page = 'id_home_page'
     id_page_uses_cookies = "id_uses_cookies"
+    id_admin_homepage_content = "id_homepage_content"
+    id_admin_news_count = "id_news_count"
 
     def __init__(self, test):
         self.test = test
