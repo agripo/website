@@ -69,7 +69,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.browser = bravo_browser
         news_page_bravo.show(True)
 
-        all_news = self.browser.find_elements_by_css_selector('#id_news_list_container .news_container h4')
+        all_news = self.browser.find_elements_by_css_selector('#id_news_list_container .news_container h2')
         found = False
         for one_news in all_news:
             if the_news_title[:25] in one_news.text:
