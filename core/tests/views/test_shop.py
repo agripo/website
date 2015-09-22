@@ -117,6 +117,12 @@ class ShopCheckoutTest(ViewsBaseTestCase):
         response = self.client.get(reverse('checkout'))
         self.assertContains(response, '{} XAF'.format(cart['total']))
 
+    def test_cant_select_already_done_deliveries_for_checkout(self):
+        self.not_implemented()
+
+    def test_all_available_deliveries_are_available_for_checkout(self):
+        self.not_implemented()
+
 
 class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
 

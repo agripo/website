@@ -19,11 +19,14 @@ class CoreTestCase(TestCase):
         dp.save()
         return dp
 
-    def create_delivery(self, delivery_point=None, delivery_point_name="One delivery point"):
+    def create_delivery(self, delivery_point=None, delivery_point_name="One delivery point", date=None):
         if not delivery_point:
             delivery_point = self.create_delivery_point(name=delivery_point_name)
 
-        delivery = Delivery(date=timezone.now(), delivery_point=delivery_point)
+        if not date:
+            date = timezone.now()
+
+        delivery = Delivery(date=date, delivery_point=delivery_point)
         delivery.save()
         return delivery
 
@@ -41,6 +44,7 @@ class CoreTestCase(TestCase):
 
         command = Command(delivery=delivery, customer=user)
         command.save()
+        command.validate()
         return command
 
     def create_category(self):
@@ -48,11 +52,11 @@ class CoreTestCase(TestCase):
         cat.save()
         return cat
 
-    def create_product(self, category=None, stock=0, name="Product"):
+    def create_product(self, category=None, stock=0, name="Product", price=100):
         if not category:
             category = self.create_category()
 
-        prod = Product(name=name, category=category, price=100, stock=stock)
+        prod = Product(name=name, category=category, price=price, stock=stock)
         prod.save()
         return prod
 

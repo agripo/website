@@ -17,39 +17,99 @@ class DeliveryModelTest(ShopCoreTestCase):
         dp = self.create_delivery_point(name="Point")
         self.assertNotEquals(dp.__str__(), 'DeliveryPoint object')
 
-    def test_can_set_the_delivery_as_done(self):
-        self.not_implemented()
-
     def test_new_deliveries_are_not_done(self):
-        self.not_implemented()
+        d = self.create_delivery()
+        self.assertFalse(d.done)
 
-    def test_delivery_not_available_for_selection_if_already_done(self):
-        self.not_implemented()
+    def test_past_deliveries_not_listed_in_available(self):
+        d = self.create_delivery(date=timezone.now() - timezone.timedelta(1))
+        self.assertNotIn(d, Delivery.objects.available())
 
-    def test_list_next_6_deliveries_for_selection_only(self):
-        self.not_implemented()
+    def test_past_deliveries_listed_in_done(self):
+        d = self.create_delivery(date=timezone.now() - timezone.timedelta(1))
+        self.assertIn(d, Delivery.objects.done())
+
+    def test_done_delivery_not_listed_in_available(self):
+        d = self.create_delivery()
+        d.write_done(True)
+        self.assertNotIn(d, Delivery.objects.available())
+
+    def test_done_delivery_listed_in_done_list(self):
+        d = self.create_delivery()
+        d.write_done(True)
+        self.assertIn(d, Delivery.objects.done())
+
+    def test_future_delivery_listed_in_available_list(self):
+        d = self.create_delivery(date=timezone.now() + timezone.timedelta(1))
+        self.assertIn(d, Delivery.objects.available())
+
+    def test_future_delivery_not_listed_in_done_list(self):
+        d = self.create_delivery(date=timezone.now() + timezone.timedelta(1))
+        self.assertNotIn(d, Delivery.objects.done())
+
+    def test_available_deliveries_are_listed__by_date(self):
+        available = Delivery.objects.available()
+        prev_date = timezone.now()
+        for delivery in available:
+            self.assertLess(prev_date, delivery.date)
+            prev_date = delivery.date
 
     def test_generates_a_details_link_when_there_are_commands(self):
-        self.not_implemented()
+        d = Delivery.objects.available()[0]
+        self.create_command(delivery=d)
+        link, count = d.details_link()
+        self.assertNotEqual(link, "")
 
     def test_doesnt_generates_a_details_link_when_there_are_no_commands(self):
-        self.not_implemented()
+        d = Delivery.objects.available()[0]
+        link, count = d.details_link()
+        self.assertEqual(link, "")
 
     def test_must_have_a_deliverypoint(self):
         d = Delivery()
         self.assertRaises(IntegrityError, d.save)
 
-    def test_details_bought_products_are_listed(self):
-        self.not_implemented()
+    def test_details_commands_are_listed(self):
+        c = self.create_command()
+        details = c.delivery.details()
+        self.assertIn(c, details['commands'])
+
+    def _get_some_commands_details(self, products, quantities):
+        delivery = self.create_delivery()
+
+        for i in range(3):
+            products[i].set_cart_quantity(quantities[i])
+            c = self.create_command(delivery=delivery, user=self.create_user("User {}".format(i + 1)))
+
+        return c.delivery.details()
 
     def test_details_same_product_from_multiple_commands_are_added(self):
-        self.not_implemented()
+        product = self.create_product(stock=10)
+        products = [product, product, product]
+        details = self._get_some_commands_details(products, [1, 2, 3])
+        self.assertEqual(details['total'][product.pk]['quantity'], 6)
 
     def test_details_total_price_calculated_correctly(self):
-        self.not_implemented()
+        product1 = self.create_product(stock=10, price=100, name="p1")
+        product2 = self.create_product(stock=10, price=200, category=product1.category, name="p2")
+        product3 = self.create_product(stock=10, price=300, category=product1.category, name="p3")
+        products = [product1, product2, product3]
+        details = self._get_some_commands_details(products, [1, 2, 3])
+        self.assertEqual(details['total_price'], 1400)
 
     def test_details_list_all_commands(self):
-        self.not_implemented()
+        delivery = self.create_delivery()
+        product = self.create_product(stock=10)
+        commands = []
+        for i in range(3):
+            product.set_cart_quantity(1)
+            commands.append(self.create_command(
+                delivery=delivery, user=self.create_user("User {}".format(i + 1))))
+
+        details = commands[0].delivery.details()
+        self.assertIn(commands[0], details['commands'])
+        self.assertIn(commands[1], details['commands'])
+        self.assertIn(commands[2], details['commands'])
 
 
 class DeliveryPointModelTest(ShopCoreTestCase):

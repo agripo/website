@@ -178,18 +178,43 @@ class DeliveryPoint(models.Model):
         verbose_name_plural = "Lieux de livraison"
 
 
+class DeliveryQueryset(models.query.QuerySet):
+
+    def available(self):
+        return self.filter(done=False, date__gte=timezone.now()).order_by("date")
+
+    def done(self):
+        return self.filter(Q(done=True) | Q(date__lt=timezone.now()))
+
+
+class DeliveryManager(models.Manager):
+
+    def get_queryset(self):
+        return DeliveryQueryset(self.model, using=self._db)
+
+    def available(self):
+        return self.get_queryset().available()
+
+    def done(self):
+        return self.get_queryset().done()
+
+
 class Delivery(models.Model):
     date = models.DateTimeField(default=timezone.now)
     delivery_point = models.ForeignKey(DeliveryPoint, verbose_name="Lieu de livraison")
     done = models.BooleanField(default=False, verbose_name="Livraison effectuée")
 
+    objects = DeliveryManager()
+
     def __str__(self):
         return "{} à {}".format(self.date.strftime("Le %d/%m à %Hh%M"), self.delivery_point.name)
 
-    @staticmethod
-    def details_link(pk=None):
-        link = reverse("delivery_details", kwargs=dict(id=pk))
-        return link
+    def details_link(self):
+        count = self.commands.count()
+        if not count:
+            return "", 0
+
+        return reverse("delivery_details", kwargs=dict(id=self.pk)), count
 
     def details(self):
         total = {}
@@ -210,10 +235,14 @@ class Delivery(models.Model):
             'commands': commands
         }
 
+    def write_done(self, done=True):
+        self.done = done
+        self.save()
+        return self
+
     class Meta:
         verbose_name = "Date de livraison"
         verbose_name_plural = "Dates de livraison"
-
 
 
 class FutureDelivery(Delivery):
@@ -249,7 +278,7 @@ class Command(models.Model):
     total = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return "{} : {}".format(self.date, self.customer)
+        return "{} : {}".format(self.date.strftime("Le %d/%m à %Hh%M"), self.customer)
 
     def validate(self):
         # We get the products from the cart
@@ -259,8 +288,10 @@ class Command(models.Model):
             cp = CommandProduct(command=self, product=the_product, quantity=product['quantity'])
             cp.save()
             the_product.buy(product['quantity'])
+            self.total += product['quantity'] * the_product.price
 
         Product.static_clear_cart()
+        self.save()
 
     def is_sent(self):
         return self.sent
