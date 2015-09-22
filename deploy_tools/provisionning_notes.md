@@ -59,4 +59,3 @@ $ sudo chmod +x /root/reload_gunicorn/{SITE_TYPE}.sh
          ├── static
          └── virtualenv
 
-## After everything has been made, if you're getting a 500 error (as I am), you should
