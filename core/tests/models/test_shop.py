@@ -143,14 +143,14 @@ class CommandModelTest(ShopCoreTestCase):
         user = self.create_user()
         delivery = self.create_delivery(delivery_point_name="Point 1")
         delivery2 = self.create_delivery(delivery_point_name="Point 2")
-        self.create_command(user=user, delivery=delivery)
-        self.create_command(user=user, delivery=delivery2)  # Should not raise
+        self.create_command(user=user, delivery=delivery, new_product_name="P1")
+        self.create_command(user=user, delivery=delivery2, new_product_name="P2")  # Should not raise
 
     def test_user_may_have_multiple_commands_for_same_delivery(self):
         user = self.create_user()
         delivery = self.create_delivery()
-        self.create_command(user=user, delivery=delivery)
-        self.create_command(user=user, delivery=delivery)  # Should not raise
+        self.create_command(user=user, delivery=delivery, new_product_name="P1")
+        self.create_command(user=user, delivery=delivery, new_product_name="P2")  # Should not raise
 
     def test_command_must_have_a_user_set(self):
         delivery = self.create_delivery()
@@ -184,13 +184,13 @@ class CommandModelTest(ShopCoreTestCase):
         self.assertEqual(product.available_stock(), init_stock - 5)
 
     def test_cant_validate_command_when_stock_isnt_enough(self):
-        product = self.create_product(stock=10)
-        product.set_cart_quantity(10)
+        product = self.create_product(stock=10, name="Some new product")
         command = self.create_command()
+        product.set_cart_quantity(10)
         product.stock = 8
         product.save()
-
-        self.assertRaises(AddedMoreToCartThanAvailable, command.validate)
+        with self.assertRaises(AddedMoreToCartThanAvailable):
+            command.validate()
 
     def test_validated_command_written_as_not_sent(self):
         command = self._validate_command()

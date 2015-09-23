@@ -1,5 +1,6 @@
 from core.tests.base import CoreTestCase
 from core.forms import CheckoutForm
+from django.utils import timezone
 
 
 class CheckoutFormTest(CoreTestCase):
@@ -10,7 +11,9 @@ class CheckoutFormTest(CoreTestCase):
         # There should also be some delivery available
         self.deliveries = []
         for i in range(0, 5):
-            self.deliveries.append(self.create_delivery(delivery_point_name="Delivery point {}".format(i)))
+            date = timezone.now() + timezone.timedelta(i + 5)
+            self.deliveries.append(
+                self.create_delivery(delivery_point_name="Delivery point {}".format(i), date=date))
 
     def add_products_to_cart(self, number):
         category = self.create_category()
