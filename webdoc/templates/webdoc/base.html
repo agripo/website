@@ -73,7 +73,7 @@
 
 
     <div id="webdoc_main_container">
-        <div id="page">
+        <div id="{% block page_type %}pages{% endblock %}">
             {% block main_content %}
                 Block main_content should be used is a subtemplate
             {% endblock %}

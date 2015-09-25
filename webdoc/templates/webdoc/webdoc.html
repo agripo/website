@@ -1,0 +1,289 @@
+{% extends 'webdoc/base.html' %}
+
+{% block page_type %}webdoc_page{% endblock %}
+
+{% block main_content %}
+<div id="page_webdoc">
+    <div id="content">
+        <div id="player_closer" style="display:none;" class="button" onclick="hide_player();">
+            <img src="/static/img/webdoc/cross.png"/>
+        </div>
+        <img src="/static/img/webdoc/logo_webdoc.png" style="position:absolute;width:200px;left:10px;top:10px;"/>
+        <div id="chapter_selector">
+            <div class="arrow_change_chapter disabled_arrow brown round_arrow">
+                <img id="previous_topic_button" data-select="none" src="/static/img/webdoc/left_arrow.png" class="img_change_chapter" onclick="select_topic(this);"/>
+            </div>
+            <div class="chapters_container">
+                <div id="chapter1" class="one_chapter">
+                    <h3>Chapitre 1</h3>
+                    <h2>Réagir</h2>
+                    <p>
+                        Le Cameroun est l'un des pays d'Afri&shy;que les plus touchés par
+                        la défo&shy;restation. La sur&shy;exploita&shy;tion des forêts
+                        conduit les popu&shy;lations à l'exode rural et à la pau&shy;vreté.
+                        Un petit vil&shy;lage du centre du pays a décidé de lutter contre ce
+                        fléau...
+                    </p>
+                    <input onclick="show_player('theme1', 'low');"      id="preview1_btn_low"    type="button" value="Lancer" class="button player_launcher preview_low"/>
+                    <input onclick="show_player('theme1', 'medium');"   id="preview1_btn_medium" type="button" value="Lancer" class="button player_launcher preview_medium" />
+                    <input onclick="show_player('theme1', 'high');"     id="preview1_btn_high"   type="button" value="Lancer" class="button player_launcher preview_high" />
+                </div>
+                <div id="chapter2" class="one_chapter" style="display:none;">
+                    <h3>Chapitre 2</h3>
+                    <h2>Construire</h2>
+                    <p>
+                        A Tayap, le collectif d'agri&shy;culteurs AGRIPO a mis sur pied
+                        un pro&shy;gramme de dévelop&shy;pement éco&shy;nomique basé sur
+                        l'agri&shy;culture durable, l'éco&shy;tourisme et la micro&shy;finance
+                        soli&shy;daire. Petit à petit, le col&shy;lectif réussit à faire
+                        reculer la défo&shy;restation autour du vil&shy;lage et change la vie
+                        quoti&shy;dienne de ses habi&shy;tants.
+                    </p>
+                    <input onclick="show_player('theme2', 'low');"      id="preview2_btn_low"       type="button" value="Lancer" class="button player_launcher preview_low" />
+                    <input onclick="show_player('theme2', 'medium');"   id="preview2_btn_medium"    type="button" value="Lancer" class="button player_launcher preview_medium" />
+                    <input onclick="show_player('theme2', 'high');"     id="preview2_btn_high"      type="button" value="Lancer" class="button player_launcher preview_high"/>
+                </div>
+                <div id="chapter3" class="one_chapter" style="display:none;">
+                    <h3>Chapitre 3</h3>
+                    <h2>Enraciner</h2>
+                    <p>
+                        A Tayap, un premier grand pari a été gagné contre la défo&shy;restation
+                        et l'exode rural. Mais des efforts doivent encore être engagés pour
+                        enra&shy;ciner le travail accom&shy;pli et ima&shy;giner de nou&shy;veaux
+                        progrès. AGRIPO et les habi&shy;tants de Tayap ont plus que jamais besoin
+                        de contri&shy;butions et d'appuis.
+                    </p>
+                    <input onclick="show_player('theme3', 'low');"      id="preview3_btn_low"       type="button" value="Lancer" class="button player_launcher preview_low" />
+                    <input onclick="show_player('theme3', 'medium');"   id="preview3_btn_medium"    type="button" value="Lancer" class="button player_launcher preview_medium" />
+                    <input onclick="show_player('theme3', 'high');"     id="preview3_btn_high"      type="button" value="Lancer" class="button player_launcher preview_high" />
+                </div>
+            </div>
+            <div class="arrow_change_chapter brown round_arrow">
+                <img id="next_topic_button" data-select="2" src="/static/img/webdoc/right_arrow.png"  class="img_change_chapter" onclick="select_topic(this);"/>
+            </div>
+        </div>
+        <div id="focus_list">
+            <div id="chapter1_focus">
+                <div class="focus_access">
+                    Accès direct aux focus du Chapitre 1 :
+                </div>
+
+                <div id="focus_theme1_1" class="one_focus">
+                    <table class="description">
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/theme1_focus1.png"/>
+                            </td>
+                            <td onclick="focus_open_this_one(1,1);">
+                                <h3>Focus n<sup>o</sup>1</h3>
+                                <h4>La déforestation au Cameroun</h4>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme1_focus1.php' ?>
+                    </div>
+                </div>
+                <div id="focus_theme1_2" class="one_focus">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/theme1_focus2.png"/>
+                            </td>
+                            <td onclick="focus_open_this_one(1,2);">
+                                <h3>Focus n<sup>o</sup>2</h3>
+                                <h4>La culture sur Brûlis</h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme1_focus2.php' ?>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chapter2_focus" style="display:none;">
+                <div class="focus_access">
+                    Accès direct aux focus du Chapitre 2 :
+                </div>
+
+                <div id="focus_theme2_1" class="one_focus">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/theme2_focus1.png"/>
+                            </td>
+                            <td onclick="focus_open_this_one(2,1);">
+                                <h3>Focus n<sup>o</sup>1</h3>
+                                <h4>Tayap et Agripo</h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme2_focus1.php' ?>
+                    </div>
+                </div>
+                <div id="focus_theme2_2" class="one_focus">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/theme2_focus2.png"/>
+                            </td>
+                            <td onclick="focus_open_this_one(2,2);">
+                                <h3>Focus n<sup>o</sup>2</h3>
+                                <h4>Le picatharte chauve</h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme2_focus2.php' ?>
+                    </div>
+                </div>
+                <div id="focus_theme2_3" class="one_focus">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/theme2_focus3.png"/>
+                            </td>
+                            <td onclick="focus_open_this_one(2,3);">
+                                <h3>Focus n<sup>o</sup>3</h3>
+                                <h4>L'exemple de Prudence et Mirabelle</h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme2_focus3.php' ?>
+                    </div>
+                </div>
+                <div id="focus_theme2_4" class="one_focus">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/theme2_focus4.jpg"/>
+                            </td>
+                            <td onclick="focus_open_this_one(2,4);">
+                                <h3>Focus n<sup>o</sup>4</h3>
+                                <h4>Tayap et le Small Grant Program</h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme2_focus4.php' ?>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="chapter3_focus" style="display:none;">
+                <div class="focus_access">
+                    Accès direct aux focus du Chapitre 3 :
+                </div>
+
+                <div id="focus_theme3_1" class="one_focus">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/theme3_focus1.png"/>
+                            </td>
+                            <td onclick="focus_open_this_one(3,1);">
+                                <h3>Focus n<sup>o</sup>1</h3>
+                                <h4>Le projet en chiffres</h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme3_focus1.php' ?>
+                    </div>
+                </div>
+                <div id="focus_theme3_2" class="one_focus">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/iles_logo.png"/>
+                            </td>
+                            <td onclick="focus_open_this_one(3,2);">
+                                <h3>Focus n<sup>o</sup>2</h3>
+                                <h4>Tayap et ILES</h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme3_focus2.php' ?>
+                    </div>
+                </div>
+                <div id="focus_theme3_3" class="one_focus">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/static/img/webdoc/focus/mini/theme3_focus3.png"/>
+                            </td>
+                            <td onclick="focus_open_this_one(3,3);">
+                                <h3>Focus n<sup>o</sup>3</h3>
+                                <h4>Récompenses d'Agripo</h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
+                    <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
+
+                    <div class="content">
+                        <?php include 'focus/theme3_focus3.php' ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="player_preview">
+            <div id="preview1">
+                <img onclick="show_player('theme1', 'low');"    id="preview1_low" class="one_preview preview_low"       src="/static/img/webdoc/preview1.png"/>
+                <img onclick="show_player('theme1', 'medium');" id="preview1_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview1.png" />
+                <img onclick="show_player('theme1', 'high');"   id="preview1_high" class="one_preview preview_high"      src="/static/img/webdoc/preview1.png" />
+            </div>
+
+            <div id="preview2" style="display:none;">
+                <img onclick="show_player('theme2', 'low');"    id="preview2_low" class="one_preview preview_low"       src="/static/img/webdoc/preview2.png"/>
+                <img onclick="show_player('theme2', 'medium');" id="preview2_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview2.png" />
+                <img onclick="show_player('theme2', 'high');"   id="preview2_high" class="one_preview preview_high"      src="/static/img/webdoc/preview2.png" />
+            </div>
+
+            <div id="preview3" style="display:none;">
+                <img onclick="show_player('theme3', 'low');"    id="preview3_low" class="one_preview preview_low"       src="/static/img/webdoc/preview3.png"/>
+                <img onclick="show_player('theme3', 'medium');" id="preview3_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview3.png" />
+                <img onclick="show_player('theme3', 'high');"   id="preview3_high" class="one_preview preview_high"      src="/static/img/webdoc/preview3.png" />
+            </div>
+        </div>
+
+        <div id="force_quality">
+            Qualité :<br />
+            <button id="force_quality_high" onclick="force_quality('high', this);"   id="force_high"  >Haute <span>Chargement plus lent</span></button>
+            <button id="force_quality_medium" onclick="force_quality('medium', this);" id="force_medium">Moyenne <span>Chargement normal</span></button>
+            <button id="force_quality_low" onclick="force_quality('low', this);"    id="force_low"   >Basse <span>Chargement plus rapide</span></button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/webdoc/script.js"></script>
+{% endblock %}

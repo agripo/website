@@ -43,7 +43,8 @@ body{
 #webdoc_main_container{
     width:100%;
 }
-#page{
+#pages,
+#webdoc_page{
     margin:0 auto;
     position:relative;
     border:1px solid rgba(255, 255, 255, 0.7);
@@ -69,13 +70,6 @@ body{
 }
 .social_media_logo{
     height:45px;
-}
-
-#page_index #content{
-    background: transparent url(/static/img/webdoc/background_dark_800.jpg) no-repeat top center;
-}
-#page_webdoc #content{
-    background: transparent url(/static/img/webdoc/background_800.jpg) no-repeat top center;
 }
 
 .text_shadow{
@@ -132,12 +126,12 @@ div.brown > div{
     border-radius:40px;
 }
 .brown.round_logo{
-    width:45px;
-    height:45px;
+    width:56px;
+    height:56px;
 }
 .brown.round_arrow{
-    width:20px;
-    height:20px;
+    width:40px;
+    height:40px;
 }
 .img_change_chapter{
     width:16px;
@@ -226,6 +220,7 @@ div.brown > div{
     line-height: 1.2em;
     margin:5px 0;
     padding:0;
+    font-size: 13px;
 }
 #focus_list .show_focus,
 #focus_list .hide_focus{
@@ -397,32 +392,32 @@ p.question{
     background: transparent url(/static/img/webdoc/background_dark_800.png) no-repeat top center;
 }
 
-#content h1,
-#content li,
-#content p{
+#pages #content h1,
+#pages #content li,
+#pages #content p{
     color:white;
 }
-#content h1,
-#content p{
+#pages #content h1,
+#pages #content p{
     font-size: 24px;
     width:550px;
     margin-left:24px;
     text-align: justify;
     text-shadow: 1px 1px rgba(128,128,128,0.5);
 }
-#content li,
-#content p{
+#pages #content li,
+#pages #content p{
     padding-top:4px;
     font-size: 14px;
     margin-top:0;
 }
-#content a{
+#pages #content a{
     text-decoration: underline;
 }
-#content a,
-#content h1,
-#content h3,
-#content p{
+#pages #content a,
+#pages #content h1,
+#pages #content h3,
+#pages #content p{
     color:white;
     width:540px;
     margin-left:24px;
@@ -437,10 +432,10 @@ screen and (min-width: 830px) and (max-height:729px){
         background-image: url(/static/img/webdoc/background_1280.jpg);
         font-size: 12px;
     }
-    #content a,
-    #content h1,
-    #content h3,
-    #content p{
+    #pages #content a,
+    #pages #content h1,
+    #pages #content h3,
+    #pages #content p{
         width:700px;
     }
     #force_quality{
@@ -457,9 +452,6 @@ screen and (min-width: 830px) and (max-height:729px){
     #content{
         background: transparent url(/static/img/webdoc/background_dark_1280.png) no-repeat top center;
     }
-    #page_webdoc #content{
-        background: transparent url(/static/img/webdoc/background_1280.jpg) no-repeat top center;
-    }
     #active_focus{
         top:330px;
         height:80px;
@@ -467,7 +459,8 @@ screen and (min-width: 830px) and (max-height:729px){
     #active_focus.full{
         height:337px;
     }
-    #page{
+    #pages,
+    #webdoc_page{
         width:810px;
         height:550px;
     }
@@ -517,16 +510,16 @@ screen and (min-width: 830px) and (max-height:729px){
         height:236px;
     }
     .brown.round_arrow{
-        width:40px;
-        height:40px;
+        width:60px;
+        height:60px;
     }
     .img_change_chapter{
         width:32px;
         margin-top:-5px;
     }
     .brown.round_logo{
-        width:54px;
-        height:54px;
+        width:68px;
+        height:68px;
     }
     .social_media_logo{
         height:54px;
@@ -544,13 +537,13 @@ screen and (min-width: 830px) and (max-height:729px){
         background-image: url(/static/img/webdoc/background_1600.jpg);
         font-size: 16px;
     }
-    #content > div{
+    #pages #content > div{
         margin:0 230px;
     }
-    #content a,
-    #content h1,
-    #content h3,
-    #content p{
+    #pages #content a,
+    #pages #content h1,
+    #pages #content h3,
+    #pages #content p{
         width:700px;
     }
     #force_quality{
@@ -563,20 +556,21 @@ screen and (min-width: 830px) and (max-height:729px){
     #content{
         background: transparent url(/static/img/webdoc/background_dark_1600.png) no-repeat top center;
     }
-    #page_webdoc #content{
-        background: transparent url(/static/img/webdoc/background_dark_1600.jpg) no-repeat top center;
-    }
     #content{
         width:1280px;
         height:720px;
     }
-    #page{
+    #pages,
+    #webdoc_page{
         width:1290px;
         height:820px;
     }
     #footer{
         width:1280px;
         margin: 720px 5px 5px 5px;
+    }
+    #focus_list .one_focus h4 {
+        font-size: 16px;
     }
     #focus_list .one_focus{
         width:210px;
@@ -632,16 +626,16 @@ screen and (min-width: 830px) and (max-height:729px){
         height:400px;
     }
     .brown.round_arrow{
-        width:40px;
-        height:40px;
+        width:60px;
+        height:60px;
     }
     .img_change_chapter{
         width:32px;
         margin-top:-5px;
     }
     .brown.round_logo{
-        width:54px;
-        height:54px;
+        width:72px;
+        height:72px;
     }
     .social_media_logo{
         height:54px;
