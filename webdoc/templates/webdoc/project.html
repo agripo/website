@@ -4,33 +4,6 @@
 <div id="page_project">
     <div id="content">
         <style>
-            #page_project #content h1,
-            #page_project #content li,
-            #page_project #content p{
-                color:white;
-            }
-            #page_project #content h1,
-            #page_project #content p{
-                font-size: 18px;
-                width:550px;
-                margin-left:24px;
-                margin-top:120px;
-                text-align: justify;
-                text-shadow: 1px 1px rgba(128,128,128,0.5);
-            }
-            #page_project #content li,
-            #page_project #content p{
-                padding-top:4px;
-                font-size: 14px;
-                margin-top:0;
-            }
-            #page_project #content{
-                background: transparent url(/static/img/webdoc/background_dark_800.png) no-repeat top center;
-            }
-            .float_right{
-                display:block;
-                margin:0 auto;
-            }
             #page_project #content li{
                 width:540px;
                 text-align: justify;
@@ -38,50 +11,14 @@
             #page_project #content li li{
                 width:500px;
             }
-            @media
-            screen and (min-width: 830px) and (max-width:1280px),
-            screen and (min-width: 830px) and (max-height:729px){
-                #page_project #content{
-                    background: transparent url(/static/img/webdoc/background_dark_1280.png) no-repeat top center;
-                }
-                #page_project #content h1,
-                #page_project #content p{
-                    width:750px;
-                }
-                .float_right{
-                    float:right;
-                }
-                #page_project #content li{
-                    width:740px;
-                }
-                #page_project #content li li{
-                    width:700px;
-                }
-            }
-            @media screen and (min-width: 1281px) and (min-height:730px) {
-                #page_project #content{
-                    background: transparent url(/static/img/webdoc/background_dark_1600.png) no-repeat top center;
-                }
-                #page_project #content h1,
-                #page_project #content p{
-                    width:1230px;
-                }
-                .float_right{
-                    float:right;
-                }
-                #page_project #content li{
-                    width:1220px;
-                }
-                #page_project #content li li{
-                    width:1180px;
-                }
-            }
         </style>
         <div id="content" style="overflow-y:auto;">
-            <img src="/static/img/webdoc/logo_webdoc.png" style="position:absolute;width:320px;left:0px;top:10px;"/>
+            <a href="{% url "webdoc:home_page" %}">
+                <img src="/static/img/webdoc/logo_webdoc.png" style="width:320px;left:0px;top:10px;"/>
+            </a>
             <h1>Le projet</h1>
 
-            <img class="float_right" src="/static/img/webdoc/projet_1.jpg" style="width:300px;padding:10px;"/>
+            <img src="/static/img/webdoc/projet_1.jpg" style="width:300px;padding:10px;float:right"/>
             <p>
                 Les Vergers Ecologiques de Tayap » (VET)  est un  programme de développement rural
                 innovant qui s’appuie sur l’agroécologie, l’écotourisme et la finance verte pour
@@ -111,7 +48,7 @@
 
             <p>3 volets principaux d’actions sont développés : l’agroforesterie, l’écotourisme et la microfinance solidaire. </p>
 
-            <img class="float_right" src="/static/img/webdoc/projet_2.jpg" style="width:400px;padding:10px;"/>
+            <img src="/static/img/webdoc/projet_2.jpg" style="float:right;width:400px;padding:10px;"/>
             <ul>
                 <li>
                     <strong>L’agroforesterie : </strong>

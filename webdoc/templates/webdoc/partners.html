@@ -1,0 +1,44 @@
+{% extends 'webdoc/base.html' %}
+
+{% block main_content %}
+<div id="page_project">
+    <div id="content">
+        <div id="content" style="overflow-y:auto;">
+            <div>
+                <a href="{% url "webdoc:home_page" %}">
+                    <img src="/static/img/webdoc/logo_webdoc.png" style="width:320px;left:0px;top:10px;"/>
+                </a>
+                <h1>Nos partenaires</h1>
+                <p>
+                    Le programme « Vergers écologiques de Tayap » est soutenu par le SGP/GEF du PNUD, ISF
+                    Cameroun, SEED Initiatives et WWF's Russell E. Train Education for Nature Program.
+                </p>
+
+                <h3>Small Grant Program, GEF du Programme des Nations Unies pour le développement</h3>
+                <p>Créé en 1992, l'année du Sommet de la Terre de Rio, le Programme de microfinancements du GEF (Small Grant Program ou SGP)  incarne l'essence même du développement durable par «penser globalement agir localement". En apportant un soutien financier et technique à des projets de conservation et de restauration de l'environnement tout en améliorant le bien-être et les moyens de subsistance des gens, le SGP démontre que l'action communautaire peut maintenir l'équilibre délicat entre les besoins humains et les impératifs environnementaux.</p>
+                <a href="https://sgp.undp.org/index.php">https://sgp.undp.org/index.php</a>
+
+                <h3>ISF Cameroun </h3>
+                <p>Conscients de leur responsabilité dans le développement du Cameroun, ISF a été créé le 14 Octobre 2003 à l’initiative de quelques ingénieurs issus de différentes écoles d’ingénierie au Cameroun, pour aider les communautés défavorisées dans leur lutte contre la pauvreté à travers des études techniques adaptées aux besoins exprimés et si possible la mise en œuvre de projets d’ingénierie économiquement fiables, sociologiquement viables et écologiquement acceptables.</p>
+                <a href="http://www.isf-cameroun.org/fr">http://www.isf-cameroun.org/fr</a>
+
+                <h3>SEED Initiatives</h3>
+                <p>L'entrepreneuriat social et environnemental, aussi connu comme l'éco-entrepreneuriat, est essentiel pour le développement durable et la réduction de la pauvreté. Pour accélérer sa croissance, le PNUE, le PNUD et l'UICN ont fondé l'initiative SEED lors du Sommet mondial 2002 sur le développement durable à Johannesburg afin d' aider les petites entreprises  dans les pays en développement à renforcer leurs avantages sociaux, environnementaux et économiques. Les SEED Awards et Support lancés en 2005, représentent un élément central du programme. Les Vergers écologiques de Tayap ont été lauréat des Seed Awards en 2011. </p>
+                <a href="http://www.seed.uno/awards/all/2011/540-tayap-eco-orchards.html">http://www.seed.uno/awards/all/2011/540-tayap-eco-orchards.html</a>
+
+                <h3>WWF's Russell E. Train Education for Nature Program</h3>
+                <p>Depuis 1994, le programme Russell E. Train Education for Nature (EFN) donne de l'aide financière aux dirigeants de la conservation en Afrique, en Asie et en Amérique latine, pour acquérir les compétences et connaissances dont ils ont besoin et relever les défis de conservation dans leurs pays d'origine. L'EFN soutient les conservateurs de la nature à poursuivre leurs études supérieures, à assister à des formations professionnelles, et à organiser les ateliers dans les communautés locales. </p>
+                <a href="www.worldwildlife.org/efn">www.worldwildlife.org/efn</a>
+
+
+                <div style="text-align:center;margin:10px;">
+                    <a href="{% url "webdoc:webdoc" %}">
+                        <input type="button" class="button" value="Retourner au webdoc"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
