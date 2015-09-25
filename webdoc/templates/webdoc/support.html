@@ -1,0 +1,51 @@
+{% extends 'webdoc/base.html' %}
+
+{% block main_content %}
+<div id="page_support">
+    <div id="content">
+        <style>
+            #page_support #content{
+                background: transparent url(/static/img/webdoc/background_dark_800.png) no-repeat top center;
+            }
+            @media
+            screen and (min-width: 830px) and (max-width:1280px),
+            screen and (min-width: 830px) and (max-height:729px){
+                #page_support #content{
+                    background: transparent url(/static/img/webdoc/background_dark_1280.png) no-repeat top center;
+                }
+            }
+            @media screen and (min-width: 1281px) and (min-height:730px) {
+                #page_support #content{
+                    background: transparent url(/static/img/webdoc/background_dark_1600.png) no-repeat top center;
+                }
+            }
+            #page_support #content a,
+            #page_support #content h1,
+            #page_support #content p{
+                color:white;
+                font-size: 18px;
+                width:700px;
+                margin-left:24px;
+                margin-top:120px;
+                text-align: justify;
+                text-shadow: 1px 1px rgba(128,128,128,0.5);
+            }
+            #page_support #content p{
+                font-size: 14px;
+                margin-top:0;
+            }
+        </style>
+        <div id="content">
+            <img src="/static/img/webdoc/logo_webdoc.png" style="position:absolute;width:320px;left:0px;top:10px;"/>
+            <h1>Soutenir l'initiative</h1>
+            <p>Les Vergers écologiques de Tayap ont besoin de soutien. </p>
+            <p>Vous pouvez soutenir l'initiative en faisant un don ici : </p>
+            <a style="text-decoration: underline;" href="http://www.agripo.net/fr/content/faire-un-don">www.agripo.net/fr/content/faire-un-don</a>
+
+            <a href="{% url "webdoc:webdoc" %}">
+                <input type="button" class="button" value="Retourner au webdoc" style="position:absolute;left:300px;top:400px;"/>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
