@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>{% block head_title %}Agripo{% endblock %}</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FONTAWESOME STYLE CSS -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- CUSTOM STYLE CSS from the template -->
+    <link href="/static/css/style.css" rel="stylesheet"/>
+    <!-- CUSTOM STYLE CSS -->
+    <link href="/static/css/base.css" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="/static/css/webdoc/base.css"></link>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--<link href="/static/css/jquery-ui/humanity/jquery-ui.css" rel='stylesheet' type='text/css' />-->
+    <!-- GOOGLE FONT -->
+    <!--    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>-->
+
+    <script src="/static/js/base.js"></script>
+</head>
+<body id="{% block page_name %}id_unknown_page{% endblock %}">
+{% block body %}
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container" id="id_top_container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="/">
+                    <img src="/static/img/logo_bg_transp.png" style="height:50px;margin-top:-14px;"/>
+                </a>
+            </div>
+
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav navbar-right" id="text_menus">
+                    <li class="dropdown">
+                        <a href="{% url "home_page" %}">
+                            Retour au site d'Agripo
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    {% if not cookies_notification_shown %}
+        {% include "core/boxes/cookies.html" %}
+    {% endif %}
+
+
+    <div id="webdoc_main_container">
+        <div id="page">
+            {% block main_content %}
+                Block main_content should be used is a subtemplate
+            {% endblock %}
+            <div id="footer">
+                <div id="menu">
+                    <menu>
+                        <a href="{% url "webdoc:webdoc" %}">
+                            Webdoc
+                        </a>
+                        <a href="{% url "webdoc:project" %}">
+                            Projet
+                        </a>
+                        <a href="{% url "webdoc:support" %}">
+                            Soutenir
+                        </a>
+                        <a href="{% url "webdoc:partners" %}">
+                            Partenaires
+                        </a>
+                        <a href="{% url "webdoc:credits" %}">
+                            Crédits
+                        </a>
+                    </menu>
+                </div>
+                <div id="social" class="social_panel">
+                    <a href="https://plus.google.com/u/0/102083009182719388517/posts" target="_blank" class="brown round_logo" style="">
+                        <img src="/static/img/webdoc/logo_googleplus.png" class="social_media_logo"/>
+                    </a>
+                    <a href="https://twitter.com/COOPAGRIPO" target="_blank" class="brown round_logo" style="">
+                        <img src="/static/img/webdoc/logo_twitter.png" class="social_media_logo"/>
+                    </a>
+                    <a href="https://fr-fr.facebook.com/AgriculteursProfessionnelsDuCameroun" target="_blank" class="brown round_logo" style="">
+                        <img src="/static/img/webdoc/logo_facebook.png" class="social_media_logo"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav id="main_nav">
+    </nav>
+
+    <!--/.FOOTER END-->
+    <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+    <!-- CORE JQUERY  -->
+    <script src="/static/js/jquery-1.10.2.js" type="text/javascript"></script>
+    <!--<script src="/static/js/jquery-ui.js" type="text/javascript"></script>-->
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="/static/js/bootstrap.js"></script>
+    <!-- Vars & dom is loaded  -->
+    <script>
+        $(function($){
+            URL_COOKIES_ACCEPTED = '{% url 'using_cookies_accepted' %}';
+            dom_is_loaded($);
+        });
+    </script>
+{% endblock %}
+{% block extra_body %}
+{% endblock extra_body %}
+</body>
+</html>

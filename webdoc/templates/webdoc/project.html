@@ -1,0 +1,161 @@
+{% extends 'webdoc/base.html' %}
+
+{% block main_content %}
+<div id="page_project">
+    <div id="content">
+        <style>
+            #page_project #content h1,
+            #page_project #content li,
+            #page_project #content p{
+                color:white;
+            }
+            #page_project #content h1,
+            #page_project #content p{
+                font-size: 18px;
+                width:550px;
+                margin-left:24px;
+                margin-top:120px;
+                text-align: justify;
+                text-shadow: 1px 1px rgba(128,128,128,0.5);
+            }
+            #page_project #content li,
+            #page_project #content p{
+                padding-top:4px;
+                font-size: 14px;
+                margin-top:0;
+            }
+            #page_project #content{
+                background: transparent url(/static/img/webdoc/background_dark_800.png) no-repeat top center;
+            }
+            .float_right{
+                display:block;
+                margin:0 auto;
+            }
+            #page_project #content li{
+                width:540px;
+                text-align: justify;
+            }
+            #page_project #content li li{
+                width:500px;
+            }
+            @media
+            screen and (min-width: 830px) and (max-width:1280px),
+            screen and (min-width: 830px) and (max-height:729px){
+                #page_project #content{
+                    background: transparent url(/static/img/webdoc/background_dark_1280.png) no-repeat top center;
+                }
+                #page_project #content h1,
+                #page_project #content p{
+                    width:750px;
+                }
+                .float_right{
+                    float:right;
+                }
+                #page_project #content li{
+                    width:740px;
+                }
+                #page_project #content li li{
+                    width:700px;
+                }
+            }
+            @media screen and (min-width: 1281px) and (min-height:730px) {
+                #page_project #content{
+                    background: transparent url(/static/img/webdoc/background_dark_1600.png) no-repeat top center;
+                }
+                #page_project #content h1,
+                #page_project #content p{
+                    width:1230px;
+                }
+                .float_right{
+                    float:right;
+                }
+                #page_project #content li{
+                    width:1220px;
+                }
+                #page_project #content li li{
+                    width:1180px;
+                }
+            }
+        </style>
+        <div id="content" style="overflow-y:auto;">
+            <img src="/static/img/webdoc/logo_webdoc.png" style="position:absolute;width:320px;left:0px;top:10px;"/>
+            <h1>Le projet</h1>
+
+            <img class="float_right" src="/static/img/webdoc/projet_1.jpg" style="width:300px;padding:10px;"/>
+            <p>
+                Les Vergers Ecologiques de Tayap » (VET)  est un  programme de développement rural
+                innovant qui s’appuie sur l’agroécologie, l’écotourisme et la finance verte pour
+                préserver la biodiversité et les terres du village de Tayap . Ce programme pilote
+                ambitieux et chargé de valeurs est le fruit de la mobilisation d'une communauté
+                solidaire et engagée et s'inscrit dans une démarche globale et durable qui intègre
+                les besoins de la population aux enjeux sociaux, économiques et environnementaux.
+            </p>
+
+            <p>
+                Le projet s’inscrit dans la voie du développement durable et de l’économie verte en
+                particulier. Il est l’illustration pratique du « Penser global, agir local » selon
+                la formule de René DUBOS.
+            </p>
+
+            <p>
+                Les objectifs des vergers écologiques de Tayap sont multiples :
+            </p>
+            <ul>
+                <li>Préserver les ressources naturelles et la biodiversité </li>
+                <li>Lutter contre le changement climatique </li>
+                <li>Assurer un revenu durable et une protection sociale à la communauté pour sortir de la précarité </li>
+                <li>Diversifier l’emploi en milieu rural </li>
+                <li>Intégrer les femmes dans les dynamiques de développement </li>
+                <li>Tester une expérience locale de financement innovant </li>
+            </ul>
+
+            <p>3 volets principaux d’actions sont développés : l’agroforesterie, l’écotourisme et la microfinance solidaire. </p>
+
+            <img class="float_right" src="/static/img/webdoc/projet_2.jpg" style="width:400px;padding:10px;"/>
+            <ul>
+                <li>
+                    <strong>L’agroforesterie : </strong>
+                    <ul>
+                        <li>
+                            Changement du mode d’exploitation des terres pour lutter contre la
+                            déforestation : 60 hectares de terres agricoles sont déjà mis en valeur
+                            pour promouvoir l’agroforesterie de rente (arbres fruitiers et cultures
+                            vivrières exploités en agriculture biologique).
+                        </li>
+                        <li>La vente des produits agricoles et des produits forestiers non ligneux constitue une des ressources de la communauté.
+                    </ul>
+                </li>
+                <li>
+                    <strong>L’écotourisme : </strong>Développement d’une offre éco touristique avec des chambres d’hôtes
+                    et des écogîtes en construction, mais également des activités de découverte des
+                    richesses culturelles et écologiques du village.
+                </li>
+                <li>
+                    <strong>La micro finance solidaire : </strong>
+                    <ul>
+                        <li>Mise en place d’un fond rotatif de développement sous forme d’une caisse communautaire d’épargne et de crédit. </li>
+                        <li>Impulsion d’une nouvelle forme de solidarité par le prêt pour financer et accompagner des initiatives entrepreneuriales portées par des femmes. </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p>
+                D’autres actions d’accompagnement sont également mises en place, comme la protection des
+                espèces menacées, dont le Picatharte chauve (aménagement d’un parc communautaire autour de
+                la zone de présence de l’oiseau pour préserver son habitat), la sensibilisation au développement
+                durable (sensibilisation des agriculteurs à la conservation des terres, sensibilisation des enfants
+                par l’organisation de classes vertes), les formations à l’agriculture biologique, à l’écotourisme, à
+                la gestion d’une coopérative rurale, ou encore la promotion des femmes (implication des femmes
+                aux différents postes du programme : gestion de la coopérative, du programme, du fond rotatif... ;
+                soutien à leurs activités dans le cadre du programme).
+            </p>
+
+            <div style="text-align:center;margin:10px;">
+                <a href="{% url "webdoc:webdoc" %}">
+                    <input type="button" class="button" value="Retourner au webdoc"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
