@@ -85,7 +85,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme1_focus1.php' ?>
+                        {% include 'webdoc/focus/theme1_focus1.html' %}
                     </div>
                 </div>
                 <div id="focus_theme1_2" class="one_focus">
@@ -104,7 +104,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme1_focus2.php' ?>
+                        {% include 'webdoc/focus/theme1_focus2.html' %}
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme2_focus1.php' ?>
+                        {% include 'webdoc/focus/theme2_focus1.html' %}
                     </div>
                 </div>
                 <div id="focus_theme2_2" class="one_focus">
@@ -149,7 +149,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme2_focus2.php' ?>
+                        {% include 'webdoc/focus/theme2_focus2.html' %}
                     </div>
                 </div>
                 <div id="focus_theme2_3" class="one_focus">
@@ -168,7 +168,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme2_focus3.php' ?>
+                        {% include 'webdoc/focus/theme2_focus3.html' %}
                     </div>
                 </div>
                 <div id="focus_theme2_4" class="one_focus">
@@ -187,7 +187,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme2_focus4.php' ?>
+                        {% include 'webdoc/focus/theme2_focus4.html' %}
                     </div>
                 </div>
             </div>
@@ -214,7 +214,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme3_focus1.php' ?>
+                        {% include 'webdoc/focus/theme3_focus1.html' %}
                     </div>
                 </div>
                 <div id="focus_theme3_2" class="one_focus">
@@ -233,7 +233,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme3_focus2.php' ?>
+                        {% include 'webdoc/focus/theme3_focus2.html' %}
                     </div>
                 </div>
                 <div id="focus_theme3_3" class="one_focus">
@@ -252,7 +252,7 @@
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
                     <div class="content">
-                        <?php include 'focus/theme3_focus3.php' ?>
+                        {% include 'webdoc/focus/theme3_focus3.html' %}
                     </div>
                 </div>
             </div>
@@ -275,6 +275,21 @@
                 <img onclick="show_player('theme3', 'medium');" id="preview3_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview3.png" />
                 <img onclick="show_player('theme3', 'high');"   id="preview3_high" class="one_preview preview_high"      src="/static/img/webdoc/preview3.png" />
             </div>
+        </div>
+        <div id="youtube_player"></div>
+        <div id="youtube_players">
+{#            var width = 600;#}
+{#            var height = 337;#}
+{#            }else if(quality == "medium"){#}
+{#            var width = 800;#}
+{#            var height = 450;#}
+{#            }else{#}
+{#            quality = "high";#}
+{#            var width = 1280;#}
+{#            var height = 720;#}
+<!--            <iframe id="player_theme1" type="text/html" width="800" height="450"
+                src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://{{ request.get_host }}"
+                frameborder="0"></iframe>-->
         </div>
     </div>
 </div>

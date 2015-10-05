@@ -43,8 +43,9 @@ function force_quality(quality, button){
 
 function hide_player(){
     console.log("Hiding the player");
+    stopActiveVideo();
 
-    $("#main_video, #force_quality").fadeOut(400, function(){
+    $("#main_video").fadeOut(400, function(){
         $('#main_video').remove();
         $('#active_focus').remove();
     });
@@ -55,12 +56,14 @@ function hide_player(){
     if(video_quality != 'low'){
         $('#focus_list').show();
     }
+    $('#youtube_player').replaceWith('<div id="youtube_player"></div>');
 }
 var video_quality = null;
 var focusShown = "";
 var focus_list = {
     theme1:{
-        1:[77,87],
+        1:[5,87],
+        //1:[77,87],
         2:[145,155]
     },
     theme2:{
@@ -76,9 +79,22 @@ var focus_list = {
     }
 };
 
-function show_player(video, quality, play){
+var youtube_api_ready = false;
+var YTPlayer;
+
+function show_player(video, quality, play, start_time){
+    if(!youtube_api_ready){
+        console.log("Youtube API is not ready. We wait a little...");
+        setTimeout(function(){
+            show_player(video, quality, play);
+        }, 200);
+        return
+    }
     if(typeof(play) == 'undefined'){
         play = true;
+    }
+    if(typeof(start_time) == 'undefined'){
+        start_time = 0;
     }
     console.log("Showing the player");
     $('#focus_list').hide();
@@ -102,28 +118,52 @@ function show_player(video, quality, play){
         var width = 1280;
         var height = 720;
     }
-//<iframe src="https://www.youtube.com/embed/mnWhXn4HqaI" frameborder="0" allowfullscreen></iframe>
-    $('<iframe/>', {
-        id:'main_video',
-        width: width,
-        height: height,
-        src: "https://www.youtube.com/embed/mnWhXn4HqaI",
-        frameborder: "0",
-        allowfullscreen: true
-    }).appendTo($("#content"));
-    /*$('<video/>', {
-        id:'main_video',
-        width: width,
-        height: height,
-        class: "video_player",
-        controls: true
-    }).appendTo($("#content"));/**/
 
-    $('#main_video')[0].onended = function(e) {
-        console.log("Video ended");
-        hide_player();
-        select_topic("next");
-    };
+    var player_is_ready = false;
+    function onPlayerReady(event){
+        console.log("Youtube player is ready");
+        player_is_ready = true;
+
+        if(play){
+            playActiveVideo(start_time);
+        }
+    }
+
+    function onPlayerStateChange(event) {
+        if(event.data == YT.PlayerState.PLAYING){
+            var check_time = function(){
+                var time = event.target.getCurrentTime();
+
+                for(var focus in focus_list[video]){
+                    var the_focus = focus_list[video][focus];
+                    var the_focus_id = video+'_'+focus;
+                    if(focusShown == "" && time >= the_focus[0] && time < the_focus[1]){
+                        showFocus(the_focus_id);
+                    }else if(focusShown == the_focus_id && (time < the_focus[0] || time >= the_focus[1])){
+                        hideFocus();
+                    }
+                }
+                if(YTPlayer.getPlayerState() == YT.PlayerState.PLAYING){
+                    window.setTimeout(check_time, 250);
+                }
+            }
+            check_time();
+        }else if(event.data == YT.PlayerState.ENDED){
+            console.log("Video ended");
+            hide_player();
+            select_topic("next");
+        }
+    }
+
+    YTPlayer = new YT.Player('youtube_player', {
+        width: width,
+        height: height,
+        videoId: 'M7lc1UVf-VE',
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
 
     $('<div/>', {
         id:'active_focus'
@@ -133,52 +173,9 @@ function show_player(video, quality, play){
         id:'open_focus'
     }).appendTo($("#content"));
 
-    $("#main_video").hide();
-
-    $("#main_video, #force_quality").fadeIn("slow",function(){
-        if(play){
-            $("#main_video")[0].play();
-        }
-    });
-    $('#force_quality_'+video_quality).addClass('active');
-
     $('#player_preview, #chapter_selector').fadeOut();
 
     $('#player_closer').show();
-
-    var videos_location = "";
-    //videos_location = 'http://agripo.websailor.fr/';
-    videos_location = 'http://videos.agripo.briceparent.info/videos-agripo/';
-
-    $('<source/>', {
-        src: videos_location+video+'_'+video_quality+".mp4",
-        type: "video/mp4"
-    }).appendTo($("#main_video"));
-
-    $('<source/>', {
-        src: videos_location+video+'_'+video_quality+".webm",
-        type: "video/webm"
-    }).appendTo($("#main_video"));
-
-    $('<source/>', {
-        src: videos_location+video+'_'+video_quality+".ogv",
-        type: "video/ogg"
-    }).appendTo($("#main_video"));
-
-    $("#main_video").on("timeupdate", function (e) {
-        var t = e.target.currentTime;
-
-        for(var focus in focus_list[video]){
-            if(focusShown == "" && t >= focus_list[video][focus][0] && t < focus_list[video][focus][1]){
-                var thisVid = video+'_'+focus;
-                showFocus(thisVid);
-            }else if(focusShown == video+'_'+focus && t >= focus_list[video][focus][1]){
-                hideFocus();
-            }else if(focusShown == video+'_'+focus && t < focus_list[video][focus][0]){
-                hideFocus();
-            }
-        }
-    });
 }
 
 function showFocus(focus){
@@ -195,21 +192,17 @@ function hideFocus(){
     $('#active_focus').fadeOut();
 }
 function focus_open_this_one(theme, focus){
-    show_player('theme'+theme, "medium", false);
-
-    $("#main_video")[0].addEventListener('loadedmetadata', function(){
-        $("#main_video")[0].currentTime = focus_list['theme'+theme][focus][0];
-    }, false);
+    show_player('theme'+theme, "medium", true, focus_list['theme'+theme][focus][0]);
 }
 
 function focus_open(){
-    $("#main_video")[0].pause();
+    pauseActiveVideo();
     $('#player_closer').fadeOut();
 
     $('#active_focus').addClass("full");
 }
 function focus_close(){
-    $("#main_video")[0].play();
+    playActiveVideo();
     $('#player_closer').fadeIn();
 
     $('#active_focus').removeClass("full");
@@ -263,4 +256,36 @@ function select_topic(element){
             $('#next_topic_button').parent().addClass('disabled_arrow');
         }
     }
+}
+
+
+// 2. This code loads the IFrame Player API code asynchronously.
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// 3. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+var player;
+function onYouTubeIframeAPIReady() {
+    youtube_api_ready = true;
+}
+
+function pauseActiveVideo(){
+    console.log("PAUSE");
+    YTPlayer.pauseVideo();
+}
+
+function playActiveVideo(start_time){
+    console.log("PLAY");
+    if(typeof(start_time) == 'undefined'){
+        start_time = 0;
+    }
+    YTPlayer.playVideo();
+    YTPlayer.seekTo(start_time, true);
+}
+function stopActiveVideo() {
+    YTPlayer.stopVideo();
 }
