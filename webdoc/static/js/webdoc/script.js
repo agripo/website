@@ -102,13 +102,22 @@ function show_player(video, quality, play){
         var width = 1280;
         var height = 720;
     }
-    $('<video/>', {
+//<iframe src="https://www.youtube.com/embed/mnWhXn4HqaI" frameborder="0" allowfullscreen></iframe>
+    $('<iframe/>', {
+        id:'main_video',
+        width: width,
+        height: height,
+        src: "https://www.youtube.com/embed/mnWhXn4HqaI",
+        frameborder: "0",
+        allowfullscreen: true
+    }).appendTo($("#content"));
+    /*$('<video/>', {
         id:'main_video',
         width: width,
         height: height,
         class: "video_player",
         controls: true
-    }).appendTo($("#content"));
+    }).appendTo($("#content"));/**/
 
     $('#main_video')[0].onended = function(e) {
         console.log("Video ended");

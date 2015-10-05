@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     'core',
     'admin_helper',
     'functional_tests',
+    'webdoc',
     # external apps
     'solo',
     'ckeditor',
