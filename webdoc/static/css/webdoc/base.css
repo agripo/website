@@ -424,7 +424,9 @@ p.question{
     text-align: justify;
     text-shadow: 1px 1px rgba(128,128,128,0.5);
 }
-
+#page_index #content p{
+    width: 420px;
+}
 @media
 screen and (min-width: 830px) and (max-width:1280px),
 screen and (min-width: 830px) and (max-height:729px){
@@ -437,6 +439,9 @@ screen and (min-width: 830px) and (max-height:729px){
     #pages #content h3,
     #pages #content p{
         width:700px;
+    }
+    #page_index #content p{
+        width: 560px;
     }
     #force_quality{
         left:808px;
