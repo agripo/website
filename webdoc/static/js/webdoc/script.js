@@ -96,6 +96,7 @@ function show_player(video, quality, play, start_time){
     if(typeof(start_time) == 'undefined'){
         start_time = 0;
     }
+    var theme_name = "theme"+video;
     console.log("Showing the player");
     $('#focus_list').hide();
 
@@ -134,11 +135,12 @@ function show_player(video, quality, play, start_time){
             var check_time = function(){
                 var time = event.target.getCurrentTime();
 
-                for(var focus in focus_list[video]){
-                    var the_focus = focus_list[video][focus];
-                    var the_focus_id = video+'_'+focus;
+                for(var focus in focus_list[theme_name]){
+                    var the_focus = focus_list[theme_name][focus];
+                    var the_focus_id = theme_name+'_'+focus;
                     if(focusShown == "" && time >= the_focus[0] && time < the_focus[1]){
-                        showFocus(the_focus_id);
+                        console.log("Yeah");
+                        showFocus(video, focus);
                     }else if(focusShown == the_focus_id && (time < the_focus[0] || time >= the_focus[1])){
                         hideFocus();
                     }
@@ -178,12 +180,14 @@ function show_player(video, quality, play, start_time){
     $('#player_closer').show();
 }
 
-function showFocus(focus){
+function showFocus(video, focus){
     focusShown = focus;
-    console.debug("Showing focus #",focus);
+    console.debug("Showing focus #",video+"_"+focus);
 
-    $('#active_focus').html($('#focus_'+focus).html());
+    $('#active_focus').html($('#focus_theme'+video+"_"+focus).html());
     $('#active_focus').fadeIn('slow');
+
+    $('#active_focus .content').load("/webdoc/focus/theme"+video+"_focus"+focus+"/");
 }
 
 function hideFocus(){
@@ -192,7 +196,7 @@ function hideFocus(){
     $('#active_focus').fadeOut();
 }
 function focus_open_this_one(theme, focus){
-    show_player('theme'+theme, "medium", true, focus_list['theme'+theme][focus][0]);
+    show_player(theme, "medium", true, focus_list['theme'+theme][focus][0]);
 }
 
 function focus_open(){

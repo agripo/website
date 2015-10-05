@@ -24,9 +24,9 @@
                         Un petit vil&shy;lage du centre du pays a décidé de lutter contre ce
                         fléau...
                     </p>
-                    <input onclick="show_player('theme1', 'low');"      id="preview1_btn_low"    type="button" value="Lancer" class="button player_launcher preview_low"/>
-                    <input onclick="show_player('theme1', 'medium');"   id="preview1_btn_medium" type="button" value="Lancer" class="button player_launcher preview_medium" />
-                    <input onclick="show_player('theme1', 'high');"     id="preview1_btn_high"   type="button" value="Lancer" class="button player_launcher preview_high" />
+                    <input onclick="show_player('1', 'low');"      id="preview1_btn_low"    type="button" value="Lancer" class="button player_launcher preview_low"/>
+                    <input onclick="show_player('1', 'medium');"   id="preview1_btn_medium" type="button" value="Lancer" class="button player_launcher preview_medium" />
+                    <input onclick="show_player('1', 'high');"     id="preview1_btn_high"   type="button" value="Lancer" class="button player_launcher preview_high" />
                 </div>
                 <div id="chapter2" class="one_chapter" style="display:none;">
                     <h3>Chapitre 2</h3>
@@ -39,9 +39,9 @@
                         reculer la défo&shy;restation autour du vil&shy;lage et change la vie
                         quoti&shy;dienne de ses habi&shy;tants.
                     </p>
-                    <input onclick="show_player('theme2', 'low');"      id="preview2_btn_low"       type="button" value="Lancer" class="button player_launcher preview_low" />
-                    <input onclick="show_player('theme2', 'medium');"   id="preview2_btn_medium"    type="button" value="Lancer" class="button player_launcher preview_medium" />
-                    <input onclick="show_player('theme2', 'high');"     id="preview2_btn_high"      type="button" value="Lancer" class="button player_launcher preview_high"/>
+                    <input onclick="show_player('2', 'low');"      id="preview2_btn_low"       type="button" value="Lancer" class="button player_launcher preview_low" />
+                    <input onclick="show_player('2', 'medium');"   id="preview2_btn_medium"    type="button" value="Lancer" class="button player_launcher preview_medium" />
+                    <input onclick="show_player('2', 'high');"     id="preview2_btn_high"      type="button" value="Lancer" class="button player_launcher preview_high"/>
                 </div>
                 <div id="chapter3" class="one_chapter" style="display:none;">
                     <h3>Chapitre 3</h3>
@@ -53,9 +53,9 @@
                         progrès. AGRIPO et les habi&shy;tants de Tayap ont plus que jamais besoin
                         de contri&shy;butions et d'appuis.
                     </p>
-                    <input onclick="show_player('theme3', 'low');"      id="preview3_btn_low"       type="button" value="Lancer" class="button player_launcher preview_low" />
-                    <input onclick="show_player('theme3', 'medium');"   id="preview3_btn_medium"    type="button" value="Lancer" class="button player_launcher preview_medium" />
-                    <input onclick="show_player('theme3', 'high');"     id="preview3_btn_high"      type="button" value="Lancer" class="button player_launcher preview_high" />
+                    <input onclick="show_player('3', 'low');"      id="preview3_btn_low"       type="button" value="Lancer" class="button player_launcher preview_low" />
+                    <input onclick="show_player('3', 'medium');"   id="preview3_btn_medium"    type="button" value="Lancer" class="button player_launcher preview_medium" />
+                    <input onclick="show_player('3', 'high');"     id="preview3_btn_high"      type="button" value="Lancer" class="button player_launcher preview_high" />
                 </div>
             </div>
             <div class="arrow_change_chapter brown round_arrow">
@@ -84,9 +84,7 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme1_focus1.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
                 <div id="focus_theme1_2" class="one_focus">
                     <table>
@@ -103,9 +101,7 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme1_focus2.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
             </div>
 
@@ -129,9 +125,7 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme2_focus1.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
                 <div id="focus_theme2_2" class="one_focus">
                     <table>
@@ -148,9 +142,7 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme2_focus2.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
                 <div id="focus_theme2_3" class="one_focus">
                     <table>
@@ -167,9 +159,7 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme2_focus3.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
                 <div id="focus_theme2_4" class="one_focus">
                     <table>
@@ -186,9 +176,7 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme2_focus4.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
             </div>
 
@@ -213,9 +201,7 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme3_focus1.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
                 <div id="focus_theme3_2" class="one_focus">
                     <table>
@@ -232,9 +218,7 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme3_focus2.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
                 <div id="focus_theme3_3" class="one_focus">
                     <table>
@@ -251,46 +235,31 @@
                     <input class="button show_focus" type="button" class="button" value="En savoir plus" onclick="focus_open();"/>
                     <input class="button hide_focus" type="button" class="button" value="Reprendre la vidéo" onclick="focus_close();"/>
 
-                    <div class="content">
-                        {% include 'webdoc/focus/theme3_focus3.html' %}
-                    </div>
+                    <div class="content"></div>
                 </div>
             </div>
         </div>
         <div id="player_preview">
             <div id="preview1">
-                <img onclick="show_player('theme1', 'low');"    id="preview1_low" class="one_preview preview_low"       src="/static/img/webdoc/preview1.png"/>
-                <img onclick="show_player('theme1', 'medium');" id="preview1_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview1.png" />
-                <img onclick="show_player('theme1', 'high');"   id="preview1_high" class="one_preview preview_high"      src="/static/img/webdoc/preview1.png" />
+                <img onclick="show_player('1', 'low');"    id="preview1_low" class="one_preview preview_low"       src="/static/img/webdoc/preview1.png"/>
+                <img onclick="show_player('1', 'medium');" id="preview1_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview1.png" />
+                <img onclick="show_player('1', 'high');"   id="preview1_high" class="one_preview preview_high"      src="/static/img/webdoc/preview1.png" />
             </div>
 
             <div id="preview2" style="display:none;">
-                <img onclick="show_player('theme2', 'low');"    id="preview2_low" class="one_preview preview_low"       src="/static/img/webdoc/preview2.png"/>
-                <img onclick="show_player('theme2', 'medium');" id="preview2_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview2.png" />
-                <img onclick="show_player('theme2', 'high');"   id="preview2_high" class="one_preview preview_high"      src="/static/img/webdoc/preview2.png" />
+                <img onclick="show_player('2', 'low');"    id="preview2_low" class="one_preview preview_low"       src="/static/img/webdoc/preview2.png"/>
+                <img onclick="show_player('2', 'medium');" id="preview2_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview2.png" />
+                <img onclick="show_player('2', 'high');"   id="preview2_high" class="one_preview preview_high"      src="/static/img/webdoc/preview2.png" />
             </div>
 
             <div id="preview3" style="display:none;">
-                <img onclick="show_player('theme3', 'low');"    id="preview3_low" class="one_preview preview_low"       src="/static/img/webdoc/preview3.png"/>
-                <img onclick="show_player('theme3', 'medium');" id="preview3_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview3.png" />
-                <img onclick="show_player('theme3', 'high');"   id="preview3_high" class="one_preview preview_high"      src="/static/img/webdoc/preview3.png" />
+                <img onclick="show_player('3', 'low');"    id="preview3_low" class="one_preview preview_low"       src="/static/img/webdoc/preview3.png"/>
+                <img onclick="show_player('3', 'medium');" id="preview3_medium" class="one_preview preview_medium"    src="/static/img/webdoc/preview3.png" />
+                <img onclick="show_player('3', 'high');"   id="preview3_high" class="one_preview preview_high"      src="/static/img/webdoc/preview3.png" />
             </div>
         </div>
         <div id="youtube_player"></div>
-        <div id="youtube_players">
-{#            var width = 600;#}
-{#            var height = 337;#}
-{#            }else if(quality == "medium"){#}
-{#            var width = 800;#}
-{#            var height = 450;#}
-{#            }else{#}
-{#            quality = "high";#}
-{#            var width = 1280;#}
-{#            var height = 720;#}
-<!--            <iframe id="player_theme1" type="text/html" width="800" height="450"
-                src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://{{ request.get_host }}"
-                frameborder="0"></iframe>-->
-        </div>
+        <div id="focus_container"></div>
     </div>
 </div>
 <script type="text/javascript" src="/static/js/webdoc/script.js"></script>
