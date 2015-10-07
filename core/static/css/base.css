@@ -1,19 +1,19 @@
 a,
 a:hover{
-    color: #3d4d0b;
+    color: #2C3B0A;
 }
 .navbar-text a:hover{
     color: white;
 }
 #bottom_social_networks a{
-    color: #3d4d0b;
+    color: #2C3B0A;
 }
 #bottom_social_networks a:hover{
-    color: #3b3b1f;
+    color: #2C2C16;
 }
 #social_lang,
 body .navbar-inverse {
-    background-color: #809C65;
+    background-color: #569C3E;
 }
 #myCarousel{
     height: 280px;
@@ -30,7 +30,7 @@ body .navbar-inverse {
     font-size: 16px;
     margin: 0;
     padding: 0;
-    color: #3d4d0b;
+    color: #2C3B0A;
 }
 .panel-heading h1{
     font-width: bold;
