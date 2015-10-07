@@ -44,11 +44,12 @@ function force_quality(quality, button){
 function hide_player(){
     console.log("Hiding the player");
     stopActiveVideo();
+    there_is_a_player = false;
 
-    $("#main_video").fadeOut(400, function(){
-        $('#main_video').remove();
-        $('#active_focus').remove();
-    });
+    $('#main_video').remove();
+    console.log("Before", $('#active_focus'));
+    $('#active_focus').remove();
+    console.log("After", $('#active_focus'));
 
     $('#player_preview, #chapter_selector').fadeIn();
 
@@ -62,8 +63,7 @@ var video_quality = null;
 var focusShown = "";
 var focus_list = {
     theme1:{
-        1:[5,87],
-        //1:[77,87],
+        1:[77,87],
         2:[145,155]
     },
     theme2:{
@@ -81,6 +81,7 @@ var focus_list = {
 
 var youtube_api_ready = false;
 var YTPlayer;
+var there_is_a_player = false;
 
 function show_player(video, quality, play, start_time){
     if(!youtube_api_ready){
@@ -139,13 +140,12 @@ function show_player(video, quality, play, start_time){
                     var the_focus = focus_list[theme_name][focus];
                     var the_focus_id = theme_name+'_'+focus;
                     if(focusShown == "" && time >= the_focus[0] && time < the_focus[1]){
-                        console.log("Yeah");
                         showFocus(video, focus);
                     }else if(focusShown == the_focus_id && (time < the_focus[0] || time >= the_focus[1])){
                         hideFocus();
                     }
                 }
-                if(YTPlayer.getPlayerState() == YT.PlayerState.PLAYING){
+                if(there_is_a_player && YTPlayer.getPlayerState() == YT.PlayerState.PLAYING){
                     window.setTimeout(check_time, 250);
                 }
             }
@@ -156,23 +156,22 @@ function show_player(video, quality, play, start_time){
             select_topic("next");
         }
     }
-
+    var videos_ids = ['oyYKDGxIviw', 'bKCPB_usTm4', 'zH4bQP4JnoI'];
+    var video_id = videos_ids[parseInt(video) - 1];
+    console.log("The video id is", video_id, parseInt(video), parseInt(video) - 1);
     YTPlayer = new YT.Player('youtube_player', {
         width: width,
         height: height,
-        videoId: 'M7lc1UVf-VE',
+        videoId: video_id,
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
         }
     });
+    there_is_a_player = true;
 
     $('<div/>', {
         id:'active_focus'
-    }).appendTo($("#content"));
-
-    $('<div/>', {
-        id:'open_focus'
     }).appendTo($("#content"));
 
     $('#player_preview, #chapter_selector').fadeOut();
@@ -284,11 +283,10 @@ function pauseActiveVideo(){
 
 function playActiveVideo(start_time){
     console.log("PLAY");
-    if(typeof(start_time) == 'undefined'){
-        start_time = 0;
-    }
     YTPlayer.playVideo();
-    YTPlayer.seekTo(start_time, true);
+    if(typeof(start_time) != 'undefined'){
+        YTPlayer.seekTo(start_time, true);
+    }
 }
 function stopActiveVideo() {
     YTPlayer.stopVideo();
