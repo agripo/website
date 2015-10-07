@@ -79,7 +79,8 @@ class FunctionalTest(StaticLiveServerTestCase):
     def _test_has_failed(self):
         # for 3.4. In 3.3, can just use self._outcomeForDoCleanups.success:
         for method, error in self._outcome.errors:
-            if error:
+            no_real_errors = ['Active development pointer', 'Test not implemented yet']
+            if error and (str(error[1]) not in no_real_errors):
                 return True
         return False
 
@@ -134,14 +135,6 @@ class FunctionalTest(StaticLiveServerTestCase):
             windowid=self._windowid,
             timestamp=timestamp
         )
-
-    def check_for_row_in_list_table(self, row_text):
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(row_text, [row.text for row in rows])
-
-    def get_item_input_box(self):
-        return self.browser.find_element_by_id('id_text')
 
     def wait(self, duration):
         time.sleep(duration)
@@ -277,10 +270,6 @@ class FunctionalTest(StaticLiveServerTestCase):
             HomePage(self).show()
         self.wait_to_be_logged_in()
         return self
-
-    def add_user_to_managers(self, email):
-        user = User.objects.get(email=email)
-        user.add_to_managers()
 
     def select_option_by_text(self, select_id, option_text, raise_error_if_not_found=True):
         return self.select_option(select_id, "text", option_text, raise_error_if_not_found)

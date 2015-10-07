@@ -1,0 +1,21 @@
+{% extends 'webdoc/base.html' %}
+
+{% block main_content %}
+<div id="page_support">
+    <div id="content">
+        <div id="content">
+            <a href="{% url "webdoc:home_page" %}">
+                <img src="/static/img/webdoc/logo_webdoc.png" style="width:320px;left:0px;top:10px;"/>
+            </a>
+            <h1>Soutenir l'initiative</h1>
+            <p>Les Vergers écologiques de Tayap ont besoin de soutien. </p>
+            <p>Vous pouvez soutenir l'initiative en faisant un don ici : </p>
+            <a style="text-decoration: underline;" href="http://www.agripo.net/fr/content/faire-un-don">www.agripo.net/fr/content/faire-un-don</a>
+
+            <a href="{% url "webdoc:webdoc" %}">
+                <input type="button" class="button" value="Retourner au webdoc" style="position:absolute;left:300px;top:400px;"/>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
