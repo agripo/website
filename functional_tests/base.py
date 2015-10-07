@@ -79,7 +79,8 @@ class FunctionalTest(StaticLiveServerTestCase):
     def _test_has_failed(self):
         # for 3.4. In 3.3, can just use self._outcomeForDoCleanups.success:
         for method, error in self._outcome.errors:
-            if error:
+            no_real_errors = ['Active development pointer', 'Test not implemented yet']
+            if error and (str(error[1]) not in no_real_errors):
                 return True
         return False
 
