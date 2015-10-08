@@ -104,18 +104,18 @@ class ShopCheckoutTest(ViewsBaseTestCase):
         cart = self._add_products_to_cart(3)
         response = self.client.get(reverse('checkout'))
         for prod in cart['products']:
-            self.assertContains(response, '{} XAF'.format(prod['product'].price))
+            self.assertContains(response, '{} FCFA'.format(prod['product'].price))
 
     def test_display_products_quantity_prices(self):
         cart = self._add_products_to_cart(3)
         response = self.client.get(reverse('checkout'))
         for prod in cart['products']:
-            self.assertContains(response, '{} XAF'.format(prod['product'].price * prod['quantity']))
+            self.assertContains(response, '{} FCFA'.format(prod['product'].price * prod['quantity']))
 
     def test_display_right_total_price(self):
         cart = self._add_products_to_cart(3)
         response = self.client.get(reverse('checkout'))
-        self.assertContains(response, '{} XAF'.format(cart['total']))
+        self.assertContains(response, '{} FCFA'.format(cart['total']))
 
 
 class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
