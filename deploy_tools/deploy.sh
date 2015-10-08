@@ -20,7 +20,7 @@ if [ $type = "staging" ]
     then
         server="staging.agripo-website.brice.xyz"
     else
-        server="www.agripo-website.brice.xyz"
+        server="www.agripo.net"
 fi
 
 fab deploy:$1 --host=$server
