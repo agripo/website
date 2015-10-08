@@ -6,7 +6,7 @@
             </div>
         </div>
 
-        <div class="row news_container">
+        <div class="row news_container text-center">
             {% for one in last_news %}
                 <div class="col-md-3 col-sm-6">
                     <div class="panel panel-default">
@@ -39,8 +39,29 @@
                         </h4>
                     </div>
                     <div class="panel-body">
-                        <p>{% lorem %}</p>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <p>
+                            Doté d’options interactives et complémentaires, ce support renforce les outils
+                            mis en place par AGRIPO pour faire connaître les vergers écologiques de Tayap
+                            et inciter au développement durable des villages africains.
+                        </p>
+                        <a href="{% url "webdoc:home_page" %}" class="btn btn-default btn-primary">Voir le webdoc</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            <a href="{% url "webdoc:home_page" %}">
+                                <i class="fa fa-gamepad"></i>
+                                Jeu vidéo
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>{% lorem 30 w %}</p>
+                        <a href="#" class="btn btn-default btn-primary">Jouer</a>
                     </div>
                 </div>
             </div>

@@ -44,7 +44,7 @@ class News(models.Model):
     def get_last():
         return News.objects.filter(
             publication_date__lt=timezone.now(),
-            is_active=True).order_by('-publication_date')[0:3]
+            is_active=True).order_by('-publication_date')[0:2]
 
     class Meta:
         verbose_name = "Actualité"

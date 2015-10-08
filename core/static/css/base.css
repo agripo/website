@@ -30,6 +30,8 @@ body .navbar-inverse {
     font-size: 16px;
     margin: 0;
     padding: 0;
+}
+h1, h2, h3, h4{
     color: #2C3B0A;
 }
 .panel-heading h1{
