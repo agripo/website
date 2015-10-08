@@ -1,7 +1,7 @@
 from django import forms
 
 from core.models.users import AgripoUser
-from core.models.shop import Product, Command, CommandProduct
+from core.models.shop import Product, Command, CommandProduct, Delivery
 
 
 class CheckoutForm(forms.ModelForm):
@@ -17,6 +17,9 @@ class CheckoutForm(forms.ModelForm):
         self.customer = kwargs.pop('customer', None)
         super().__init__(*args, **kwargs)
         self.fields['message'].required = False
+        qs = Delivery.objects.available()
+        valid_ids = qs.values_list('pk', flat=True)[:10]
+        self.fields['delivery'].queryset = Delivery.objects.filter(pk__in=valid_ids)
 
     def save(self, **kwargs):
         kwargs['commit'] = False
@@ -36,3 +39,5 @@ class CheckoutForm(forms.ModelForm):
         command.save()
         Product.static_clear_cart()
         return command
+
+

@@ -70,10 +70,9 @@ class BaseDeliveryAdmin(AdminHelperAdmin):
     ordering = ['-date']
 
     def details(self, obj):
-        count = obj.commands.count()
-        if count > 0:
-            return '<a href="{}">Préparer la livraison des {} commandes</a>'.format(
-                Delivery.details_link(pk=obj.pk), count)
+        link, count = obj.details_link()
+        if link:
+            return '<a href="{}">Préparer la livraison des {} commandes</a>'.format(link, count)
 
         return "Aucune commande pour cette livraison"
     details.allow_tags = True
@@ -82,14 +81,14 @@ class BaseDeliveryAdmin(AdminHelperAdmin):
 class PastDeliveryAdmin(BaseDeliveryAdmin):
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(Q(date__lte=timezone.now) | Q(done=True))
+        return super().get_queryset(request).done()
 
 
 class FutureDeliveryAdmin(BaseDeliveryAdmin):
     ordering = ['date']
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(date__gte=timezone.now, done=False)
+        return super().get_queryset(request).available()
 
 
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
