@@ -2,9 +2,10 @@ from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCart
 from django.core.urlresolvers import reverse
 
 from core.tests.views.base import ViewsBaseTestCase
-from core.models.shop import Product
+from core.models.shop import Product, Delivery
 from core.management.commands.populatedb import (
     insert_random_categories_and_products, insert_random_category, insert_random_product)
+from django.utils import timezone
 
 
 class ShopViewTest(ViewsBaseTestCase):
@@ -116,6 +117,29 @@ class ShopCheckoutTest(ViewsBaseTestCase):
         cart = self._add_products_to_cart(3)
         response = self.client.get(reverse('checkout'))
         self.assertContains(response, '{} FCFA'.format(cart['total']))
+
+    def test_cant_select_already_done_deliveries_for_checkout(self):
+        Delivery.objects.all().update(done=True)
+        self._add_products_to_cart(3)
+        response = self.client.get(reverse('checkout'))
+        queryset = response.context_data['form'].fields['delivery'].choices.queryset
+        self.assertEqual(queryset.count(), 0)
+
+    def test_ten_next_available_deliveries_are_available_for_checkout(self):
+        Delivery.objects.all().update(done=True)
+        self._add_products_to_cart(3)
+        deliveries = []
+        for i in range(0, 15):
+            # 2 in the past, 13 in the future
+            deliveries.append(self.create_delivery(
+                date=timezone.now() + timezone.timedelta(seconds=i - 1), delivery_point_name="DP {}".format(i)))
+
+        response = self.client.get(reverse('checkout'))
+        queryset = response.context_data['form'].fields['delivery'].choices.queryset
+        self.assertEqual(queryset.count(), 10)
+        for delivery in deliveries[2:12]:
+            looking_for = '<option value="{}">{}</option>'.format(delivery.pk, delivery.__str__())
+            self.assertContains(response, looking_for, html=True)
 
 
 class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
