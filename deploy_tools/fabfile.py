@@ -15,16 +15,16 @@ STAGING = False
 def deploy(tag):
     global STAGING
 
-    print("Deploying tag {} to {}".format(tag, env.host))
 
     server_type_name = "production"
     if 'staging.' in env.host:
         STAGING = True
         server_type_name = "staging"
     else:
-        # We never deploy on anything else than the 'deploy' tag, which should stay on the Master branch
-        if "release-" not in tag:
+        if tag.lower().startswith("release-"):
             raise Exception('Deployment on production is limited to the "release-*" tags')
+
+    print("Deploying tag {} to {} ({})".format(tag, env.host, server_type_name))
 
     site_folder = '/home/%s/sites/%s' % (env.user, server_type_name)
     source_folder = site_folder + '/source'
