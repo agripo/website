@@ -1,12 +1,10 @@
 from django.contrib import admin
-from django.db.models import Q
-from django.utils import timezone
 from solo.admin import SingletonModelAdmin
 
 from admin_helper.admin import AdminHelperAdmin
 
 from core.models.news import News
-from core.models.shop import Product, Stock, ProductCategory, PastDelivery, FutureDelivery, DeliveryPoint, Delivery
+from core.models.shop import Product, Stock, ProductCategory, PastDelivery, FutureDelivery, DeliveryPoint
 from core.models.general import SiteConfiguration
 
 

@@ -1,4 +1,3 @@
-from allauth import app_settings
 from allauth.account.utils import perform_login
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.socialaccount.signals import pre_social_login

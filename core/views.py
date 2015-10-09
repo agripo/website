@@ -1,4 +1,3 @@
-from django.conf.urls import patterns
 from django.contrib.auth import authenticate, login
 from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
@@ -15,7 +14,7 @@ import core.exceptions as core_exceptions
 from core.forms import CheckoutForm
 from core.authentication import is_production_server
 from core.models.news import News
-from core.models.shop import Product, ProductCategory, Command, PastDelivery, Delivery
+from core.models.shop import Product, ProductCategory, Command, Delivery
 from core.models.general import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 
 

@@ -113,5 +113,6 @@ def _update_database(source_folder):
 def _update_flatpages(source_folder):
     run(_get_manage_dot_py_command(source_folder) + ' loaddata core/flatpages_contents.json')
 
+
 def _restart_gunicorn(server_type_name):
     run("sudo /root/reload_gunicorn/{}.sh".format(server_type_name))
