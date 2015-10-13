@@ -39,5 +39,3 @@ class CheckoutForm(forms.ModelForm):
         command.save()
         Product.static_clear_cart()
         return command
-
-

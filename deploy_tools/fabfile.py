@@ -15,16 +15,15 @@ STAGING = False
 def deploy(tag):
     global STAGING
 
-    print("Deploying tag {} to {}".format(tag, env.host))
-
     server_type_name = "production"
     if 'staging.' in env.host:
         STAGING = True
         server_type_name = "staging"
     else:
-        # We never deploy on anything else than the 'deploy' tag, which should stay on the Master branch
-        if "release-" not in tag:
+        if not tag.lower().startswith("release-"):
             raise Exception('Deployment on production is limited to the "release-*" tags')
+
+    print("Deploying tag {} to {} ({})".format(tag, env.host, server_type_name))
 
     site_folder = '/home/%s/sites/%s' % (env.user, server_type_name)
     source_folder = site_folder + '/source'
@@ -69,7 +68,8 @@ def _get_latest_source(source_folder, deploy_tag):
 def _update_settings(source_folder, site_name):
     settings_path = '{}/{}/settings.py'.format(source_folder, MAIN_APP)
     sed(settings_path, "DEBUG = True", "DEBUG = False")
-    ip = local('dig +short {}'.format(site_name), capture=True)
+    # We get the last line, which is the IP address (there might be a CNAME entry at the beginning of the output)
+    ip = local('dig +short {} | tail -n1;'.format(site_name), capture=True)
     sed(settings_path, 'ALLOWED_HOSTS = [DOMAIN, "127.0.0.1"]', 'ALLOWED_HOSTS = [DOMAIN, "{}"]'.format(ip))
     sed(settings_path, 'DOMAIN = "agripo-dev.brice.xyz"', 'DOMAIN = "%s"' % (site_name,))
     if STAGING:
@@ -112,6 +112,7 @@ def _update_database(source_folder):
 
 def _update_flatpages(source_folder):
     run(_get_manage_dot_py_command(source_folder) + ' loaddata core/flatpages_contents.json')
+
 
 def _restart_gunicorn(server_type_name):
     run("sudo /root/reload_gunicorn/{}.sh".format(server_type_name))

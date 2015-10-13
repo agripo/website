@@ -1,4 +1,3 @@
-from django.conf.urls import patterns
 from django.contrib.auth import authenticate, login
 from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
@@ -6,7 +5,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
-from django.views.generic import ListView, DetailView, TemplateView, CreateView
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, FormView
 from django.utils import timezone
 from django.core.management import call_command
 from django.contrib.admin.views.decorators import staff_member_required
@@ -15,7 +14,7 @@ import core.exceptions as core_exceptions
 from core.forms import CheckoutForm
 from core.authentication import is_production_server
 from core.models.news import News
-from core.models.shop import Product, ProductCategory, Command, PastDelivery, Delivery
+from core.models.shop import Product, ProductCategory, Command, Delivery
 from core.models.general import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 
 
@@ -55,6 +54,14 @@ def set_product_quantity(request, product=0, quantity=0):
 
     return JsonResponse(data)
 
+
+class UpdateStock(TemplateView):
+    template_name = "core/update_stock.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = ProductCategory.objects.all()
+        return context
 
 class Checkout(CreateView):
     model = Command

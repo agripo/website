@@ -2,10 +2,10 @@ import re
 
 from .base import FunctionalTest
 from django.core.urlresolvers import reverse
+from functional_tests.page_home_page import HomePage
 from .page_shop import ShopPage
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.wait import WebDriverWait
 
 
 class ShopPageTest(FunctionalTest):
@@ -27,11 +27,10 @@ class ShopPageTest(FunctionalTest):
                 prod.clear()
                 prod.send_keys(quantity)
                 all_products[i].find_element_by_css_selector("input[type='submit']").click()
-                searched = ".add_to_cart_confirm_message"
-                WebDriverWait(all_products[i], timeout=10).until(
-                    lambda b: b.find_element_by_css_selector(searched),
-                    'Could not find element with css selector "{}".'.format(searched)
-                )
+                please_wait = all_products[i].find_element_by_css_selector(".add_to_cart_please_wait_message")
+                self.wait_for_element_to_be_displayed(please_wait, timeout=10)
+                confirmation = all_products[i].find_element_by_css_selector(".add_to_cart_confirm_message")
+                self.wait_for_element_to_be_displayed(confirmation, timeout=10)
 
                 count += 1
                 if count == number:
@@ -44,10 +43,15 @@ class ShopPageTest(FunctionalTest):
         # The shop already contains some products
         self.populate_db(categories_count=2, products_count=2)
 
-        # Alpha gets connected as manager after having gone to the shop page
+        HomePage(self).show()
+
+        # Alpha gets connected as manager, then goes to the shop page
+        self.create_autoconnected_session(user_alpha_email, as_manager=True, as_farmer=True)
         shop = ShopPage(self).show()
 
-        self.create_autoconnected_session(user_alpha_email, as_manager=True, as_farmer=True)
+        # He confirms his cart is empty
+        self.assert_is_displayed("empty_cart", by="class")
+        self.assert_is_hidden("not_empty_cart", by="class")
 
         # He goes to the products edition page
         self.show_admin_page("core", 'product', 'add')
@@ -80,7 +84,7 @@ class ShopPageTest(FunctionalTest):
         self.assertTrue(
             found, "New product not found on shop page (searched '{}')".format(the_product_name))
 
-        # He sees his cart is empty
+        # He sees his cart is still empty
         self.browser.find_element_by_id("cart_is_empty")  # should not raise
 
         # He adds two products to his cart
@@ -115,11 +119,29 @@ class ShopPageTest(FunctionalTest):
 
         # He selects his destination (Yaoundé), and gets a confirmation for his command
         self.select_option_by_index('id_delivery', 2, True)
-        self.dev_point(10)
+        self.browser.find_element_by_id("submit_command").click()  # should not raise
 
-        # He notices that the cart is empty, and the button to checkout is not there anymore
+        # He should see an Thank you message
+        self.wait_for_element_with_id("id_command_successfull_page")
 
-        # He goes to the delivery admin page and sees the summary of his command
+        # He notices that the cart is empty again
+        self.wait_for_element_to_be_displayed(self.browser.find_element_by_css_selector(".empty_cart"))
+        self.assert_is_hidden("not_empty_cart", by="class")
+
+        # He goes to the delivery admin page and sees the list of planned commands
+        self.show_admin_page("core", 'futuredelivery')
+
+        # He clicks the link of the only one with a content (the only link)
+        link_text = "Préparer la livraison des 1 commandes"
+        self.browser.find_element_by_link_text(link_text).click()
+        self.wait_for_element_with_id("main_recap")
+
+        # He then goes to the command management page
+        url = self.browser.current_url.replace("details/", "")
+        self.test.browser.get(url)
+        self.test.wait_for(self._is_home_page)
+
+        self.dev_point(15)
 
         # He writes the delivery as done from the deliveries list
 

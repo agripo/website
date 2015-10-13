@@ -97,14 +97,20 @@ class FunctionalTest(StaticLiveServerTestCase):
         from core.data.data_migrations import insert_flatpages_contents
         insert_flatpages_contents()
 
-    def assert_is_hidden(self, element_id, by='id'):
+    def assert_is_hidden(self, element_value, by='id'):
         try:
-            if by == 'id':
-                el = self.browser.find_element_by_id(element_id)
-            el.click()
-            self.fail("Element {} should have been hidden")
+            self.assert_is_displayed(element_value, by=by)
+            self.fail("Element with {}=\"{}\" should have been hidden".format(by, element_value))
         except ElementNotVisibleException:
             pass
+
+    def assert_is_displayed(self, element_id, by='id'):
+        if by == 'id':
+            el = self.browser.find_element_by_id(element_id)
+        elif by == 'class':
+            el = self.browser.find_element_by_class_name(element_id)
+
+        el.click()  # should not raise
 
     def admin_save(self, next_page=None):
         self.browser.find_element_by_css_selector('input[name="_save"]').click()
@@ -179,7 +185,9 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def wait_for_element_to_be_displayed(self, element, timeout=DEFAULT_TIMEOUT):
         self.wait_for(
-            lambda: self.assertTrue(element.is_displayed()), timeout, exception=AssertionError)
+            lambda: self.assertTrue(
+                element.is_displayed(), "{} should have been displayed by now".format(element)),
+            timeout, exception=AssertionError)
 
         return element
 
@@ -242,7 +250,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             next_page = '/admin/'
             for arg in args:
                 next_page += arg + "/"
-            self.click_link(next_page, timeout=DEFAULT_TIMEOUT)
+                self.click_link(next_page, timeout=DEFAULT_TIMEOUT)
         else:
             self.show_page('admin/{}/'.format("/".join(args)), searched_element="user-tools")
 

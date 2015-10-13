@@ -18,7 +18,8 @@
             }
             .add_to_cart_not_enough_stock_message,
             .add_to_cart_no_stock_message,
-            .add_to_cart_confirm_message {
+            .add_to_cart_confirm_message,
+            .add_to_cart_please_wait_message{
                 display: none;
                 margin-bottom: 0;
                 padding-bottom: 0;
@@ -89,6 +90,10 @@
                                                 <p class="add_to_cart_no_stock_message">
                                                     <i class="fa fa-exclamation"></i>
                                                     Produit indisponible
+                                                </p>
+                                                <p class="add_to_cart_please_wait_message">
+                                                    <i class="fa fa-clock-o"></i>
+                                                    Veuillez patienter
                                                 </p>
                                             </form>
                                         {% else %}

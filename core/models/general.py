@@ -38,6 +38,11 @@ class SiteConfiguration(SingletonModel):
         config_name='awesome_ckeditor', verbose_name='Page d\'accueil',
         help_text="Contenu de la page d'accueil"
     )
+    analytics_code = models.TextField(
+        default="", verbose_name="Code d'Analytics", blank=True,
+        help_text="Collez ici le code fourni qui doit être inséré dans toutes les pages sans l'"
+                  "éventuel &lt;script&gt; du début, ni le &lt;/script&gt; de la fin."
+    )
 
     def __str__(self):
         return "Configuration générale"
