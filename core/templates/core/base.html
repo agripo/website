@@ -1,4 +1,5 @@
 {% load slideshow %}
+{% load solo_tags %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -327,6 +328,10 @@
     });
 </script>
 {% endblock %}
+<script>
+    {% get_solo 'core.SiteConfiguration' as my_config %}
+    {{ my_config.analytics_code | safe }}
+</script>
 {% block extra_body %}
 {% endblock extra_body %}
 </body>
