@@ -26,7 +26,7 @@ function show_then_hide(element){
 
 /* Shop add to cart */
 call_after_dom_is_loaded(function($){
-    function update_cart(){
+    function update_cart(run_after){
         var cart = $('#cart_contents');
         cart.empty();
         cart.append("Chargement du panier en cours")
@@ -35,8 +35,7 @@ call_after_dom_is_loaded(function($){
                 // We empty the cart
                 cart.empty();
                 if(ret.total > 0){
-                    $('#cart_is_empty').hide();
-                    $('#cart_contents, #cart_total').show();
+                    $('.empty_cart').hide();
                     for(var product_id in ret.products){
                         var prod = ret.products[product_id];
                         var li = $('#cart_contents_model').html();
@@ -48,9 +47,13 @@ call_after_dom_is_loaded(function($){
                         cart.append(li);
                     }
                     $('#cart_module_total span').html(ret.total);
+                    $('.not_empty_cart').show();
+                    if(run_after){
+                        run_after();
+                    }
                 }else{
-                    $('#cart_is_empty').show();
-                    $('#cart_contents, #cart_total').hide();
+                    $('.empty_cart').show();
+                    $('.not_empty_cart').hide();
                 }
             });
         }else{
@@ -64,10 +67,12 @@ call_after_dom_is_loaded(function($){
         form = ev.target.closest("form");
         id = $(form).find('input[name="id"]').val();
         quantity = $(form).find('input[name="quantity"]').val();
+        $(form).find(".add_to_cart_please_wait_message").show();
 
         url = URL_ADD_TO_CART.replace('111111', id).replace('222222', quantity);
         $.get(url, function(ret){
             if(ret.error != undefined){
+                $(form).find(".add_to_cart_please_wait_message").hide();
                 if(ret.error == 'NO_STOCK'){
                     show_then_hide($(form).find('.add_to_cart_no_stock_message'));
                 }else if(ret.error == "NOT_ENOUGH_STOCK") {
@@ -76,11 +81,16 @@ call_after_dom_is_loaded(function($){
                     el.html(el.html().replace("QUANTITY", ret.max));
                 }
             }else{
-                show_then_hide($(form).find('.add_to_cart_confirm_message'));
-
-                update_cart();
+                update_cart(function(){
+                    window.setTimeout(
+                        function() {
+                            $(form).find(".add_to_cart_please_wait_message").hide();
+                            show_then_hide($(form).find('.add_to_cart_confirm_message'));
+                        },
+                        500
+                    );
+                });
             }
-            console.log("ret", ret);
         }, "json");
 
         return false;

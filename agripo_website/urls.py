@@ -17,14 +17,16 @@ from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from core import urls as core_urls
 from django.conf import settings
+from django.contrib.flatpages import views as flatpages_views
 
 urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^admin/', include('admin_helper.urls')),
     url(r'^webdoc/', include('webdoc.urls', namespace="webdoc")),
-    url(r'^admin/', include(admin.site.urls)),
     url(r'', include(core_urls)),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^(?P<url>.*/)$', flatpages_views.flatpage),
 ]
 
 if settings.DEBUG:

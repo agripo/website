@@ -27,7 +27,7 @@
                                 text-align: right;
                             }
                         </style>
-                        <table class="recap">
+                        <table class="recap" id="main_recap">
                             <tr>
                                 <th>Qté</th>
                                 <th>Produit</th>
@@ -37,7 +37,7 @@
                             </tr>
                             {% for k, total in delivery.details.total.items %}
                                 <tr>
-                                    <td>{{ total.quantity }}</td>
+                                    <td class="quantity">{{ total.quantity }}</td>
                                     <td>
                                         <img src="/media{{ total.product.product.image }}" style="width:2em; vertical-align: middle"/>
                                         {{ total.product.product.name }}
@@ -81,7 +81,7 @@
                             <strong>Livraison : </strong> {{ delivery }}
                         </p>
                         <p>
-                            <table class="recap">
+                            <table class="recap one_command">
                                 <tr>
                                     <th>Qté</th>
                                     <th>Produit</th>
@@ -90,7 +90,7 @@
                                 </tr>
                                 {% for commandproduct in command.commandproduct_set.all %}
                                     <tr>
-                                        <td>
+                                        <td class="quantity">
                                             {{ commandproduct.quantity }}
                                         </td>
                                         <td>

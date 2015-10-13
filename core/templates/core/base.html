@@ -125,8 +125,16 @@
                                     Déconnexion
                                 </a>
                             </p>
+                            {% for group in user.groups.all %}
+                                {% if group.name == "farmers" %}
+                                    <h4>Espace agriculteurs</h4>
+                                    <a href="{% url "update_stock" %}">
+                                        <i class="fa fa-pencil"></i> Mettre à jour vos stocks disponibles
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
                             <h4>Votre panier</h4>
-                            <p id="cart_is_empty" style="display:none">
+                            <p id="cart_is_empty" class="empty_cart" style="display:none">
                                 Votre panier est vide
                                 <a class="btn" href="{% url 'shop_page' %}">
                                     <i class="fa fa-shopping-cart"></i>
@@ -134,7 +142,7 @@
                                 </a>
                             </p>
                             <p>
-                                <ul id="cart_contents">
+                                <ul id="cart_contents" class="not_empty_cart">
                                     <li>Javascript doit être activé pour pouvoir utiliser le panier</li>
                                 </ul>
                                 <ul id="cart_contents_model" style="display:none">
@@ -144,28 +152,30 @@
                                     </li>
                                 </ul>
                             </p>
-                            <p id="cart_total">
+                            <p id="cart_total" class="not_empty_cart">
                                 Total : <strong id="cart_module_total"><span>0</span> FCFA</strong>
                             </p>
-                            <h4>Votre commande</h4>
-                            {% url 'shop_page' as shop_url %}
-                            {% if request.get_full_path != shop_url %}
-                                <div style="display:inline-block;">
-                                    <a class="btn" id="id_checkout" href="{% url "shop_page" %}">
-                                        <i class="fa fa-pencil"></i>
-                                        Modifier
-                                    </a>
-                                </div>
-                            {% endif %}
-                            {% url 'checkout' as checkout_url %}
-                            {% if request.get_full_path != checkout_url %}
-                                <div style="display:inline-block;">
-                                    <a class="btn" id="id_checkout" href="{% url "checkout" %}">
-                                        <i class="fa fa-check"></i>
-                                        Valider
-                                    </a>
-                                </div>
-                            {% endif %}
+                            <div class="not_empty_cart">
+                                <h4>Votre commande</h4>
+                                {% url 'shop_page' as shop_url %}
+                                {% if request.get_full_path != shop_url %}
+                                    <div style="display:inline-block;">
+                                        <a class="btn" id="id_edit_command" href="{% url "shop_page" %}">
+                                            <i class="fa fa-pencil"></i>
+                                            Modifier
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% url 'checkout' as checkout_url %}
+                                {% if request.get_full_path != checkout_url %}
+                                    <div style="display:inline-block;">
+                                        <a class="btn" id="id_checkout" href="{% url "checkout" %}">
+                                            <i class="fa fa-check"></i>
+                                            Valider
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
                         {% else %}
                             <p>
                                 {% load socialaccount %}

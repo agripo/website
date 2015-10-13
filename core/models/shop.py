@@ -214,7 +214,15 @@ class Delivery(models.Model):
         if not count:
             return "", 0
 
-        return reverse("delivery_details", kwargs=dict(id=self.pk)), count
+        if self.is_future():
+            page = "delivery_details_future"
+        else:
+            page = "delivery_details_past"
+
+        ##############################################################
+        #@todo PB finding if this is the future!!
+        ##############################################################
+        return reverse(page, kwargs=dict(id=self.pk)), count
 
     def details(self):
         total = {}
@@ -252,6 +260,9 @@ class FutureDelivery(Delivery):
         verbose_name = "Livraison future/planifiée"
         verbose_name_plural = "Livraisons futures/planifiées"
 
+    def is_future(self):
+        return True
+
 
 class PastDelivery(Delivery):
 
@@ -260,6 +271,8 @@ class PastDelivery(Delivery):
         verbose_name = "Livraison passée/effectuée"
         verbose_name_plural = "Livraisons passées/effectuées"
 
+    def is_future(self):
+        return False
 
 class Command(models.Model):
     """

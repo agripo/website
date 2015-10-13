@@ -43,6 +43,19 @@ def add_permissions_for_prod_stock_and_conf(Group, Permission):
     )
 
 
+def add_delivery_related_permissions(Group, Permission):
+    managers_group = Group.objects.get(name="managers")
+    managers_group.permissions.add(
+        Permission.objects.get(codename='add_futuredelivery'),
+        Permission.objects.get(codename='change_futuredelivery'),
+        Permission.objects.get(codename='delete_futuredelivery'),
+
+        Permission.objects.get(codename='add_pastdelivery'),
+        Permission.objects.get(codename='change_pastdelivery'),
+        Permission.objects.get(codename='delete_pastdelivery'),
+    )
+
+
 def create_farmers_group(Group):
     farmers_group = Group(name="farmers")
     farmers_group.save()
@@ -79,6 +92,7 @@ def create_one_year_deliveries_for_deliverypoint(Delivery, delivery_point):
 def insert_flatpages_contents(*args):
     from django.core.management import call_command
     call_command('loaddata', 'core/data/flatpages.json')
+
 
 def revert_insert_flatpages_contents(*args):
     pass
