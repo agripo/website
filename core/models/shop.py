@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.db import models, IntegrityError
 from django.db.models import Q
 from django.utils import timezone
+from django.db.models.signals import pre_save, post_save
 
 from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCartThanAvailable
 from core.models.general import session
@@ -251,6 +252,29 @@ class Delivery(models.Model):
     class Meta:
         verbose_name = "Date de livraison"
         verbose_name_plural = "Dates de livraison"
+
+
+previous_delivery_done = False
+
+
+def delivery_pre_saved(sender, **kwargs):
+    global previous_delivery_done
+    instance = kwargs.get('instance')
+    if isinstance(instance, Delivery):
+        previous_delivery_done = Delivery.objects.get(pk=instance.pk).done
+
+
+def delivery_saved(sender, **kwargs):
+    global previous_delivery_done
+    instance = kwargs.get('instance')
+    if isinstance(instance, Delivery):
+        if instance.done != previous_delivery_done:
+            print("And it has just changed!")
+            #@todo We should list all the products in this command, and put the commanded quantities back
+            # in the stock
+
+pre_save.connect(delivery_pre_saved)
+post_save.connect(delivery_saved)
 
 
 class FutureDelivery(Delivery):

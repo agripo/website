@@ -9,13 +9,15 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 from django.utils import timezone
 from django.core.management import call_command
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib import messages
 
 import core.exceptions as core_exceptions
 from core.forms import CheckoutForm
 from core.authentication import is_production_server
 from core.models.news import News
-from core.models.shop import Product, ProductCategory, Command, Delivery
+from core.models.shop import Product, ProductCategory, Command, Delivery, Stock
 from core.models.general import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
+from core.models.users import AgripoUser
 
 
 def get_cart(request):
@@ -58,10 +60,40 @@ def set_product_quantity(request, product=0, quantity=0):
 class UpdateStock(TemplateView):
     template_name = "core/update_stock.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = ProductCategory.objects.all()
-        return context
+    def post(self, request, *args, **kwargs):
+        user = AgripoUser.objects.get(id=request.user.id)
+
+        for key in request.POST:
+            if "quantity." in key:
+                product_id = int(key.replace("quantity.", ""))
+                quantity = int(request.POST.get(key))
+                Stock.objects.update_or_create(
+                    farmer=user, product_id=product_id, defaults=dict(stock=quantity))
+
+        message_text = "Stocks mis à jour avec succès"
+        messages.add_message(request, messages.SUCCESS, message_text)
+        return redirect(reverse("update_stock"))
+
+    def products(self):
+        user = self.request.user
+        print("user : {}".format(user))
+        categories = ProductCategory.objects.all()
+        products_list = []
+        for category in categories:
+            for product in category.product_set.all():
+                farmers_stock = 0
+                try:
+                    stock = Stock.objects.get(farmer=user, product=product)
+                    farmers_stock = stock.stock
+                except Stock.DoesNotExist:
+                    pass
+
+                products_list.append(dict(product=product, stock=farmers_stock))
+                print("Stock for {} is {}".format(product, farmers_stock))
+
+        print(products_list)
+        return products_list
+
 
 class Checkout(CreateView):
     model = Command
