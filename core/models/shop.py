@@ -1,9 +1,10 @@
 import re
 from django.conf import settings
+from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models, IntegrityError
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.utils import timezone
 from django.db.models.signals import pre_save, post_save
 
@@ -44,7 +45,7 @@ class Product(models.Model):
     farmers = models.ManyToManyField(AgripoUser, through="Stock")
     stock = models.PositiveIntegerField(
         default=0,
-        help_text="Champ alimenté automatiquement en fonction des déclarations des fermiers.")
+        help_text="Champ alimenté automatiquement en fonction des déclarations des agriculteurs.")
     bought = models.PositiveIntegerField(
         default=0,
         help_text="Champ alimenté automatiquement en fonction des commandes passées")
@@ -64,6 +65,13 @@ class Product(models.Model):
 
     image_tag.short_description = 'Miniature'
     image_tag.allow_tags = True
+
+    def update_stock(self):
+        # Stock = Sum(farmers_stocks) - Sum(active_commands)
+        farmers_stock = Stock.objects.filter(product_id=self.id).aggregate(Sum('stock'))
+        stock = farmers_stock['stock__sum']
+        self.stock = stock
+        self.save()
 
     def set_cart_quantity(self, quantity):
         if not self.id:
@@ -144,14 +152,14 @@ class Stock(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._active_stock = self.stock
 
     def save(self, **kwargs):
         if not self.farmer.is_farmer():
             raise IntegrityError("Only farmers have stocks")
 
-        self.set(self.stock)
-        return super().save(**kwargs)
+        ret = super().save(**kwargs)
+        self.product.update_stock()
+        return ret
 
     def set(self, stock):
         """
@@ -160,10 +168,8 @@ class Stock(models.Model):
         :return: the Stock object
         """
         self.stock = stock
-        self.product.stock -= self._active_stock
-        self.product.stock += stock
-        self.product.save()
-        self._active_stock = stock
+        self.save()
+        self.product.update_stock()
         return self
 
 
@@ -215,15 +221,7 @@ class Delivery(models.Model):
         if not count:
             return "", 0
 
-        if self.is_future():
-            page = "delivery_details_future"
-        else:
-            page = "delivery_details_past"
-
-        ##############################################################
-        #@todo PB finding if this is the future!!
-        ##############################################################
-        return reverse(page, kwargs=dict(id=self.pk)), count
+        return reverse("delivery_details", kwargs=dict(id=self.pk)), count
 
     def details(self):
         total = {}
@@ -250,8 +248,8 @@ class Delivery(models.Model):
         return self
 
     class Meta:
-        verbose_name = "Date de livraison"
-        verbose_name_plural = "Dates de livraison"
+        verbose_name = "Livraison"
+        verbose_name_plural = "Livraisons"
 
 
 previous_delivery_done = False
@@ -261,42 +259,42 @@ def delivery_pre_saved(sender, **kwargs):
     global previous_delivery_done
     instance = kwargs.get('instance')
     if isinstance(instance, Delivery):
-        previous_delivery_done = Delivery.objects.get(pk=instance.pk).done
+        try:
+            previous_delivery_done = Delivery.objects.get(pk=instance.pk).done
+        except instance.DoesNotExist:
+            # Gives a false result, but should only be used during tests (the product was checked in memory
+            previous_delivery_done = instance.done
 
 
 def delivery_saved(sender, **kwargs):
     global previous_delivery_done
     instance = kwargs.get('instance')
+
     if isinstance(instance, Delivery):
         if instance.done != previous_delivery_done:
-            print("And it has just changed!")
-            #@todo We should list all the products in this command, and put the commanded quantities back
-            # in the stock
+            # Listing the total quantities bought for all the commands in this delivery
+            bought_stocks = {}
+            for command in instance.commands.all():
+                for cp in command.commandproduct_set.all():
+                    if cp.product.pk not in bought_stocks:
+                        bought_stocks[cp.product.pk] = 0
+
+                    bought_stocks[cp.product.pk] += cp.quantity
+
+            for product_id, stock in bought_stocks.items():
+                product = Product.objects.get(pk=product_id)
+                # We update the stocks for the commanded products
+                if instance.done:
+                    product.bought -= stock
+                else:
+                    product.bought += stock
+
+                product.update_stock()
+
 
 pre_save.connect(delivery_pre_saved)
 post_save.connect(delivery_saved)
 
-
-class FutureDelivery(Delivery):
-
-    class Meta:
-        proxy = True
-        verbose_name = "Livraison future/planifiée"
-        verbose_name_plural = "Livraisons futures/planifiées"
-
-    def is_future(self):
-        return True
-
-
-class PastDelivery(Delivery):
-
-    class Meta:
-        proxy = True
-        verbose_name = "Livraison passée/effectuée"
-        verbose_name_plural = "Livraisons passées/effectuées"
-
-    def is_future(self):
-        return False
 
 class Command(models.Model):
     """

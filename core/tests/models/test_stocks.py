@@ -17,7 +17,6 @@ class StockModelTest(CoreTestCase):
 
         the_stock = Stock(product=product, farmer=user)
         if save:
-            the_stock.save()
             the_stock.set(stock)  # This calls save() in the background
         elif stock > 0:
             raise Exception("Can't use _create_stock() with stock>0 and save=False together")

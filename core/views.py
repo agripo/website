@@ -76,7 +76,6 @@ class UpdateStock(TemplateView):
 
     def products(self):
         user = self.request.user
-        print("user : {}".format(user))
         categories = ProductCategory.objects.all()
         products_list = []
         for category in categories:
@@ -89,9 +88,7 @@ class UpdateStock(TemplateView):
                     pass
 
                 products_list.append(dict(product=product, stock=farmers_stock))
-                print("Stock for {} is {}".format(product, farmers_stock))
 
-        print(products_list)
         return products_list
 
 

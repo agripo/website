@@ -36,7 +36,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='product',
             name='name',
-            field=models.CharField(verbose_name='Nom', help_text='Nom affiché dans les fiches produits', unique=True, max_length=28),
+            field=models.CharField(
+                verbose_name='Nom', help_text='Nom affiché dans les fiches produits', unique=True, max_length=28),
         ),
         migrations.AlterField(
             model_name='product',
@@ -46,6 +47,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='product',
             name='stock',
-            field=models.PositiveIntegerField(default=0, help_text='Champ alimenté automatiquement en fonction des déclarations des fermiers.'),
+            field=models.PositiveIntegerField(
+                default=0, help_text='Champ alimenté automatiquement en fonction des déclarations des agriculteurs.'),
         ),
     ]
