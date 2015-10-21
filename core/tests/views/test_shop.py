@@ -28,8 +28,9 @@ class ShopViewTest(ViewsBaseTestCase):
         self._shop_page_contains('Produit indisponible pour le moment', 20)
 
     def _test_limit_cart_quantity_to_stock(self):
+        user = self.create_user()
         prod = insert_random_product(stock=2)
-        prod.set_cart_quantity(5)
+        prod.set_cart_quantity(user, 5)
 
     def test_limit_cart_quantity_to_stock(self):
         self.assertRaises(AddedMoreToCartThanAvailable, self._test_limit_cart_quantity_to_stock)
@@ -43,15 +44,11 @@ class ShopViewTest(ViewsBaseTestCase):
         insert_random_categories_and_products(2, 0)
         self._shop_page_contains('class="one_product_category_empty"', 2)
 
-    def test_prefill_quantity_from_cart(self):
-        prod = insert_random_product(stock=3)
-        prod.set_cart_quantity(2)
-        self._shop_page_contains('<input name="quantity" value="{}"'.format(2), 1)
-
     def _test_set_cart_quantity_requires_saved_product(self):
+        user = self.create_user()
         cat = insert_random_category()
         prod = Product(name="Product", price=100, category=cat)
-        prod.set_cart_quantity(1)
+        prod.set_cart_quantity(user, 1)
 
     def test_set_cart_quantity_requires_saved_product(self):
         self.assertRaises(CantSetCartQuantityOnUnsavedProduct,
@@ -74,6 +71,10 @@ class ShopViewTest(ViewsBaseTestCase):
 
 
 class ShopCheckoutTest(ViewsBaseTestCase):
+
+    def setUp(self):
+        super().setUp()
+        self.auto_connect("test@gmail.com")
 
     def test_cant_display_checkout_page_without_products_in_the_cart(self):
         response = self.client.get(reverse('checkout'))
@@ -158,8 +159,9 @@ class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
             str(response.content, encoding='utf8'), {'error': "NOT_ENOUGH_STOCK", 'max': 1}
         )
 
-    def test_added_product_to_cart_are_in_session(self, product_id=1, price=100, quantity=1):
+    def test_added_product_to_cart_are_in_stored(self, product_id=1, price=100, quantity=1):
         insert_random_product(stock=10, price=price)
+        self.auto_connect("test@gmail.com")
         response = self.client.get(reverse('set_product_quantity',
                                            kwargs=dict(product=product_id, quantity=quantity)))
         self.assertJSONEqual(
@@ -167,6 +169,7 @@ class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
         )
 
     def test_get_cart_with_empty_cart_returns_corresponding_json(self):
+        self.auto_connect("test@gmail.com")
         response = self.client.get(reverse('get_cart'))
 
         self.assertJSONEqual(
@@ -174,8 +177,8 @@ class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
             {'products': [], 'total': 0, })
 
     def test_get_cart_returns_corresponding_json(self):
-        self.test_added_product_to_cart_are_in_session()
-        self.test_added_product_to_cart_are_in_session(product_id=2, price=1000, quantity=2)
+        self.test_added_product_to_cart_are_in_stored()
+        self.test_added_product_to_cart_are_in_stored(product_id=2, price=1000, quantity=2)
         response = self.client.get(reverse('get_cart'))
 
         products = Product.objects.all()
@@ -188,7 +191,7 @@ class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
                 'total': 2100, })
 
     def test_setting_quantity_to_zero_removes_entry_in_session(self):
-        self.test_added_product_to_cart_are_in_session()
+        self.test_added_product_to_cart_are_in_stored()
         self.client.get(reverse('set_product_quantity',
                                            kwargs=dict(product=1, quantity=0)))
         response = self.client.get(reverse('get_cart'))

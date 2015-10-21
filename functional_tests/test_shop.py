@@ -1,4 +1,5 @@
 import re
+from django.utils import timezone
 
 from .base import FunctionalTest
 from django.core.urlresolvers import reverse
@@ -28,9 +29,9 @@ class ShopPageTest(FunctionalTest):
                 prod.send_keys(quantity)
                 all_products[i].find_element_by_css_selector("input[type='submit']").click()
                 please_wait = all_products[i].find_element_by_css_selector(".add_to_cart_please_wait_message")
-                self.wait_for_element_to_be_displayed(please_wait, timeout=10)
+                self.wait_for_element_to_be_displayed(please_wait, timeout=15)
                 confirmation = all_products[i].find_element_by_css_selector(".add_to_cart_confirm_message")
-                self.wait_for_element_to_be_displayed(confirmation, timeout=10)
+                self.wait_for_element_to_be_displayed(confirmation, timeout=15)
 
                 count += 1
                 if count == number:
@@ -53,10 +54,20 @@ class ShopPageTest(FunctionalTest):
         self.assert_is_displayed("empty_cart", by="class")
         self.assert_is_hidden("not_empty_cart", by="class")
 
-        # He goes to the products edition page
-        self.show_admin_page("core", 'product', 'add')
+        # He adds a delivery date
+        self.show_admin_page("core", 'delivery', 'add')
+        self.wait_for_element_to_be_displayed(
+            self.browser.find_element_by_css_selector(".datetimeshortcuts"))
+        tomorrow = timezone.now() + timezone.timedelta(7)
+        date_field = self.browser.find_element_by_id("id_date_0")
+        date_field.clear()
+        date_field.send_keys(tomorrow.strftime("%Y-%m-%d"))  # Don't know why the format isn't fr here...
+        select = Select(self.browser.find_element_by_id('id_delivery_point'))
+        select.select_by_index(1)
+        self.admin_save('/admin/core/delivery/')
 
         # He adds a product to the shop in an existing category
+        self.show_admin_page("core", 'product', 'add')
         the_product_name = faker.sentence()
         self.browser.find_element_by_id(shop.id_field_name).send_keys(the_product_name)
         select = Select(self.browser.find_element_by_id(shop.id_field_category))
@@ -79,7 +90,7 @@ class ShopPageTest(FunctionalTest):
         products = self.browser.find_elements_by_css_selector('.product_name')
         found = False
         for product in products:
-            found = found or the_product_name.startswith(product.text, 0, -3)
+            found = found or the_product_name.startswith(product.text[:-5])
 
         self.assertTrue(
             found, "New product not found on shop page (searched '{}')".format(the_product_name))
@@ -117,8 +128,8 @@ class ShopPageTest(FunctionalTest):
         # He clicks the validation button
         self.click_link(reverse('checkout'))
 
-        # He selects his destination (Yaoundé), and gets a confirmation for his command
-        self.select_option_by_index('id_delivery', 2, True)
+        # He selects his destination and gets a confirmation for his command
+        self.select_option_by_index('id_delivery', 1, True)
         self.browser.find_element_by_id("submit_command").click()  # should not raise
 
         # He should see an Thank you message
@@ -129,7 +140,7 @@ class ShopPageTest(FunctionalTest):
         self.assert_is_hidden("not_empty_cart", by="class")
 
         # He goes to the delivery admin page and sees the list of planned commands
-        self.show_admin_page("core", 'futuredelivery')
+        self.show_admin_page("core", 'delivery')
 
         # He clicks the link of the only one with a content (the only link)
         link_text = "Préparer la livraison des 1 commandes"
@@ -138,8 +149,7 @@ class ShopPageTest(FunctionalTest):
 
         # He then goes to the command management page
         url = self.browser.current_url.replace("details/", "")
-        self.test.browser.get(url)
-        self.test.wait_for(self._is_home_page)
+        self.browser.get(url)
 
         self.dev_point(15)
 

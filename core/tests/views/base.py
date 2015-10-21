@@ -16,9 +16,6 @@ class ViewsBaseTestCase(CoreTestCase):
         app.sites.add(Site.objects.get_current().id)
         app.save()
 
-        # Remobing the cart contents between tests
-        Product.static_clear_cart()
-
     def tearDown(self):
         # We reset the session to the default (dev/staging/prod) server
         force_production_server(False)

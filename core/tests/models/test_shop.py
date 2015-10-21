@@ -1,3 +1,4 @@
+from unittest.mock import Mock
 from core.exceptions import AddedMoreToCartThanAvailable
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -54,15 +55,21 @@ class DeliveryModelTest(ShopCoreTestCase):
             self.assertLess(prev_date, delivery.date)
             prev_date = delivery.date
 
+    def _create_future_delivery(self):
+        date = timezone.now() + timezone.timedelta(7)
+        delivery_point = DeliveryPoint.objects.get(pk=1)
+        delivery, created = Delivery.objects.get_or_create(date=date, delivery_point=delivery_point)
+        return delivery
+
     def test_generates_a_details_link_when_there_are_commands(self):
-        d = Delivery.objects.available()[0]
-        self.create_command(delivery=d)
-        link, count = d.details_link()
+        delivery = self._create_future_delivery()
+        self.create_command(delivery=delivery)
+        link, count = delivery.details_link()
         self.assertNotEqual(link, "")
 
     def test_doesnt_generates_a_details_link_when_there_are_no_commands(self):
-        d = Delivery.objects.available()[0]
-        link, count = d.details_link()
+        delivery = self._create_future_delivery()
+        link, count = delivery.details_link()
         self.assertEqual(link, "")
 
     def test_must_have_a_deliverypoint(self):
@@ -78,8 +85,9 @@ class DeliveryModelTest(ShopCoreTestCase):
         delivery = self.create_delivery()
 
         for i in range(3):
-            products[i].set_cart_quantity(quantities[i])
-            c = self.create_command(delivery=delivery, user=self.create_user("User {}".format(i + 1)))
+            user = self.create_user("User {}".format(i + 1))
+            products[i].set_cart_quantity(user, quantities[i])
+            c = self.create_command(delivery=delivery, user=user)
 
         return c.delivery.details()
 
@@ -102,9 +110,10 @@ class DeliveryModelTest(ShopCoreTestCase):
         product = self.create_product(stock=10)
         commands = []
         for i in range(3):
-            product.set_cart_quantity(1)
+            user = self.create_user("User {}".format(i + 1))
+            product.set_cart_quantity(user, 1)
             commands.append(self.create_command(
-                delivery=delivery, user=self.create_user("User {}".format(i + 1))))
+                delivery=delivery, user=user))
 
         details = commands[0].delivery.details()
         self.assertIn(commands[0], details['commands'])
@@ -130,8 +139,9 @@ class CommandProductModelTest(ShopCoreTestCase):
 
     def test_quantity_cant_be_0(self):
         product = self.create_product(stock=5)
-        product.set_cart_quantity(2)
-        command = self.create_command()
+        user = self.create_user()
+        product.set_cart_quantity(user, 2)
+        command = self.create_command(user=user)
         cp = CommandProduct(command=command, product=product, quantity=0)
         with self.assertRaises(ValidationError):
             cp.full_clean()
@@ -158,18 +168,21 @@ class CommandModelTest(ShopCoreTestCase):
         with self.assertRaises(ValidationError):
             command.full_clean()
 
-    def _validate_command(self, product=None, available_quantity=10, bought_quantity=5):
+    def _validate_command(self, product=None, available_quantity=10, bought_quantity=5, user=None):
         if not product:
             product = self.create_product(stock=available_quantity)
 
-        product.set_cart_quantity(bought_quantity)  # should not raise
+        if not user:
+            user = self.create_user()
+
+        product.set_cart_quantity(user, bought_quantity)  # should not raise
         command = self.create_command()
         command.validate()
         return command
 
     def test_validating_command_empties_session_cart(self):
-        self._validate_command()
-        self.assertEqual(Product.static_get_cart_products(), [])
+        command = self._validate_command()
+        self.assertEqual(Product.static_get_cart_products(command.customer), [])
 
     def test_validating_command_links_to_products(self):
         command = self._validate_command()
@@ -186,7 +199,7 @@ class CommandModelTest(ShopCoreTestCase):
     def test_cant_validate_command_when_stock_isnt_enough(self):
         product = self.create_product(stock=10, name="Some new product")
         command = self.create_command()
-        product.set_cart_quantity(10)
+        product.set_cart_quantity(command.customer, 10)
         product.stock = 8
         product.save()
         with self.assertRaises(AddedMoreToCartThanAvailable):
@@ -234,7 +247,8 @@ class ProductsModelTest(ShopCoreTestCase):
 
     def test_set_cart_quantity_allows_method_chaining(self):
         product = self.create_product(stock=10)
-        product2 = product.set_cart_quantity(10)
+        user = self.create_user()
+        product2 = product.set_cart_quantity(user, 10)
         self.assertEqual(product, product2)
 
     def test_buy_allows_method_chaining(self):
@@ -264,24 +278,34 @@ class ProductsModelTest(ShopCoreTestCase):
     def test_can_set_cart_quantity(self):
         cat = self.create_category()
         prod = self.create_product(cat, stock=10)
-        prod.set_cart_quantity(5)  # should not raise
-        self.assertEqual(prod.get_cart_quantity(), 5)
+        user = self.create_user()
+        prod.set_cart_quantity(user, 5)  # should not raise
+        request_mock = Mock()
+        request_mock.user = user
+        self.assertEqual(prod.get_cart_quantity(request_mock), 5)
 
     def test_set_cart_quantity_updates_session(self):
         cat = self.create_category()
         prod = self.create_product(cat, stock=10)
-        prod.set_cart_quantity(5)  # should not raise
+        user = self.create_user()
+        prod.set_cart_quantity(user, 5)  # should not raise
         prod = Product.objects.get(name="Product")  # reloads the object from the db
-        self.assertEqual(prod.get_cart_quantity(), 5)
+        request_mock = Mock()
+        request_mock.user = user
+        self.assertEqual(prod.get_cart_quantity(request_mock), 5)
 
     def test_cant_add_more_than_available_to_cart(self):
         cat = self.create_category()
         prod = self.create_product(cat, stock=0)
+        user = self.create_user()
         with self.assertRaises(AddedMoreToCartThanAvailable):
-            prod.set_cart_quantity(5)
+            prod.set_cart_quantity(user, 5)
 
     def test_product_quantity_defaults_to_zero(self):
         cat = self.create_category()
         prod = Product(pk=10, category=cat, name="Prod 1", price=10)
         prod.save()
-        self.assertEqual(prod.get_cart_quantity(), 0)
+        user = self.create_user()
+        request_mock = Mock()
+        request_mock.user = user
+        self.assertEqual(prod.get_cart_quantity(request_mock), 0)

@@ -5,8 +5,8 @@
     <div class="breadcrumbs">
         <a href="/admin/">Home</a> >
         <a href="/admin/core/">Général</a> >
-        <a href="/admin/core/pastdelivery/">Livraisons passées/effectuées</a> >
-        <a href="/admin/core/pastdelivery/{{ delivery.pk }}">{{ delivery }}</a> >
+        <a href="/admin/core/delivery/">Livraisons</a> >
+        <a href="/admin/core/delivery/{{ delivery.pk }}">{{ delivery }}</a> >
         Détails
     </div>
 {% endblock %}
@@ -59,7 +59,7 @@
                                 <td></td>
                                 <td></td>
                                 <th>Total</th>
-                                <th>{{ delivery.details.total_price }}</th>
+                                <th>{{ delivery.details.total_price }} FCFA</th>
                                 <td></td>
                             </tr>
                         </table>
@@ -75,9 +75,10 @@
                     <div>
                         <h3>Commande n°{{ command.pk }}</h3>
                         <p>
-                            <strong>Nom / email :</strong> {{ command.customer.name }} {{ command.customer.email }}<br />
-                            <strong>Téléphone :</strong> {{ command.customer.phone }}<br />
-                            <strong>Comme du :</strong> {{ command.date }}<br />
+                            <strong>Nom :</strong> {{ command.customer.first_name }} {{ command.customer.last_name }}<br />
+                            <strong>Email :</strong> {{ command.customer.email }}<br />
+                            <strong>Téléphone :</strong> {{ command.customer.customerdata.phone }}<br />
+                            <strong>Commande passé le :</strong> {{ command.date }}<br />
                             <strong>Livraison : </strong> {{ delivery }}
                         </p>
                         <p>
@@ -107,10 +108,10 @@
                                 {% endfor %}
                             </table>
                         </p>
-                        <p><strong>Total de la commande :</strong> {{ command.total }}</p>
+                        <p><strong>Total de la commande :</strong> {{ command.total }} FCFA</p>
                         {% if command.message %}
                             <p>
-                                Message : <i>{{ command.message }}</i>
+                                Message : <i style="margin-left:30px;display:inline-block;">{{ command.message|linebreaks }}</i>
                             </p>
                         {% endif %}
                     </div>
