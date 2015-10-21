@@ -1,14 +1,17 @@
 from django import forms
 
-from core.models.users import AgripoUser
+from core.models.users import AgripoUser, CustomerData
 from core.models.shop import Product, Command, CommandProduct, Delivery
 
 
 class CheckoutForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=128, label="Prénom")
+    last_name = forms.CharField(max_length=128, label="Nom")
+    phone = forms.CharField(max_length=128, label="Téléphone")
 
     class Meta:
         model = Command
-        fields = ('delivery', 'message', )
+        fields = ('first_name', 'last_name', 'phone', 'delivery', 'message')
         widgets = {
             'delivery': forms.fields.Select(attrs={'class': 'form-control input-lg', }),
             'message': forms.Textarea(attrs={'class': 'form-control input-lg textarea-3-lines', })}
@@ -20,10 +23,32 @@ class CheckoutForm(forms.ModelForm):
         qs = Delivery.objects.available()
         valid_ids = qs.values_list('pk', flat=True)[:10]
         self.fields['delivery'].queryset = Delivery.objects.filter(pk__in=valid_ids)
+        customer = AgripoUser.objects.get(pk=self.customer.pk)
+        self.fields['first_name'].initial = customer.first_name
+        self.fields['last_name'].initial = customer.last_name
+        try:
+            self.fields['phone'].initial = customer.customerdata.phone
+        except CustomerData.DoesNotExist:
+            pass
+
 
     def save(self, **kwargs):
         kwargs['commit'] = False
         command = super().save(**kwargs)
+
+        customer = AgripoUser.objects.get(pk=self.customer.pk)
+        customer.first_name = self.cleaned_data["first_name"]
+        customer.last_name = self.cleaned_data["last_name"]
+        customer.save()
+
+        try:
+            customer.customerdata.phone
+        except CustomerData.DoesNotExist:
+            CustomerData.objects.create(customer=customer)
+
+        customer.customerdata.phone = self.cleaned_data["phone"]
+        customer.customerdata.save()
+
         command.customer = AgripoUser.objects.get(pk=self.customer.pk)
         command.save()
         cart_products = Product.static_get_cart_products(self.customer)
