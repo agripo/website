@@ -2,6 +2,7 @@ import smtplib
 from django import forms
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
+from django.conf import settings
 
 from core.models.users import AgripoUser, CustomerData
 from core.models.shop import Product, Command, CommandProduct, Delivery
@@ -78,8 +79,8 @@ class CheckoutForm(forms.ModelForm):
         html_content += "Contenu de votre commande : <br />{}<br /><br />".format(command_content)
         html_content += "Nous vous remercions pour votre confiance.<br /><br />L'équipe d'Agripo"
         content = strip_tags(html_content.replace("<br />", "\n"))
-        mail_from = 'briceparent@free.fr'
-        mail_to = ['brice@websailors.fr']
+        mail_from = settings.EMAIL_HOST_USER
+        mail_to = [customer.email]
         try:
             send_mail(title, content, mail_from, mail_to, fail_silently=False, html_message=html_content)
         except smtplib.SMTPException:
