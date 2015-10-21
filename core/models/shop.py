@@ -86,10 +86,9 @@ class Product(models.Model):
         return self
 
     def get_cart_quantity(self, request):
-        print("request is {}".format(request) )
         cart_product = CartProduct.objects.filter(user=request.user, product=self)
         if cart_product:
-            return cart_product.quantity
+            return cart_product[0].quantity
 
         return 0
 

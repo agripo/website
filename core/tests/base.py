@@ -37,10 +37,10 @@ class CoreTestCase(TestCase):
         if not delivery:
             delivery = self.create_delivery(delivery_point_name=delivery_point_name)
 
-        if not Product.static_get_cart_products():
+        if not Product.static_get_cart_products(user):
             product = self.create_product(stock=5, name=new_product_name)
             product.save()
-            product.set_cart_quantity(2)
+            product.set_cart_quantity(user, 2)
 
         command = Command(delivery=delivery, customer=user)
         command.save()
@@ -61,6 +61,6 @@ class CoreTestCase(TestCase):
         return prod
 
     def create_user(self, username="Jean-Claude"):
-        user = User(username=username, password="my_pass", email="mail@dom.net")
-        user.save()
+        user, created = User.objects.get_or_create(username=username, defaults=dict(password="my_pass", email="mail@dom.net"))
+        #user.save()
         return user

@@ -65,8 +65,9 @@ class StockModelTest(CoreTestCase):
 
     def test_exception_when_adding_more_than_available_to_cart(self):
         stock = self._create_stock(stock=5)
-        try :
-            stock.product.set_cart_quantity(6)
+        user = self.create_user()
+        try:
+            stock.product.set_cart_quantity(user, 6)
             raise Exception("AddedMoreToCartThanAvailable should have been raised")
         except AddedMoreToCartThanAvailable:
             pass

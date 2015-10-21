@@ -64,7 +64,7 @@ class DeliveryAdmin(AdminHelperAdmin):
     fields = ['date', 'delivery_point', 'done', 'details']
     list_display = ['id', 'date', 'delivery_point', 'done', 'details']
     readonly_fields = ['details']
-    list_filter = ['delivery_point', 'done']
+    list_filter = ['delivery_point', 'date', 'done']
     ordering = ['-date']
 
     def details(self, obj):
