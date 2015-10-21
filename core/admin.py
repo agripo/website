@@ -4,7 +4,7 @@ from solo.admin import SingletonModelAdmin
 from admin_helper.admin import AdminHelperAdmin
 
 from core.models.news import News
-from core.models.shop import Product, Stock, ProductCategory, PastDelivery, FutureDelivery, DeliveryPoint
+from core.models.shop import Product, Stock, ProductCategory, Delivery, DeliveryPoint
 from core.models.general import SiteConfiguration
 
 
@@ -39,7 +39,7 @@ class ProductAdmin(AdminHelperAdmin):
         ('General settings', {'fields': ['id', 'image_tag', 'image', 'name', 'category', 'price', 'stock', ]}),
     ]
 
-    list_display = ('id', 'name', 'category', 'price', 'stock', 'is_available')
+    list_display = ('id', 'name', 'category', 'price', 'is_available')
 
     list_filter = ['category', ]
     readonly_fields = ('id', 'stock', 'image_tag',)
@@ -60,11 +60,11 @@ class DeliveryPointAdmin(AdminHelperAdmin):
     list_display = ['id', 'name']
 
 
-class BaseDeliveryAdmin(AdminHelperAdmin):
+class DeliveryAdmin(AdminHelperAdmin):
     fields = ['date', 'delivery_point', 'done', 'details']
     list_display = ['id', 'date', 'delivery_point', 'done', 'details']
     readonly_fields = ['details']
-    list_filter = ['delivery_point', 'done']
+    list_filter = ['delivery_point', 'date', 'done']
     ordering = ['-date']
 
     def details(self, obj):
@@ -76,24 +76,10 @@ class BaseDeliveryAdmin(AdminHelperAdmin):
     details.allow_tags = True
 
 
-class PastDeliveryAdmin(BaseDeliveryAdmin):
-
-    def get_queryset(self, request):
-        return super().get_queryset(request).done()
-
-
-class FutureDeliveryAdmin(BaseDeliveryAdmin):
-    ordering = ['date']
-
-    def get_queryset(self, request):
-        return super().get_queryset(request).available()
-
-
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(News, NewsAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductCategory, ProductCategoryAdmin)
 admin.site.register(Stock, StockAdmin)
-admin.site.register(PastDelivery, PastDeliveryAdmin)
-admin.site.register(FutureDelivery, FutureDeliveryAdmin)
+admin.site.register(Delivery, DeliveryAdmin)
 admin.site.register(DeliveryPoint, DeliveryPointAdmin)

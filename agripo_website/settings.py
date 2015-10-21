@@ -93,8 +93,14 @@ if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
         'core.authentication.NewUserAutoconnectionModelBackend',
     ) + AUTHENTICATION_BACKENDS
 
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+try:
+    from agripo_website.mail_settings import *
+except ImportError:
+    raise Exception("No mail_settings! Use agripo_website.mail_settings_model to create one")
 
 # auth and allauth settings
 LOGIN_URL = "/"

@@ -32,44 +32,42 @@
                 <h1>Vos stocks dispnibles</h1>
                 <p>
                     Pour chacun des produits, veuillez indiquer le stock que vous souhaitez mettre en vente ici,
-                    puis validez le formulaire.
+                    puis validez avec le bouton situé en fin de formulaire.
                 </p>
             </div>
         </div>
         <hr />
-        <div class="row">
-            <form action="" method="post">
-                {% for cat in categories %}
-                    <div class="one_product_category">
-                        <div class="col-md-12">
-                            <h2>{{ cat.name }}</h2>
-                        </div>
-
-                        {% for prod in cat.product_set.all %}
-                            <div class="col-md-3">
-                                <div class="panel panel-default one_product" id="product_{{ prod.id }}">
-                                    <div class="panel-heading">
-                                        <h3>
-                                            <i class="fa fa-shopping-cart"></i>
-                                            <span class="product_name">{{ prod.name }}</span>
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="product_image">
-                                            <img src="/media/{{ prod.image }}"/><br />
-                                            <input name="quantity" value="{{ prod.get_cart_quantity }}" type="number" style="width:100px;" placeholder="Quantité" type="number"/>
-                                        </div>
-                                    </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+                {% for prod in view.products %}
+                    <div class="col-md-3">
+                        <div class="panel panel-default one_product" id="product_{{ prod.product.id }}">
+                            <div class="panel-heading">
+                                <h3>
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span class="product_name">{{ prod.product.name }}</span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="product_image">
+                                    <img src="/media/{{ prod.product.image }}"/><br />
+                                    <input name="quantity.{{ prod.product.id }}" value="{{ prod.stock }}" type="number" style="width:100px;" placeholder="Quantité" type="number"/>
                                 </div>
                             </div>
-                        {% empty %}
-                            <div class="one_product_category_empty">Il n'y a aucun produit dans cette catégorie pour le moment</div>
-                        {% endfor %}
-
+                        </div>
                     </div>
                 {% endfor %}
-                <button role="submit"><i class="fa fa-check"></i>Enregistrer</button>
-            </form>
-        </div>
+            </div>
+
+            <div class="row" style="margin: 35px 0;">
+                <div class="col-md-4 col-md-offset-4">
+                    <button role="submit" class="btn btn-primary btn-block">
+                        <i class="fa fa-check"></i>
+                        Enregistrer vos stocks
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 {% endblock %}

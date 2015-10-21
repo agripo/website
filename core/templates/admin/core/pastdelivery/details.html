@@ -5,8 +5,8 @@
     <div class="breadcrumbs">
         <a href="/admin/">Home</a> >
         <a href="/admin/core/">Général</a> >
-        <a href="/admin/core/pastdelivery/">Livraisons passées/effectuées</a> >
-        <a href="/admin/core/pastdelivery/{{ delivery.pk }}">{{ delivery }}</a> >
+        <a href="/admin/core/delivery/">Livraisons</a> >
+        <a href="/admin/core/delivery/{{ delivery.pk }}">{{ delivery }}</a> >
         Détails
     </div>
 {% endblock %}
@@ -59,7 +59,7 @@
                                 <td></td>
                                 <td></td>
                                 <th>Total</th>
-                                <th>{{ delivery.details.total_price }}</th>
+                                <th>{{ delivery.details.total_price }} FCFA</th>
                                 <td></td>
                             </tr>
                         </table>
@@ -75,9 +75,10 @@
                     <div>
                         <h3>Commande n°{{ command.pk }}</h3>
                         <p>
-                            <strong>Nom / email :</strong> {{ command.customer.name }} {{ command.customer.email }}<br />
-                            <strong>Téléphone :</strong> {{ command.customer.phone }}<br />
-                            <strong>Comme du :</strong> {{ command.date }}<br />
+                            <strong>Nom :</strong> {{ command.customer.first_name }} {{ command.customer.last_name }}<br />
+                            <strong>Email :</strong> {{ command.customer.email }}<br />
+                            <strong>Téléphone :</strong> {{ command.customer.customerdata.phone }}<br />
+                            <strong>Commande passé le :</strong> {{ command.date }}<br />
                             <strong>Livraison : </strong> {{ delivery }}
                         </p>
                         <p>
@@ -107,10 +108,10 @@
                                 {% endfor %}
                             </table>
                         </p>
-                        <p><strong>Total de la commande :</strong> {{ command.total }}</p>
+                        <p><strong>Total de la commande :</strong> {{ command.total }} FCFA</p>
                         {% if command.message %}
                             <p>
-                                Message : <i>{{ command.message }}</i>
+                                Message : <i style="margin-left:30px;display:inline-block;">{{ command.message|linebreaks }}</i>
                             </p>
                         {% endif %}
                     </div>
@@ -151,10 +152,12 @@
                         individuelles en fonction des tableaux imrpimés intitulés "Commande n°XXX".
                     </li>
                     <li>
-                        Pour plus de clarté, une fois la livraison prête, vous pouvez la marquer comme réalisée
+                        Enfin, une fois la livraison prête, il faut la marquer comme réalisée
                         depuis la liste des commandes en cliquant sur le bouton
                         <img src="/static/admin/img/icon-no.gif"/>, ce qui la fera passer
-                        à l'état <img src="/static/admin/img/icon-yes.gif"/>.
+                        à l'état <img src="/static/admin/img/icon-yes.gif"/>. Cette étape est
+                        importante car cela remet en place les stocks de chaque produit commandé dans
+                        cette commande.
                     </li>
                 </ol>
             </fieldset>

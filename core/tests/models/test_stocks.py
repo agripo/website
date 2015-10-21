@@ -17,7 +17,6 @@ class StockModelTest(CoreTestCase):
 
         the_stock = Stock(product=product, farmer=user)
         if save:
-            the_stock.save()
             the_stock.set(stock)  # This calls save() in the background
         elif stock > 0:
             raise Exception("Can't use _create_stock() with stock>0 and save=False together")
@@ -66,8 +65,9 @@ class StockModelTest(CoreTestCase):
 
     def test_exception_when_adding_more_than_available_to_cart(self):
         stock = self._create_stock(stock=5)
-        try :
-            stock.product.set_cart_quantity(6)
+        user = self.create_user()
+        try:
+            stock.product.set_cart_quantity(user, 6)
             raise Exception("AddedMoreToCartThanAvailable should have been raised")
         except AddedMoreToCartThanAvailable:
             pass

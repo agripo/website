@@ -46,13 +46,9 @@ def add_permissions_for_prod_stock_and_conf(Group, Permission):
 def add_delivery_related_permissions(Group, Permission):
     managers_group = Group.objects.get(name="managers")
     managers_group.permissions.add(
-        Permission.objects.get(codename='add_futuredelivery'),
-        Permission.objects.get(codename='change_futuredelivery'),
-        Permission.objects.get(codename='delete_futuredelivery'),
-
-        Permission.objects.get(codename='add_pastdelivery'),
-        Permission.objects.get(codename='change_pastdelivery'),
-        Permission.objects.get(codename='delete_pastdelivery'),
+        Permission.objects.get(codename='add_delivery'),
+        Permission.objects.get(codename='change_delivery'),
+        Permission.objects.get(codename='delete_delivery'),
     )
 
 
@@ -75,7 +71,7 @@ def create_base_deliverypoints_and_deliveries(DeliveryPoint, Delivery):
     for town in ['Douala', 'Yaoundé', 'Tayap']:
         point, created = DeliveryPoint.objects.get_or_create(
             pk=counter, defaults={'name': town, 'description': "Livraison à {}".format(town)})
-        create_one_year_deliveries_for_deliverypoint(Delivery, point)
+        #create_one_year_deliveries_for_deliverypoint(Delivery, point)
         counter += 1
 
 

@@ -45,6 +45,7 @@ call_after_dom_is_loaded(function($){
                             li = li.replace(prop.toUpperCase(), prod[prop]);
                         }
                         cart.append(li);
+                        $('#quantity_for_'+prod['id']).val(prod['quantity']);
                     }
                     $('#cart_module_total span').html(ret.total);
                     $('.not_empty_cart').show();
