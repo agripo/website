@@ -76,7 +76,7 @@
                                                 <p>En stock</p>
                                                 <p class="add_to_cart_form">
                                                     Quantité achetée :
-                                                    <input name="quantity" value="{{ prod.get_cart_quantity }}" type="number" style="width:100px;" placeholder="Quantité"/>
+                                                    <input name="quantity" id="quantity_for_{{ prod.id }}" value="" type="number" style="width:100px;" placeholder="Quantité"/>
                                                     <input type="submit" value="OK"/>
                                                 </p>
                                                 <p class="add_to_cart_confirm_message">

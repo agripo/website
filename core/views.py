@@ -24,7 +24,7 @@ def get_cart(request):
     """
     Sends a JSON object containing the products and quantities in current cart
     """
-    cart_products = Product.static_get_cart_products()
+    cart_products = Product.static_get_cart_products(request.user)
     data = dict()
     data['products'] = []
     total = 0
@@ -48,7 +48,7 @@ def set_product_quantity(request, product=0, quantity=0):
         data = {'error': "NO_STOCK"}
     else:
         try:
-            the_product.set_cart_quantity(quantity)
+            the_product.set_cart_quantity(request.user, quantity)
         except core_exceptions.AddedMoreToCartThanAvailable:
             data = {'error': "NOT_ENOUGH_STOCK", 'max': the_product.available_stock()}
         else:
@@ -106,7 +106,7 @@ class Checkout(CreateView):
         return form_kwargs
 
     def dispatch(self, request, *args, **kwargs):
-        cart_products = Product.static_get_cart_products()
+        cart_products = Product.static_get_cart_products(request.user)
         if not cart_products:
             return redirect(reverse("shop_page"))
 
@@ -115,7 +115,7 @@ class Checkout(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        cart_products = Product.static_get_cart_products()
+        cart_products = Product.static_get_cart_products(self.request.user)
         context['products'] = []
         context['total'] = 0
         for product in cart_products:

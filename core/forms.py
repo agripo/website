@@ -26,7 +26,7 @@ class CheckoutForm(forms.ModelForm):
         command = super().save(**kwargs)
         command.customer = AgripoUser.objects.get(pk=self.customer.pk)
         command.save()
-        cart_products = Product.static_get_cart_products()
+        cart_products = Product.static_get_cart_products(self.customer)
         command.total = 0
         for product in cart_products:
             the_product = Product.objects.get(id=product['id'])
@@ -37,5 +37,5 @@ class CheckoutForm(forms.ModelForm):
             the_product.buy(quantity)
 
         command.save()
-        Product.static_clear_cart()
+        Product.static_clear_cart(self.customer)
         return command

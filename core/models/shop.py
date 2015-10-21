@@ -1,15 +1,13 @@
-import re
 from django.conf import settings
-from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models, IntegrityError
 from django.db.models import Q, Sum
 from django.utils import timezone
 from django.db.models.signals import pre_save, post_save
+from django.contrib.auth.models import User
 
 from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCartThanAvailable
-from core.models.general import session
 from core.models.users import AgripoUser
 
 
@@ -73,7 +71,7 @@ class Product(models.Model):
         self.stock = stock
         self.save()
 
-    def set_cart_quantity(self, quantity):
+    def set_cart_quantity(self, user, quantity):
         if not self.id:
             raise CantSetCartQuantityOnUnsavedProduct
 
@@ -81,16 +79,18 @@ class Product(models.Model):
             raise AddedMoreToCartThanAvailable
 
         if quantity == 0:
-            if self._get_session_key() in session:
-                del session[self._get_session_key()]
+            CartProduct.objects.filter(user=user, product_id=self.pk).delete()
         else:
-            session[self._get_session_key()] = quantity
+            CartProduct.objects.update_or_create(user=user, product=self, defaults={'quantity': quantity})
 
         return self
 
-    def get_cart_quantity(self):
-        if self._get_session_key() in session:
-            return session[self._get_session_key()]
+    def get_cart_quantity(self, request):
+        print("request is {}".format(request) )
+        cart_product = CartProduct.objects.filter(user=request.user, product=self)
+        if cart_product:
+            return cart_product.quantity
+
         return 0
 
     def buy(self, quantity):
@@ -110,36 +110,32 @@ class Product(models.Model):
     is_available.__name__ = "Disponible"
     is_available.boolean = True
 
-    def _get_session_key(self):
-        return Product.static_get_session_key(self.pk)
-
     @staticmethod
-    def static_get_session_key(product_id):
-        return "product_{}_quantity".format(product_id)
-
-    @staticmethod
-    def static_get_cart_products():
-        pattern = re.compile("^{}$".format(Product.static_get_session_key("([0-9]+)")))
+    def static_get_cart_products(user):
+        cart_products = CartProduct.objects.filter(user=user)
         ret = []
-        for element in sorted(session.keys()):
-            match = pattern.search(element)
-            if match:
-                ret.append(dict(
-                    id=int(match.group(1)), quantity=session[element], session_key=element))
+        for cart_product in cart_products:
+            ret.append(dict(
+                id=cart_product.product_id, quantity=cart_product.quantity))
 
         return ret
 
     @staticmethod
-    def static_clear_cart():
-        pattern = re.compile("^{}$".format(Product.static_get_session_key("([0-9]+)")))
-        for element in sorted(session.keys()):
-            match = pattern.search(element)
-            if match:
-                del session[element]
+    def static_clear_cart(user):
+        CartProduct.objects.filter(user=user).delete()
 
     class Meta:
         verbose_name = "Produit"
         verbose_name_plural = "Produits"
+
+
+class CartProduct(models.Model):
+    user = models.ForeignKey(User)
+    product = models.ForeignKey(Product)
+    quantity = models.IntegerField()
+
+    class Meta:
+        unique_together = ("user", "product")
 
 
 class Stock(models.Model):
@@ -317,7 +313,7 @@ class Command(models.Model):
 
     def validate(self):
         # We get the products from the cart
-        products = Product.static_get_cart_products()
+        products = Product.static_get_cart_products(self.customer)
         for product in products:
             the_product = Product.objects.get(id=product['id'])
             cp = CommandProduct(command=self, product=the_product, quantity=product['quantity'])
@@ -325,7 +321,7 @@ class Command(models.Model):
             the_product.buy(product['quantity'])
             self.total += product['quantity'] * the_product.price
 
-        Product.static_clear_cart()
+        Product.static_clear_cart(self.customer)
         self.save()
 
     def is_sent(self):
