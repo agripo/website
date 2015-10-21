@@ -138,6 +138,12 @@
                                         <i class="fa fa-pencil"></i> Mettre à jour vos stocks disponibles
                                     </a>
                                 {% endif %}
+                                {% if group.name == "managers" %}
+                                    <h4>Interface d'administration</h4>
+                                    <a href="/admin/">
+                                        <i class="fa fa-gear"></i> Gérer le site
+                                    </a>
+                                {% endif %}
                             {% endfor %}
                             <h4>Votre panier</h4>
                             <p id="cart_is_empty" class="empty_cart" style="display:none">
