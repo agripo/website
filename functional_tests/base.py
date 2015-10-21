@@ -15,7 +15,7 @@ from core.models.general import Icon, SiteConfiguration
 from core.models.users import AgripoUser as User
 from functional_tests.page_home_page import HomePage
 
-DEFAULT_TIMEOUT = 5
+DEFAULT_TIMEOUT = 15
 SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
 )
@@ -152,9 +152,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for_element_with_selector(self, selector, timeout=DEFAULT_TIMEOUT):
         WebDriverWait(self.browser, timeout=timeout).until(
             lambda b: b.find_element_by_css_selector(selector),
-            'Could not find element with selector "{}". Page text was:\n{}'.format(
-                selector, self.browser.find_element_by_tag_name('body').text
-            )
+            'Could not find element with selector "{}".'
         )
         return self.browser.find_element_by_css_selector(selector)
 
@@ -200,9 +198,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for_link_with_destination(self, destination, timeout=DEFAULT_TIMEOUT, search_in=None):
         WebDriverWait(self, timeout=timeout).until(
             lambda b: b.get_link_by_destination(destination, search_in=search_in),
-            'Could not find link with href={}. Page text was:\n{}'.format(
-                destination, self.browser.find_element_by_tag_name('body').text
-            )
+            'Could not find link with href={}.'
         )
 
     def get_element_content_by_id(self, id_element):

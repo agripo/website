@@ -55,15 +55,21 @@ class DeliveryModelTest(ShopCoreTestCase):
             self.assertLess(prev_date, delivery.date)
             prev_date = delivery.date
 
+    def _create_future_delivery(self):
+        date = timezone.now() + timezone.timedelta(7)
+        delivery_point = DeliveryPoint.objects.get(pk=1)
+        delivery, created = Delivery.objects.get_or_create(date=date, delivery_point=delivery_point)
+        return delivery
+
     def test_generates_a_details_link_when_there_are_commands(self):
-        d = Delivery.objects.available()[0]
-        self.create_command(delivery=d)
-        link, count = d.details_link()
+        delivery = self._create_future_delivery()
+        self.create_command(delivery=delivery)
+        link, count = delivery.details_link()
         self.assertNotEqual(link, "")
 
     def test_doesnt_generates_a_details_link_when_there_are_no_commands(self):
-        d = Delivery.objects.available()[0]
-        link, count = d.details_link()
+        delivery = self._create_future_delivery()
+        link, count = delivery.details_link()
         self.assertEqual(link, "")
 
     def test_must_have_a_deliverypoint(self):
