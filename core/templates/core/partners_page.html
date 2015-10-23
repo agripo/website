@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block page_name %}id_partners_page{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    <div id="partners">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Liste de nos partenaires</h1>
+                <p>{% lorem %}</p>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            {% if partners %}
+                <div class="one_partner">
+                    {% for partner in partners %}
+                        <div class="col-md-12">
+                            <h2>{{ partner.name }}</h2>
+                            <div class="panel panel-default one_product" id="product_{{ prod.id }}">
+                                <div class="panel-heading">
+                                    <h3>
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span class="product_name"></span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="product_description">
+                                        <p>{{ partner.description }}</p>
+                                        <a href="{{ partner.website }}">Accéder au site internet</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="col-md-12" id="no_partner_to_show_message">
+                    <h3>Pour l'instant, aucun partenaire n'est enregistré sur le site</h3>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

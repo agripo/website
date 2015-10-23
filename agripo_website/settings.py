@@ -175,6 +175,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'core.context_processors.cookies_notification',
+                'core.context_processors.partners_box',
                 'core.context_processors.last_news_box',
                 'core.context_processors.bd_webdoc_slideshow',
                 'core.context_processors.allauth_activation'

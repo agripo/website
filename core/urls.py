@@ -1,10 +1,11 @@
 from core.authentication import is_staging_server, is_development_server
 from django.conf.urls import url, patterns
 from django.contrib.auth.views import logout
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import RedirectView, TemplateView, ListView, DetailView
 from django.views.decorators.cache import never_cache
 
 from core import views
+from core.models.partners import Partner
 
 
 urlpatterns = [
@@ -12,6 +13,8 @@ urlpatterns = [
     url(r'^logout$', logout, {'next_page': '/'}, name='logout'),
     url(r'^using_cookies_accepted/$', views.using_cookies_accepted, name="using_cookies_accepted"),
     url(r'^news/$', views.NewsListPage.as_view(), name="news_page"),
+    url(r'^partners/$', ListView.as_view(
+        model=Partner, template_name='core/partners_page.html', context_object_name="partners"), name="partners_page"),
     url(r'^shop/$', views.ShopPage.as_view(), name="shop_page"),
     url(r'^shop/checkout$', never_cache(views.Checkout.as_view()), name="checkout"),
     url(r'^shop/get_cart$', never_cache(views.get_cart), name="get_cart"),
