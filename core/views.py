@@ -15,6 +15,7 @@ import core.exceptions as core_exceptions
 from core.forms import CheckoutForm
 from core.authentication import is_production_server
 from core.models.news import News
+from core.models.partners import Partner
 from core.models.shop import Product, ProductCategory, Command, Delivery, Stock
 from core.models.general import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 from core.models.users import AgripoUser
