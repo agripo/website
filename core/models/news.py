@@ -7,6 +7,7 @@ from core.models.users import AgripoUser
 
 
 class News(models.Model):
+    on_change_delete_cache = True
     title = models.CharField(max_length=120, blank=False)
     is_active = models.BooleanField(default=True)
     icon = models.ForeignKey(Icon, blank=False, default=get_comment_icon_id, limit_choices_to=all_but_forbidden_icon)

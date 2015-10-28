@@ -26,6 +26,7 @@ def get_comment_icon_id():
 
 
 class SiteConfiguration(SingletonModel):
+    on_change_delete_cache = True
     site_title = models.CharField(
         max_length=255, default='Site title', verbose_name='Titre du site',
         help_text="Titre du site (dans l'onglet du navigateur)"

@@ -12,6 +12,7 @@ from core.models.users import AgripoUser
 
 
 class ProductCategory(models.Model):
+    on_change_delete_cache = True
     name = models.CharField(max_length=28, blank=False, null=False, unique=True)
 
     def clean(self):
@@ -27,6 +28,7 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
+    on_change_delete_cache = True
     name = models.CharField(
         max_length=28, blank=False, null=False, unique=True, verbose_name="Nom",
         help_text="Nom affiché dans les fiches produits")
@@ -138,6 +140,7 @@ class CartProduct(models.Model):
 
 
 class Stock(models.Model):
+    on_change_delete_cache = True
     product = models.ForeignKey(Product, related_name="one_farmers_stock")
     farmer = models.ForeignKey(AgripoUser, limit_choices_to=Q(groups__name='farmers'))
     stock = models.PositiveIntegerField(default=0, verbose_name="Stock")
@@ -202,6 +205,7 @@ class DeliveryManager(models.Manager):
 
 
 class Delivery(models.Model):
+    on_change_delete_cache = True
     date = models.DateTimeField(default=timezone.now)
     delivery_point = models.ForeignKey(DeliveryPoint, verbose_name="Lieu de livraison")
     done = models.BooleanField(default=False, verbose_name="Livraison effectuée")
