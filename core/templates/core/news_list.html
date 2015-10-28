@@ -28,7 +28,7 @@
                                 </h2>
                             </div>
                             <div class="panel-body">
-                                <p>{{ news.content|truncatechars:320 }}</p>
+                                <p>{{ news.content | striptags | truncatechars:320 | safe }}</p>
                                 <a href="{% url "one_news_page" news.pk %}" class="btn btn-default btn-primary">Lire l'article complet</a>
                             </div>
                         </div>
