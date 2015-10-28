@@ -24,7 +24,7 @@ SECRET_KEY = '%%w$#6a@7(@m2u6rup^lob1i49dhl82-iuuex207@t5a%zoypc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+NO_CACHE = True
 
 # Some constants for dev, staging and production server
 SERVER_TYPE_DEVELOPMENT = "DEVELOPMENT"
@@ -240,3 +240,11 @@ LOGGING = {
     },
     'root': {'level': 'INFO'},
 }
+
+# We can't disallow cache on production servers
+if NO_CACHE and DEBUG:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
