@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.db import models
 
@@ -7,7 +8,10 @@ class Partner(models.Model):
     name = models.CharField(
         max_length=128, unique=True, verbose_name="Nom du partenaire", help_text="Nom du partenaire",
         default=None)
-    description = models.TextField(verbose_name="Description du partenaire", default=None)
+    description = RichTextField(
+        config_name='awesome_ckeditor', verbose_name="Description du partenaire",
+        help_text="Contenu de la page d'accueil", default=None
+    )
     website = models.URLField(verbose_name="Site internet du partenaire", default=None)
     logo = models.ImageField(
         upload_to='partners', blank=False, default=None, verbose_name="Logo",

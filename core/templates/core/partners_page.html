@@ -21,8 +21,8 @@
                             text-align: center;
                         }
                         .product_description .img img{
-                            width: 200px;
-                            max-width: 100%;
+                            width: 150px;
+                            height: 150px;
                         }
                     </style>
                     {% for partner in partners %}
@@ -37,7 +37,7 @@
                                 <div class="panel-body">
                                     <div class="product_description">
                                         <p class="img"><img src="/media/{{ partner.logo }}"/></p>
-                                        <p>{{ partner.description }}</p>
+                                        <p>{{ partner.description | safe }}</p>
                                         <a href="{{ partner.website }}">Accéder au site internet</a>
                                     </div>
                                 </div>
