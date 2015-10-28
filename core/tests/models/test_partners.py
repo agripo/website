@@ -13,7 +13,8 @@ class DeliveryModelTest(CoreTestCase):
     def _get_one_partner_full_data(self, name="One partner"):
         description = "Some description for partner {}".format(name)
         website = name.replace(" ", "_")
-        return dict(name=name, description=description, website=website)
+        return dict(
+            name=name, description=description, website=website, logo="/static/img/partners/pnud_small.jpg")
 
     def create_partner(self, name="One partner"):
         return Partner.objects.create(**self._get_one_partner_full_data(name=name))
@@ -34,6 +35,12 @@ class DeliveryModelTest(CoreTestCase):
         partner2 = Partner(**fields)
         self.assertRaises(IntegrityError, partner2.save)
 
+    def test_requires_logo(self):
+        fields = self._get_one_partner_full_data()
+        fields.pop("logo")
+        partner = Partner(**fields)
+        self.assertRaises(ValidationError, partner.full_clean)
+
     def test_requires_description(self):
         fields = self._get_one_partner_full_data()
         fields.pop("description")
@@ -51,3 +58,6 @@ class DeliveryModelTest(CoreTestCase):
         fields['website'] = "#Not a domain name"
         partner = Partner(**fields)
         self.assertRaises(ValidationError, partner.full_clean)
+
+
+#@todo : add test to verify that the admin page are present, and all the required fields are displayed

@@ -10,10 +10,13 @@ class PartnersBaseTestCase(ViewsBaseTestCase):
         created_partners = []
         for i in range(quantity):
             partner_name = "Partner #{}".format(i)
+            website = partner_name.replace(" ", "_").replace("#", '_')
+            logo = "partner_image_for_testing.jpg?website={}".format(website)
             partner = Partner.objects.create(
                 name=partner_name,
                 description="Description of {}".format(partner_name),
-                website="http://{}".format(partner_name.replace(" ", "_")))
+                website="http://{}".format(website),
+                logo=logo)
             created_partners.append(partner)
 
         return created_partners
@@ -43,6 +46,11 @@ class PartnersViewTest(PartnersBaseTestCase):
         partners = self._insert_random_partners(5)
         for partner in partners:
             self._assert_partners_page_contains('<a href="{}"'.format(partner.website), 1)
+
+    def test_contains_each_partner_s_logo(self):
+        partners = self._insert_random_partners(5)
+        for partner in partners:
+            self._assert_partners_page_contains('background-image: url(/media/{});'.format(partner.logo), 1)
 
     def test_partners_page_displays_message_if_no_partners(self):
         self._assert_partners_page_contains('id="no_partner_to_show_message', 1)

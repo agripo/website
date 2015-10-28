@@ -225,10 +225,18 @@
 
                             <div class="panel-body">
                                 <div id="partnersCarousel" class="carousel slide">
+                                    <style>
+                                        #partnersCarousel .carousel-inner .item{
+                                            background: transparent no-repeat center top;
+                                            width:100%;
+                                            height:220px;
+                                            text-align: center;
+                                        }
+                                    </style>
                                     {% for partner in partners %}
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner">
-                                            <div class="item{% if forloop.first %} active{% endif %}" style="background: transparent url(/static/img/partners/pnud_small.jpg) no-repeat center top;width:100%;height:220px;text-align: center;">
+                                            <div class="item{% if forloop.first %} active{% endif %}" style="background-image: url(/media/{{ partner.logo }});">
                                                 <div class="carousel-caption" style="text-align: center;margin:0;padding:0;">
                                                     <h2 class="carousel_one_partner_name" style="margin:0;padding;0;">
                                                         <a href="{% url "partners_page" %}#partner_{{ partner.pk }}">
