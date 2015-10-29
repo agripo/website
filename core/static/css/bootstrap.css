@@ -6263,11 +6263,6 @@ button.close {
   .carousel-control .icon-next {
     margin-right: -15px;
   }
-  .carousel-caption {
-    right: 20%;
-    left: 20%;
-    padding-bottom: 30px;
-  }
   .carousel-indicators {
     bottom: 20px;
   }
