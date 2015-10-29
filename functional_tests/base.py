@@ -152,7 +152,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for_element_with_selector(self, selector, timeout=DEFAULT_TIMEOUT):
         WebDriverWait(self.browser, timeout=timeout).until(
             lambda b: b.find_element_by_css_selector(selector),
-            'Could not find element with selector "{}".'
+            'Could not find element with selector "{}".'.format(selector)
         )
         return self.browser.find_element_by_css_selector(selector)
 
@@ -169,7 +169,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             timeout -= 0.1
             self.wait(0.1)
             if timeout <= 0:
-                raise Exception("The element {} never became stale".format(existing_element))
+                raise Exception("The element {} never became stale".format(self._get_readable_identifier(existing_element)))
 
     def click_link(self, link, timeout=DEFAULT_TIMEOUT, search_in=None, changes_page=True):
         if timeout > 0:
@@ -181,10 +181,23 @@ class FunctionalTest(StaticLiveServerTestCase):
             start_time = time.time()
             self.wait_for_stale(link)
 
+    def _get_readable_identifier(self, element):
+        id = "#{}".format(element.id)
+        if "{" in id:
+            id = ""
+
+        classes = element.get_attribute("class").replace(" ", ".")
+        if classes:
+            classes = "." + classes
+
+        return "{}{}{}".format(element.tag_name, id, classes)
+
+
     def wait_for_element_to_be_displayed(self, element, timeout=DEFAULT_TIMEOUT):
         self.wait_for(
             lambda: self.assertTrue(
-                element.is_displayed(), "{} should have been displayed by now".format(element)),
+                element.is_displayed(),
+                "{} should have been displayed by now".format(self._get_readable_identifier(element))),
             timeout, exception=AssertionError)
 
         return element
@@ -198,7 +211,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for_link_with_destination(self, destination, timeout=DEFAULT_TIMEOUT, search_in=None):
         WebDriverWait(self, timeout=timeout).until(
             lambda b: b.get_link_by_destination(destination, search_in=search_in),
-            'Could not find link with href={}.'
+            'Could not find link with href={}'.format(destination)
         )
 
     def get_element_content_by_id(self, id_element):
@@ -222,7 +235,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.wait_for_element_with_id(element_id, 2)
         except TimeoutException:
             return True
-        self.fail("The element {} shouldn't have been found in the dom".format(element_id))
+        self.fail("The element with id=#{} shouldn't have been found in the dom".format(element_id))
 
     def wait_for(self, function_with_assertion, timeout=DEFAULT_TIMEOUT, exception=(AssertionError, WebDriverException)):
         start_time = time.time()
