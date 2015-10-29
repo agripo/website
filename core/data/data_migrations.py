@@ -52,6 +52,15 @@ def add_delivery_related_permissions(Group, Permission):
     )
 
 
+def add_partners_related_permissions(Group, Permission):
+    managers_group = Group.objects.get(name="managers")
+    managers_group.permissions.add(
+        Permission.objects.get(codename='add_partner'),
+        Permission.objects.get(codename='change_partner'),
+        Permission.objects.get(codename='delete_partner'),
+    )
+
+
 def create_farmers_group(Group):
     farmers_group = Group(name="farmers")
     farmers_group.save()
