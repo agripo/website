@@ -11,7 +11,7 @@ class StaticPagesTest(FunctionalTest):
         super().setUp()
         call_command('loaddata', 'core/flatpages_contents.json')
 
-    def _go_to_page_from_menu(self, menu, page, subpages = []):
+    def _go_to_page_from_menu(self, menu, page, subpages=[]):
         if self._small_screen:
             self.browser.find_element_by_css_selector(".navbar-toggle").click()
 
