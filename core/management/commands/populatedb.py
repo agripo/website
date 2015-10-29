@@ -43,8 +43,6 @@ def insert_random_product(category=None, stock=0, random_image=True, price=0, si
         images = glob.glob("{}/products/*.jpg".format(settings.MEDIA_ROOT))
         if len(images) > 0:
             the_product.image = images[random.randint(0, len(images) - 1)].replace(settings.MEDIA_ROOT, "")
-        else:
-            print("Warning : There was no image in the products' folder, so the default one was used")
 
     the_product.save()
     return the_product
