@@ -12,7 +12,6 @@
                     {% if image.title %}
                         <h2>{{ image.title }}</h2>
                     {% endif %}
-                    <img src="{{ image.src }}" alt="{{ image.alt }}"/>
                     {% if image.caption %}
                         <div class="carousel-caption">
                             <h4 class="back-light">
@@ -20,17 +19,10 @@
                             </h4>
                         </div>
                     {% endif %}
+                    <img src="{{ image.src }}" alt="{{ image.alt }}"/>
                 </div>
             {% endfor %}
         </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
     </div>
 </header>
 <!--/.SLIDESHOW END-->

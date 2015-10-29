@@ -191,12 +191,15 @@ def index_view(request):
     slideshow_images = {
         'carousel_id': 'home_main_carousel',
         'images': [
-            {'src': '/static/img/diapo_1.jpg', 'alt': 'One image',
-             'caption': 'Tayap est un petit village du Cameroun.'},
-            {'src': '/static/img/diapo_2.jpg', 'alt': 'Another image',
-             'caption': 'Agripo est un groupement de Tayap.'},
-            {'src': '/static/img/diapo_3.jpg', 'alt': 'A third image',
-             'caption': 'Agripo est un groupement de Tayap.'},
+            {'src': '/static/img/slideshow/slideshow_1.jpg',
+             'alt': 'Gestion durable des forêts.',
+             'caption': 'Gestion durable des forêts.'},
+            {'src': '/static/img/slideshow/slideshow_2.jpg',
+             'alt': 'Cohésion sociale.',
+             'caption': 'Cohésion sociale.'},
+            {'src': '/static/img/slideshow/slideshow_3.jpg',
+             'alt': "Diversification de l'économie locale.",
+             'caption': "Diversification de l'économie locale."},
         ]
     }
     user = request.user
