@@ -19,7 +19,7 @@
                 {{ news.title }}<br />
                 <span class="small">{{ news.publication_date|date }}</span>
             </h1>
-            <div>{{ news.content }}</div>
+            <div>{{ news.content | safe }}</div>
         </div>
     </div>
     {% if nav_previous or nav_next %}

@@ -1,5 +1,3 @@
-from selenium.webdriver.common.action_chains import ActionChains
-
 class RichTextEditor(object):
 
     def __init__(self, test, field_id):

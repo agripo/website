@@ -4,6 +4,7 @@ from selenium import webdriver
 from core.authentication import get_username_from_email
 from functional_tests.base import FunctionalTest, quit_if_possible
 from functional_tests.page_news import NewsPage
+from functional_tests.rich_text_editor import RichTextEditor
 
 
 class NewsAndNewsListPagesTest(FunctionalTest):
@@ -50,13 +51,24 @@ class NewsAndNewsListPagesTest(FunctionalTest):
 
         # Alpha fills and saves the form to create a news published today
         the_news_title = faker.sentence()
-        the_news_content = "\n".join(faker.paragraphs())
+        the_news_paragraphs = faker.paragraphs()
         self.browser.find_element_by_id(news_page_alpha.id_field_title).send_keys(the_news_title)
         self.browser.find_element_by_css_selector(
             'input#{} ~ span a'.format(news_page_alpha.id_field_publication_date_date)).click()
         self.browser.find_element_by_css_selector(
             'input#{} ~ span a'.format(news_page_alpha.id_field_publication_date_time)).click()
-        self.browser.find_element_by_id(news_page_alpha.id_field_content).send_keys(the_news_content)
+
+        editor = RichTextEditor(self, news_page_alpha.id_field_content)
+        editor.empty_content()
+        bold_button = self.browser.find_element_by_css_selector(".cke_button__bold")
+        bold_button.click()
+        editor.insert_content(the_news_title)
+        bold_button.click()
+        editor.insert_content("\n")
+        for p in the_news_paragraphs:
+            editor.insert_content(p)
+            editor.insert_content("\n")
+
         self.select_option_by_text(news_page_alpha.id_field_writer, user_alpha_username)
         self.admin_save('/admin/core/news/')
 
@@ -84,7 +96,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
 
         # and sees the news is displayed correctly
         news_element = self.browser.find_element_by_id(NewsPage.id_news_title) # Should not raise
-        self.assertEqual(news_element.text[:25], the_news_title[:25])
+        self.assertEqual(news_element.text[:15], the_news_title[:15])
 
         #@todo : He shoud also take a look at the news block at the bottom of the page
 
@@ -106,7 +118,7 @@ class NewsAndNewsListPagesTest(FunctionalTest):
         self.browser = bravo_browser
         self.browser.refresh()
         h1 = self.browser.find_element_by_css_selector('h1')
-        self.assertEqual(h1.text[:25], the_news_title[:25], "The new news hasn't been found in the page")
+        self.assertEqual(h1.text[:15], the_news_title[:15], "The new news hasn't been found in the page")
 
         # Bravo notices that there is an "Older news" button, so he follows it
         self.dev_point()

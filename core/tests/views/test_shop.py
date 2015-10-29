@@ -198,33 +198,3 @@ class SetProductQuantityAndGetCartTest(ViewsBaseTestCase):
         self.assertJSONEqual(
             str(response.content, encoding='utf8'),
             {'products': [], 'total': 0, })
-
-
-class DeliveryDetailsViewTest(ViewsBaseTestCase):
-
-    def test_uses_right_template(self):
-        self.not_implemented()
-
-    def test_shows_total(self):
-        self.not_implemented()
-
-    def test_shows_consolidated_products_list(self):
-        self.not_implemented()
-
-    def test_displays_all_commands(self):
-        self.not_implemented()
-
-    def test_shows_users_data(self):
-        self.not_implemented()
-
-    def test_displays_command_products_data(self):
-        self.not_implemented()
-
-    def test_displays_command_total(self):
-        self.not_implemented()
-
-    def test_displays_instructions(self):
-        self.not_implemented()
-
-    def test_displays_message_if_no_command(self):
-        self.not_implemented()

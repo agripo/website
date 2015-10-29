@@ -4,6 +4,7 @@ from solo.admin import SingletonModelAdmin
 from admin_helper.admin import AdminHelperAdmin
 
 from core.models.news import News
+from core.models.partners import Partner
 from core.models.shop import Product, Stock, ProductCategory, Delivery, DeliveryPoint
 from core.models.general import SiteConfiguration
 
@@ -24,6 +25,14 @@ class NewsAdmin(AdminHelperAdmin):
             "all": ("css/icon_selector.css", "css/font-awesome.min.css")
         }
         js = ("js/icon_selector.js",)
+
+
+class PartnerAdmin(AdminHelperAdmin):
+    fields = ['name', 'description', 'logo_tag', 'logo', 'website']
+
+    list_display = ('name', 'website')
+
+    readonly_fields = ('logo_tag',)
 
 
 class ProductCategoryAdmin(AdminHelperAdmin):
@@ -77,6 +86,7 @@ class DeliveryAdmin(AdminHelperAdmin):
 
 
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
+admin.site.register(Partner, PartnerAdmin)
 admin.site.register(News, NewsAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductCategory, ProductCategoryAdmin)

@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% block page_name %}id_partners_page{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    <div id="partners">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Liste de nos partenaires</h1>
+                <p>{% lorem %}</p>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            {% if partners %}
+                <div class="one_partner">
+                    <style>
+                        .product_description .img{
+                            text-align: center;
+                        }
+                        .product_description .img img{
+                            width: 150px;
+                            height: 150px;
+                        }
+                    </style>
+                    {% for partner in partners %}
+                        <div class="col-md-12" id="partner_{{ partner.id }}">
+                            <div class="panel panel-default one_product" id="product_{{ prod.id }}">
+                                <div class="panel-heading">
+                                    <h3>
+                                        <i class="fa fa-hand-o-right"></i>
+                                        <span class="partner_name">{{ partner.name }}</span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="product_description">
+                                        <p class="img"><img src="/media/{{ partner.logo }}"/></p>
+                                        <p>{{ partner.description | safe }}</p>
+                                        <a href="{{ partner.website }}">Accéder au site internet</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="col-md-12" id="no_partner_to_show_message">
+                    <h3>Pour l'instant, aucun partenaire n'est enregistré sur le site</h3>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

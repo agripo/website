@@ -214,52 +214,51 @@
                     </div>
                 </div>
 
-                {% cache 3600 partner_block %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4>
-                                Partners
-                            </h4>
-                        </div>
+                {% if partners %}
+                    {% cache 3600 partner_block %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>
+                                    Partenaires
+                                </h4>
+                            </div>
 
-                        <div class="panel-body">
-                            <div id="partnersCarousel" class="carousel slide">
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-
-                                    <div class="item active" style="background: transparent url(/static/img/partners/pnud_small.jpg) no-repeat center top;width:100%;height:220px;text-align: center;">
-                                        <div class="carousel-caption" style="text-align: center;margin:0;padding:0;">
-                                            <h2 style="margin:0;padding;0;">
-                                                <a href="/core/partners/1">
-                                                    PNUD
-                                                </a>
-                                            </h2>
-                                        </div>
+                            <div class="panel-body">
+                                <div id="partnersCarousel" class="carousel slide" data-ride="carousel">
+                                    <style>
+                                        #partnersCarousel .carousel-inner .item{
+                                            background: transparent no-repeat center top;
+                                            width:100%;
+                                            height:220px;
+                                            text-align: center;
+                                        }
+                                    </style>
+                                    <div class="carousel-inner" role="listbox">
+                                        {% for partner in partners %}
+                                            <div class="item{% if forloop.first %} active{% endif %}" style="background-image: url(/media/{{ partner.logo }});">
+                                                <div class="carousel-caption" style="text-align: center;margin:0;padding:0;">
+                                                    <h2 class="carousel_one_partner_name" style="margin:0;padding;0;">
+                                                        <a href="{% url "partners_page" %}#partner_{{ partner.pk }}">
+                                                            {{ partner.name }}
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
                                     </div>
 
-                                    <div class="item" style="background: transparent url(/static/img/partners/isf_small.jpg) no-repeat center top;width:100%;height:220px;text-align: center;">
-                                        <div class="carousel-caption" style="text-align: center;margin:0;padding:0;">
-                                            <h2 style="margin:0;padding;0;">
-                                                <a href="/core/partners/2">
-                                                    ISF Cameroun
-                                                </a>
-                                            </h2>
-                                        </div>
-                                    </div>
-
+                                    <!-- Controls -->
+                                    <a class="left carousel-control" href="#partnersCarousel" role="button" data-slide="prev">
+                                        <span class="icon-prev"></span>
+                                    </a>
+                                    <a class="right carousel-control" href="#partnersCarousel" role="button" data-slide="next">
+                                        <span class="icon-next"></span>
+                                    </a>
                                 </div>
-
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                    <span class="icon-prev"></span>
-                                </a>
-                                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                    <span class="icon-next"></span>
-                                </a>
                             </div>
                         </div>
-                    </div>
-                {% endcache %}
+                    {% endcache %}
+                {% endif %}
             </div>
         </div>
     </div>

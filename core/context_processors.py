@@ -1,10 +1,15 @@
 from django.conf import settings
 
 from core.models.news import News
+from core.models.partners import Partner
 
 
 def cookies_notification(request):
     return {'cookies_notification_shown': 'cookies_notification_shown' in request.session}
+
+
+def partners_box(request):
+    return {'partners': Partner.objects.all()}
 
 
 def last_news_box(request):

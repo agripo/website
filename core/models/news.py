@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -7,10 +8,14 @@ from core.models.users import AgripoUser
 
 
 class News(models.Model):
+    on_change_delete_cache = True
     title = models.CharField(max_length=120, blank=False)
     is_active = models.BooleanField(default=True)
     icon = models.ForeignKey(Icon, blank=False, default=get_comment_icon_id, limit_choices_to=all_but_forbidden_icon)
-    content = models.TextField(blank=False)
+    content = RichTextField(
+        config_name='awesome_ckeditor', verbose_name="Contenu",
+        help_text="Texte de l'actualité", default=None
+    )
     creation_date = models.DateField(auto_now_add=True)
     edition_date = models.DateField(auto_now=True)
     publication_date = models.DateTimeField(default=None, null=True, blank=True, unique=True)

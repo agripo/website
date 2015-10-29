@@ -17,7 +17,7 @@
         <div class="row">
             <div class="row news_container">
                 {% for news in news_list %}
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-6 col-sm-6 one_news_block">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h2>
@@ -28,7 +28,7 @@
                                 </h2>
                             </div>
                             <div class="panel-body">
-                                <p>{{ news.content|truncatechars:320 }}</p>
+                                <p>{{ news.content | striptags | truncatechars:320 | safe }}</p>
                                 <a href="{% url "one_news_page" news.pk %}" class="btn btn-default btn-primary">Lire l'article complet</a>
                             </div>
                         </div>

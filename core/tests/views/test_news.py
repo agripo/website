@@ -44,7 +44,7 @@ class NewsViewsTest(ViewsBaseTestCase):
         number_of_news = self.config.news_count
         self.insert_x_news(number_of_news + 5, "One news title", "Content for #{}")
         response = self.client.get(reverse('news_page'))
-        self.assertContains(response, 'One news title', number_of_news)
+        self.assertContains(response, 'one_news_block', number_of_news)
 
     def fill_with_entries(self, entries_count=0):
         if entries_count == 0:
