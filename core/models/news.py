@@ -9,17 +9,19 @@ from core.models.users import AgripoUser
 
 class News(models.Model):
     on_change_delete_cache = True
-    title = models.CharField(max_length=120, blank=False)
-    is_active = models.BooleanField(default=True)
-    icon = models.ForeignKey(Icon, blank=False, default=get_comment_icon_id, limit_choices_to=all_but_forbidden_icon)
+    title = models.CharField(max_length=120, verbose_name='Titre', blank=False)
+    is_active = models.BooleanField(verbose_name='Activer ?', default=True)
+    icon = models.ForeignKey(Icon, verbose_name='Icone', blank=False,
+                             default=get_comment_icon_id, limit_choices_to=all_but_forbidden_icon)
     content = RichTextField(
         config_name='awesome_ckeditor', verbose_name="Contenu",
         help_text="Texte de l'actualité", default=None
     )
-    creation_date = models.DateField(auto_now_add=True)
-    edition_date = models.DateField(auto_now=True)
-    publication_date = models.DateTimeField(default=None, null=True, blank=True, unique=True)
-    writer = models.ForeignKey(AgripoUser, limit_choices_to=Q(is_staff=True))
+    creation_date = models.DateField(verbose_name='Date de création', auto_now_add=True)
+    edition_date = models.DateField(verbose_name='Dernière modification', auto_now=True)
+    publication_date = models.DateTimeField(verbose_name='Date de publication', default=None, null=True, blank=True,
+                                            unique=True)
+    writer = models.ForeignKey(AgripoUser, verbose_name='Rédacteur', limit_choices_to=Q(is_staff=True))
 
     def __str__(self):
         return "{id} : {title} ({pub_date})".format(

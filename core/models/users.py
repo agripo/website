@@ -36,5 +36,5 @@ class AgripoUser(User):
 
 
 class CustomerData(models.Model):
-    customer = models.OneToOneField(AgripoUser)
-    phone = models.CharField(max_length=15)
+    customer = models.OneToOneField(AgripoUser, verbose_name='Client')
+    phone = models.CharField(verbose_name='Numéro de téléphone', max_length=15)
