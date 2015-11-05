@@ -52,8 +52,10 @@ class ProductCategoryAdmin(AdminHelperAdmin):
 
 class ProductAdmin(AdminHelperAdmin):
     fieldsets = [
-        ('General settings', {'fields': [
-            'id', 'image_tag', 'image', 'name', 'scientific_name', 'category', 'price', 'quantity_type', 'stock', ]}),
+        ('Informations générales', {'fields': [
+            'id', 'image_tag', 'image', 'name', 'category', 'price',]}),
+        ('Informations supplémentaires', {'fields': [
+            'scientific_name', 'quantity_type', 'description', 'stock', ]}),
     ]
 
     list_display = ('id', 'name', 'scientific_name', 'category', 'price', 'is_available')
