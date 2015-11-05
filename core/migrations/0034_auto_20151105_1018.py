@@ -14,26 +14,26 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='description',
-            field=models.TextField(default=''),
+            field=models.TextField(blank=True, verbose_name='Description du produit', default=''),
         ),
         migrations.AddField(
             model_name='product',
             name='quantity_type',
-            field=models.CharField(default='k', verbose_name='Unité', max_length=1, choices=[('k', 'le kg'), ('L', 'le litre'), ('U', "l'unité")]),
+            field=models.CharField(verbose_name='Unité', default='k', choices=[('k', 'le kg'), ('L', 'le litre'), ('U', "l'unité")], max_length=1),
         ),
         migrations.AddField(
             model_name='product',
             name='scientific_name',
-            field=models.CharField(default='', verbose_name='Nom scientifique', help_text='Nom affiché entre parenthèses dans les fiches produits', max_length=60),
+            field=models.CharField(blank=True, verbose_name='Nom scientifique', default='', max_length=60, help_text='Nom affiché entre parenthèses dans les fiches produits'),
         ),
         migrations.AlterField(
             model_name='product',
             name='name',
-            field=models.CharField(unique=True, verbose_name='Nom', help_text='Nom affiché dans les fiches produits', max_length=60),
+            field=models.CharField(verbose_name='Nom', unique=True, help_text='Nom affiché dans les fiches produits', max_length=60),
         ),
         migrations.AlterField(
             model_name='productcategory',
             name='name',
-            field=models.CharField(unique=True, verbose_name='Nom de la catégorie', max_length=60),
+            field=models.CharField(verbose_name='Nom de la catégorie', max_length=60, unique=True),
         ),
     ]
