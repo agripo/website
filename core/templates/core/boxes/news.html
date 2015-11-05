@@ -7,26 +7,52 @@
         </div>
 
         <div class="row news_container text-center">
-            {% for one in last_news %}
-                <div class="col-md-3 col-sm-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4>
-                                <a href="{% url "one_news_page" one.pk %}">
-                                    <i class="fa fa-{{ one.icon.icon }}"></i>
-                                    {{ one.title | truncatechars:22 }}
-                                </a>
-                            </h4>
-                        </div>
-                        <div class="panel-body">
-                            <p>{{ one.content | striptags | truncatechars:200 | safe }}</p>
-                            <p>
-                                <a href="{% url "one_news_page" one.pk %}" class="btn btn-default btn-primary">Lire l'article complet</a>
-                            </p>
-                        </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            <a href="{% url "news_page" %}">
+                                <i class="fa fa-plus"></i>
+                                Nos nouvelles
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Restez connectés en lisant nos informations actualisées. Pour assurer une véritable proximité
+                            avec nous, les populations vous racontent leurs vécus et les évolutions du village.
+                            Illustrées de photos, ces nouvelles nous permettent de capitaliser nos actions de façon
+                            participative.
+                        </p>
+                        <p>
+                            <a href="{% url "news_page" %}" class="btn btn-default btn-primary">Lire lles nouvelles</a>
+                        </p>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            <a href="/magazine/">
+                                <i class="fa fa-print"></i>
+                                Magazine
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                           Ce magazine annuel met en exergue le génie des hom&shy;mes qui œuvrent au ser&shy;vice du dé&shy;ve&shy;lop&shy;pement
+                            local dans les villages africains. Re&shy;trou&shy;vez les person&shy;nalités at&shy;ta&shy;chées aux ru&shy;ra&shy;li&shy;tés
+                            afri&shy;caines. C’est aussi une mine d’astuces pour la vie quotidienne, des conseils mode,
+                            santé, nutrition et beauté.
+                        </p>
+                        <p>
+                            <a href="/magazine/" class="btn btn-default btn-primary">Lire les articles</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-md-3 col-sm-6">
                 <div class="panel panel-default">
