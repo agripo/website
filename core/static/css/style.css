@@ -101,6 +101,7 @@ img#brand-logo{
 #boxes .panel-body{
     height: 240px;
     overflow: hidden;
+    text-align: justify;
 }
 #boxes .panel-body p:first-child{
     height: 172px;
@@ -109,6 +110,7 @@ img#brand-logo{
 	height:220px;
 	overflow:hidden;
     padding: 10px;
+    text-align: justify;
 }
 .news_container .panel-body p:first-child{
     height: 165px;
