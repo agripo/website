@@ -99,5 +99,10 @@ def insert_flatpages_contents(*args):
     call_command('loaddata', 'core/data/flatpages.json')
 
 
+def insert_flatpages2_contents(*args):
+    from django.core.management import call_command
+    call_command('loaddata', 'core/data/flatpages2.json')
+
+
 def revert_insert_flatpages_contents(*args):
     pass
