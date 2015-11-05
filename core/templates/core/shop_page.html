@@ -46,6 +46,28 @@
         </div>
         <hr />
         <div class="row">
+            <style>
+                .product_in_stock{
+                    margin: -20px auto 0 auto;
+                    border-radius: 4px;
+                    font-weight: bold;
+                    text-shadow: 0px 0px 4px white;
+                    z-index: 10000;
+                    color: black;
+                }
+                .product_in_stock .fa{
+                    color: green;
+                }
+                .product_more_info_text p{
+                    margin: 5px;
+                    text-align: center;
+                    height: 140px;
+                    overflow: auto;
+                }
+                .more_info_button{
+                    cursor: pointer;
+                }
+            </style>
             {% for cat in categories %}
                 <div class="one_product_category">
                     <div class="col-md-12">
@@ -61,48 +83,74 @@
                                     </h3>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="product_image">
-                                        <img src="/media/{{ prod.image }}"/>
-                                    </div>
-                                    <div class="product_description">
-                                        <p>
-                                            <strong>Prix unitaire :</strong>
-                                            {{ product.price }}&nbsp;FCFA
-                                        </p>
-                                        {% if prod.is_available %}
-                                            <form action="{% url "requires_js" %}?back={{ request.get_full_path }}" method="post" class="add_to_cart" onsubmit="return false">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="id" value="{{ prod.id }}"/>
-                                                <p>En stock</p>
-                                                <p class="add_to_cart_form">
-                                                    Quantité achetée :
-                                                    <input name="quantity" id="quantity_for_{{ prod.id }}" value="" type="number" style="width:100px;" placeholder="Quantité"/>
-                                                    <input type="submit" value="OK"/>
-                                                </p>
-                                                <p class="add_to_cart_confirm_message">
+                                    <div class="product_data">
+                                        <div class="product_image">
+                                            <img src="/media/{{ prod.image }}"/>
+                                            {% if prod.is_available %}
+                                                <div class="product_in_stock">
                                                     <i class="fa fa-check"></i>
-                                                    Panier mis à jour avec succès
-                                                </p>
-                                                <p class="add_to_cart_not_enough_stock_message">
-                                                    <i class="fa fa-exclamation"></i>
-                                                    Quantité en stock insuffisante. Max : QUANTITY.
-                                                </p>
-                                                <p class="add_to_cart_no_stock_message">
-                                                    <i class="fa fa-exclamation"></i>
-                                                    Produit indisponible
-                                                </p>
-                                                <p class="add_to_cart_please_wait_message">
-                                                    <i class="fa fa-clock-o"></i>
-                                                    Veuillez patienter
-                                                </p>
-                                            </form>
-                                        {% else %}
-                                            <p class="add_to_cart_not_available">
-                                                <i class="fa fa-exclamation"></i>
-                                                Produit indisponible pour le moment
+                                                    En stock
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="product_description">
+                                            {% if prod.scientific_name %}
+                                                <p style="font-style: italic">{{ prod.scientific_name }}</p>
+                                            {% endif %}
+                                            <p>
+                                                <strong>Prix :</strong>
+                                                {{ prod.price }}&nbsp;FCFA
+                                                {{ prod.get_quantity_type_display }}
                                             </p>
-                                        {% endif %}
+                                            {% if prod.description %}
+                                                <p class="more_info_button" onclick="$(this).parents('.panel-body').hide()">
+                                                    <i class="fa fa-plus"></i>
+                                                    Plus d'infos
+                                                </p>
+                                            {% endif %}
+                                            {% if prod.is_available %}
+                                                <form action="{% url "requires_js" %}?back={{ request.get_full_path }}"
+                                                      method="post" class="add_to_cart" onsubmit="return false">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="id" value="{{ prod.id }}"/>
+                                                    <p class="add_to_cart_form">
+                                                        Quantité :
+                                                        <input name="quantity" id="quantity_for_{{ prod.id }}" value="" type="number" style="width:35px;" placeholder="Qté"/>
+                                                        <input type="submit" value="OK"/>
+                                                    </p>
+                                                    <p class="add_to_cart_confirm_message">
+                                                        <i class="fa fa-check"></i>
+                                                        Panier mis à jour
+                                                    </p>
+                                                    <p class="add_to_cart_not_enough_stock_message">
+                                                        <i class="fa fa-exclamation"></i>
+                                                        Stock insuffisant. Max : QUANTITY.
+                                                    </p>
+                                                    <p class="add_to_cart_no_stock_message">
+                                                        <i class="fa fa-exclamation"></i>
+                                                        Produit indisponible
+                                                    </p>
+                                                    <p class="add_to_cart_please_wait_message">
+                                                        <i class="fa fa-clock-o"></i>
+                                                        Veuillez patienter
+                                                    </p>
+                                                </form>
+                                            {% else %}
+                                                <p class="add_to_cart_not_available">
+                                                    <i class="fa fa-exclamation"></i>
+                                                    Indisponible pour le moment
+                                                </p>
+                                            {% endif %}
+                                        </div>
                                     </div>
+                                </div>
+
+                                <div class="product_more_info_text">
+                                    <p>{{ prod.description }}</p>
+                                    <p>
+                                        <input type="button" value="Retour"
+                                              onclick="$(this).parents('.one_product').children('.panel-body').show()"/>
+                                    </p>
                                 </div>
                             </div>
                         </div>

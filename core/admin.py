@@ -3,6 +3,13 @@ from solo.admin import SingletonModelAdmin
 
 from admin_helper.admin import AdminHelperAdmin
 
+# Note: we are renaming the original Admin and Form as we import, as seen in https://gist.github.com/elidickinson/1379652
+from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
+from django.contrib.flatpages.admin import FlatpageForm as FlatpageFormOld
+from django.contrib.flatpages.models import FlatPage
+from django import forms
+from ckeditor.widgets import CKEditorWidget
+
 from core.models.news import News
 from core.models.partners import Partner
 from core.models.shop import Product, Stock, ProductCategory, Delivery, DeliveryPoint
@@ -45,10 +52,13 @@ class ProductCategoryAdmin(AdminHelperAdmin):
 
 class ProductAdmin(AdminHelperAdmin):
     fieldsets = [
-        ('General settings', {'fields': ['id', 'image_tag', 'image', 'name', 'category', 'price', 'stock', ]}),
+        ('Informations générales', {'fields': [
+            'id', 'image_tag', 'image', 'name', 'category', 'price',]}),
+        ('Informations supplémentaires', {'fields': [
+            'scientific_name', 'quantity_type', 'description', 'stock', ]}),
     ]
 
-    list_display = ('id', 'name', 'category', 'price', 'is_available')
+    list_display = ('id', 'name', 'scientific_name', 'category', 'price', 'is_available')
 
     list_filter = ['category', ]
     readonly_fields = ('id', 'stock', 'image_tag',)
@@ -84,6 +94,21 @@ class DeliveryAdmin(AdminHelperAdmin):
         return "Aucune commande pour cette livraison"
     details.allow_tags = True
 
+
+class FlatpageForm(FlatpageFormOld):
+    content = forms.CharField(widget=CKEditorWidget(config_name='awesome_ckeditor'))
+
+    class Meta:
+        model = FlatPage  # this is not automatically inherited from FlatpageFormOld
+        fields = '__all__'
+
+
+class FlatPageAdmin(FlatPageAdminOld):
+    form = FlatpageForm
+
+
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)
 
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(Partner, PartnerAdmin)

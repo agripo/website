@@ -13,7 +13,7 @@ from core.models.users import AgripoUser
 
 class ProductCategory(models.Model):
     on_change_delete_cache = True
-    name = models.CharField(max_length=28, blank=False, null=False, unique=True)
+    name = models.CharField(verbose_name='Nom de la catégorie', max_length=60, blank=False, null=False, unique=True)
 
     def clean(self):
         if self.name == '':
@@ -30,23 +30,39 @@ class ProductCategory(models.Model):
 class Product(models.Model):
     on_change_delete_cache = True
     name = models.CharField(
-        max_length=28, blank=False, null=False, unique=True, verbose_name="Nom",
+        max_length=60, blank=False, null=False, unique=True, verbose_name="Nom",
         help_text="Nom affiché dans les fiches produits")
+    scientific_name = models.CharField(
+        default="", max_length=60, blank=False, null=False, verbose_name="Nom scientifique",
+        help_text="Nom affiché entre parenthèses dans les fiches produits")
     category = models.ForeignKey(
         ProductCategory, blank=False, null=False, verbose_name="Catégorie",
         help_text="Catégorie sous laquelle apparaît ce produit.")
     price = models.PositiveIntegerField(verbose_name="Prix unitaire", default=0, blank=False, null=False)
+    QUANTITY_TYPE_KILO = "k"
+    QUANTITY_TYPE_UNIT = "U"
+    QUANTITY_TYPE_LITER = "L"
+    PROGRAMMED_STATUS = (
+        (QUANTITY_TYPE_KILO, 'le kg'),
+        (QUANTITY_TYPE_LITER, 'le litre'),
+        (QUANTITY_TYPE_UNIT, 'l\'unité'),
+    )
+    quantity_type = models.CharField(
+        verbose_name="Unité", max_length=1, choices=PROGRAMMED_STATUS, default=QUANTITY_TYPE_KILO)
     image = models.ImageField(
         upload_to='products', blank=True, null=True, default="default/not_found.jpg", verbose_name="Image",
         help_text="Cette image représente le produit.<br />"
                   "Elle doit faire 150x150px. "
                   "Si la largeur est différente de la hauteur, l'image apparaitra déformée."
     )
-    farmers = models.ManyToManyField(AgripoUser, through="Stock")
+    description = models.TextField(default="")
+    farmers = models.ManyToManyField(AgripoUser, verbose_name='Agriculteurs', through="Stock")
     stock = models.PositiveIntegerField(
+        verbose_name='Stock',
         default=0,
         help_text="Champ alimenté automatiquement en fonction des déclarations des agriculteurs.")
     bought = models.PositiveIntegerField(
+        verbose_name='Acheté',
         default=0,
         help_text="Champ alimenté automatiquement en fonction des commandes passées")
 
@@ -141,8 +157,8 @@ class CartProduct(models.Model):
 
 class Stock(models.Model):
     on_change_delete_cache = True
-    product = models.ForeignKey(Product, related_name="one_farmers_stock")
-    farmer = models.ForeignKey(AgripoUser, limit_choices_to=Q(groups__name='farmers'))
+    product = models.ForeignKey(Product, verbose_name='Produit', related_name="one_farmers_stock")
+    farmer = models.ForeignKey(AgripoUser, verbose_name='Agriculteur', limit_choices_to=Q(groups__name='farmers'))
     stock = models.PositiveIntegerField(default=0, verbose_name="Stock")
 
     class Meta:
@@ -172,8 +188,8 @@ class Stock(models.Model):
 
 
 class DeliveryPoint(models.Model):
-    name = models.CharField(max_length=64, unique=True)
-    description = models.TextField(max_length=512)
+    name = models.CharField(verbose_name='Nom', max_length=64, unique=True)
+    description = models.TextField(verbose_name='Description', max_length=512)
 
     def __str__(self):
         return self.name
@@ -206,7 +222,7 @@ class DeliveryManager(models.Manager):
 
 class Delivery(models.Model):
     on_change_delete_cache = True
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(verbose_name='Date de la livraison', default=timezone.now)
     delivery_point = models.ForeignKey(DeliveryPoint, verbose_name="Lieu de livraison")
     done = models.BooleanField(default=False, verbose_name="Livraison effectuée")
 
@@ -299,17 +315,17 @@ class Command(models.Model):
     """
     A command is the listing of the products for one customer in one delivery
     """
-    customer = models.ForeignKey(AgripoUser, null=True)
+    customer = models.ForeignKey(AgripoUser, verbose_name='Client', null=True)
     delivery = models.ForeignKey(
         Delivery, verbose_name="Lieu de livraison", related_name="commands",
         help_text="Sélectionnez le lieu de livraison")
-    date = models.DateTimeField(auto_now_add=True)
-    products = models.ManyToManyField(Product, through="CommandProduct")
-    sent = models.BooleanField(default=False)
+    date = models.DateTimeField(verbose_name='Date', auto_now_add=True)
+    products = models.ManyToManyField(Product, verbose_name='Produits', through="CommandProduct")
+    sent = models.BooleanField(verbose_name='Envoyée ?', default=False)
     message = models.TextField(
         max_length=256, null=True, default="", verbose_name="Message",
         help_text="Informations supplémentaires en rapport avec votre commande")
-    total = models.PositiveIntegerField(default=0)
+    total = models.PositiveIntegerField(verbose_name='Total', default=0)
 
     def __str__(self):
         return "{} : {}".format(self.date.strftime("Le %d/%m à %Hh%M"), self.customer)
