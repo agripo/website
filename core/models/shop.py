@@ -33,7 +33,7 @@ class Product(models.Model):
         max_length=60, blank=False, null=False, unique=True, verbose_name="Nom",
         help_text="Nom affiché dans les fiches produits")
     scientific_name = models.CharField(
-        default="", max_length=60, blank=False, null=False, verbose_name="Nom scientifique",
+        default="", max_length=60, blank=True, null=False, verbose_name="Nom scientifique",
         help_text="Nom affiché entre parenthèses dans les fiches produits")
     category = models.ForeignKey(
         ProductCategory, blank=False, null=False, verbose_name="Catégorie",
@@ -55,7 +55,7 @@ class Product(models.Model):
                   "Elle doit faire 150x150px. "
                   "Si la largeur est différente de la hauteur, l'image apparaitra déformée."
     )
-    description = models.TextField(default="")
+    description = models.TextField(verbose_name="Description du produit", default="", blank=True, null=False)
     farmers = models.ManyToManyField(AgripoUser, verbose_name='Agriculteurs', through="Stock")
     stock = models.PositiveIntegerField(
         verbose_name='Stock',
