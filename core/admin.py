@@ -52,10 +52,11 @@ class ProductCategoryAdmin(AdminHelperAdmin):
 
 class ProductAdmin(AdminHelperAdmin):
     fieldsets = [
-        ('General settings', {'fields': ['id', 'image_tag', 'image', 'name', 'category', 'price', 'stock', ]}),
+        ('General settings', {'fields': [
+            'id', 'image_tag', 'image', 'name', 'scientific_name', 'category', 'price', 'quantity_type', 'stock', ]}),
     ]
 
-    list_display = ('id', 'name', 'category', 'price', 'is_available')
+    list_display = ('id', 'name', 'scientific_name', 'category', 'price', 'is_available')
 
     list_filter = ['category', ]
     readonly_fields = ('id', 'stock', 'image_tag',)

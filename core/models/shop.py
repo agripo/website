@@ -13,7 +13,7 @@ from core.models.users import AgripoUser
 
 class ProductCategory(models.Model):
     on_change_delete_cache = True
-    name = models.CharField(verbose_name='Nom de la catégorie', max_length=28, blank=False, null=False, unique=True)
+    name = models.CharField(verbose_name='Nom de la catégorie', max_length=60, blank=False, null=False, unique=True)
 
     def clean(self):
         if self.name == '':
@@ -30,18 +30,32 @@ class ProductCategory(models.Model):
 class Product(models.Model):
     on_change_delete_cache = True
     name = models.CharField(
-        max_length=28, blank=False, null=False, unique=True, verbose_name="Nom",
+        max_length=60, blank=False, null=False, unique=True, verbose_name="Nom",
         help_text="Nom affiché dans les fiches produits")
+    scientific_name = models.CharField(
+        default="", max_length=60, blank=False, null=False, verbose_name="Nom scientifique",
+        help_text="Nom affiché entre parenthèses dans les fiches produits")
     category = models.ForeignKey(
         ProductCategory, blank=False, null=False, verbose_name="Catégorie",
         help_text="Catégorie sous laquelle apparaît ce produit.")
     price = models.PositiveIntegerField(verbose_name="Prix unitaire", default=0, blank=False, null=False)
+    QUANTITY_TYPE_KILO = "k"
+    QUANTITY_TYPE_UNIT = "U"
+    QUANTITY_TYPE_LITER = "L"
+    PROGRAMMED_STATUS = (
+        (QUANTITY_TYPE_KILO, 'le kg'),
+        (QUANTITY_TYPE_LITER, 'le litre'),
+        (QUANTITY_TYPE_UNIT, 'l\'unité'),
+    )
+    quantity_type = models.CharField(
+        verbose_name="Unité", max_length=1, choices=PROGRAMMED_STATUS, default=QUANTITY_TYPE_KILO)
     image = models.ImageField(
         upload_to='products', blank=True, null=True, default="default/not_found.jpg", verbose_name="Image",
         help_text="Cette image représente le produit.<br />"
                   "Elle doit faire 150x150px. "
                   "Si la largeur est différente de la hauteur, l'image apparaitra déformée."
     )
+    description = models.TextField(default="")
     farmers = models.ManyToManyField(AgripoUser, verbose_name='Agriculteurs', through="Stock")
     stock = models.PositiveIntegerField(
         verbose_name='Stock',
