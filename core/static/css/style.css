@@ -92,16 +92,27 @@ footer {
     }
 }
 
-
-
-
 img#brand-logo{
 	float:left;
 	width:46px;
 	margin-top: -10px;
 }
 
+#boxes .panel-body{
+    height: 240px;
+    overflow: hidden;
+}
+#boxes .panel-body p:first-child{
+    height: 172px;
+}
 .news_container .panel-body{
 	height:220px;
 	overflow:hidden;
+    padding: 10px;
+}
+.news_container .panel-body p:first-child{
+    height: 165px;
+}
+.news_container .panel-body p{
+    margin:0;
 }

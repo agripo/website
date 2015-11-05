@@ -1,197 +1,212 @@
 [
   {
-    "fields": {
-      "title": "Faire un don",
-      "registration_required": false,
-      "url": "/faire-un-don/",
-      "enable_comments": false,
-      "template_name": "",
-      "content": "<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod quis arcu et molestie. Aliquam eu venenatis arcu, in imperdiet nisi. Duis risus enim, congue sed maximus at, rhoncus at ipsum. Vestibulum sit amet pretium ex. Quisque augue ante, lacinia vel tristique vitae, efficitur ornare dui. Praesent posuere tempus sem, a condimentum lectus dictum vel. Fusce porta sem eget viverra vestibulum. Quisque eros sem, sollicitudin varius magna eget, aliquam volutpat nisl. Sed non massa a tortor tincidunt auctor vitae vitae ex. Donec a urna quis nulla venenatis faucibus eget nec magna. Mauris ac sollicitudin lorem.</p>\r\n\r\n<p>Mauris vel pharetra massa. Pellentesque posuere tincidunt tincidunt. Nulla pulvinar venenatis nisi, sed viverra erat malesuada vitae. Vivamus mauris elit, euismod rhoncus tempus ac, varius vitae enim. Fusce a dui et lectus ultricies tincidunt. Aliquam vel fermentum leo, in cursus tortor. Duis pellentesque dictum dui, nec malesuada mauris gravida sit amet. Nulla in elementum tellus. Vestibulum rutrum, dui quis iaculis finibus, tortor ante gravida velit, eget vehicula arcu eros vitae ligula. Nunc erat ipsum, vulputate aliquet sagittis vitae, tempus id arcu. Vestibulum eu nunc nec velit elementum lacinia. Fusce eros enim, efficitur nec feugiat a, egestas sed ipsum. Aenean quis gravida dolor, sed ornare dui. Praesent imperdiet sit amet mi in luctus. </p>",
-      "sites": [
-        1
-      ]
-    },
     "pk": 22,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "La cuisine de Tayap",
-      "registration_required": false,
-      "url": "/livre-la-cuisine-de-tayap/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/faire-un-don/",
+      "title": "Faire un don",
+      "content": "<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod quis arcu et molestie. Aliquam eu venenatis arcu, in imperdiet nisi. Duis risus enim, congue sed maximus at, rhoncus at ipsum. Vestibulum sit amet pretium ex. Quisque augue ante, lacinia vel tristique vitae, efficitur ornare dui. Praesent posuere tempus sem, a condimentum lectus dictum vel. Fusce porta sem eget viverra vestibulum. Quisque eros sem, sollicitudin varius magna eget, aliquam volutpat nisl. Sed non massa a tortor tincidunt auctor vitae vitae ex. Donec a urna quis nulla venenatis faucibus eget nec magna. Mauris ac sollicitudin lorem.</p>\r\n\r\n<p>Mauris vel pharetra massa. Pellentesque posuere tincidunt tincidunt. Nulla pulvinar venenatis nisi, sed viverra erat malesuada vitae. Vivamus mauris elit, euismod rhoncus tempus ac, varius vitae enim. Fusce a dui et lectus ultricies tincidunt. Aliquam vel fermentum leo, in cursus tortor. Duis pellentesque dictum dui, nec malesuada mauris gravida sit amet. Nulla in elementum tellus. Vestibulum rutrum, dui quis iaculis finibus, tortor ante gravida velit, eget vehicula arcu eros vitae ligula. Nunc erat ipsum, vulputate aliquet sagittis vitae, tempus id arcu. Vestibulum eu nunc nec velit elementum lacinia. Fusce eros enim, efficitur nec feugiat a, egestas sed ipsum. Aenean quis gravida dolor, sed ornare dui. Praesent imperdiet sit amet mi in luctus. </p>",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 23,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Conditions g\u00e9n\u00e9rales de vente",
-      "registration_required": false,
-      "url": "/conditions-generales-de-vente/",
       "enable_comments": false,
-      "template_name": "",
+      "registration_required": false,
+      "sites": [
+        1
+      ],
+      "url": "/livre-la-cuisine-de-tayap/",
+      "title": "La cuisine de Tayap",
       "content": "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n",
-      "sites": [
-        1
-      ]
-    },
+      "template_name": ""
+    }
+  },
+  {
     "pk": 24,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Programme Vacances Solidaires",
-      "registration_required": false,
-      "url": "/programme-vacances-solidaires/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/conditions-generales-de-vente/",
+      "title": "Conditions g\u00e9n\u00e9rales de vente",
+      "content": "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 25,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Programme GREEN",
-      "registration_required": false,
-      "url": "/programme-green/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/programme-vacances-solidaires/",
+      "title": "Programme Vacances Solidaires",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 26,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Programme RARE",
-      "registration_required": false,
-      "url": "/programme-rare/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/programme-green/",
+      "title": "Programme GREEN",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 27,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Programme ILES",
-      "registration_required": false,
-      "url": "/programme-iles/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/programme-rare/",
+      "title": "Programme RARE",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 28,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Programme VET",
-      "registration_required": false,
-      "url": "/programme-vet/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/programme-iles/",
+      "title": "Programme ILES",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 29,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Documents Institutionnels",
-      "registration_required": false,
-      "url": "/documents-institutionnels/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/programme-vet/",
+      "title": "Programme VET",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 30,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Rapports Annuels",
-      "registration_required": false,
-      "url": "/rapports-annuels/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/documents-institutionnels/",
+      "title": "Documents Institutionnels",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 31,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Notre strat\u00e9gie de d\u00e9veloppement durable",
-      "registration_required": false,
-      "url": "/notre-strategie-de-developpement-durable/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/rapports-annuels/",
+      "title": "Rapports Annuels",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 32,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Nos r\u00e9alisations en chiffres",
-      "registration_required": false,
-      "url": "/nos-realisations-en-chiffres/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/notre-strategie-de-developpement-durable/",
+      "title": "Notre strat\u00e9gie de d\u00e9veloppement durable",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 33,
-    "model": "flatpages.flatpage"
-  },
-  {
+    "model": "flatpages.flatpage",
     "fields": {
-      "title": "Votre engagement",
-      "registration_required": false,
-      "url": "/votre-engagement/",
       "enable_comments": false,
-      "template_name": "",
-      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "registration_required": false,
       "sites": [
         1
-      ]
-    },
+      ],
+      "url": "/nos-realisations-en-chiffres/",
+      "title": "Nos r\u00e9alisations en chiffres",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
     "pk": 34,
-    "model": "flatpages.flatpage"
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "registration_required": false,
+      "sites": [
+        1
+      ],
+      "url": "/votre-engagement/",
+      "title": "Votre engagement",
+      "content": "<p>Cette page est en cours de r&eacute;daction. Elle sera bient&ocirc;t disponible.</p>\r\n",
+      "template_name": ""
+    }
+  },
+  {
+    "pk": 35,
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "registration_required": false,
+      "sites": [
+        1
+      ],
+      "url": "/politique_cookies/",
+      "title": "Politique d'utilisation des cookies",
+      "content": "<p>Ce site utilise des cookies pour faire fonctionner cerrtaines de ses fonctionnalit&eacute;s.</p>\r\n\r\n<p>Ceux-ci permettent de suivre l&#39;utilisateur anonymement lors de sa visite d&#39;une page &agrave; l&#39;autre sur le site. Il est ainsi possible d&#39;utiliser les fonctionnalit&eacute;s du panier et de la commande en ligne, de la cration et de l&#39;utilisation d&#39;un compte utilisateur, et d&#39;utiliser les formulaires (comme celui de contact et celui de r&eacute;servation de gite par exemple).</p>\r\n\r\n<p>En plus de cela, ce site utilise des services de soci&eacute;t&eacute;s externes qui peuvent placer ou utiliser elles-aussi des cookies de votre ordinateur, notamment :</p>\r\n\r\n<ul>\r\n\t<li>Le module Facebook vous permettant de vous connecter par leur interm&eacute;diaire</li>\r\n\t<li>Le module Persona (connexion par adresse email)</li>\r\n\t<li>Le module de cartographie Gmaps pr&eacute;sent sur certaines pages</li>\r\n\t<li>Le module Google Analytics permettant de faire l&#39;analyse anonyme du trafic du site.</li>\r\n</ul>\r\n\r\n<p>Il est possible de supprimer tous les cookies d&#39;un coup. Pour cela, suivez les indications fournies par Comment &ccedil;a marche <a href=\"http://www.commentcamarche.net/faq/1999-supprimer-ses-cookies\" onclick=\"window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=no,width=600'); return false;\">ici</a>.</p>\r\n",
+      "template_name": ""
+    }
   }
 ]
