@@ -6,6 +6,53 @@ from django.conf import settings
 
 from core.models.users import AgripoUser, CustomerData
 from core.models.shop import Product, Command, CommandProduct, Delivery
+from core.models.general import SiteConfiguration
+
+
+class ReservationForm(forms.Form):
+    CHOICES = (('maison_hote', 'Maison d\'hôtes'), ('ecolodge', 'Écolodge'))
+    type = forms.ChoiceField(choices=CHOICES, label="Hébergement")
+    CHOICES = (
+        ('classe_verte', 'Classe verte'),
+        ('agroutourisme', 'Agrotourisme'),
+        ('speleologie', 'Spéléologie'))
+    activity = forms.ChoiceField(choices=CHOICES, label="Activité")
+
+    arrival = forms.DateField(label="Date d'arrivée prévue",
+                              widget=forms.TextInput(attrs={'class': 'datepicker'}))
+    departure = forms.DateField(label="Date de départ prévue",
+                                widget=forms.TextInput(attrs={'class': 'datepicker'}))
+
+    first_name = forms.CharField(max_length=128, label="Votre prénom")
+    last_name = forms.CharField(max_length=128, label="Votre nom")
+    phone = forms.CharField(max_length=128, label="Votre numéro de téléphone")
+    email = forms.EmailField(label="Votre adresse email")
+
+    def send_email(self, **kwargs):
+        mail_title = "Agripo - Nouvelle réservation depuis le site"
+        html_content = "Bonjour,<br />"
+        html_content += "Une réservation vient d'être validée sur le site. Voici les données de l'utilisateur :<br /><br />"
+        html_content += "<b>Nom</b> : {} {}<br />".format(self.cleaned_data["first_name"], self.cleaned_data["last_name"])
+        html_content += "<b>Télephone</b> : {}<br />".format(self.cleaned_data["phone"])
+        html_content += "<b>E-mail</b> : {}<br /><br />".format(self.cleaned_data["email"])
+        html_content += "<b>Hébergement</b> : {}<br />".format(self.cleaned_data["type"])
+        html_content += "<b>Activité</b> : {}<br />".format(self.cleaned_data["activity"])
+        html_content += "<b>Date d'arrivée prévue</b> : {}<br />".format(
+            self.cleaned_data["arrival"].strftime('%d/%m/%Y'))
+        html_content += "<b>Date de départ prévue</b> : {}<br />".format(
+            self.cleaned_data["departure"].strftime('%d/%m/%Y'))
+
+        mail_content = strip_tags(html_content.replace("<br />", "\n"))
+        mail_from = settings.EMAIL_HOST_USER
+
+        config = SiteConfiguration.objects.get()
+        mail_to = [config.email]
+
+        try:
+            send_mail(mail_title, mail_content, mail_from, mail_to, fail_silently=False, html_message=html_content)
+        except smtplib.SMTPException:
+            # @todo log this!!!
+            pass
 
 
 class CheckoutForm(forms.ModelForm):

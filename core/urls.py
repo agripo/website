@@ -1,7 +1,7 @@
 from core.authentication import is_staging_server, is_development_server
 from django.conf.urls import url, patterns
 from django.contrib.auth.views import logout
-from django.views.generic import RedirectView, TemplateView, ListView, DetailView
+from django.views.generic import RedirectView, TemplateView, ListView
 from django.views.decorators.cache import never_cache
 
 from core import views
@@ -27,6 +27,9 @@ urlpatterns = [
     url(r'^requires_js$', views.RequiresJs.as_view(), name="requires_js"),
     url(r'^menu_(?P<page>[a-z_]+)/$', views.SubMenusPage.as_view(), name="menu_page"),
     url(r'^news/(?P<pk>[0-9]+)/$', views.NewsPage.as_view(), name="one_news_page"),
+    url(r'^reservation/$', views.ReservationView.as_view(), name="reservation_page"),
+    url(r'^reservation_ok/$', TemplateView.as_view(
+        template_name="core/reservation_ok.html"), name="reservation_ok_page"),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/shared/favicon.ico', permanent=True)),
 ]
 
