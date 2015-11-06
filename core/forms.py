@@ -25,7 +25,7 @@ class ReservationForm(forms.Form):
 
     first_name = forms.CharField(max_length=128, label="Votre prénom")
     last_name = forms.CharField(max_length=128, label="Votre nom")
-    phone = forms.CharField(max_length=128, label="Votre numéro de téléphone")
+    phone = forms.CharField(max_length=128, label="Votre numéro de téléphone", help_text="Utiliser le format international")
     email = forms.EmailField(label="Votre adresse email")
 
     def send_email(self, **kwargs):
