@@ -5,34 +5,20 @@ tag="$1"
 
 list_available_tags () {
     echo "List of all the tags on current branch : "
-    git for-each-ref --sort='*authordate' --shell | \
-    while read entry
+    tags=`git for-each-ref --format='%(*committerdate:raw)%(committerdate:raw) %(refname) %(*objectname) %(objectname)' refs/tags | sort -n | awk '{ print $3; }'`
+    for word in $tags
     do
-        it_s_a_tag=false
-        c=0
-        for word in $entry
-        do
-            if [ "$c" -eq 1 ]; then
-                if [ "$word" = "'tag'" ]; then
-                    it_s_a_tag=true
-                fi
-            elif [ "$c" -eq 2 ]; then
-                if [ "$it_s_a_tag" = true ]; then
-                    tag="${word:11:${#word}-12}"
-                    on_branch=`git branch --contains $tag | grep "*"`
-                    if [ "$on_branch" != "" ]; then
-                        echo "$tag"
-                    fi
-                fi
-            fi
-            c=$((c+1))
-        done
+        tag="${word:10}"
+        on_branch=`git branch --contains $tag | grep "*"`
+        if [ "$on_branch" != "" ]; then
+            echo "$tag"
+        fi
     done
 }
 
 if [ -z $tag ]
     then
-        echo "You should pass a git tag as first argument to this command. Here are the available tags : "
+        echo "You should pass a git tag as first argument to this command."
         list_available_tags
         exit
 fi
