@@ -12,7 +12,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
 import core.exceptions as core_exceptions
-from core.forms import CheckoutForm
+from core.forms import CheckoutForm, ReservationForm
 from core.authentication import is_production_server
 from core.models.news import News
 from core.models.partners import Partner
@@ -92,6 +92,20 @@ class UpdateStock(TemplateView):
 
         return products_list
 
+
+class ReservationView(FormView):
+    template_name = "core/reservation.html"
+    form_class = ReservationForm
+
+    def get_success_url(self):
+        return reverse("reservation_ok_page")
+
+    def form_valid(self, form):
+        form.send_email()
+        return super().form_valid(form)
+
+    def intro(self):
+        return FlatPage.objects.get(url="/intro_reservation/")
 
 class Checkout(CreateView):
     model = Command

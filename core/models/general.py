@@ -39,6 +39,11 @@ class SiteConfiguration(SingletonModel):
         config_name='awesome_ckeditor', verbose_name='Page d\'accueil',
         help_text="Contenu de la page d'accueil"
     )
+    email = models.EmailField(
+        default="contact@agripo.net",
+        verbose_name='Adresse email',
+        help_text="Cette adresse sera utilisée pour l'envoi d'emails de réservation"
+    )
     analytics_code = models.TextField(
         default="", verbose_name="Code d'Analytics", blank=True,
         help_text="Collez ici le code fourni qui doit être inséré dans toutes les pages sans l'"
