@@ -28,6 +28,8 @@ class ReservationForm(forms.Form):
     phone = forms.CharField(max_length=128, label="Votre numéro de téléphone", help_text="Utiliser le format international")
     email = forms.EmailField(label="Votre adresse email")
 
+    message = forms.CharField(widget=forms.Textarea(), label="Message", help_text="Champ facultatif")
+
     def send_email(self, **kwargs):
         mail_title = "Agripo - Nouvelle réservation depuis le site"
         html_content = "Bonjour,<br />"
@@ -41,6 +43,9 @@ class ReservationForm(forms.Form):
             self.cleaned_data["arrival"].strftime('%d/%m/%Y'))
         html_content += "<b>Date de départ prévue</b> : {}<br />".format(
             self.cleaned_data["departure"].strftime('%d/%m/%Y'))
+        if self.cleaned_data["message"]:
+            html_content += "<b>Message</b> : <br />"
+            html_content += self.cleaned_data["message"].replace("\n", "<br />")
 
         mail_content = strip_tags(html_content.replace("<br />", "\n"))
         mail_from = settings.EMAIL_HOST_USER
