@@ -155,7 +155,8 @@ CKEDITOR_CONFIGS = {
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'insert', 'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-        ]
+        ],
+        'extraAllowedContent': 'iframe[*]',
     },
 }
 
