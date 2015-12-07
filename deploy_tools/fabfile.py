@@ -20,8 +20,8 @@ def deploy(tag):
         STAGING = True
         server_type_name = "staging"
     else:
-        if not tag.lower().startswith("release-"):
-            raise Exception('Deployment on production is limited to the "release-*" tags')
+        if not tag.lower().startswith("release-") and not tag.lower().startswith("hotfix-"):
+            raise Exception('Deployment on production is limited to the "release-*" and "hotfix-*" tags')
 
     print("Deploying tag {} to {} ({})".format(tag, env.host, server_type_name))
 
