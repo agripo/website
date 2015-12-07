@@ -37,22 +37,6 @@
                 overflow: hidden;
             }
         </style>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Bienvenue dans notre boutique</h1>
-                <p>
-                    Pour varier vos menus, ou découvrir comment cuisiner les produits de la forêt équatoriale,
-                    les femmes de Tayap vous livrent quelques-unes de leurs savoureuses recettes dans
-                    <a href="/livre-la-cuisine-de-tayap/">« La cuisine de Tayap »</a>.
-                </p>
-                <p>
-
-                    Voir nos <a href="/conditions-generales-de-vente/">conditions de vente</a>
-                </p>
-            </div>
-        </div>
-        <hr />
         <div class="row">
             <style>
                 .product_in_stock{
@@ -75,98 +59,99 @@
                 .more_info_button{
                     cursor: pointer;
                 }
-            </style>
-            {% for cat in categories %}
-                <div class="one_product_category">
-                    <div class="col-md-12">
-                        <h2>{{ cat.name }}</h2>
-                    </div>
-                    {% for prod in cat.product_set.all %}
-                        <div class="col-md-6">
-                            <div class="panel panel-default one_product" id="product_{{ prod.id }}">
-                                <div class="panel-heading">
-                                    <h3>
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span class="product_name">{{ prod.name }}</span>
-                                    </h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="product_data">
-                                        <div class="product_image">
-                                            <img src="/media/{{ prod.image }}"/>
-                                            {% if prod.is_available %}
-                                                <div class="product_in_stock">
-                                                    <i class="fa fa-check"></i>
-                                                    En stock
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="product_description">
-                                            {% if prod.scientific_name %}
-                                                <p style="font-style: italic">{{ prod.scientific_name }}</p>
-                                            {% endif %}
-                                            <p>
-                                                <strong>Prix :</strong>
-                                                {{ prod.price }}&nbsp;FCFA
-                                                {{ prod.get_quantity_type_display }}
+        </style>
+            <div class="one_product_category">
+                <div class="col-md-12">
+                    <a href="/la-boutique/">Voir toutes les catégories de la boutique</a>
+                </div>
+                <div class="col-md-12">
+                    <h1>Boutique - {{ category.name }}</h1>
+                </div>
+                {% for prod in category.product_set.all %}
+                    <div class="col-md-6">
+                        <div class="panel panel-default one_product" id="product_{{ prod.id }}">
+                            <div class="panel-heading">
+                                <h3>
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span class="product_name">{{ prod.name }}</span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="product_data">
+                                    <div class="product_image">
+                                        <img src="/media/{{ prod.image }}"/>
+                                        {% if prod.is_available %}
+                                            <div class="product_in_stock">
+                                                <i class="fa fa-check"></i>
+                                                En stock
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="product_description">
+                                        {% if prod.scientific_name %}
+                                            <p style="font-style: italic">{{ prod.scientific_name }}</p>
+                                        {% endif %}
+                                        <p>
+                                            <strong>Prix :</strong>
+                                            {{ prod.price }}&nbsp;FCFA
+                                            {{ prod.get_quantity_type_display }}
+                                        </p>
+                                        {% if prod.description %}
+                                            <p class="more_info_button" onclick="$(this).parents('.panel-body').hide()">
+                                                <i class="fa fa-plus"></i>
+                                                Plus d'infos
                                             </p>
-                                            {% if prod.description %}
-                                                <p class="more_info_button" onclick="$(this).parents('.panel-body').hide()">
-                                                    <i class="fa fa-plus"></i>
-                                                    Plus d'infos
+                                        {% endif %}
+                                        {% if prod.is_available %}
+                                            <form action="{% url "requires_js" %}?back={{ request.get_full_path }}"
+                                                  method="post" class="add_to_cart" onsubmit="return false">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id" value="{{ prod.id }}"/>
+                                                <p class="add_to_cart_form">
+                                                    Quantité :
+                                                    <input name="quantity" id="quantity_for_{{ prod.id }}" value="" type="number" style="width:35px;" placeholder="Qté"/>
+                                                    <input type="submit" value="OK"/>
                                                 </p>
-                                            {% endif %}
-                                            {% if prod.is_available %}
-                                                <form action="{% url "requires_js" %}?back={{ request.get_full_path }}"
-                                                      method="post" class="add_to_cart" onsubmit="return false">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="id" value="{{ prod.id }}"/>
-                                                    <p class="add_to_cart_form">
-                                                        Quantité :
-                                                        <input name="quantity" id="quantity_for_{{ prod.id }}" value="" type="number" style="width:35px;" placeholder="Qté"/>
-                                                        <input type="submit" value="OK"/>
-                                                    </p>
-                                                    <p class="add_to_cart_confirm_message">
-                                                        <i class="fa fa-check"></i>
-                                                        Panier mis à jour
-                                                    </p>
-                                                    <p class="add_to_cart_not_enough_stock_message">
-                                                        <i class="fa fa-exclamation"></i>
-                                                        Stock insuffisant. Max : QUANTITY.
-                                                    </p>
-                                                    <p class="add_to_cart_no_stock_message">
-                                                        <i class="fa fa-exclamation"></i>
-                                                        Produit indisponible
-                                                    </p>
-                                                    <p class="add_to_cart_please_wait_message">
-                                                        <i class="fa fa-clock-o"></i>
-                                                        Veuillez patienter
-                                                    </p>
-                                                </form>
-                                            {% else %}
-                                                <p class="add_to_cart_not_available">
+                                                <p class="add_to_cart_confirm_message">
+                                                    <i class="fa fa-check"></i>
+                                                    Panier mis à jour
+                                                </p>
+                                                <p class="add_to_cart_not_enough_stock_message">
                                                     <i class="fa fa-exclamation"></i>
-                                                    Indisponible pour le moment
+                                                    Stock insuffisant. Max : QUANTITY.
                                                 </p>
-                                            {% endif %}
-                                        </div>
+                                                <p class="add_to_cart_no_stock_message">
+                                                    <i class="fa fa-exclamation"></i>
+                                                    Produit indisponible
+                                                </p>
+                                                <p class="add_to_cart_please_wait_message">
+                                                    <i class="fa fa-clock-o"></i>
+                                                    Veuillez patienter
+                                                </p>
+                                            </form>
+                                        {% else %}
+                                            <p class="add_to_cart_not_available">
+                                                <i class="fa fa-exclamation"></i>
+                                                Indisponible pour le moment
+                                            </p>
+                                        {% endif %}
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="product_more_info_text">
-                                    <p>{{ prod.description }}</p>
-                                    <p>
-                                        <input type="button" value="Retour"
-                                              onclick="$(this).parents('.one_product').children('.panel-body').show()"/>
-                                    </p>
-                                </div>
+                            <div class="product_more_info_text">
+                                <p>{{ prod.description }}</p>
+                                <p>
+                                    <input type="button" value="Retour"
+                                          onclick="$(this).parents('.one_product').children('.panel-body').show()"/>
+                                </p>
                             </div>
                         </div>
-                    {% empty %}
-                        <div class="one_product_category_empty">Il n'y a aucun produit dans cette catégorie pour le moment</div>
-                    {% endfor %}
-                </div>
-            {% endfor %}
+                    </div>
+                {% empty %}
+                    <div class="one_product_category_empty">Il n'y a aucun produit dans cette catégorie pour le moment</div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

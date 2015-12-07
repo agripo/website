@@ -1,5 +1,6 @@
 import re
 from django.utils import timezone
+import time
 
 from .base import FunctionalTest
 from django.core.urlresolvers import reverse
@@ -25,6 +26,7 @@ class ShopPageTest(FunctionalTest):
             except NoSuchElementException:
                 pass
             else:
+                print("Setting ", quantity, " for product ", i, " on ", number)
                 prod.clear()
                 prod.send_keys(quantity)
                 all_products[i].find_element_by_css_selector("input[type='submit']").click()
@@ -42,13 +44,14 @@ class ShopPageTest(FunctionalTest):
         user_alpha_email = faker.email()  # We want a different email each time (for staging)
 
         # The shop already contains some products
-        self.populate_db(categories_count=2, products_count=2)
+        self.populate_db(categories_count=1, products_count=5)
 
         HomePage(self).show()
 
         # Alpha gets connected as manager, then goes to the shop page
         self.create_autoconnected_session(user_alpha_email, as_manager=True, as_farmer=True)
         shop = ShopPage(self).show()
+        time.sleep(2)
 
         # He confirms his cart is empty
         self.assert_is_displayed("empty_cart", by="class")
@@ -71,7 +74,7 @@ class ShopPageTest(FunctionalTest):
         the_product_name = faker.sentence()
         self.browser.find_element_by_id(shop.id_field_name).send_keys(the_product_name)
         select = Select(self.browser.find_element_by_id(shop.id_field_category))
-        select.select_by_index(2)
+        select.select_by_index(1)
         self.browser.find_element_by_id(shop.id_field_price).send_keys('100')
         message = self.admin_save('/admin/core/product/')
         new_product_id = re.compile("[^0-9]+([0-9]+)[^0-9]+").match(message).group(1)
@@ -85,8 +88,11 @@ class ShopPageTest(FunctionalTest):
         self.browser.find_element_by_id('id_stock').send_keys('10')
         self.admin_save('/admin/core/stock/')
 
-        # He confirms the shop page contains the new product
+        # He goes to the shop and enters the corresponding category
         page = shop.show()
+        page.enter_category(1)
+
+        # He confirms the shop page contains the new product
         products = self.browser.find_elements_by_css_selector('.product_name')
         found = False
         for product in products:
@@ -118,6 +124,9 @@ class ShopPageTest(FunctionalTest):
         self.add_products_to_cart(2, quantity=0)
         self.browser.find_element_by_id("cart_is_empty")  # should not raise
 
+        # He goes back to this page
+        page = shop.show()
+        page.enter_category(1)
         # He adds again two products
         self.add_products_to_cart(2, 2)  # two products with quantity = 2
         self.add_products_to_cart(1, 1)  # the first's quantity is changed to 1
@@ -130,6 +139,9 @@ class ShopPageTest(FunctionalTest):
 
         # He selects his destination and gets a confirmation for his command
         self.select_option_by_index('id_delivery', 1, True)
+        self.browser.find_element_by_id('id_first_name').send_keys('First name')
+        self.browser.find_element_by_id('id_last_name').send_keys('Last name')
+        self.browser.find_element_by_id('id_phone').send_keys('01 02 03 04 05')
         self.browser.find_element_by_id("submit_command").click()  # should not raise
 
         # He should see an Thank you message

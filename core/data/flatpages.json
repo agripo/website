@@ -1,302 +1,317 @@
 [
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p>\r\n<strong>Agriculteurs professionnels du Cameroun, AGRIPO</strong> est un outil de d\u00e9veloppement collectif cr\u00e9\u00e9 par la communaut\u00e9 de Tayap. La d\u00e9marche a pris la forme l\u00e9gale d\u2019un Groupe d\u2019Initiative Commune le 18 janvier 2010. Elle est devenue une coop\u00e9rative d\u2019appui au d\u00e9veloppement communautaire depuis le 19 f\u00e9vrier 2013. Son si\u00e8ge est situ\u00e9 au village de Tayap au Cameroun. Son but est de favoriser le d\u00e9veloppement rural en assurant \u00e0 titre exp\u00e9rimental le d\u00e9veloppement int\u00e9gr\u00e9 d\u2019un village africain (Tayap) par un appui technique et humain dans le domaine agricole et des fili\u00e8res \u00e9conomiques porteuses en milieu rural tout en menant des actions sociales et environnementales.\r\n</p>\r\n<p>\r\nLes principaux axes d'action sont\u00a0:\r\n<ul>\r\n<li>D\u00e9veloppement communautaire int\u00e9gr\u00e9 (am\u00e9nagement du territoire, planification locale, d\u00e9veloppement durable holistique)</li>\r\n<li>D\u00e9veloppement local d\u2019une \u00e9conomie verte performante (d\u00e9veloppement d\u2019une diversit\u00e9 d\u2019activit\u00e9s g\u00e9n\u00e9ratrices de revenus)</li>\r\n<li>D\u00e9veloppement d\u00e9centralis\u00e9 des infrastructures de base (eau, \u00e9nergie, habitat).</li>\r\n</ul>\r\n</p>\r\n<p>\r\nDans un premier temps, une quinzaine d\u2019agriculteurs se sont engag\u00e9s pour la professionnalisation de l\u2019agriculture autour du programme de d\u00e9veloppement int\u00e9gr\u00e9 \u00ab <strong>Les Vergers \u00c9cologiques de Tayap</strong> \u00bb . <br />\r\nLe groupe fonctionne gr\u00e2ce \u00e0 la motivation et \u00e0 la contribution de ses membres (main d\u2019\u0153uvre et financement) et gr\u00e2ce \u00e0 l\u2019aide pr\u00e9cieuse d\u2019une trentaine de b\u00e9n\u00e9voles temporaires.\r\n</p>\r\n<p>\r\nPar la suite, AGRIPO souhaitant aller plus loin dans le d\u00e9veloppement du village, a pris l\u2019initiative d\u2019autres projets.\r\n<ul>\r\n<li><strong>Projet d\u2019\u00c9lectrification solaire (ILES)</strong> du village de Tayap visant \u00e0 connecter toutes les maisons du village \u00e0 un micro-r\u00e9seau \u00e9lectrique en utilisant les pr\u00e9paiements des consommations quotidiennes d\u2019\u00e9lectricit\u00e9 par le t\u00e9l\u00e9phone mobile en appui \u00e0 la durabilit\u00e9 du service communautaire d\u2019\u00e9nergie solaire des populations rurales. </li>\r\n<li><strong>R\u00e9seau d\u00e9centralis\u00e9 de distribution autonome de l\u2019eau potable (RARE)</strong> en milieu rural  par la mise en place d\u2019une plateforme de dessertes individuelles des habitations et des centres communautaires.</li>\r\n<li><strong>Programme solidaire de d\u00e9veloppement d\u2019une \u00e9conomie performante de proximit\u00e9 (GREEN)</strong> par la mise en \u0153uvre  d\u2019une trentaine d\u2019auto-entreprises rurales.</li>\r\n<li><strong>Programme de vacances solidaires</strong> qui noue des partenariats entre les universit\u00e9s et les communaut\u00e9s rirales autour d\u2019un projet f\u00e9d\u00e9rateur.</li>\r\n</ul>\r\n</p>\r\n\r\n<p>\r\nGroupe d\u2019analyse, de recherche-action et de promotion d\u00e9di\u00e9 au d\u00e9veloppement rural dans ses dimensions \u00e9conomique, social et environnemental, il dispose d\u2019une unit\u00e9 \u00e9ditoriale (AGRIPO Editions), dont l\u2019objectif est de faire conna\u00eetre la vie des populations rurales d\u2019Afrique Subsaharienne. Bandes dessin\u00e9es, contes, publications techniques, livres de cuisine, guides p\u00e9dagogiques, magazines, applications de t\u00e9l\u00e9phonie mobile, jeux vid\u00e9o, \u2026: autant de productions culturelles qui visent \u00e0 faire comprendre et \u00e0 agir en faveur du d\u00e9veloppement rural.\r\n</p>",
-    "url": "/qui-sommes-nous/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Qui sommes nous?"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p>\r\n<strong>Agriculteurs professionnels du Cameroun, AGRIPO</strong> est un outil de d\u00e9veloppement collectif cr\u00e9\u00e9 par la communaut\u00e9 de Tayap. La d\u00e9marche a pris la forme l\u00e9gale d\u2019un Groupe d\u2019Initiative Commune le 18 janvier 2010. Elle est devenue une coop\u00e9rative d\u2019appui au d\u00e9veloppement communautaire depuis le 19 f\u00e9vrier 2013. Son si\u00e8ge est situ\u00e9 au village de Tayap au Cameroun. Son but est de favoriser le d\u00e9veloppement rural en assurant \u00e0 titre exp\u00e9rimental le d\u00e9veloppement int\u00e9gr\u00e9 d\u2019un village africain (Tayap) par un appui technique et humain dans le domaine agricole et des fili\u00e8res \u00e9conomiques porteuses en milieu rural tout en menant des actions sociales et environnementales.\r\n</p>\r\n<p>\r\nLes principaux axes d'action sont\u00a0:\r\n<ul>\r\n<li>D\u00e9veloppement communautaire int\u00e9gr\u00e9 (am\u00e9nagement du territoire, planification locale, d\u00e9veloppement durable holistique)</li>\r\n<li>D\u00e9veloppement local d\u2019une \u00e9conomie verte performante (d\u00e9veloppement d\u2019une diversit\u00e9 d\u2019activit\u00e9s g\u00e9n\u00e9ratrices de revenus)</li>\r\n<li>D\u00e9veloppement d\u00e9centralis\u00e9 des infrastructures de base (eau, \u00e9nergie, habitat).</li>\r\n</ul>\r\n</p>\r\n<p>\r\nDans un premier temps, une quinzaine d\u2019agriculteurs se sont engag\u00e9s pour la professionnalisation de l\u2019agriculture autour du programme de d\u00e9veloppement int\u00e9gr\u00e9 \u00ab <strong>Les Vergers \u00c9cologiques de Tayap</strong> \u00bb . <br />\r\nLe groupe fonctionne gr\u00e2ce \u00e0 la motivation et \u00e0 la contribution de ses membres (main d\u2019\u0153uvre et financement) et gr\u00e2ce \u00e0 l\u2019aide pr\u00e9cieuse d\u2019une trentaine de b\u00e9n\u00e9voles temporaires.\r\n</p>\r\n<p>\r\nPar la suite, AGRIPO souhaitant aller plus loin dans le d\u00e9veloppement du village, a pris l\u2019initiative d\u2019autres projets.\r\n<ul>\r\n<li><strong>Projet d\u2019\u00c9lectrification solaire (ILES)</strong> du village de Tayap visant \u00e0 connecter toutes les maisons du village \u00e0 un micro-r\u00e9seau \u00e9lectrique en utilisant les pr\u00e9paiements des consommations quotidiennes d\u2019\u00e9lectricit\u00e9 par le t\u00e9l\u00e9phone mobile en appui \u00e0 la durabilit\u00e9 du service communautaire d\u2019\u00e9nergie solaire des populations rurales. </li>\r\n<li><strong>R\u00e9seau d\u00e9centralis\u00e9 de distribution autonome de l\u2019eau potable (RARE)</strong> en milieu rural  par la mise en place d\u2019une plateforme de dessertes individuelles des habitations et des centres communautaires.</li>\r\n<li><strong>Programme solidaire de d\u00e9veloppement d\u2019une \u00e9conomie performante de proximit\u00e9 (GREEN)</strong> par la mise en \u0153uvre  d\u2019une trentaine d\u2019auto-entreprises rurales.</li>\r\n<li><strong>Programme de vacances solidaires</strong> qui noue des partenariats entre les universit\u00e9s et les communaut\u00e9s rirales autour d\u2019un projet f\u00e9d\u00e9rateur.</li>\r\n</ul>\r\n</p>\r\n\r\n<p>\r\nGroupe d\u2019analyse, de recherche-action et de promotion d\u00e9di\u00e9 au d\u00e9veloppement rural dans ses dimensions \u00e9conomique, social et environnemental, il dispose d\u2019une unit\u00e9 \u00e9ditoriale (AGRIPO Editions), dont l\u2019objectif est de faire conna\u00eetre la vie des populations rurales d\u2019Afrique Subsaharienne. Bandes dessin\u00e9es, contes, publications techniques, livres de cuisine, guides p\u00e9dagogiques, magazines, applications de t\u00e9l\u00e9phonie mobile, jeux vid\u00e9o, \u2026: autant de productions culturelles qui visent \u00e0 faire comprendre et \u00e0 agir en faveur du d\u00e9veloppement rural.\r\n</p>",
+      "url": "/qui-sommes-nous/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Qui sommes nous?"
+    },
+    "pk": 1
   },
-  "pk": 1
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<h3>Conditions d\u2019entr\u00e9e et de sortie au Cameroun </h3>\r\n<p>Un visa est n\u00e9cessaire pour entrer au Cameroun. Il est d\u00e9livr\u00e9 par les repr\u00e9sentations diplomatiques du sur pr\u00e9sentation, entre autres, d\u2019un passeport en cours de validit\u00e9 ainsi que d\u2019une lettre d\u2019invitation ou d\u2019une r\u00e9servation, qu\u2019AGRIPO vous fournira d\u00e8s confirmation du voyage. Le visa est accord\u00e9 au plus tard 3 jours \u00e0 compter de la date de d\u00e9p\u00f4t de la demande. <br />\r\nPour les touristes originaires de pays ne disposant pas de repr\u00e9sentations diplomatiques, AGRIPO peut prendre des dispositions afin que des visas leur soient d\u00e9livr\u00e9s aux a\u00e9roports et autres postes fronti\u00e8res. Dans ce cas, il est imp\u00e9ratif d\u2019en faire la demande, au plus tard, un mois avant le d\u00e9part.<br />\r\nLes voyageurs doivent \u00eatre munis de leur carnet international de vaccinations \u00e0 jour (notamment contre la fi\u00e8vre jaune).<br />\r\nPour leur sortie du Cameroun, pr\u00e9voyez le r\u00e8glement de la taxe a\u00e9roportuaire d\u2019une valeur de 10\u00a0000 FCFA (soit environ 15 euros).\r\n</p>\r\n\r\n<h3>Fuseau horaire  </h3>\r\n<p>Fuseau horaire toute l\u2019ann\u00e9e : GMT+ 1 heure</p>\r\n\r\n<h3>Monnaie </h3>\r\n<p>\r\nLa monnaie est le franc CFA.<br />\r\n1 euro = 655,957 francs CFA (FCFA ou XAF)<br />\r\nOutil de conversion\u00a0: <a href=\"http://www.oanda.com/lang/fr/currency/converter/\" target=\"_blank\">http://www.oanda.com/lang/fr/currency/converter/</a><br />\r\nLes transferts mon\u00e9taires sont possibles par op\u00e9rations bancaires, ch\u00e8ques de voyage et cartes de cr\u00e9dit. <br />\r\nEn fonction de votre localisation, AGRIPO propose des paiements par virement bancaire sur un compte aux USA, au Canada, en Europe ou au Cameroun ainsi que des op\u00e9rations de change sans frais. \r\n</p>\r\n\r\n<h3>T\u00e9l\u00e9phone et Internet</h3>\r\n<p>\r\nIndicatif international (Tel/Fax) : 237+ les huit chiffres de num\u00e9rotation locale. <br />\r\nToutes les chambres des \u00e9cog\u00eetes sont \u00e9quip\u00e9es d\u2019un t\u00e9l\u00e9phone. Les frais de communication sont \u00e0 votre charge. <br />\r\nL\u2019acc\u00e8s \u00e0 Internet est assur\u00e9 par une compagnie de t\u00e9l\u00e9phonie mobile, il est gratuit. \r\n</p>\r\n\r\n<h3>Electricit\u00e9 </h3>\r\n<p>Le courant \u00e9lectrique est de 220 V. Les prises correspondent aux normes europ\u00e9ennes. </p>\r\n\r\n<h3>Horaires d\u2019ouverture des services \u00e9cotouristiques \u00e0 Tayap</h3>\r\n<p>Tous les services \u00e9co-touristiques sont accessibles, 7 jours/7, de 7h30 \u00e0 18h00. Une permanence est assur\u00e9e pour les urgences de 18h00 \u00e0 7h30.</p>\r\n\r\n\r\n<h3>Restauration</h3>\r\n<p>Plusieurs possibilit\u00e9s pour savourer la cuisine africaine et les fruits tropicaux\u00a0: chez l\u2019habitant, cuisiner soi-m\u00eame, restaurant avec menu journalier </p>\r\n\r\n<h3>Prises de vues photographiques </h3>\r\n<p>A Tayap, toutes les prises de vue sont libres et gratuites. </p>\r\n\r\n<h3>Climat</h3>\r\n<p>Comme dans toute la zone foresti\u00e8re du pays, \u00e0 TAYAP, la saison s\u00e8che commence en novembre et dure jusqu\u2019en f\u00e9vrier. Elle est suivie d\u2019une petite saison pluvieuse entre mars et mai, puis d\u2019une petite saison s\u00e8che entre mai et juin et d\u2019une grosse saison de pluies d'ao\u00fbt \u00e0 fin septembre. La temp\u00e9rature moyenne y est de 26\u00b0C. Les vents y sont faibles.\u00a0 </p>\r\n\r\n<h3>Informations sant\u00e9</h3>\r\n<p>\r\nA l\u2019arriv\u00e9e, vous devez \u00eatre \u00e0 jour avec les vaccinations universelles (notamment contre la fi\u00e8vre jaune) et il est recommand\u00e9 de vous pr\u00e9munir contre le paludisme. <br />\r\nLes h\u00f4pitaux de Yaound\u00e9 et de Douala assurent une offre de soins compl\u00e8te. Un m\u00e9decin est install\u00e9 \u00e0 8 km de la localit\u00e9.<br />\r\nAGRIPO vous offre la possibilit\u00e9 de contracter une assurance maladie (optionnelle) pour la dur\u00e9e de votre s\u00e9jour. \r\n</p>\r\n",
-    "url": "/informations-pratiques/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Informations pratiques"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<h3>Conditions d\u2019entr\u00e9e et de sortie au Cameroun </h3>\r\n<p>Un visa est n\u00e9cessaire pour entrer au Cameroun. Il est d\u00e9livr\u00e9 par les repr\u00e9sentations diplomatiques du sur pr\u00e9sentation, entre autres, d\u2019un passeport en cours de validit\u00e9 ainsi que d\u2019une lettre d\u2019invitation ou d\u2019une r\u00e9servation, qu\u2019AGRIPO vous fournira d\u00e8s confirmation du voyage. Le visa est accord\u00e9 au plus tard 3 jours \u00e0 compter de la date de d\u00e9p\u00f4t de la demande. <br />\r\nPour les touristes originaires de pays ne disposant pas de repr\u00e9sentations diplomatiques, AGRIPO peut prendre des dispositions afin que des visas leur soient d\u00e9livr\u00e9s aux a\u00e9roports et autres postes fronti\u00e8res. Dans ce cas, il est imp\u00e9ratif d\u2019en faire la demande, au plus tard, un mois avant le d\u00e9part.<br />\r\nLes voyageurs doivent \u00eatre munis de leur carnet international de vaccinations \u00e0 jour (notamment contre la fi\u00e8vre jaune).<br />\r\nPour leur sortie du Cameroun, pr\u00e9voyez le r\u00e8glement de la taxe a\u00e9roportuaire d\u2019une valeur de 10\u00a0000 FCFA (soit environ 15 euros).\r\n</p>\r\n\r\n<h3>Fuseau horaire  </h3>\r\n<p>Fuseau horaire toute l\u2019ann\u00e9e : GMT+ 1 heure</p>\r\n\r\n<h3>Monnaie </h3>\r\n<p>\r\nLa monnaie est le franc CFA.<br />\r\n1 euro = 655,957 francs CFA (FCFA ou XAF)<br />\r\nOutil de conversion\u00a0: <a href=\"http://www.oanda.com/lang/fr/currency/converter/\" target=\"_blank\">http://www.oanda.com/lang/fr/currency/converter/</a><br />\r\nLes transferts mon\u00e9taires sont possibles par op\u00e9rations bancaires, ch\u00e8ques de voyage et cartes de cr\u00e9dit. <br />\r\nEn fonction de votre localisation, AGRIPO propose des paiements par virement bancaire sur un compte aux USA, au Canada, en Europe ou au Cameroun ainsi que des op\u00e9rations de change sans frais. \r\n</p>\r\n\r\n<h3>T\u00e9l\u00e9phone et Internet</h3>\r\n<p>\r\nIndicatif international (Tel/Fax) : 237+ les huit chiffres de num\u00e9rotation locale. <br />\r\nToutes les chambres des \u00e9cog\u00eetes sont \u00e9quip\u00e9es d\u2019un t\u00e9l\u00e9phone. Les frais de communication sont \u00e0 votre charge. <br />\r\nL\u2019acc\u00e8s \u00e0 Internet est assur\u00e9 par une compagnie de t\u00e9l\u00e9phonie mobile, il est gratuit. \r\n</p>\r\n\r\n<h3>Electricit\u00e9 </h3>\r\n<p>Le courant \u00e9lectrique est de 220 V. Les prises correspondent aux normes europ\u00e9ennes. </p>\r\n\r\n<h3>Horaires d\u2019ouverture des services \u00e9cotouristiques \u00e0 Tayap</h3>\r\n<p>Tous les services \u00e9co-touristiques sont accessibles, 7 jours/7, de 7h30 \u00e0 18h00. Une permanence est assur\u00e9e pour les urgences de 18h00 \u00e0 7h30.</p>\r\n\r\n\r\n<h3>Restauration</h3>\r\n<p>Plusieurs possibilit\u00e9s pour savourer la cuisine africaine et les fruits tropicaux\u00a0: chez l\u2019habitant, cuisiner soi-m\u00eame, restaurant avec menu journalier </p>\r\n\r\n<h3>Prises de vues photographiques </h3>\r\n<p>A Tayap, toutes les prises de vue sont libres et gratuites. </p>\r\n\r\n<h3>Climat</h3>\r\n<p>Comme dans toute la zone foresti\u00e8re du pays, \u00e0 TAYAP, la saison s\u00e8che commence en novembre et dure jusqu\u2019en f\u00e9vrier. Elle est suivie d\u2019une petite saison pluvieuse entre mars et mai, puis d\u2019une petite saison s\u00e8che entre mai et juin et d\u2019une grosse saison de pluies d'ao\u00fbt \u00e0 fin septembre. La temp\u00e9rature moyenne y est de 26\u00b0C. Les vents y sont faibles.\u00a0 </p>\r\n\r\n<h3>Informations sant\u00e9</h3>\r\n<p>\r\nA l\u2019arriv\u00e9e, vous devez \u00eatre \u00e0 jour avec les vaccinations universelles (notamment contre la fi\u00e8vre jaune) et il est recommand\u00e9 de vous pr\u00e9munir contre le paludisme. <br />\r\nLes h\u00f4pitaux de Yaound\u00e9 et de Douala assurent une offre de soins compl\u00e8te. Un m\u00e9decin est install\u00e9 \u00e0 8 km de la localit\u00e9.<br />\r\nAGRIPO vous offre la possibilit\u00e9 de contracter une assurance maladie (optionnelle) pour la dur\u00e9e de votre s\u00e9jour. \r\n</p>\r\n",
+      "url": "/informations-pratiques/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Informations pratiques"
+    },
+    "pk": 2
   },
-  "pk": 2
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p>\r\nLe Cameroun se situe en Afrique centrale. Il longe la baie de Biafra. Il est limitrophe avec le Nig\u00e9ria, la Guin\u00e9e \u00e9quatoriale, le Congo, le Gabon, la R\u00e9publique Centrafricaine et le Tchad.\r\n</p>\r\n\r\n<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8106410.187734502!2d12.146831843750004!3d7.2170877466400505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10613753703e0f21%3A0x2b03c44599829b53!2sCameroun!5e0!3m2!1sfr!2sus!4v1442224825026\" width=\"100%\" height=\"250\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>\r\n\r\n<p>\r\nLe Cameroun comptait 22 millions d\u2019habitants (en 2013) et plus de 180 groupes ethniques. Les plus grandes villes sont DOUALA, la capitale \u00e9conomique, dont la population est estim\u00e9e \u00e0  plus de 2 millions d\u2019habitants et YAOUNDE, la capitale politique du pays, qui abrite une population de plus de 1 million d\u2019habitants. \r\n</p>\r\n\r\n<p>\r\nLe pays a \u00e9t\u00e9 fond\u00e9 en 1960,\u00a0apr\u00e8s la fusion de l'ancien Cameroun fran\u00e7ais et d\u2019une partie du Cameroun britannique. Par cons\u00e9quent, les langues officielles sont le fran\u00e7ais et l'anglais. On y parle aussi 24 des principales langues africaines.\r\n</p>\r\n\r\n<p>\r\nLe Cameroun est l\u2019un des pays les plus vari\u00e9s d'Afrique en raison de son emplacement, de son climat et de sa population. \u00a0<br />\r\nUne grande diversit\u00e9 de reliefs\u00a0: plaines c\u00f4ti\u00e8res au sud-ouest, plateaux accident\u00e9s au centre, montagnes \u00e0 l'ouest et plaines au nord. Le Mont Cameroun, la plus haute montagne en Afrique de l'Ouest sub-saharienne, est un volcan actif.<br />\r\nUne grande diversit\u00e9 de v\u00e9g\u00e9tation\u00a0: des savanes sur les rives du lac Tchad en passant par les for\u00eats \u00e9quatoriales au sud-est. Les for\u00eats tropicales et leur grande vari\u00e9t\u00e9 d'arbres, rec\u00e8lent une faune et une flore tr\u00e8s riches.<br />\r\nCes caract\u00e9ristiques expliquent la raison pour laquelle le pays est qualifi\u00e9 d\u2019<strong>Afrique en miniature</strong>.\r\n</p>\r\n\r\n<p>\r\nDe par sa position centrale et son niveau de d\u00e9veloppement, le Cameroun joue un r\u00f4le important dans l\u2019\u00e9conomie de l\u2019Afrique centrale. Il dispose de ressources agricoles (bananes, cacao, caf\u00e9, coton, miel), foresti\u00e8res, mini\u00e8res (bauxite, fer, cobalt, nickel, mangan\u00e8se, diamant, marbre) et p\u00e9troli\u00e8res.\r\n</p>\r\n\r\n<p>\r\nPour en savoir plus :<br />\r\n<a href=\"https://www.prc.cm/fr/le-cameroun/presentation\">https://www.prc.cm/fr/le-cameroun/presentation<a><br />\r\n<a href=\"http://fr.wikipedia.org/wiki/Cameroun\">http://fr.wikipedia.org/wiki/Cameroun</a>\r\n</p>\r\n\r\n",
-    "url": "/cameroun/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Cameroun"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p>\r\nLe Cameroun se situe en Afrique centrale. Il longe la baie de Biafra. Il est limitrophe avec le Nig\u00e9ria, la Guin\u00e9e \u00e9quatoriale, le Congo, le Gabon, la R\u00e9publique Centrafricaine et le Tchad.\r\n</p>\r\n\r\n<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8106410.187734502!2d12.146831843750004!3d7.2170877466400505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10613753703e0f21%3A0x2b03c44599829b53!2sCameroun!5e0!3m2!1sfr!2sus!4v1442224825026\" width=\"100%\" height=\"250\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>\r\n\r\n<p>\r\nLe Cameroun comptait 22 millions d\u2019habitants (en 2013) et plus de 180 groupes ethniques. Les plus grandes villes sont DOUALA, la capitale \u00e9conomique, dont la population est estim\u00e9e \u00e0  plus de 2 millions d\u2019habitants et YAOUNDE, la capitale politique du pays, qui abrite une population de plus de 1 million d\u2019habitants. \r\n</p>\r\n\r\n<p>\r\nLe pays a \u00e9t\u00e9 fond\u00e9 en 1960,\u00a0apr\u00e8s la fusion de l'ancien Cameroun fran\u00e7ais et d\u2019une partie du Cameroun britannique. Par cons\u00e9quent, les langues officielles sont le fran\u00e7ais et l'anglais. On y parle aussi 24 des principales langues africaines.\r\n</p>\r\n\r\n<p>\r\nLe Cameroun est l\u2019un des pays les plus vari\u00e9s d'Afrique en raison de son emplacement, de son climat et de sa population. \u00a0<br />\r\nUne grande diversit\u00e9 de reliefs\u00a0: plaines c\u00f4ti\u00e8res au sud-ouest, plateaux accident\u00e9s au centre, montagnes \u00e0 l'ouest et plaines au nord. Le Mont Cameroun, la plus haute montagne en Afrique de l'Ouest sub-saharienne, est un volcan actif.<br />\r\nUne grande diversit\u00e9 de v\u00e9g\u00e9tation\u00a0: des savanes sur les rives du lac Tchad en passant par les for\u00eats \u00e9quatoriales au sud-est. Les for\u00eats tropicales et leur grande vari\u00e9t\u00e9 d'arbres, rec\u00e8lent une faune et une flore tr\u00e8s riches.<br />\r\nCes caract\u00e9ristiques expliquent la raison pour laquelle le pays est qualifi\u00e9 d\u2019<strong>Afrique en miniature</strong>.\r\n</p>\r\n\r\n<p>\r\nDe par sa position centrale et son niveau de d\u00e9veloppement, le Cameroun joue un r\u00f4le important dans l\u2019\u00e9conomie de l\u2019Afrique centrale. Il dispose de ressources agricoles (bananes, cacao, caf\u00e9, coton, miel), foresti\u00e8res, mini\u00e8res (bauxite, fer, cobalt, nickel, mangan\u00e8se, diamant, marbre) et p\u00e9troli\u00e8res.\r\n</p>\r\n\r\n<p>\r\nPour en savoir plus :<br />\r\n<a href=\"https://www.prc.cm/fr/le-cameroun/presentation\">https://www.prc.cm/fr/le-cameroun/presentation<a><br />\r\n<a href=\"http://fr.wikipedia.org/wiki/Cameroun\">http://fr.wikipedia.org/wiki/Cameroun</a>\r\n</p>\r\n\r\n",
+      "url": "/cameroun/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Cameroun"
+    },
+    "pk": 3
   },
-  "pk": 3
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<h3>Tayap au Cameroun</h3>\r\n<p>\r\nLe village de Tayap est situ\u00e9 \u00e0 86 km de Yaound\u00e9 et \u00e0 164 km de Douala. Il s\u2019\u00e9tire le long de la piste foresti\u00e8re qui rejoint la voie rapide Douala-Yaound\u00e9.<br />\r\nD'un point de vue administratif, il d\u00e9pend de l'arrondissement de Ngog-mapubi, d\u00e9partement du Nyong et Kell\u00e9, R\u00e9gion du Centre. \r\n</p>\r\n\r\n<h3>Se rendre \u00e0 Tayap \u00a0 </h3>\r\n<p>\r\nIl est facile de se rendre \u00e0 Tayap. Les a\u00e9roports internationaux de Douala (\u00e0 2 heures de Tayap) et celui de Yaound\u00e9 (\u00e0 1 heure de Tayap) sont desservis par plusieurs compagnies a\u00e9riennes.<br />\r\nAGRIPO loue des voitures pour relier Tayap au d\u00e9part de Douala ou de Yaound\u00e9 et pour effectuer \u00e9ventuellement un circuit touristique complet au Sud du Cameroun. Il est toutefois n\u00e9cessaire de r\u00e9server au pr\u00e9alable. <br />\r\nIl est \u00e0 pr\u00e9ciser que le trac\u00e9 du r\u00e9seau ferroviaire Douala-Yaound\u00e9 ne dessert pas le village de Tayap. \r\n</p>\r\n\r\n<h3>Communaut\u00e9 de Tayap</h3>\r\n<p>\r\nLe village est partiellement recouvert de for\u00eat \u00e9quatoriale puisque l'exploitation foresti\u00e8re s'y est pratiqu\u00e9e de fa\u00e7on intense. Certaines essences sont d\u00e9j\u00e0 menac\u00e9es de disparition.\r\n</p>\r\n<p>\r\nDans cet environnement vivent les Bassa, un peuple bantou qui s\u2019est mobilis\u00e9 dans la lutte pour la d\u00e9colonisation. Plus de 200 personnes y vivent.\r\n</p>\r\n<p>\r\nComme leurs anc\u00eatres, l\u2019agriculture est\u00a0 leur principale source de revenus. Ils cultivent, sur des parcelles d\u00e9frich\u00e9es, de la banane plantain, du manioc, des arachides, du ma\u00efs,... et deux cultures de rente : le palmier \u00e0 huile et le cacao. Dans cette zone, on pratique accessoirement la chasse, la p\u00eache et l\u2019exploitation des produits forestiers non ligneux.\r\n</p>\r\n<p>\r\nLe long de la piste qui m\u00e8ne \u00e0 Tayap, les habitants vous r\u00e9serveront un accueil chaleureux, d\u00e9sireux de vous montrer leur for\u00eat et ce qu'ils en tirent.\r\n</p>\r\n<p>\r\nDans le village, deux chapelles (catholique et protestante) coexistent. La religion chr\u00e9tienne semble avoir pris le pas sur les traditions animistes bien que, de temps en temps, l'\u00e9vocation de la sorcellerie ressurgit... \r\n</p>\r\n<p>\r\nComme tous les villages environnants, le village de Tayap est aliment\u00e9 en eau potable par des puits et des forages. L\u2019eau pomp\u00e9e est ensuite achemin\u00e9e jusqu\u2019aux sites d\u2019utilisation.\r\n</p>\r\n<p>\r\nLe village de Tayap est partiellement \u00e9lectrifi\u00e9 par l\u2019\u00e9nergie hydro-\u00e9lectrique. Le site dispose d\u2019une autonomie \u00e9nergique gr\u00e2ce au groupe \u00e9lectrog\u00e8ne et \u00e0 des panneaux solaires. \r\n</p>\r\n\r\n<h3>Saison touristique</h3>\r\n<p>La saison touristique couvre toute l'ann\u00e9e. </p>\r\n\r\n\r\n\r\n\r\n\r\n \r\n\r\n",
-    "url": "/village-de-tayap/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Village de Tayap"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<h3>Tayap au Cameroun</h3>\r\n<p>\r\nLe village de Tayap est situ\u00e9 \u00e0 86 km de Yaound\u00e9 et \u00e0 164 km de Douala. Il s\u2019\u00e9tire le long de la piste foresti\u00e8re qui rejoint la voie rapide Douala-Yaound\u00e9.<br />\r\nD'un point de vue administratif, il d\u00e9pend de l'arrondissement de Ngog-mapubi, d\u00e9partement du Nyong et Kell\u00e9, R\u00e9gion du Centre. \r\n</p>\r\n\r\n<h3>Se rendre \u00e0 Tayap \u00a0 </h3>\r\n<p>\r\nIl est facile de se rendre \u00e0 Tayap. Les a\u00e9roports internationaux de Douala (\u00e0 2 heures de Tayap) et celui de Yaound\u00e9 (\u00e0 1 heure de Tayap) sont desservis par plusieurs compagnies a\u00e9riennes.<br />\r\nAGRIPO loue des voitures pour relier Tayap au d\u00e9part de Douala ou de Yaound\u00e9 et pour effectuer \u00e9ventuellement un circuit touristique complet au Sud du Cameroun. Il est toutefois n\u00e9cessaire de r\u00e9server au pr\u00e9alable. <br />\r\nIl est \u00e0 pr\u00e9ciser que le trac\u00e9 du r\u00e9seau ferroviaire Douala-Yaound\u00e9 ne dessert pas le village de Tayap. \r\n</p>\r\n\r\n<h3>Communaut\u00e9 de Tayap</h3>\r\n<p>\r\nLe village est partiellement recouvert de for\u00eat \u00e9quatoriale puisque l'exploitation foresti\u00e8re s'y est pratiqu\u00e9e de fa\u00e7on intense. Certaines essences sont d\u00e9j\u00e0 menac\u00e9es de disparition.\r\n</p>\r\n<p>\r\nDans cet environnement vivent les Bassa, un peuple bantou qui s\u2019est mobilis\u00e9 dans la lutte pour la d\u00e9colonisation. Plus de 200 personnes y vivent.\r\n</p>\r\n<p>\r\nComme leurs anc\u00eatres, l\u2019agriculture est\u00a0 leur principale source de revenus. Ils cultivent, sur des parcelles d\u00e9frich\u00e9es, de la banane plantain, du manioc, des arachides, du ma\u00efs,... et deux cultures de rente : le palmier \u00e0 huile et le cacao. Dans cette zone, on pratique accessoirement la chasse, la p\u00eache et l\u2019exploitation des produits forestiers non ligneux.\r\n</p>\r\n<p>\r\nLe long de la piste qui m\u00e8ne \u00e0 Tayap, les habitants vous r\u00e9serveront un accueil chaleureux, d\u00e9sireux de vous montrer leur for\u00eat et ce qu'ils en tirent.\r\n</p>\r\n<p>\r\nDans le village, deux chapelles (catholique et protestante) coexistent. La religion chr\u00e9tienne semble avoir pris le pas sur les traditions animistes bien que, de temps en temps, l'\u00e9vocation de la sorcellerie ressurgit... \r\n</p>\r\n<p>\r\nComme tous les villages environnants, le village de Tayap est aliment\u00e9 en eau potable par des puits et des forages. L\u2019eau pomp\u00e9e est ensuite achemin\u00e9e jusqu\u2019aux sites d\u2019utilisation.\r\n</p>\r\n<p>\r\nLe village de Tayap est partiellement \u00e9lectrifi\u00e9 par l\u2019\u00e9nergie hydro-\u00e9lectrique. Le site dispose d\u2019une autonomie \u00e9nergique gr\u00e2ce au groupe \u00e9lectrog\u00e8ne et \u00e0 des panneaux solaires. \r\n</p>\r\n\r\n<h3>Saison touristique</h3>\r\n<p>La saison touristique couvre toute l'ann\u00e9e. </p>\r\n\r\n\r\n\r\n\r\n\r\n \r\n\r\n",
+      "url": "/village-de-tayap/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Village de Tayap"
+    },
+    "pk": 4
   },
-  "pk": 4
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<h3>O\u00f9 dormir\u00a0?</h3>\r\n\r\n<p>2 formules d\u2019h\u00e9bergement s\u2019offrent \u00e0 vous pour s\u00e9journer \u00e0 Tayap</p>\r\n\r\n<table style=\"width:100%;\">\r\n<tr>\r\n<td style=\"width: 60%;padding: 5px;\"><img src=\"/media/staticpages/hebergements_ecogite.jpg\" style=\"width:100%\"/></td>\r\n<td style=\"width: 40%;padding: 5px;\"><img src=\"/media/staticpages/hebergements_maison_d_hotes.jpg\" style=\"width:100%\"/></td>\r\n</tr>\r\n<tr>\r\n<td style=\"text-align:center;\"><a href=\"#formule_ecogite\">\u00c9cogite</a></td>\r\n<td style=\"text-align:center;\"><a href=\"#formule_maison_dhotes\">Maison d'h\u00f4tes</a></td>\r\n</tr>\r\n</table>\r\n\r\n<p>\r\nLes r\u00e9servations s\u2019effectuent en ligne.<br />\r\nDes arrhes correspondant \u00e0 20% du montant du s\u00e9jour vous sont demand\u00e9es. La r\u00e9servation est effective \u00e0 encaissement de la somme.<br />\r\nAnnulation\u00a0: il est possible d\u2019annuler votre r\u00e9servation jusqu\u2019\u00e0 48 heures avant votre date d\u2019arriv\u00e9e pr\u00e9vue. Dans ce cas, les arrhes vous seront rembours\u00e9es. A moins de 48 heures, aucun remboursement n\u2019est effectu\u00e9.\r\n</p>\r\n\r\n<h3>O\u00f9 manger\u00a0?</h3>\r\n\r\n<p>En formule Ecog\u00eete, une cuisine vous permet de pr\u00e9parer vous-m\u00eame vos repas par exemple avec les produits de nos vergers.</p>\r\n\r\n<p>En formule Maison d\u2019h\u00f4tes, les repas peuvent \u00eatre pris avec la famille, moyennant un suppl\u00e9ment.</p>\r\n\r\n<p>Quel que soit votre h\u00e9bergement, vous avez aussi la possibilit\u00e9 de venir d\u00e9couvrir nos recettes locales au restaurant des Vergers avec chaque jour un menu diff\u00e9rent.</p>\r\n\r\n<table>\r\n<tr>\r\n<th>Tarifs du restaurant</th>\r\n<th>Adulte</th>\r\n<th>Enfant (4 \u2013 12 ans)</th>\r\n</tr>\r\n<tr>\r\n<td>\r\nPetit d\u00e9jeuner<br />\r\nJus de fruits frais, pain, boisson chaude, miel et confitures\r\n</td>\r\n<td>1 500 FCFA</td>\r\n<td>1 000 FCFA</td>\r\n</tr>\r\n<tr>\r\n<td>\r\nD\u00e9jeuner ou d\u00eener<br />\r\nMenu complet\r\n</td>\r\n<td>2 500 FCFA</td>\r\n<td>1 500 FCFA</td>\r\n</tr>\r\n</table>\r\n\r\n\r\n\r\n<h3 id=\"formule_ecogite\">FORMULE \u00ab\u00a0ECOGITE\u00a0\u00bb</h3>\r\n\r\n<h4>Pr\u00e9sentation</h4>\r\n<p>\r\n2 \u00e9cog\u00eetes sont ouverts.<br />\r\nNos \u00e9cog\u00eetes sont situ\u00e9s dans les clairi\u00e8res des vergers de Tayap \u00e0 deux pas des sites sp\u00e9l\u00e9ologiques et de la colline du Picatharte. Des chemins naturels vous m\u00e8neront vers ce panorama magnifique.<br />\r\nCes cases ont \u00e9t\u00e9 con\u00e7ues pour s\u2019int\u00e9grer de mani\u00e8re harmonieuse dans la nature et avoir un impact n\u00e9gatif r\u00e9duit sur l\u2019\u00e9cosyst\u00e8me local. Leur empreinte \u00e9cologique est limit\u00e9e gr\u00e2ce \u00e0 l\u2019utilisation de mat\u00e9riaux locaux pour leur construction (terre et bois) et pour leur am\u00e9nagement int\u00e9rieur (bois et rotin). Pour leur fonctionnement, une source d\u2019\u00e9nergie renouvelable est mise en \u0153uvre (panneaux solaires), les eaux de pluie sont r\u00e9cup\u00e9r\u00e9es et les d\u00e9chets sont recycl\u00e9s (bouteilles en verre utilis\u00e9es dans la d\u00e9coration int\u00e9rieure).<br />\r\nLes d\u00e9chets agricoles de l\u2019exploitation des vergers produisent du biogaz utilis\u00e9 par les cuisines du restaurant.\r\n</p>\r\n\r\n<h4>Description d\u00e9taill\u00e9e d\u2019un \u00e9cog\u00eete</h4>\r\n<p>\r\nCase ind\u00e9pendante, pour 2 personnes<br />\r\n1 chambre avec 1 lit double (ou 2 lits jumeaux), possibilit\u00e9 de matelas pour 2 personnes suppl\u00e9mentaires<br />\r\nSalle  \u00e0 manger <br />\r\nCoin cuisine \u00e9quip\u00e9 (cuisini\u00e8re, vaisselles)<br />\r\nSalle de bain avec douche, WC<br />\r\nLinge de maison, serviettes et draps, fournis<br />\r\nT\u00e9l\u00e9phone (communications \u00e0 votre charge)<br />\r\nAcc\u00e8s gratuit \u00e0 Internet\r\n</p>\r\n\r\n<h4>Tarifs</h4>\r\n<p>\r\n10\u00a0000 FCFA le g\u00eete/nuit  <br />\r\nSuppl\u00e9ment matelas\u00a0pour 2 personnes : 5\u00a0000 FCFA/nuit/matelas\r\n</p>\r\n\r\n\r\n<h3 id=\"formule_maison_dhotes\">FORMULE \u00ab\u00a0MAISON D\u2019HOTES\u00a0\u00bb</h3>\r\n\r\n<h4>Pr\u00e9sentation</h4>\r\n<p>\r\n4 familles du village vous proposent des chambres d\u2019h\u00f4tes. Elles vous ouvrent la porte de leur maison et vous r\u00e9servent un accueil chaleureux. Une occasion unique de partager la culture de la communaut\u00e9 Bassa.\u00a0<br />\r\nToutes les activit\u00e9s \u00e9cotouristiques des Vergers Ecologiques de Tayap sont proches et facilement accessibles.\r\n</p>\r\n\r\n<h4>Description d\u00e9taill\u00e9e d\u2019une chambre d\u2019h\u00f4te</h4>\r\n<p>\r\nChambre avec un lit double<br />\r\nSalle de bain et WC de la maison<br />\r\nT\u00e9l\u00e9phone (communications \u00e0 votre charge)<br />\r\n</p>\r\n\r\n<h4>Tarifs</h4>\r\n<p>\r\nH\u00e9bergement simple\u00a0: 2\u00a0500 FCFA/nuit/personne<br />\r\nH\u00e9bergement et repas\u00a0: 6\u00a0500 FCFA/nuit/personne\r\n</p>\r\n",
-    "url": "/hebergements/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "H\u00e9bergements"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<h3>O\u00f9 dormir\u00a0?</h3>\r\n\r\n<p>2 formules d\u2019h\u00e9bergement s\u2019offrent \u00e0 vous pour s\u00e9journer \u00e0 Tayap</p>\r\n\r\n<table style=\"width:100%;\">\r\n<tr>\r\n<td style=\"width: 60%;padding: 5px;\"><img src=\"/media/staticpages/hebergements_ecogite.jpg\" style=\"width:100%\"/></td>\r\n<td style=\"width: 40%;padding: 5px;\"><img src=\"/media/staticpages/hebergements_maison_d_hotes.jpg\" style=\"width:100%\"/></td>\r\n</tr>\r\n<tr>\r\n<td style=\"text-align:center;\"><a href=\"#formule_ecogite\">\u00c9cogite</a></td>\r\n<td style=\"text-align:center;\"><a href=\"#formule_maison_dhotes\">Maison d'h\u00f4tes</a></td>\r\n</tr>\r\n</table>\r\n\r\n<p>\r\nLes r\u00e9servations s\u2019effectuent en ligne.<br />\r\nDes arrhes correspondant \u00e0 20% du montant du s\u00e9jour vous sont demand\u00e9es. La r\u00e9servation est effective \u00e0 encaissement de la somme.<br />\r\nAnnulation\u00a0: il est possible d\u2019annuler votre r\u00e9servation jusqu\u2019\u00e0 48 heures avant votre date d\u2019arriv\u00e9e pr\u00e9vue. Dans ce cas, les arrhes vous seront rembours\u00e9es. A moins de 48 heures, aucun remboursement n\u2019est effectu\u00e9.\r\n</p>\r\n\r\n<h3>O\u00f9 manger\u00a0?</h3>\r\n\r\n<p>En formule Ecog\u00eete, une cuisine vous permet de pr\u00e9parer vous-m\u00eame vos repas par exemple avec les produits de nos vergers.</p>\r\n\r\n<p>En formule Maison d\u2019h\u00f4tes, les repas peuvent \u00eatre pris avec la famille, moyennant un suppl\u00e9ment.</p>\r\n\r\n<p>Quel que soit votre h\u00e9bergement, vous avez aussi la possibilit\u00e9 de venir d\u00e9couvrir nos recettes locales au restaurant des Vergers avec chaque jour un menu diff\u00e9rent.</p>\r\n\r\n<table>\r\n<tr>\r\n<th>Tarifs du restaurant</th>\r\n<th>Adulte</th>\r\n<th>Enfant (4 \u2013 12 ans)</th>\r\n</tr>\r\n<tr>\r\n<td>\r\nPetit d\u00e9jeuner<br />\r\nJus de fruits frais, pain, boisson chaude, miel et confitures\r\n</td>\r\n<td>1 500 FCFA</td>\r\n<td>1 000 FCFA</td>\r\n</tr>\r\n<tr>\r\n<td>\r\nD\u00e9jeuner ou d\u00eener<br />\r\nMenu complet\r\n</td>\r\n<td>2 500 FCFA</td>\r\n<td>1 500 FCFA</td>\r\n</tr>\r\n</table>\r\n\r\n\r\n\r\n<h3 id=\"formule_ecogite\">FORMULE \u00ab\u00a0ECOGITE\u00a0\u00bb</h3>\r\n\r\n<h4>Pr\u00e9sentation</h4>\r\n<p>\r\n2 \u00e9cog\u00eetes sont ouverts.<br />\r\nNos \u00e9cog\u00eetes sont situ\u00e9s dans les clairi\u00e8res des vergers de Tayap \u00e0 deux pas des sites sp\u00e9l\u00e9ologiques et de la colline du Picatharte. Des chemins naturels vous m\u00e8neront vers ce panorama magnifique.<br />\r\nCes cases ont \u00e9t\u00e9 con\u00e7ues pour s\u2019int\u00e9grer de mani\u00e8re harmonieuse dans la nature et avoir un impact n\u00e9gatif r\u00e9duit sur l\u2019\u00e9cosyst\u00e8me local. Leur empreinte \u00e9cologique est limit\u00e9e gr\u00e2ce \u00e0 l\u2019utilisation de mat\u00e9riaux locaux pour leur construction (terre et bois) et pour leur am\u00e9nagement int\u00e9rieur (bois et rotin). Pour leur fonctionnement, une source d\u2019\u00e9nergie renouvelable est mise en \u0153uvre (panneaux solaires), les eaux de pluie sont r\u00e9cup\u00e9r\u00e9es et les d\u00e9chets sont recycl\u00e9s (bouteilles en verre utilis\u00e9es dans la d\u00e9coration int\u00e9rieure).<br />\r\nLes d\u00e9chets agricoles de l\u2019exploitation des vergers produisent du biogaz utilis\u00e9 par les cuisines du restaurant.\r\n</p>\r\n\r\n<h4>Description d\u00e9taill\u00e9e d\u2019un \u00e9cog\u00eete</h4>\r\n<p>\r\nCase ind\u00e9pendante, pour 2 personnes<br />\r\n1 chambre avec 1 lit double (ou 2 lits jumeaux), possibilit\u00e9 de matelas pour 2 personnes suppl\u00e9mentaires<br />\r\nSalle  \u00e0 manger <br />\r\nCoin cuisine \u00e9quip\u00e9 (cuisini\u00e8re, vaisselles)<br />\r\nSalle de bain avec douche, WC<br />\r\nLinge de maison, serviettes et draps, fournis<br />\r\nT\u00e9l\u00e9phone (communications \u00e0 votre charge)<br />\r\nAcc\u00e8s gratuit \u00e0 Internet\r\n</p>\r\n\r\n<h4>Tarifs</h4>\r\n<p>\r\n10\u00a0000 FCFA le g\u00eete/nuit  <br />\r\nSuppl\u00e9ment matelas\u00a0pour 2 personnes : 5\u00a0000 FCFA/nuit/matelas\r\n</p>\r\n\r\n\r\n<h3 id=\"formule_maison_dhotes\">FORMULE \u00ab\u00a0MAISON D\u2019HOTES\u00a0\u00bb</h3>\r\n\r\n<h4>Pr\u00e9sentation</h4>\r\n<p>\r\n4 familles du village vous proposent des chambres d\u2019h\u00f4tes. Elles vous ouvrent la porte de leur maison et vous r\u00e9servent un accueil chaleureux. Une occasion unique de partager la culture de la communaut\u00e9 Bassa.\u00a0<br />\r\nToutes les activit\u00e9s \u00e9cotouristiques des Vergers Ecologiques de Tayap sont proches et facilement accessibles.\r\n</p>\r\n\r\n<h4>Description d\u00e9taill\u00e9e d\u2019une chambre d\u2019h\u00f4te</h4>\r\n<p>\r\nChambre avec un lit double<br />\r\nSalle de bain et WC de la maison<br />\r\nT\u00e9l\u00e9phone (communications \u00e0 votre charge)<br />\r\n</p>\r\n\r\n<h4>Tarifs</h4>\r\n<p>\r\nH\u00e9bergement simple\u00a0: 2\u00a0500 FCFA/nuit/personne<br />\r\nH\u00e9bergement et repas\u00a0: 6\u00a0500 FCFA/nuit/personne\r\n</p>\r\n",
+      "url": "/hebergements/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "H\u00e9bergements"
+    },
+    "pk": 5
   },
-  "pk": 5
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p><strong>3 activit\u00e9s</strong> vous sont propos\u00e9es pour d\u00e9couvrir les tr\u00e9sors de Tayap\u00a0:</p>\r\n<ul>\r\n<li>\r\nUne immersion en for\u00eat avec vos \u00e9l\u00e8ves en classes vertes (activit\u00e9 destin\u00e9e aux enseignants et \u00e0 leurs \u00e9l\u00e8ves) pour comprendre la for\u00eat, ses richesses et sa fragilit\u00e9, et aborder les enjeux du  d\u00e9veloppement durable \u2026 \r\n</li>\r\n<li>\r\nEn choisissant l\u2019agrotourisme, vous d\u00e9couvrirez comment les agriculteurs ont d\u00e9velopp\u00e9 une agriculture durable respectueuse de l\u2019environnement, les savoir-faire de la communaut\u00e9 et les produits de leurs exploitations\u2026 \r\n</li>\r\n<li>\r\nL\u2019occasion est unique et rel\u00e8ve du privil\u00e8ge\u00a0! Partez sur le sentier des grottes pour observer le lieu de vie pr\u00e9serv\u00e9 du Picatharte chauve et toutes les curiosit\u00e9s naturelles environnantes\u2026\r\n</li>\r\n</ul>\r\n\r\n<table style=\"width:100%; text-align:center;\">\r\n<tr>\r\n<td style=\"width: 33%;padding: 5px;\"><a href=\"/service-classes-vertes/\"><img src=\"/media/staticpages/services_classes_vertes.jpg\" style=\"width:100%\"/></a></td>\r\n<td style=\"width: 33%;padding: 5px;\"><a href=\"/service-agrotourisme/\"><img src=\"/media/staticpages/services_agrotourisme.jpg\" style=\"width:100%\"/></a></td>\r\n<td style=\"width: 33%;padding: 5px;\"><a href=\"/service-sentier-des-grottes/\"><img src=\"/media/staticpages/services_sentier_des_grottes.jpg\" style=\"width:100%\"/></a></td>\r\n</tr>\r\n<tr>\r\n<td><a href=\"/service-classes-vertes/\">Classes vertes</a></td>\r\n<td><a href=\"/service-agrotourisme/\">Agrotourisme</a></td>\r\n<td><a href=\"/service-sentier-des-grottes/\">Sentier des grottes</a></td>\r\n</tr>\r\n</table>\r\n",
-    "url": "/services/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Services"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p><strong>3 activit\u00e9s</strong> vous sont propos\u00e9es pour d\u00e9couvrir les tr\u00e9sors de Tayap\u00a0:</p>\r\n<ul>\r\n<li>\r\nUne immersion en for\u00eat avec vos \u00e9l\u00e8ves en classes vertes (activit\u00e9 destin\u00e9e aux enseignants et \u00e0 leurs \u00e9l\u00e8ves) pour comprendre la for\u00eat, ses richesses et sa fragilit\u00e9, et aborder les enjeux du  d\u00e9veloppement durable \u2026 \r\n</li>\r\n<li>\r\nEn choisissant l\u2019agrotourisme, vous d\u00e9couvrirez comment les agriculteurs ont d\u00e9velopp\u00e9 une agriculture durable respectueuse de l\u2019environnement, les savoir-faire de la communaut\u00e9 et les produits de leurs exploitations\u2026 \r\n</li>\r\n<li>\r\nL\u2019occasion est unique et rel\u00e8ve du privil\u00e8ge\u00a0! Partez sur le sentier des grottes pour observer le lieu de vie pr\u00e9serv\u00e9 du Picatharte chauve et toutes les curiosit\u00e9s naturelles environnantes\u2026\r\n</li>\r\n</ul>\r\n\r\n<table style=\"width:100%; text-align:center;\">\r\n<tr>\r\n<td style=\"width: 33%;padding: 5px;\"><a href=\"/service-classes-vertes/\"><img src=\"/media/staticpages/services_classes_vertes.jpg\" style=\"width:100%\"/></a></td>\r\n<td style=\"width: 33%;padding: 5px;\"><a href=\"/service-agrotourisme/\"><img src=\"/media/staticpages/services_agrotourisme.jpg\" style=\"width:100%\"/></a></td>\r\n<td style=\"width: 33%;padding: 5px;\"><a href=\"/service-sentier-des-grottes/\"><img src=\"/media/staticpages/services_sentier_des_grottes.jpg\" style=\"width:100%\"/></a></td>\r\n</tr>\r\n<tr>\r\n<td><a href=\"/service-classes-vertes/\">Classes vertes</a></td>\r\n<td><a href=\"/service-agrotourisme/\">Agrotourisme</a></td>\r\n<td><a href=\"/service-sentier-des-grottes/\">Sentier des grottes</a></td>\r\n</tr>\r\n</table>\r\n",
+      "url": "/services/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Services"
+    },
+    "pk": 6
   },
-  "pk": 6
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p>\r\nLes classes vertes sont un v\u00e9ritable <strong>programme p\u00e9dagogique</strong> con\u00e7u par AGRIPO. Le but est de sensibiliser les plus jeunes \u00e0 leur environnement et aux enjeux du d\u00e9veloppement durable. Les r\u00e9alisations des \u00ab\u00a0Vergers Ecologiques de Tayap\u00a0\u00bb servent de support et de d\u00e9monstration.\r\n</p>\r\n\r\n<p>\r\nLes classes vertes s\u2019adressent aux classes des cycles du primaire\u00a0: CP, CE, CM.\r\n</p>\r\n\r\n<p>\r\nAGRIPO propose aux enseignants\u00a0: \r\n<ul>\r\n<li>un livret p\u00e9dagogique\u00a0: cours, activit\u00e9s et \u00e9valuation</li>\r\n<li>du mat\u00e9riel p\u00e9dagogique de connaissance de la for\u00eat tropicale</li>\r\n<li>une s\u00e9rie de 2 bandes dessin\u00e9es</li>\r\n</ul>\r\n</p>\r\n\r\n<p>\r\nLa d\u00e9marche p\u00e9dagogique est structur\u00e9e en modules d\u2019apprentissage (3 modules par niveau). Le contenu est con\u00e7u pour assurer une progression des connaissances d\u2019un module \u00e0 l\u2019autre et d\u2019un cycle \u00e0 l\u2019autre.<br />\r\nLes objectifs p\u00e9dagogiques du Programme de formation des \u00e9coles sont \u00e9galement pris en compte (d\u00e9velopper des comp\u00e9tences disciplinaires et transversales, pratiquer l\u2019interdisciplinarit\u00e9).\r\n</p>\r\n<p>\r\nLa m\u00e9thode p\u00e9dagogique est bas\u00e9e sur \r\n<ul>\r\n<li>une approche sensorielle\u00a0de la for\u00eat pour conna\u00eetre la biodiversit\u00e9, les menaces, la fragilit\u00e9</li>\r\n<li>une d\u00e9marche participative pour guider la r\u00e9flexion vers les enjeux du d\u00e9veloppement durable</li>\r\n<li>la visite des r\u00e9alisations des VET pour fournir des pistes de r\u00e9ponse \u00e0 la question\u00a0: alors, comment faire\u00a0?</li>\r\n</ul>\r\n</p>\r\n\r\n<p>\r\n<strong>L\u2019activit\u00e9 p\u00e9dagogique des classes vertes</strong> comprend\u00a0: \r\n<ul>\r\n<li>Fourniture du livret p\u00e9dagogique</li>\r\n<li>Mat\u00e9riel support</li>\r\n<li>Sortie en for\u00eat</li>\r\n<li>Visite des Vergers Ecologiques de Tayap</li>\r\n<li>Collation</li>\r\n</ul>\r\n</p>\r\n<p>Dur\u00e9e\u00a0: 1 journ\u00e9e (sur le terrain)</p>\r\n<p>Public\u00a0: enseignants et \u00e9l\u00e8ves (6-11 ans) </p>\r\n\r\n<p>Prix\u00a0: 100 000 FCFA/classe de 20 \u00e9l\u00e8ves </p>\r\n\r\n<div style=\"text-align: center\">\r\n    <img src=\"/media/staticpages/services_classes_vertes.jpg\" style=\"max-width: 80%\"/>\r\n</div>",
-    "url": "/service-classes-vertes/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Classes vertes"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p>\r\nLes classes vertes sont un v\u00e9ritable <strong>programme p\u00e9dagogique</strong> con\u00e7u par AGRIPO. Le but est de sensibiliser les plus jeunes \u00e0 leur environnement et aux enjeux du d\u00e9veloppement durable. Les r\u00e9alisations des \u00ab\u00a0Vergers Ecologiques de Tayap\u00a0\u00bb servent de support et de d\u00e9monstration.\r\n</p>\r\n\r\n<p>\r\nLes classes vertes s\u2019adressent aux classes des cycles du primaire\u00a0: CP, CE, CM.\r\n</p>\r\n\r\n<p>\r\nAGRIPO propose aux enseignants\u00a0: \r\n<ul>\r\n<li>un livret p\u00e9dagogique\u00a0: cours, activit\u00e9s et \u00e9valuation</li>\r\n<li>du mat\u00e9riel p\u00e9dagogique de connaissance de la for\u00eat tropicale</li>\r\n<li>une s\u00e9rie de 2 bandes dessin\u00e9es</li>\r\n</ul>\r\n</p>\r\n\r\n<p>\r\nLa d\u00e9marche p\u00e9dagogique est structur\u00e9e en modules d\u2019apprentissage (3 modules par niveau). Le contenu est con\u00e7u pour assurer une progression des connaissances d\u2019un module \u00e0 l\u2019autre et d\u2019un cycle \u00e0 l\u2019autre.<br />\r\nLes objectifs p\u00e9dagogiques du Programme de formation des \u00e9coles sont \u00e9galement pris en compte (d\u00e9velopper des comp\u00e9tences disciplinaires et transversales, pratiquer l\u2019interdisciplinarit\u00e9).\r\n</p>\r\n<p>\r\nLa m\u00e9thode p\u00e9dagogique est bas\u00e9e sur \r\n<ul>\r\n<li>une approche sensorielle\u00a0de la for\u00eat pour conna\u00eetre la biodiversit\u00e9, les menaces, la fragilit\u00e9</li>\r\n<li>une d\u00e9marche participative pour guider la r\u00e9flexion vers les enjeux du d\u00e9veloppement durable</li>\r\n<li>la visite des r\u00e9alisations des VET pour fournir des pistes de r\u00e9ponse \u00e0 la question\u00a0: alors, comment faire\u00a0?</li>\r\n</ul>\r\n</p>\r\n\r\n<p>\r\n<strong>L\u2019activit\u00e9 p\u00e9dagogique des classes vertes</strong> comprend\u00a0: \r\n<ul>\r\n<li>Fourniture du livret p\u00e9dagogique</li>\r\n<li>Mat\u00e9riel support</li>\r\n<li>Sortie en for\u00eat</li>\r\n<li>Visite des Vergers Ecologiques de Tayap</li>\r\n<li>Collation</li>\r\n</ul>\r\n</p>\r\n<p>Dur\u00e9e\u00a0: 1 journ\u00e9e (sur le terrain)</p>\r\n<p>Public\u00a0: enseignants et \u00e9l\u00e8ves (6-11 ans) </p>\r\n\r\n<p>Prix\u00a0: 100 000 FCFA/classe de 20 \u00e9l\u00e8ves </p>\r\n\r\n<div style=\"text-align: center\">\r\n    <img src=\"/media/staticpages/services_classes_vertes.jpg\" style=\"max-width: 80%\"/>\r\n</div>",
+      "url": "/service-classes-vertes/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Classes vertes"
+    },
+    "pk": 7
   },
-  "pk": 7
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p>Les agriculteurs de Tayap vous accueillent dans leurs exploitations pour vous faire d\u00e9couvrir leur mode de vie, les techniques culturales et leurs produits.</p>\r\n\r\n<img src=\"/media/staticpages/services_agrotourisme2.jpg\" style=\"width: 50%; float:right;max-width: 200px;\"/>\r\n\r\n<p>\r\nL\u2019activit\u00e9 agrotouristique comprend\u00a0: \r\n<ul>\r\n<li>Visite guid\u00e9e d\u2019une exploitation avec l\u2019agriculteur</li>\r\n<li>Cultures propos\u00e9es : cacao, palmier \u00e0 huile, produits forestiers non ligneux, cultures vivri\u00e8res</li>\r\n<li>D\u00e9gustation des produits\u00a0</li>\r\n<li>Possibilit\u00e9 d\u2019achat des produits sur le site\u00a0</li>\r\n</ul>\r\n</p>\r\n<p>Dur\u00e9e\u00a0: 1 journ\u00e9e</p>\r\n<p>Tous publics</p>\r\n\r\n<p>Prix\u00a0: 10\u00a0000 FCFA/personne</p>\r\n\r\n\r\nR\u00e9servez en ligne\r\n\r\n\r\n\r\n",
-    "url": "/service-agrotourisme/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Agrotourisme"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p>Les agriculteurs de Tayap vous accueillent dans leurs exploitations pour vous faire d\u00e9couvrir leur mode de vie, les techniques culturales et leurs produits.</p>\r\n\r\n<img src=\"/media/staticpages/services_agrotourisme2.jpg\" style=\"width: 50%; float:right;max-width: 200px;\"/>\r\n\r\n<p>\r\nL\u2019activit\u00e9 agrotouristique comprend\u00a0: \r\n<ul>\r\n<li>Visite guid\u00e9e d\u2019une exploitation avec l\u2019agriculteur</li>\r\n<li>Cultures propos\u00e9es : cacao, palmier \u00e0 huile, produits forestiers non ligneux, cultures vivri\u00e8res</li>\r\n<li>D\u00e9gustation des produits\u00a0</li>\r\n<li>Possibilit\u00e9 d\u2019achat des produits sur le site\u00a0</li>\r\n</ul>\r\n</p>\r\n<p>Dur\u00e9e\u00a0: 1 journ\u00e9e</p>\r\n<p>Tous publics</p>\r\n\r\n<p>Prix\u00a0: 10\u00a0000 FCFA/personne</p>\r\n\r\n\r\nR\u00e9servez en ligne\r\n\r\n\r\n\r\n",
+      "url": "/service-agrotourisme/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Agrotourisme"
+    },
+    "pk": 8
   },
-  "pk": 8
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<h3>Le tr\u00e9sor de Tayap</h3>\r\n<img src=\"/media/staticpages/services_sentier_des_grottes3.jpg\" style=\"width: 175px; max-width: 25%; float:right;\"/>\r\n<p>\r\nSur une colline qui culmine \u00e0 544 m d\u2019altitude, un \u00eelot de 3 ha de for\u00eats naturelles, de rochers et de grottes, a \u00e9t\u00e9 conserv\u00e9 afin de pr\u00e9server l\u2019habitat d\u2019un oiseau end\u00e9mique menac\u00e9, le Picatharte chauve. <br />\r\nC\u2019est une esp\u00e8ce inscrite \u00e0 l'annexe I de la Convention sur le commerce international des esp\u00e8ces de faune et de flore (CITES) et sur la liste rouge des esp\u00e8ces vuln\u00e9rables de l\u2019Union internationale pour la Conservation de la Nature (UICN).<br />\r\nLe picatharte vit en Afrique centrale (sud-est du Nig\u00e9ria, Cameroun, Guin\u00e9e-Equatoriale, Gabon). <br />\r\nEsp\u00e8ce rupicole, il fr\u00e9quente les terrains rocheux des for\u00eats tropicales humides ou des massifs montagneux, jusqu'\u00e0 1 200 m\u00e8tres d'altitude. L'esp\u00e8ce est r\u00e9put\u00e9e extr\u00eamement s\u00e9dentaire. Elle semble ne pas s\u2019\u00e9loigner au cours de l'ann\u00e9e, de quelques centaines de m\u00e8tres du site de reproduction. Grottes et rochers servent de site de nidification. Les oiseaux construisent leur gros nid de terre \u00e0 l'abri d'une paroi rocheuse ou sous le porche des cavernes.\r\n</p>\r\n<p>\r\nSur le site de Tayap, <strong>un sentier \u00e9cotouristique</strong> a \u00e9t\u00e9 am\u00e9nag\u00e9 pour permettre aux visiteurs de p\u00e9n\u00e9trer l\u2019habitat pr\u00e9serv\u00e9 du Picatharte sans le d\u00e9ranger. <strong>Une occasion unique et privil\u00e9gi\u00e9e</strong> d\u2019approcher cette esp\u00e8ce rare et menac\u00e9e.\r\n</p>\r\n\r\n<h3>L\u2019excursion des grottes est une visite guid\u00e9e\u00a0</h3>\r\n<img src=\"/media/staticpages/services_sentier_des_grottes2.jpg\" style=\"width: 175px; max-width: 25%; float:right;\"/>\r\n<p>\r\nElle permet d\u2019observer\u00a0: \r\n<ul>\r\n<li>des nids de Picatharte chauve et peut-\u00eatre l\u2019oiseau \u2026</li>\r\n<li>l\u2019avifaune locale</li>\r\n<li>des colonies de chauve-souris </li>\r\n<li>des esp\u00e8ces d\u2019arbres rares\u00a0: Bubinga, Doussier\u2026</li>\r\n<li>le spectacle insolite de rochers aux formes \u00e9tonnantes</li>\r\n<li>des curiosit\u00e9s naturelles\u00a0tel cet immense arbre suspendu ou encore  une rivi\u00e8re souterraine</li>\r\n<li>des grottes\u00a0(on en d\u00e9nombre pas moins de 22), certaines cavit\u00e9s ont des dimensions impressionnantes (80 \u00e0 100 m de haut)</li>\r\n<li>une grotte ayant servi de refuge aux maquisards pendant la lutte pour l\u2019ind\u00e9pendance du Cameroun, contient des vestiges et objets usuels </li>\r\n</ul>\r\n</p>\r\n<p>Dur\u00e9e\u00a0: 1 journ\u00e9e (environ 3 heures de marche)</p>\r\n<p>Tous publics (\u00eatre en bonne condition physique)</p>\r\n<p>Equipement\u00a0sp\u00e9cial n\u00e9cessaire\u00a0</p>\r\n\r\n<p>Prix\u00a0: 10 000 FCFA/personne</p>\r\n",
-    "url": "/service-sentier-des-grottes/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Sentier des grottes"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<h3>Le tr\u00e9sor de Tayap</h3>\r\n<img src=\"/media/staticpages/services_sentier_des_grottes3.jpg\" style=\"width: 175px; max-width: 25%; float:right;\"/>\r\n<p>\r\nSur une colline qui culmine \u00e0 544 m d\u2019altitude, un \u00eelot de 3 ha de for\u00eats naturelles, de rochers et de grottes, a \u00e9t\u00e9 conserv\u00e9 afin de pr\u00e9server l\u2019habitat d\u2019un oiseau end\u00e9mique menac\u00e9, le Picatharte chauve. <br />\r\nC\u2019est une esp\u00e8ce inscrite \u00e0 l'annexe I de la Convention sur le commerce international des esp\u00e8ces de faune et de flore (CITES) et sur la liste rouge des esp\u00e8ces vuln\u00e9rables de l\u2019Union internationale pour la Conservation de la Nature (UICN).<br />\r\nLe picatharte vit en Afrique centrale (sud-est du Nig\u00e9ria, Cameroun, Guin\u00e9e-Equatoriale, Gabon). <br />\r\nEsp\u00e8ce rupicole, il fr\u00e9quente les terrains rocheux des for\u00eats tropicales humides ou des massifs montagneux, jusqu'\u00e0 1 200 m\u00e8tres d'altitude. L'esp\u00e8ce est r\u00e9put\u00e9e extr\u00eamement s\u00e9dentaire. Elle semble ne pas s\u2019\u00e9loigner au cours de l'ann\u00e9e, de quelques centaines de m\u00e8tres du site de reproduction. Grottes et rochers servent de site de nidification. Les oiseaux construisent leur gros nid de terre \u00e0 l'abri d'une paroi rocheuse ou sous le porche des cavernes.\r\n</p>\r\n<p>\r\nSur le site de Tayap, <strong>un sentier \u00e9cotouristique</strong> a \u00e9t\u00e9 am\u00e9nag\u00e9 pour permettre aux visiteurs de p\u00e9n\u00e9trer l\u2019habitat pr\u00e9serv\u00e9 du Picatharte sans le d\u00e9ranger. <strong>Une occasion unique et privil\u00e9gi\u00e9e</strong> d\u2019approcher cette esp\u00e8ce rare et menac\u00e9e.\r\n</p>\r\n\r\n<h3>L\u2019excursion des grottes est une visite guid\u00e9e\u00a0</h3>\r\n<img src=\"/media/staticpages/services_sentier_des_grottes2.jpg\" style=\"width: 175px; max-width: 25%; float:right;\"/>\r\n<p>\r\nElle permet d\u2019observer\u00a0: \r\n<ul>\r\n<li>des nids de Picatharte chauve et peut-\u00eatre l\u2019oiseau \u2026</li>\r\n<li>l\u2019avifaune locale</li>\r\n<li>des colonies de chauve-souris </li>\r\n<li>des esp\u00e8ces d\u2019arbres rares\u00a0: Bubinga, Doussier\u2026</li>\r\n<li>le spectacle insolite de rochers aux formes \u00e9tonnantes</li>\r\n<li>des curiosit\u00e9s naturelles\u00a0tel cet immense arbre suspendu ou encore  une rivi\u00e8re souterraine</li>\r\n<li>des grottes\u00a0(on en d\u00e9nombre pas moins de 22), certaines cavit\u00e9s ont des dimensions impressionnantes (80 \u00e0 100 m de haut)</li>\r\n<li>une grotte ayant servi de refuge aux maquisards pendant la lutte pour l\u2019ind\u00e9pendance du Cameroun, contient des vestiges et objets usuels </li>\r\n</ul>\r\n</p>\r\n<p>Dur\u00e9e\u00a0: 1 journ\u00e9e (environ 3 heures de marche)</p>\r\n<p>Tous publics (\u00eatre en bonne condition physique)</p>\r\n<p>Equipement\u00a0sp\u00e9cial n\u00e9cessaire\u00a0</p>\r\n\r\n<p>Prix\u00a0: 10 000 FCFA/personne</p>\r\n",
+      "url": "/service-sentier-des-grottes/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Sentier des grottes"
+    },
+    "pk": 9
   },
-  "pk": 9
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<h3>Les vergers</h3>\r\n<p>\r\n20 hectares de vergers agro-forestiers sont d\u2019ores et d\u00e9j\u00e0 plant\u00e9s. Ils sont tous exploit\u00e9s en agriculture biologique. Les vergers permettent de commercialiser une vingtaine de produits :\r\n</p>\r\n\r\n<table>\r\n<tr>\r\n<td>\r\n<ul>\r\n<li>Arbre \u00e0 ail ou hiomi (Scorodophleus zenkeri) </li>\r\n<li>Avocat</li>\r\n<li>Bananes plantains</li>\r\n<li>Bitter-cola (Garcinia cola)</li>\r\n<li>Cacao</li>\r\n<li>Cassimanga ou pommes cyth\u00e8res</li>\r\n<li>Citrons</li>\r\n<li>Huile de moabi</li>\r\n<li>Huile de palme</li>\r\n<li>Huile de palmiste</li>\r\n<li>Macabo</li>\r\n</td>\r\n<td>\r\n<ul>\r\n<li>Mandarines</li>\r\n<li>Mangues sauvages</li>\r\n<li>Manioc</li>\r\n<li>Mbongo (Aframomum sp.)</li>\r\n<li>Noix de coco</li>\r\n<li>Noix de kola</li>\r\n<li>Okok</li>\r\n<li>Oranges</li>\r\n<li>Pamplemousses</li>\r\n<li>Safou</li>\r\n</ul>\r\n</td>\r\n</tr>\r\n</table>\r\n\r\n<h3>Les plants forestiers</h3>\r\n<p>En parall\u00e8le aux vergers, pour lutter contre la d\u00e9forestation, nous produisons des plants d\u2019arbres forestiers destin\u00e9s \u00e0 restaurer les jach\u00e8res. Ils sont produits en p\u00e9pini\u00e8re et propos\u00e9s gratuitement aux agriculteurs de Tayap. Ils sont vendus \u00e0 tarif attractif aux personnes ext\u00e9rieures au village.</p>\r\n\r\n<h3>Les semences</h3>\r\n<p>\r\nUn champ semencier de 2 ha est op\u00e9rationnel. Il permettra d\u2019augmenter encore la superficie de terres agricoles restaur\u00e9es. Les semences produites sont fournies gratuitement.\r\nTous nos produits sont vendus en ligne (lien vers page achat en ligne) et sur place (sur rendez-vous, contact).<br />\r\nIls constituent une source permanente de revenus pour la communaut\u00e9.\r\n</p>\r\n",
-    "url": "/nos-plantations/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Nos plantations"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<h3>Les vergers</h3>\r\n<p>\r\n20 hectares de vergers agro-forestiers sont d\u2019ores et d\u00e9j\u00e0 plant\u00e9s. Ils sont tous exploit\u00e9s en agriculture biologique. Les vergers permettent de commercialiser une vingtaine de produits :\r\n</p>\r\n\r\n<table>\r\n<tr>\r\n<td>\r\n<ul>\r\n<li>Arbre \u00e0 ail ou hiomi (Scorodophleus zenkeri) </li>\r\n<li>Avocat</li>\r\n<li>Bananes plantains</li>\r\n<li>Bitter-cola (Garcinia cola)</li>\r\n<li>Cacao</li>\r\n<li>Cassimanga ou pommes cyth\u00e8res</li>\r\n<li>Citrons</li>\r\n<li>Huile de moabi</li>\r\n<li>Huile de palme</li>\r\n<li>Huile de palmiste</li>\r\n<li>Macabo</li>\r\n</td>\r\n<td>\r\n<ul>\r\n<li>Mandarines</li>\r\n<li>Mangues sauvages</li>\r\n<li>Manioc</li>\r\n<li>Mbongo (Aframomum sp.)</li>\r\n<li>Noix de coco</li>\r\n<li>Noix de kola</li>\r\n<li>Okok</li>\r\n<li>Oranges</li>\r\n<li>Pamplemousses</li>\r\n<li>Safou</li>\r\n</ul>\r\n</td>\r\n</tr>\r\n</table>\r\n\r\n<h3>Les plants forestiers</h3>\r\n<p>En parall\u00e8le aux vergers, pour lutter contre la d\u00e9forestation, nous produisons des plants d\u2019arbres forestiers destin\u00e9s \u00e0 restaurer les jach\u00e8res. Ils sont produits en p\u00e9pini\u00e8re et propos\u00e9s gratuitement aux agriculteurs de Tayap. Ils sont vendus \u00e0 tarif attractif aux personnes ext\u00e9rieures au village.</p>\r\n\r\n<h3>Les semences</h3>\r\n<p>\r\nUn champ semencier de 2 ha est op\u00e9rationnel. Il permettra d\u2019augmenter encore la superficie de terres agricoles restaur\u00e9es. Les semences produites sont fournies gratuitement.\r\nTous nos produits sont vendus en ligne (lien vers page achat en ligne) et sur place (sur rendez-vous, contact).<br />\r\nIls constituent une source permanente de revenus pour la communaut\u00e9.\r\n</p>\r\n",
+      "url": "/nos-plantations/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Nos plantations"
+    },
+    "pk": 10
   },
-  "pk": 10
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<h3>Galeries photos</h3>\r\n\r\n<table style=\"width:100%; text-align:center;\">\r\n<tr>\r\n<td style=\"width: 33%;padding: 5px;\">\r\n<a href=\"/photos-agroforesterie/\">\r\n<img src=\"/media/staticpages/photos_agroforesterie.jpg\" style=\"max-width:100%\"/>\r\n</a>\r\n</td>\r\n<td style=\"width: 33%;padding: 5px;\">\r\n<a href=\"/photos-ecotourisme/\">\r\n<img src=\"/media/staticpages/photos_ecotourisme.jpg\" style=\"max-width:100%\"/>\r\n</a>\r\n</td>\r\n<td style=\"width: 33%;padding: 5px;\">\r\n<a href=\"/photos-microfinance-solidaire/\">\r\n<img src=\"/media/staticpages/photos_microfinance.jpg\" style=\"max-width:100%\"/>\r\n</a>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<a href=\"/photos-agroforesterie/\">Agroforesterie</a>\r\n</td>\r\n<td>\r\n<a href=\"/photos-ecotourisme/\">\u00c9cotourisme</a>\r\n</td>\r\n<td>\r\n<a href=\"/photos-microfinance-solidaire/\">Microfinance solidaire</a>\r\n</td>\r\n</tr>\r\n</table>\r\n\r\n\r\n<h3>Web documentaire</h3>\r\n<img src=\"/media/staticpages/photos_webdoc.jpg\" style=\"float:left;padding: 5px;\"/>\r\n<p>\r\nDivis\u00e9 en trois chapitres intitul\u00e9s \u00ab\u00a0R\u00e9agir \u2013 construire - enraciner\u00a0\u00bb, le webdocumentaire revient sur la d\u00e9marche d'Agripo depuis la gen\u00e8se du projet des \u00e9co-vergers jusqu\u2019aux derni\u00e8res actions en cours d\u2019\u00e9laboration. Le webdocumentaire, se pr\u00e9sente sous la forme de trois vid\u00e9os principales repla\u00e7ant l'initiative des Vergers Eco-touristiques de Tayap dans le contexte social, culturel et \u00e9cologique du Cameroun. Durant la lecture des vid\u00e9os, des \u00ab\u00a0focus\u00a0\u00bb compl\u00e9mentaires permettent de mieux \u00e9clairer le propos, ou proposer des informations compl\u00e9mentaires -\r\n</p>\r\n\r\n<h3>Vid\u00e9o ILES</h3>\r\n<iframe width=\"252\" height=\"189\" src=\"https://www.youtube.com/embed/mnWhXn4HqaI\" frameborder=\"0\" allowfullscreen style=\"float:left;padding: 5px;\"></iframe>\r\n<p><strong>Initiative\u00a0Locale d\u2019Electrification\u00a0Solaire (ILES)</strong></p>\r\n<p>Comme plusieurs communaut\u00e9s rurales, les habitants de Tayap vivent dans un cadre pr\u00e9serv\u00e9. Mais il manque quelque chose d\u2019essentiel\u00a0: l\u2019\u00e9lectricit\u00e9. C\u2019est pourquoi, AGRIPO est porteuse du projet \u00ab\u00a0ILES\u00a0\u00bb pour la promotion de l\u2019\u00e9lectrification solaire des localit\u00e9s rurales.\u00a0 La lutte contre l\u2019exode rural, la diversification des activit\u00e9s, la modernisation des communications, la mise en place d\u2019un r\u00e9seau d\u2019eau potable, l\u2019\u00e9clairage, la r\u00e9frig\u00e9ration, la cr\u00e9ation d\u2019emplois ruraux, et l\u2019utilisation d\u2019\u00e9nergie renouvelable sont au c\u0153ur de ce projet en marche.<br />\r\nEtes-vous int\u00e9ress\u00e9s\u00a0?\u00a0Nous vous invitons \u00e0 nous contacter\u00a0!\r\n</p>\r\n\r\n<h3>Jeux vid\u00e9o</h3>\r\n\r\n",
-    "url": "/photos-et-videos/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Photos et vid\u00e9os"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<h3>Galeries photos</h3>\r\n\r\n<table style=\"width:100%; text-align:center;\">\r\n<tr>\r\n<td style=\"width: 33%;padding: 5px;\">\r\n<a href=\"/photos-agroforesterie/\">\r\n<img src=\"/media/staticpages/photos_agroforesterie.jpg\" style=\"max-width:100%\"/>\r\n</a>\r\n</td>\r\n<td style=\"width: 33%;padding: 5px;\">\r\n<a href=\"/photos-ecotourisme/\">\r\n<img src=\"/media/staticpages/photos_ecotourisme.jpg\" style=\"max-width:100%\"/>\r\n</a>\r\n</td>\r\n<td style=\"width: 33%;padding: 5px;\">\r\n<a href=\"/photos-microfinance-solidaire/\">\r\n<img src=\"/media/staticpages/photos_microfinance.jpg\" style=\"max-width:100%\"/>\r\n</a>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<a href=\"/photos-agroforesterie/\">Agroforesterie</a>\r\n</td>\r\n<td>\r\n<a href=\"/photos-ecotourisme/\">\u00c9cotourisme</a>\r\n</td>\r\n<td>\r\n<a href=\"/photos-microfinance-solidaire/\">Microfinance solidaire</a>\r\n</td>\r\n</tr>\r\n</table>\r\n\r\n\r\n<h3>Web documentaire</h3>\r\n<img src=\"/media/staticpages/photos_webdoc.jpg\" style=\"float:left;padding: 5px;\"/>\r\n<p>\r\nDivis\u00e9 en trois chapitres intitul\u00e9s \u00ab\u00a0R\u00e9agir \u2013 construire - enraciner\u00a0\u00bb, le webdocumentaire revient sur la d\u00e9marche d'Agripo depuis la gen\u00e8se du projet des \u00e9co-vergers jusqu\u2019aux derni\u00e8res actions en cours d\u2019\u00e9laboration. Le webdocumentaire, se pr\u00e9sente sous la forme de trois vid\u00e9os principales repla\u00e7ant l'initiative des Vergers Eco-touristiques de Tayap dans le contexte social, culturel et \u00e9cologique du Cameroun. Durant la lecture des vid\u00e9os, des \u00ab\u00a0focus\u00a0\u00bb compl\u00e9mentaires permettent de mieux \u00e9clairer le propos, ou proposer des informations compl\u00e9mentaires -\r\n</p>\r\n\r\n<h3>Vid\u00e9o ILES</h3>\r\n<iframe width=\"252\" height=\"189\" src=\"https://www.youtube.com/embed/mnWhXn4HqaI\" frameborder=\"0\" allowfullscreen style=\"float:left;padding: 5px;\"></iframe>\r\n<p><strong>Initiative\u00a0Locale d\u2019Electrification\u00a0Solaire (ILES)</strong></p>\r\n<p>Comme plusieurs communaut\u00e9s rurales, les habitants de Tayap vivent dans un cadre pr\u00e9serv\u00e9. Mais il manque quelque chose d\u2019essentiel\u00a0: l\u2019\u00e9lectricit\u00e9. C\u2019est pourquoi, AGRIPO est porteuse du projet \u00ab\u00a0ILES\u00a0\u00bb pour la promotion de l\u2019\u00e9lectrification solaire des localit\u00e9s rurales.\u00a0 La lutte contre l\u2019exode rural, la diversification des activit\u00e9s, la modernisation des communications, la mise en place d\u2019un r\u00e9seau d\u2019eau potable, l\u2019\u00e9clairage, la r\u00e9frig\u00e9ration, la cr\u00e9ation d\u2019emplois ruraux, et l\u2019utilisation d\u2019\u00e9nergie renouvelable sont au c\u0153ur de ce projet en marche.<br />\r\nEtes-vous int\u00e9ress\u00e9s\u00a0?\u00a0Nous vous invitons \u00e0 nous contacter\u00a0!\r\n</p>\r\n\r\n<h3>Jeux vid\u00e9o</h3>\r\n\r\n",
+      "url": "/photos-et-videos/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Photos et vid\u00e9os"
+    },
+    "pk": 11
   },
-  "pk": 11
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p><a href=\"/photos-et-videos/\">Retour</a></p>\r\n<p>Photos en attente</p>\r\n",
-    "url": "/photos-agroforesterie/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Photos / Agroforesterie"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p><a href=\"/photos-et-videos/\">Retour</a></p>\r\n<p>Photos en attente</p>\r\n",
+      "url": "/photos-agroforesterie/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Photos / Agroforesterie"
+    },
+    "pk": 12
   },
-  "pk": 12
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p><a href=\"/photos-et-videos/\">Retour</a></p>\r\n<p>Photos en attente</p>\r\n",
-    "url": "/photos-ecotourisme/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Photos / \u00c9cotourisme"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p><a href=\"/photos-et-videos/\">Retour</a></p>\r\n<p>Photos en attente</p>\r\n",
+      "url": "/photos-ecotourisme/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Photos / \u00c9cotourisme"
+    },
+    "pk": 13
   },
-  "pk": 13
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p><a href=\"/photos-et-videos/\">Retour</a></p>\r\n<p>Photos en attente</p>\r\n",
-    "url": "/photos-microfinance-solidaire/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Photos / Microfinance Solidaire"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p><a href=\"/photos-et-videos/\">Retour</a></p>\r\n<p>Photos en attente</p>\r\n",
+      "url": "/photos-microfinance-solidaire/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Photos / Microfinance Solidaire"
+    },
+    "pk": 14
   },
-  "pk": 14
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<style>\r\n#ressources_doc td{\r\npadding: 5px;\r\npadding-bottom: 40px;\r\n}\r\n</style>\r\n<table id=\"ressources_doc\">\r\n<tr>\r\n<td>\r\n<img src=\"/media/staticpages/ressources_monographie.jpg\"/>\r\n</td>\r\n<td>\r\n<p><strong>Monographie du village de Tayap - 2014</strong></p>\r\n<p>Cela n\u2019avait jamais \u00e9t\u00e9 fait\u00a0! AGRIPO a compil\u00e9 les informations disponibles sur le village de Tayap de la mani\u00e8re la plus exhaustive possible. Les \u00e9l\u00e9ments descriptifs du milieu physique sont rassembl\u00e9s\u00a0: g\u00e9ographie, climatologie, g\u00e9ologie, hydrographie\u2026 Le milieu humain\u00a0: l\u2019organisation administrative, la population, les activit\u00e9s \u00e9conomiques et pour le chapitre \u00ab\u00a0Histoire\u00a0\u00bb, la m\u00e9moire des anciens du village a \u00e9t\u00e9 sollicit\u00e9e car cela n\u2019\u00e9tait \u00e9crit nulle part. Ils nous racontent la lutte anticoloniale, l\u2019origine du village et ses coutumes.<br />\r\nLe portait de Tayap est illustr\u00e9 de photos et de cartes.\r\n</p>\r\n<a href=\"/media/staticpages/monographie_de_tayap.pdf\" target=\"_blank\">T\u00e9l\u00e9charger</a>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n\r\n</td>\r\n<td>\r\n<p><strong>Les vergers \u00e9cologiques, un mod\u00e8le d\u2019agriculture climato-intelligente pour un d\u00e9veloppement innovant\u00a0: retour d\u2019exp\u00e9rience d\u2019une r\u00e9silience communautaire en Afrique centrale</strong></p>\r\n<p>\r\nCet ouvrage partage les informations sur le cheminement et les efforts mis en place par la petite communaut\u00e9 de Tayap au Cameroun, pour trouver un mode de fonctionnement durable et r\u00e9silient par la mise en place d'un mod\u00e8le d'agriculture au d\u00e9veloppement innovant. \r\n</p>\r\nT\u00e9l\u00e9charger\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n\r\n</td>\r\n<td>\r\n<p><strong>Diversification des revenus en milieu rural : les populations de Tayap se lancent, pourquoi pas vous ?</strong></p>\r\n<p>Pr\u00e9sentation des perspectives de d\u00e9veloppement des activit\u00e9s g\u00e9n\u00e9ratrices de revenus impuls\u00e9es par une microfinance rurale\r\n</p>\r\nT\u00e9l\u00e9charger\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<img src=\"/media/staticpages/ressources_monlivre.jpg\"/>\r\n</td>\r\n<td>\r\n<p><strong>Cours p\u00e9dagogique</strong></p>\r\n<p>\r\nLa for\u00eat, un milieu de vie\r\n</p>\r\nT\u00e9l\u00e9charger\r\n</td>\r\n</tr>\r\n</table>",
-    "url": "/ressources-documentaires/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Ressources documentaires"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<style>\r\n#ressources_doc td{\r\npadding: 5px;\r\npadding-bottom: 40px;\r\n}\r\n</style>\r\n<table id=\"ressources_doc\">\r\n<tr>\r\n<td>\r\n<img src=\"/media/staticpages/ressources_monographie.jpg\"/>\r\n</td>\r\n<td>\r\n<p><strong>Monographie du village de Tayap - 2014</strong></p>\r\n<p>Cela n\u2019avait jamais \u00e9t\u00e9 fait\u00a0! AGRIPO a compil\u00e9 les informations disponibles sur le village de Tayap de la mani\u00e8re la plus exhaustive possible. Les \u00e9l\u00e9ments descriptifs du milieu physique sont rassembl\u00e9s\u00a0: g\u00e9ographie, climatologie, g\u00e9ologie, hydrographie\u2026 Le milieu humain\u00a0: l\u2019organisation administrative, la population, les activit\u00e9s \u00e9conomiques et pour le chapitre \u00ab\u00a0Histoire\u00a0\u00bb, la m\u00e9moire des anciens du village a \u00e9t\u00e9 sollicit\u00e9e car cela n\u2019\u00e9tait \u00e9crit nulle part. Ils nous racontent la lutte anticoloniale, l\u2019origine du village et ses coutumes.<br />\r\nLe portait de Tayap est illustr\u00e9 de photos et de cartes.\r\n</p>\r\n<a href=\"/media/staticpages/monographie_de_tayap.pdf\" target=\"_blank\">T\u00e9l\u00e9charger</a>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n\r\n</td>\r\n<td>\r\n<p><strong>Les vergers \u00e9cologiques, un mod\u00e8le d\u2019agriculture climato-intelligente pour un d\u00e9veloppement innovant\u00a0: retour d\u2019exp\u00e9rience d\u2019une r\u00e9silience communautaire en Afrique centrale</strong></p>\r\n<p>\r\nCet ouvrage partage les informations sur le cheminement et les efforts mis en place par la petite communaut\u00e9 de Tayap au Cameroun, pour trouver un mode de fonctionnement durable et r\u00e9silient par la mise en place d'un mod\u00e8le d'agriculture au d\u00e9veloppement innovant. \r\n</p>\r\nT\u00e9l\u00e9charger\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n\r\n</td>\r\n<td>\r\n<p><strong>Diversification des revenus en milieu rural : les populations de Tayap se lancent, pourquoi pas vous ?</strong></p>\r\n<p>Pr\u00e9sentation des perspectives de d\u00e9veloppement des activit\u00e9s g\u00e9n\u00e9ratrices de revenus impuls\u00e9es par une microfinance rurale\r\n</p>\r\nT\u00e9l\u00e9charger\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<img src=\"/media/staticpages/ressources_monlivre.jpg\"/>\r\n</td>\r\n<td>\r\n<p><strong>Cours p\u00e9dagogique</strong></p>\r\n<p>\r\nLa for\u00eat, un milieu de vie\r\n</p>\r\nT\u00e9l\u00e9charger\r\n</td>\r\n</tr>\r\n</table>",
+      "url": "/ressources-documentaires/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Ressources documentaires"
+    },
+    "pk": 15
   },
-  "pk": 15
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<style>\r\n#mag_press td{\r\npadding: 5px;\r\npadding-bottom: 40px;\r\n}\r\n</style>\r\n<table id=\"mag_press\">\r\n<tr>\r\n<td>\r\n\r\n</td>\r\n<td>\r\n<p><strong>Magazine \"TAYAP\" n\u00b01</strong></p>\r\n<p>Titre\u00a0: D\u00e9veloppement Durable</p>\r\n<p>Parution\u00a0: D\u00e9cembre 2015</p>\r\n<p>Contenu\u00a0: Retrouvez des personnalit\u00e9s attach\u00e9es aux ruralit\u00e9s africaines. Pour ce num\u00e9ro, une personnalit\u00e9 internationale a r\u00e9pondu \u00e0 nos questions\u00a0!</p>\r\n<p>Nos  \u00e9quipes vous font d\u00e9couvrir quelques-unes des curiosit\u00e9s de notre site touristique. Vous vous rendrez \u00e9galement dans nos exploitations agricoles pour une visite avec des guides passionn\u00e9s\u2026<br />\r\nTAYAP, c\u2019est aussi une mine d\u2019astuces pour la vie quotidienne, des conseils mode et beaut\u00e9. Comment soigner avec les plantes\u00a0? Comment composer un menu complet typiquement africain\u00a0? Toutes les r\u00e9ponses sont dans TAYAP\u00a0! </p>\r\n<p>T\u00e9l\u00e9charger la version num\u00e9rique</p>\r\n<p>Autofinancer votre version imprim\u00e9e</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<img src=\"/media/staticpages/mag_presse_dossier_presse.jpg\"/>\r\n</td>\r\n<td>\r\n<p><strong>Dossier de presse \u20132015</strong></p>\r\n<p>\r\nNotre dynamisme et notre d\u00e9termination se sont construits pour faire face au contexte de crise g\u00e9n\u00e9ralis\u00e9e aux effets d\u00e9vastateurs qui ont un impact ind\u00e9niable sur les populations du Cameroun \u2013 changement climatique, crise \u00e9conomique, \u00e9nerg\u00e9tique,\u2026\r\n</p>\r\n<p><a href=\"/media/staticpages/dossier_de_presse-agripo.pdf\" target=\"_blank\">T\u00e9l\u00e9charger</a></p>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>\r\n<img src=\"/media/staticpages/mag_presse_medias.jpg\"/>\r\n</td>\r\n<td>\r\n<p><strong>Revue de presse \u20132015</strong></p>\r\n<p>\r\nLes m\u00e9dias parlent de nous...\r\n</p>\r\nT\u00e9l\u00e9charger\r\n</td>\r\n</tr>\r\n</table>",
-    "url": "/magazines-et-presse/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Magazines et Presse"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<style>\r\n#mag_press td{\r\npadding: 5px;\r\npadding-bottom: 40px;\r\n}\r\n</style>\r\n<table id=\"mag_press\">\r\n<tr>\r\n<td>\r\n\r\n</td>\r\n<td>\r\n<p><strong>Magazine \"TAYAP\" n\u00b01</strong></p>\r\n<p>Titre\u00a0: D\u00e9veloppement Durable</p>\r\n<p>Parution\u00a0: D\u00e9cembre 2015</p>\r\n<p>Contenu\u00a0: Retrouvez des personnalit\u00e9s attach\u00e9es aux ruralit\u00e9s africaines. Pour ce num\u00e9ro, une personnalit\u00e9 internationale a r\u00e9pondu \u00e0 nos questions\u00a0!</p>\r\n<p>Nos  \u00e9quipes vous font d\u00e9couvrir quelques-unes des curiosit\u00e9s de notre site touristique. Vous vous rendrez \u00e9galement dans nos exploitations agricoles pour une visite avec des guides passionn\u00e9s\u2026<br />\r\nTAYAP, c\u2019est aussi une mine d\u2019astuces pour la vie quotidienne, des conseils mode et beaut\u00e9. Comment soigner avec les plantes\u00a0? Comment composer un menu complet typiquement africain\u00a0? Toutes les r\u00e9ponses sont dans TAYAP\u00a0! </p>\r\n<p>T\u00e9l\u00e9charger la version num\u00e9rique</p>\r\n<p>Autofinancer votre version imprim\u00e9e</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<img src=\"/media/staticpages/mag_presse_dossier_presse.jpg\"/>\r\n</td>\r\n<td>\r\n<p><strong>Dossier de presse \u20132015</strong></p>\r\n<p>\r\nNotre dynamisme et notre d\u00e9termination se sont construits pour faire face au contexte de crise g\u00e9n\u00e9ralis\u00e9e aux effets d\u00e9vastateurs qui ont un impact ind\u00e9niable sur les populations du Cameroun \u2013 changement climatique, crise \u00e9conomique, \u00e9nerg\u00e9tique,\u2026\r\n</p>\r\n<p><a href=\"/media/staticpages/dossier_de_presse-agripo.pdf\" target=\"_blank\">T\u00e9l\u00e9charger</a></p>\r\n</td>\r\n</tr>\r\n\r\n<tr>\r\n<td>\r\n<img src=\"/media/staticpages/mag_presse_medias.jpg\"/>\r\n</td>\r\n<td>\r\n<p><strong>Revue de presse \u20132015</strong></p>\r\n<p>\r\nLes m\u00e9dias parlent de nous...\r\n</p>\r\nT\u00e9l\u00e9charger\r\n</td>\r\n</tr>\r\n</table>",
+      "url": "/magazines-et-presse/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Magazines et Presse"
+    },
+    "pk": 16
   },
-  "pk": 16
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p>\r\nPour r\u00e9pondre \u00e0 vos questions, vous informer sur nos produits et services, vous accompagner dans votre d\u00e9marche de d\u00e9veloppement,  comment nous joindre ? \r\n</p>\r\n<p>\r\nVous avez une question ? Vous souhaitez obtenir des informations sur nos produits et services ? Vous avez la possibilit\u00e9 de nous contacter\u00a0en utilisant l'un des services suivants :\r\n</p>\r\n<p>\r\n<a href=\"mailto: gic.agripo@gmail.com\"><i class=\"fa fa-at fa-2x\"></i> gic.agripo@gmail.com</a>\r\n</p>\r\n<p>\r\n<a target=\"_blank\" href=\"https://www.facebook.com/AgriculteursProfessionnelsDuCameroun\"><i class=\"fa fa-facebook-square fa-2x\"></i> AgriculteursProfessionnelsDuCameroun</a>\r\n</p>\r\n<p>\r\n<a target=\"_blank\" href=\"https://twitter.com/COOPAGRIPO\"><i class=\"fa fa-twitter-square fa-2x\"></i> COOPAGRIPO</a>\r\n</p>\r\n<p>\r\n<a target=\"_blank\" href=\"#\"><i class=\"fa fa-google-plus-square fa-2x\"></i></a>\r\n</p>\r\n<p>\r\n<a target=\"_blank\" href=\"https://www.linkedin.com/profile/view?id=AAIAAArp93EBgbDIykka0-CeR3LMmszhpRlMMwc&trk=nav_responsive_tab_profile_pic\"><i class=\"fa fa-linkedin-square fa-2x\"></i> AGRIPO AGRIPO</a>\r\n</p>",
-    "url": "/nous-contacter/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Nous contacter"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p>\r\nPour r\u00e9pondre \u00e0 vos questions, vous informer sur nos produits et services, vous accompagner dans votre d\u00e9marche de d\u00e9veloppement,  comment nous joindre ? \r\n</p>\r\n<p>\r\nVous avez une question ? Vous souhaitez obtenir des informations sur nos produits et services ? Vous avez la possibilit\u00e9 de nous contacter\u00a0en utilisant l'un des services suivants :\r\n</p>\r\n<p>\r\n<a href=\"mailto: gic.agripo@gmail.com\"><i class=\"fa fa-at fa-2x\"></i> gic.agripo@gmail.com</a>\r\n</p>\r\n<p>\r\n<a target=\"_blank\" href=\"https://www.facebook.com/AgriculteursProfessionnelsDuCameroun\"><i class=\"fa fa-facebook-square fa-2x\"></i> AgriculteursProfessionnelsDuCameroun</a>\r\n</p>\r\n<p>\r\n<a target=\"_blank\" href=\"https://twitter.com/COOPAGRIPO\"><i class=\"fa fa-twitter-square fa-2x\"></i> COOPAGRIPO</a>\r\n</p>\r\n<p>\r\n<a target=\"_blank\" href=\"#\"><i class=\"fa fa-google-plus-square fa-2x\"></i></a>\r\n</p>\r\n<p>\r\n<a target=\"_blank\" href=\"https://www.linkedin.com/profile/view?id=AAIAAArp93EBgbDIykka0-CeR3LMmszhpRlMMwc&trk=nav_responsive_tab_profile_pic\"><i class=\"fa fa-linkedin-square fa-2x\"></i> AGRIPO AGRIPO</a>\r\n</p>",
+      "url": "/nous-contacter/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Nous contacter"
+    },
+    "pk": 17
   },
-  "pk": 17
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<h3>Edition </h3>\r\n<p>\r\nLe site internet www.agripo.net est \u00e9dit\u00e9 par la coop\u00e9rative des Agriculteurs Professionnels du Cameroun, AGRIPO, dont le si\u00e8ge est situ\u00e9\u00a0dans le village de Tayap.\r\n</p>\r\n<p>\r\nPour toute correspondance, nous contacter: <br />\r\nS/C BP 7105 DOUALA<br />\r\nT\u00e9l\u00a0: 237 - 243 08 43 07<br />\r\nCourriel\u00a0: gic.agripo@gmail.com<br />\r\n</p>\r\n\r\n<h3>R\u00e9alisation et H\u00e9bergement\u00a0du site  </h3>\r\n<p>Le site a \u00e9t\u00e9 d\u00e9velopp\u00e9 par Brice PARENT. Courriel : contact<i class=\"fa fa-at\"> </i>brice.xyz.</p>\r\n<p>Il est bas\u00e9 sur Django 1.8 et Jquery. Pour plus d'informations, vous pouvez consulter le fichier README accessible avec son code source <a href=\"https://github.com/agripo/website\" target=\"_blank\">ici</a>.\r\n<p>Il est h\u00e9berg\u00e9 chez ...</p>\r\n\r\n<h3>Droits r\u00e9serv\u00e9s</h3>\r\n<p>\r\nLes informations, documents et services de ce site sont prot\u00e9g\u00e9s par les lois sur les droits d'auteur et/ou la propri\u00e9t\u00e9 intellectuelle. Tous droits de reproduction et de diffusion du contenu du site sont r\u00e9serv\u00e9s y compris pour le logo d\u2019AGRIPO, les documents t\u00e9l\u00e9chargeables et les repr\u00e9sentations photographiques. La reproduction de toute ou partie de ce site sur quelque support que ce soit est formellement interdite sauf autorisation expresse d\u2019AGRIPO.\r\n</p>\r\n\r\n<h3>Cr\u00e9dits photos</h3>\r\n<p>AGRIPO</p>\r\n\r\n<h3>Traitement et protection des donn\u00e9es personnelles </h3>\r\n<p>\r\nVous nous communiquez des informations personnelles en remplissant les formulaires de dons, de r\u00e9servation ou de commande. Les informations que vous nous transmettez sont \u00e0 l'usage exclusif d'AGRIPO et ne seront en aucun cas transmises \u00e0 des tiers. Vous pouvez \u00e0 tout moment nous demander de rectifier, de modifier ou de supprimer les donn\u00e9es qui vous concernent.<br />\r\nLes donn\u00e9es de trafic collect\u00e9es ont uniquement pour but de nous permettre d'analyser la fr\u00e9quentation de nos pages afin d'en am\u00e9liorer le contenu. Les donn\u00e9es relatives \u00e0 la navigation des visiteurs ne sont pas exploit\u00e9es nominativement. Il s'agit de statistiques agr\u00e9g\u00e9es.<br />\r\nNous vous informons que le secret des correspondances transmises sur le r\u00e9seau Internet n'est pas garanti. Chaque utilisateur est, de ce fait, seul responsable du contenu de sa correspondance. \r\n</p>\r\n\r\n<h3>\u00c9tablissement de liens vers le site www.agripo.net</h3>\r\n<p>\r\nAGRIPO autorise la mise en place d'un lien hypertexte vers son site \u00e0 condition de lui en faire la demande pr\u00e9alablement. Le lien doit aboutir \u00e0 la page d'accueil du site qui doit appara\u00eetre dans une nouvelle fen\u00eatre. Les pages du site ne doivent en aucun cas \u00eatre int\u00e9gr\u00e9es \u00e0 l'int\u00e9rieur des pages d'un autre site.\r\n</p>\r\n\u00a0\r\n<h3>Liens vers des sites tiers depuis le site www.agripo.net</h3>\r\n<p>\r\nLes liens hypertextes mis en \u0153uvre au sein du site en direction d'autres sites et d'une mani\u00e8re g\u00e9n\u00e9rale vers toutes ressources existantes sur Internet ne sauraient engager la responsabilit\u00e9 d\u2019AGRIPO quant aux liens qu'ils contiennent ou aux changements ou mises \u00e0 jour qui leur sont apport\u00e9s.\r\n</p>",
-    "url": "/credits-mentions-legales/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Cr\u00e9dits et mentions l\u00e9gales"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<h3>Edition </h3>\r\n<p>\r\nLe site internet www.agripo.net est \u00e9dit\u00e9 par la coop\u00e9rative des Agriculteurs Professionnels du Cameroun, AGRIPO, dont le si\u00e8ge est situ\u00e9\u00a0dans le village de Tayap.\r\n</p>\r\n<p>\r\nPour toute correspondance, nous contacter: <br />\r\nS/C BP 7105 DOUALA<br />\r\nT\u00e9l\u00a0: 237 - 243 08 43 07<br />\r\nCourriel\u00a0: gic.agripo@gmail.com<br />\r\n</p>\r\n\r\n<h3>R\u00e9alisation et H\u00e9bergement\u00a0du site  </h3>\r\n<p>Le site a \u00e9t\u00e9 d\u00e9velopp\u00e9 par Brice PARENT. Courriel : contact<i class=\"fa fa-at\"> </i>brice.xyz.</p>\r\n<p>Il est bas\u00e9 sur Django 1.8 et Jquery. Pour plus d'informations, vous pouvez consulter le fichier README accessible avec son code source <a href=\"https://github.com/agripo/website\" target=\"_blank\">ici</a>.\r\n<p>Il est h\u00e9berg\u00e9 chez ...</p>\r\n\r\n<h3>Droits r\u00e9serv\u00e9s</h3>\r\n<p>\r\nLes informations, documents et services de ce site sont prot\u00e9g\u00e9s par les lois sur les droits d'auteur et/ou la propri\u00e9t\u00e9 intellectuelle. Tous droits de reproduction et de diffusion du contenu du site sont r\u00e9serv\u00e9s y compris pour le logo d\u2019AGRIPO, les documents t\u00e9l\u00e9chargeables et les repr\u00e9sentations photographiques. La reproduction de toute ou partie de ce site sur quelque support que ce soit est formellement interdite sauf autorisation expresse d\u2019AGRIPO.\r\n</p>\r\n\r\n<h3>Cr\u00e9dits photos</h3>\r\n<p>AGRIPO</p>\r\n\r\n<h3>Traitement et protection des donn\u00e9es personnelles </h3>\r\n<p>\r\nVous nous communiquez des informations personnelles en remplissant les formulaires de dons, de r\u00e9servation ou de commande. Les informations que vous nous transmettez sont \u00e0 l'usage exclusif d'AGRIPO et ne seront en aucun cas transmises \u00e0 des tiers. Vous pouvez \u00e0 tout moment nous demander de rectifier, de modifier ou de supprimer les donn\u00e9es qui vous concernent.<br />\r\nLes donn\u00e9es de trafic collect\u00e9es ont uniquement pour but de nous permettre d'analyser la fr\u00e9quentation de nos pages afin d'en am\u00e9liorer le contenu. Les donn\u00e9es relatives \u00e0 la navigation des visiteurs ne sont pas exploit\u00e9es nominativement. Il s'agit de statistiques agr\u00e9g\u00e9es.<br />\r\nNous vous informons que le secret des correspondances transmises sur le r\u00e9seau Internet n'est pas garanti. Chaque utilisateur est, de ce fait, seul responsable du contenu de sa correspondance. \r\n</p>\r\n\r\n<h3>\u00c9tablissement de liens vers le site www.agripo.net</h3>\r\n<p>\r\nAGRIPO autorise la mise en place d'un lien hypertexte vers son site \u00e0 condition de lui en faire la demande pr\u00e9alablement. Le lien doit aboutir \u00e0 la page d'accueil du site qui doit appara\u00eetre dans une nouvelle fen\u00eatre. Les pages du site ne doivent en aucun cas \u00eatre int\u00e9gr\u00e9es \u00e0 l'int\u00e9rieur des pages d'un autre site.\r\n</p>\r\n\u00a0\r\n<h3>Liens vers des sites tiers depuis le site www.agripo.net</h3>\r\n<p>\r\nLes liens hypertextes mis en \u0153uvre au sein du site en direction d'autres sites et d'une mani\u00e8re g\u00e9n\u00e9rale vers toutes ressources existantes sur Internet ne sauraient engager la responsabilit\u00e9 d\u2019AGRIPO quant aux liens qu'ils contiennent ou aux changements ou mises \u00e0 jour qui leur sont apport\u00e9s.\r\n</p>",
+      "url": "/credits-mentions-legales/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Cr\u00e9dits et mentions l\u00e9gales"
+    },
+    "pk": 18
   },
-  "pk": 18
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p>\r\nSensibles \u00e0 l\u2019action d\u2019AGRIPO\u00a0? Ensemble, d\u00e9veloppons un partenariat responsable et adapt\u00e9 afin de:\r\n<ul>\r\n<li>Affirmer votre identit\u00e9 d\u2019institution responsable et promouvoir nos valeurs communes</li>\r\n<li>Partager notre engagement sur des th\u00e9matiques porteuses d\u2019avenir comme l\u2019agro\u00e9cologie, l\u2019\u00e9conomie verte, l\u2019\u00e9nergie renouvelable, ...</li>\r\n<li>Mobiliser de fa\u00e7on transparente autour d\u2019actions concr\u00e8tes et visibles sur le terrain.</li>\r\n</ul>\r\n</p>\r\n<p>\r\nSelon vos possibilit\u00e9s, nous proposons quatre types de partenariats possibles...\r\n<ul>\r\n<li>Partenariat financier</li>\r\n<li>Partenariat en nature (don de mat\u00e9riel, etc.)</li>\r\n<li>Partenariat de comp\u00e9tences</li>\r\n<li>Partenariat en visibilit\u00e9</li>\r\n</ul>\r\n</p>\r\n<p>\r\nLes partenaires peuvent nous apporter un appui ponctuel ou permanent. AGRIPO capitalise les r\u00e9sultats de votre engagement dans un rapport et rend visible votre engagement sur les supports de communication et d\u2019informations. \r\n</p>\r\n<p>\r\nSi vous souhaitez nouer un partenariat avec AGRIPO, nous serons heureux d\u2019\u00e9changer avec vous.\r\n</p>\r\n",
-    "url": "/devenir-partenaire/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Devenir partenaire"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p>\r\nSensibles \u00e0 l\u2019action d\u2019AGRIPO\u00a0? Ensemble, d\u00e9veloppons un partenariat responsable et adapt\u00e9 afin de:\r\n<ul>\r\n<li>Affirmer votre identit\u00e9 d\u2019institution responsable et promouvoir nos valeurs communes</li>\r\n<li>Partager notre engagement sur des th\u00e9matiques porteuses d\u2019avenir comme l\u2019agro\u00e9cologie, l\u2019\u00e9conomie verte, l\u2019\u00e9nergie renouvelable, ...</li>\r\n<li>Mobiliser de fa\u00e7on transparente autour d\u2019actions concr\u00e8tes et visibles sur le terrain.</li>\r\n</ul>\r\n</p>\r\n<p>\r\nSelon vos possibilit\u00e9s, nous proposons quatre types de partenariats possibles...\r\n<ul>\r\n<li>Partenariat financier</li>\r\n<li>Partenariat en nature (don de mat\u00e9riel, etc.)</li>\r\n<li>Partenariat de comp\u00e9tences</li>\r\n<li>Partenariat en visibilit\u00e9</li>\r\n</ul>\r\n</p>\r\n<p>\r\nLes partenaires peuvent nous apporter un appui ponctuel ou permanent. AGRIPO capitalise les r\u00e9sultats de votre engagement dans un rapport et rend visible votre engagement sur les supports de communication et d\u2019informations. \r\n</p>\r\n<p>\r\nSi vous souhaitez nouer un partenariat avec AGRIPO, nous serons heureux d\u2019\u00e9changer avec vous.\r\n</p>\r\n",
+      "url": "/devenir-partenaire/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Devenir partenaire"
+    },
+    "pk": 19
   },
-  "pk": 19
-},
-{
-  "model": "flatpages.flatpage",
-  "fields": {
-    "enable_comments": false,
-    "template_name": "",
-    "content": "<p>\r\nVous y d\u00e9couvrirez les actualit\u00e9s d\u2019AGRIPO. Nous vous souhaitons une bonne visite et nous esp\u00e9rons que vous trouverez les informations que vous cherchiez.\r\n</p>",
-    "url": "/intro-liste-actualites/",
-    "sites": [
-      1
-    ],
-    "registration_required": false,
-    "title": "Actualit\u00e9s"
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "enable_comments": false,
+      "template_name": "",
+      "content": "<p>\r\nVous y d\u00e9couvrirez les actualit\u00e9s d\u2019AGRIPO. Nous vous souhaitons une bonne visite et nous esp\u00e9rons que vous trouverez les informations que vous cherchiez.\r\n</p>",
+      "url": "/intro-liste-actualites/",
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "title": "Actualit\u00e9s"
+    },
+    "pk": 20
   },
-  "pk": 20
-}
+  {
+    "model": "flatpages.flatpage",
+    "fields": {
+      "sites": [
+        1
+      ],
+      "registration_required": false,
+      "enable_comments": false,
+      "url": "/la-boutique/",
+      "title": "La boutique en ligne",
+      "content": "<p><a href=\"/shop/1/\">Cat&eacute;gorie 1</a> <a href=\"/shop/2/\">Cat&eacute;gorie 2</a> <a href=\"/shop/3/\">Cat&eacute;gorie 3</a> <a href=\"/shop/4/\">Cat&eacute;gorie 4</a></p>\r\n",
+      "template_name": ""
+    },
+    "pk": 21
+  }
 ]

@@ -2,7 +2,7 @@ from core.exceptions import CantSetCartQuantityOnUnsavedProduct, AddedMoreToCart
 from django.core.urlresolvers import reverse
 
 from core.tests.views.base import ViewsBaseTestCase
-from core.models.shop import Product, Delivery
+from core.models.shop import Product, Delivery, ProductCategory
 from core.management.commands.populatedb import (
     insert_random_categories_and_products, insert_random_category, insert_random_product)
 from django.utils import timezone
@@ -10,22 +10,34 @@ from django.utils import timezone
 
 class ShopViewTest(ViewsBaseTestCase):
 
+    def test_shop_main_page_contains_links_to_categories(self):
+        insert_random_categories_and_products(3, 1)
+        response = self.client.get('/la-boutique/')
+        for cat in ProductCategory.objects.all():
+            self.assertContains(response, reverse('shop_page', args=(cat.pk,)))
+
     def _shop_page_contains(self, text, quantity):
-        response = self.client.get(reverse('shop_page'))
+        response = self.client.get(reverse('shop_page', args=(1, )))
         self.assertContains(response, text, quantity)
 
     def test_use_template(self):
-        response = self.client.get(reverse('shop_page'))
+        insert_random_categories_and_products(1, 1)
+        response = self.client.get(reverse('shop_page', args=(1, )))
         self.assertTemplateUsed(response, 'core/shop_page.html')
 
-    def test_display_all_products(self):
-        insert_random_categories_and_products(5, 4)
-        for prod in Product.objects.all():
+    def test_display_all_products_from_category(self):
+        insert_random_categories_and_products(2, 10)
+        for prod in Product.objects.filter(category=1):
             self._shop_page_contains('id="product_{}"'.format(prod.id), 1)
 
+    def test_hide_all_products_from_other_category(self):
+        insert_random_categories_and_products(2, 10)
+        for prod in Product.objects.filter(category=2):
+            self._shop_page_contains('id="product_{}"'.format(prod.id), 0)
+
     def test_display_message_for_products_out_of_stock(self):
-        insert_random_categories_and_products(5, 4)
-        self._shop_page_contains('Produit indisponible pour le moment', 20)
+        insert_random_categories_and_products(1, 20)
+        self._shop_page_contains('"add_to_cart_not_available"', 20)
 
     def _test_limit_cart_quantity_to_stock(self):
         user = self.create_user()
@@ -35,14 +47,13 @@ class ShopViewTest(ViewsBaseTestCase):
     def test_limit_cart_quantity_to_stock(self):
         self.assertRaises(AddedMoreToCartThanAvailable, self._test_limit_cart_quantity_to_stock)
 
-    def test_display_all_categories(self):
-        insert_random_categories_and_products(5, 0)
-        self._shop_page_contains('class="one_product_category"', 5)
+    def test_display_only_one_category(self):
+        insert_random_categories_and_products(2, 1)
+        self._shop_page_contains('class="one_product_category"', 1)
 
     def test_display_message_for_empty_categories(self):
-        insert_random_categories_and_products(2, 1)
-        insert_random_categories_and_products(2, 0)
-        self._shop_page_contains('class="one_product_category_empty"', 2)
+        insert_random_categories_and_products(1, 0)
+        self._shop_page_contains('class="one_product_category_empty"', 1)
 
     def _test_set_cart_quantity_requires_saved_product(self):
         user = self.create_user()
@@ -63,10 +74,11 @@ class ShopViewTest(ViewsBaseTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_may_set_quantity_on_available_products(self):
+        cat = insert_random_category()
         for i in range(0, 10):
-            insert_random_product(stock=0)
+            insert_random_product(stock=0, category=cat)
         for i in range(0, 10):
-            insert_random_product(stock=10)
+            insert_random_product(stock=10, category=cat)
         self._shop_page_contains('input name="quantity"', 10)
 
 
@@ -78,7 +90,7 @@ class ShopCheckoutTest(ViewsBaseTestCase):
 
     def test_cant_display_checkout_page_without_products_in_the_cart(self):
         response = self.client.get(reverse('checkout'))
-        self.assertRedirects(response, reverse("shop_page"), 302)
+        self.assertRedirects(response, '/la-boutique/', 302)
 
     def test_checkout_form_uses_right_template(self):
         insert_random_product(stock=1, price=100)

@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^news/$', views.NewsListPage.as_view(), name="news_page"),
     url(r'^partners/$', ListView.as_view(
         model=Partner, template_name='core/partners_page.html', context_object_name="partners"), name="partners_page"),
-    url(r'^shop/$', views.ShopPage.as_view(), name="shop_page"),
+    url(r'^shop/(?P<pk>[0-9]+)/$', views.ShopPage.as_view(), name="shop_page"),
     url(r'^shop/checkout$', never_cache(views.Checkout.as_view()), name="checkout"),
     url(r'^shop/get_cart$', never_cache(views.get_cart), name="get_cart"),
     url(r'^shop/update_stock$', never_cache(views.UpdateStock.as_view()), name="update_stock"),
