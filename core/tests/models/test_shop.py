@@ -218,6 +218,7 @@ class CommandModelTest(ShopCoreTestCase):
         command2 = command.send()
         self.assertEquals(command, command2)
 
+
 class ProductCategoryModelTest(ShopCoreTestCase):
 
     def test_category_should_have_a_name(self):

@@ -123,7 +123,7 @@ class Checkout(CreateView):
     def dispatch(self, request, *args, **kwargs):
         cart_products = Product.static_get_cart_products(request.user)
         if not cart_products:
-            return redirect(reverse("shop_page"))
+            return redirect('/la-boutique/')
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -163,10 +163,10 @@ class SubMenusPage(TemplateView):
         return 'core/submenus/{}.html'.format(self.kwargs['page'])
 
 
-class ShopPage(ListView):
+class ShopPage(DetailView):
     template_name = "core/shop_page.html"
     model = ProductCategory
-    context_object_name = "categories"
+    context_object_name = "category"
 
 
 class NewsPage(DetailView):

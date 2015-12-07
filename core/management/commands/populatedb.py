@@ -53,7 +53,7 @@ def insert_random_categories_and_products(categories_count=5, products_count=5, 
         cat = insert_random_category(silent=silent)
 
         for j in range(0, products_count):
-            insert_random_product(cat, stock=stock, silent=silent)
+            prod = insert_random_product(cat, stock=stock, silent=silent)
 
 
 class Command(BaseCommand):
