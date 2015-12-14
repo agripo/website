@@ -14,10 +14,9 @@ class Partner(models.Model):
     )
     website = models.URLField(verbose_name="Site internet du partenaire", default=None)
     logo = models.ImageField(
-        upload_to='partners', blank=False, default=None, verbose_name="Logo",
+        upload_to='partners', blank=False, default=None, verbose_name="Logo (330x220 px)",
         help_text="Envoyez le logo du partenaire ici.<br />"
-                  "Il doit faire 150x150px. "
-                  "Si la largeur est différente de la hauteur, l'image apparaitra déformée."
+                  "<strong>Il doit faire 330x220px</strong> pour ne pas être déformé. "
     )
 
     def __str__(self):
