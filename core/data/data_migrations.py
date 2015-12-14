@@ -1,5 +1,7 @@
+from django.contrib.flatpages.models import FlatPage
 from django.utils import timezone
 from faker import Factory as FakerFactory
+from core.models.general import FlatPageHistory
 
 
 def insert_all_permissions():
@@ -105,4 +107,13 @@ def insert_flatpages2_contents(*args):
 
 
 def revert_insert_flatpages_contents(*args):
+    pass
+
+
+def insert_flatpages_history(*args):
+    for page in FlatPage.objects.all():
+        FlatPageHistory.create_entry(page)
+
+
+def revert_insert_flatpages_history(*args):
     pass

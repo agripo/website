@@ -13,7 +13,7 @@ from ckeditor.widgets import CKEditorWidget
 from core.models.news import News
 from core.models.partners import Partner
 from core.models.shop import Product, Stock, ProductCategory, Delivery, DeliveryPoint
-from core.models.general import SiteConfiguration
+from core.models.general import SiteConfiguration, FlatPageHistory
 
 
 class NewsAdmin(AdminHelperAdmin):
@@ -95,6 +95,11 @@ class DeliveryAdmin(AdminHelperAdmin):
     details.allow_tags = True
 
 
+class FlatPageHistoryAdmin(admin.ModelAdmin):
+    readonly_fields = ('url', 'mtime', 'title', 'content')
+    list_display = ('url', 'mtime', 'title')
+
+
 class FlatpageForm(FlatpageFormOld):
     content = forms.CharField(widget=CKEditorWidget(config_name='awesome_ckeditor'))
 
@@ -106,10 +111,17 @@ class FlatpageForm(FlatpageFormOld):
 class FlatPageAdmin(FlatPageAdminOld):
     form = FlatpageForm
 
+    def save_model(self, request, obj, form, change):
+        """save a copy of the Flatpage to OldPage"""
+        FlatPageHistory.create_entry(obj)
+        obj.save()
+
 
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
 
+
+admin.site.register(FlatPageHistory, FlatPageHistoryAdmin)
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(Partner, PartnerAdmin)
 admin.site.register(News, NewsAdmin)

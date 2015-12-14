@@ -55,3 +55,25 @@ class SiteConfiguration(SingletonModel):
 
     class Meta:
         verbose_name = "Configuration générale"
+
+
+class FlatPageHistory(models.Model):
+    """
+    Keep old contents from flatpages.
+    """
+    url = models.CharField(max_length=100, db_index=True, verbose_name="Adresse de la page")
+    title = models.CharField(max_length=200, verbose_name="Titre de la page")
+    content = models.TextField(blank=True, verbose_name="Contenu enregistré")
+    mtime = models.DateTimeField(db_index=True, auto_now_add=True, verbose_name="Date d'enregistrement")
+
+    @staticmethod
+    def create_entry(flatpage):
+        entry = FlatPageHistory()
+        entry.url = flatpage.url
+        entry.title = flatpage.title
+        entry.content = flatpage.content
+        entry.save()
+
+    class Meta:
+        verbose_name = "Pages statiques - Ancienne version"
+        verbose_name_plural = "Pages statiques - Anciennes versions"
