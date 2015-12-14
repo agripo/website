@@ -33,8 +33,9 @@ def deploy(tag):
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
-    _update_flatpages(source_folder)
+    #_update_flatpages(source_folder)
     _restart_gunicorn(server_type_name)
+    print("CAUTION! FlatPages are not automatically inserted anymore (they were not aware of newer versions)!!")
 
 
 def _create_directory_structure_if_necessary(site_folder):
