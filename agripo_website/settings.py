@@ -162,6 +162,7 @@ CKEDITOR_CONFIGS = {
 
 MEDIA_ROOT = '{}/media/'.format(BASE_DIR)
 MEDIA_URL = '/media/'
+FILE_UPLOAD_PERMISSIONS = 0o644
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
