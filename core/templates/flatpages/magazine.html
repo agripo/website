@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block page_name %}id_shop_page{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 data-url="{{ flatpage.url }}">{{ flatpage.title }}</h1>
+        </div>
+        <div class="panel-body magazine">
+            <style scoped="scoped">
+                .magazine_pages > tbody > tr {
+                    box-shadow: 0px 0px 5px #C8C8C8;
+                }
+                .magazine_pages > tbody > tr > th {
+                    font-size: 20px;
+                }
+                .magazine_pages th {
+                    text-align: center;
+                    background-color: rgb(177, 211, 127);
+                    margin: 5px;
+                }
+                .magazine_pages td{
+                    vertical-align: top;
+                    padding-top: 5px;
+                    border-right: 8px solid transparent;
+                }
+                .magazine_pages td:last-child{
+                    border: none;
+                }
+                .magazine_pages td table{
+                    border-radius: 4px;
+                    box-shadow: 0px 0px 5px #C8C8C8;
+                    margin-top: 0;
+                    padding-top: 0;
+                }
+                .magazine_pages td table td{
+                    vertical-align: top;
+                    margin: 5px;
+                    padding: 4px;
+                }
+                .magazine_pages td table td h3{
+                    font-size: 20px;
+                }
+            </style>
+            {{ flatpage.content }}
+        </div>
+    </div>
+{% endblock %}
