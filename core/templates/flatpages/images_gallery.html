@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+
+{% block page_name %}id_shop_page{% endblock %}
+
+{% block header_text %}Welcome to Agripo's new website{% endblock %}
+
+{% block main_content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 data-url="{{ flatpage.url }}">{{ flatpage.title }}</h1>
+        </div>
+        <div class="panel-body magazine">
+            <style scoped="scoped">
+                img{
+                    padding: 5px;
+                    width: 100%;
+                    cursor: pointer;
+                }
+                #the_gallery_single_image{
+                    display: none;
+                }
+            </style>
+            <div id="the_gallery">{{ flatpage.content }}</div>
+            <div id="the_gallery_single_image">
+                <div><a id="hide_gallery" href="#">Revenir à la galerie</a></div>
+                <img id="the_gallery_single_image_image" src=""/>
+            </div>
+            <script>
+                call_after_dom_is_loaded(function($){
+                    $('#the_gallery img').click(function(ev){
+                        $('#the_gallery_single_image_image').attr('src', ev.target.src);
+                        $('#the_gallery').hide();
+                        $('#the_gallery_single_image').show();
+                        return false;
+                    });
+                    $('#hide_gallery, #the_gallery_single_image_image').click(function(){
+                        $('#the_gallery').show();
+                        $('#the_gallery_single_image').hide();
+                        return false;
+                    });
+                });
+            </script>
+        </div>
+    </div>
+{% endblock %}
