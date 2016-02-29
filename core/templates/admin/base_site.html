@@ -1,0 +1,17 @@
+{% extends "admin/base.html" %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <img src="/static/img/logo_bg_transp.png" style="height:35px; vertical-align: -8px; padding-right: 10px;"/>
+        Interface d'administration
+    </h1>
+{% endblock %}
+
+
+{% block userlinks %}
+    <a href="https://github.com/agripo/website">Code source</a> /
+    <a href="https://github.com/agripo/website/issues">Bugs</a> /
+    {% if site_url %}
+        <a href="{{ site_url }}">Voir le site</a>
+    {% endif %}
+{% endblock %}
