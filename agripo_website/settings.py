@@ -84,7 +84,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 BACKUP_KEY = '8sfqf4s5qsc13q54ergsd2'
-BACKUP_PASSWORD = '5465qd21qs5cq'
 
 # Using some apps only on !production servers
 if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
