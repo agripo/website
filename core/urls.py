@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^reservation/$', views.ReservationView.as_view(), name="reservation_page"),
     url(r'^reservation_ok/$', TemplateView.as_view(
         template_name="core/reservation_ok.html"), name="reservation_ok_page"),
+    url(r'^backup/$', views.get_backup, name="backup"),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/shared/favicon.ico', permanent=True)),
 ]
 
