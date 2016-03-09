@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-from core.backup import get_backup_password
 from core.models.news import News
 from core.models.partners import Partner
 
@@ -41,5 +40,4 @@ def allauth_activation(request):
 
 
 def backup_extra_context(request):
-    return {'backup_link': "{}?download=True&key={}".format(reverse("backup"), settings.BACKUP_KEY),
-            'backup_zip_password': get_backup_password()}
+    return {'backup_link': "{}?download=True&key={}".format(reverse("backup"), settings.BACKUP_KEY)}

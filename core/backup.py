@@ -10,24 +10,14 @@ from django.utils import timezone
 from django.utils import dateparse
 
 
-def get_backup_password():
-    if hasattr(settings, 'BACKUP_PASSWORD'):
-        return settings.BACKUP_PASSWORD
-
-    return 'g4erq3c13q5vqqc-zqz1!z'
-
-
-def get_backup_file(with_zip_extension=True):
+def get_backup_file():
     if hasattr(settings, 'BACKUP_DIR'):
         base_dir = settings.BACKUP_DIR
     else:
         base_dir = settings.BASE_DIR + "/backup/"
 
     date = timezone.now().date().strftime('%Y-%m-%d')
-    name = base_dir + date + ".tar"
-    if with_zip_extension:
-        return name + ".zip"
-
+    name = base_dir + date + ".tar.gz"
     return name
 
 
@@ -48,7 +38,7 @@ def backup():
     - every first monday's for the last 12 months
     """
     # backup file name
-    backup_file = get_backup_file(with_zip_extension=False)
+    backup_file = get_backup_file()
 
     backup_dir = os.path.dirname(backup_file)
     if not os.path.exists(backup_dir):
@@ -59,7 +49,7 @@ def backup():
     call_command('dumpdata', output=json_temp_dump)
 
     # media files backup
-    tar = tarfile.open(backup_file, "w")
+    tar = tarfile.open(backup_file, "w:gz")
     tar.add(settings.MEDIA_ROOT, arcname="media")
     tar.add(json_temp_dump, arcname="db.json")
     tag = subprocess.check_output(["git", "describe"])
@@ -73,19 +63,13 @@ def backup():
     _add_json_file_to_tar(tar, "data.json", data)
     tar.close()
 
-    # encrypting
-    password = get_backup_password()
-    subprocess.call(['7z', 'a', '-p' + password, '-y', backup_file + '.zip', backup_file],
-                    stdout=open(os.devnull, 'wb'))
-
     # Cleaning
     os.unlink(json_temp_dump)
-    os.unlink(backup_file)
 
     # Removing older backups
     for backup_file in os.listdir(backup_dir):
-        if backup_file.endswith(".tar.zip"):
-            backup_date = dateparse.parse_date(backup_file[:-8])
+        if backup_file.endswith(".tar.gz"):
+            backup_date = dateparse.parse_date(backup_file[:-7])
             now = timezone.now()
             last_week = (now - timezone.timedelta(8)).date()
             last_monday = (now - timezone.timedelta(now.isoweekday() - 1))

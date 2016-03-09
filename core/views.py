@@ -287,7 +287,7 @@ def get_backup(request):
     if download.lower() == "true":
         path = get_backup_file()
         response = HttpResponse(open(path, 'rb').read())
-        response['Content-type'] = 'application/zip'
+        response['Content-type'] = 'application/gz'
         response['Content-Disposition'] = 'attachment; filename=backup_agripo_%s' % smart_str(os.path.basename(path))
         response['Content-Length'] = os.path.getsize(path)
         response['X-Sendfile'] = smart_str(path)
