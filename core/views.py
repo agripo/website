@@ -1,10 +1,13 @@
+import os
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
+from django.utils.encoding import smart_str
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, FormView
 from django.utils import timezone
 from django.core.management import call_command
@@ -12,10 +15,11 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
 import core.exceptions as core_exceptions
+from core.backup import backup
+from core.backup import get_backup_file
 from core.forms import CheckoutForm, ReservationForm
 from core.authentication import is_production_server
 from core.models.news import News
-from core.models.partners import Partner
 from core.models.shop import Product, ProductCategory, Command, Delivery, Stock
 from core.models.general import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 from core.models.users import AgripoUser
@@ -271,3 +275,22 @@ def delivery_details(request, id):
         'delivery': delivery,
         'commands': commands
     }, context_instance=RequestContext(request))
+
+
+def get_backup(request):
+    key = request.GET.get('key', None)
+    if not key or key != settings.BACKUP_KEY:
+        return HttpResponseForbidden("Wrong key")
+
+    backup()
+    download = request.GET.get('download', "False")
+    if download.lower() == "true":
+        path = get_backup_file()
+        response = HttpResponse(open(path, 'rb').read())
+        response['Content-type'] = 'application/zip'
+        response['Content-Disposition'] = 'attachment; filename=backup_agripo_%s' % smart_str(os.path.basename(path))
+        response['Content-Length'] = os.path.getsize(path)
+        response['X-Sendfile'] = smart_str(path)
+        return response
+
+    return HttpResponse("Backup created")

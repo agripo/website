@@ -5,3 +5,4 @@ functional_tests/screendumps
 /.idea*
 env
 *~
+backup/

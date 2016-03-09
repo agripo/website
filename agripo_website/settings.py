@@ -54,6 +54,7 @@ ALLOWED_HOSTS = [DOMAIN, "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = (
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,7 +63,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'core',
     'admin_helper',
     'functional_tests',
     'webdoc',
@@ -82,6 +82,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+BACKUP_KEY = '8sfqf4s5qsc13q54ergsd2'
+BACKUP_PASSWORD = '5465qd21qs5cq'
 
 # Using some apps only on !production servers
 if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
@@ -195,7 +198,8 @@ TEMPLATES = [
                 'core.context_processors.partners_box',
                 'core.context_processors.last_news_box',
                 'core.context_processors.bd_webdoc_slideshow',
-                'core.context_processors.allauth_activation'
+                'core.context_processors.allauth_activation',
+                'core.context_processors.backup_extra_context',
             ],
         },
     },
