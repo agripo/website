@@ -6,8 +6,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
+    <meta name="description" content="Agripo - Outil de développement collectif"/>
+    <meta name="author" content="Agripo"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -31,7 +31,15 @@
     <!-- GOOGLE FONT -->
 <!--    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>-->
 
-    <script src="/static/js/base.js"></script>
+    <script src="/static/js/base.js"></script>    <meta property="og:title" content="{% use_macro head_title %}" />
+    <meta property="og:title" content="Agripo" />
+    <meta property="og:description" content="Agripo - Outil de développement collectif" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.agripo.net/" />
+    <meta property="og:image" content="http://www.agripo.net/static/img/logo_bg_transp.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="487" />
+    <meta property="og:image:height" content="126" />
 </head>
 <body id="{% block page_name %}id_unknown_page{% endblock %}">
 {% block body %}

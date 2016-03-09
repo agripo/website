@@ -54,6 +54,7 @@ ALLOWED_HOSTS = [DOMAIN, "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = (
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,7 +63,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'core',
     'admin_helper',
     'functional_tests',
     'webdoc',
