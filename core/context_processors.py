@@ -40,4 +40,4 @@ def allauth_activation(request):
 
 
 def backup_extra_context(request):
-    return {'backup_link': "{}?download=True&key={}".format(reverse("backup"), settings.BACKUP_KEY)}
+    return {'backup_link': "{}?key={}".format(reverse("backup"), settings.BACKUP_KEY)}

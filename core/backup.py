@@ -1,5 +1,6 @@
 import io
 import json
+import glob
 import os
 import subprocess
 import tarfile
@@ -10,6 +11,15 @@ from django.utils import timezone
 from django.utils import dateparse
 
 
+def get_last_backup_file():
+    if hasattr(settings, 'BACKUP_DIR'):
+        base_dir = settings.BACKUP_DIR
+    else:
+        base_dir = settings.BASE_DIR + "/backup/"
+
+    return max(glob.iglob(base_dir + '*.tar.gz'), key=os.path.getctime)
+
+
 def get_backup_file():
     if hasattr(settings, 'BACKUP_DIR'):
         base_dir = settings.BACKUP_DIR
@@ -17,8 +27,7 @@ def get_backup_file():
         base_dir = settings.BASE_DIR + "/backup/"
 
     date = timezone.now().date().strftime('%Y-%m-%d')
-    name = base_dir + date + ".tar.gz"
-    return name
+    return base_dir + date + ".tar.gz"
 
 
 def _add_json_file_to_tar(tar, filename, content):

@@ -15,8 +15,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
 import core.exceptions as core_exceptions
-from core.backup import backup
-from core.backup import get_backup_file
+from core.backup import backup, get_last_backup_file
 from core.forms import CheckoutForm, ReservationForm
 from core.authentication import is_production_server
 from core.models.news import News
@@ -282,15 +281,10 @@ def get_backup(request):
     if not key or key != settings.BACKUP_KEY:
         return HttpResponseForbidden("Wrong key")
 
-    backup()
-    download = request.GET.get('download', "False")
-    if download.lower() == "true":
-        path = get_backup_file()
-        response = HttpResponse(open(path, 'rb').read())
-        response['Content-type'] = 'application/gz'
-        response['Content-Disposition'] = 'attachment; filename=backup_agripo_%s' % smart_str(os.path.basename(path))
-        response['Content-Length'] = os.path.getsize(path)
-        response['X-Sendfile'] = smart_str(path)
-        return response
-
-    return HttpResponse("Backup created")
+    path = get_last_backup_file()
+    response = HttpResponse(open(path, 'rb').read())
+    response['Content-type'] = 'application/gz'
+    response['Content-Disposition'] = 'attachment; filename=backup_agripo_%s' % smart_str(os.path.basename(path))
+    response['Content-Length'] = os.path.getsize(path)
+    response['X-Sendfile'] = smart_str(path)
+    return response
