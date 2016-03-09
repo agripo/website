@@ -9,8 +9,16 @@
 
 
 {% block userlinks %}
+    <script>
+        function show_backup_popin(){
+            return confirm("Vous êtes sur le point de créer une nouvelle sauvegarde et de la télécharger.\n" +
+                    "Notez que celle-ci sera protégée par le mot de passe suivant : \"{{ backup_zip_password }}\".\n" +
+                    "Voulez-vous continuer ?");
+        }
+    </script>
     <a href="https://github.com/agripo/website">Code source</a> /
     <a href="https://github.com/agripo/website/issues">Bugs</a> /
+    <a id="backup_instructions" onclick="return show_backup_popin();" href="{{ backup_link }}">Sauvegarder</a> /
     {% if site_url %}
         <a href="{{ site_url }}">Voir le site</a>
     {% endif %}

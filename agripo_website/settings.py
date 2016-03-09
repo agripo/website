@@ -83,6 +83,9 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
+BACKUP_KEY = '8sfqf4s5qsc13q54ergsd2'
+BACKUP_PASSWORD = '5465qd21qs5cq'
+
 # Using some apps only on !production servers
 if SERVER_TYPE != SERVER_TYPE_PRODUCTION:
     INSTALLED_APPS += (
@@ -195,7 +198,8 @@ TEMPLATES = [
                 'core.context_processors.partners_box',
                 'core.context_processors.last_news_box',
                 'core.context_processors.bd_webdoc_slideshow',
-                'core.context_processors.allauth_activation'
+                'core.context_processors.allauth_activation',
+                'core.context_processors.backup_extra_context',
             ],
         },
     },
