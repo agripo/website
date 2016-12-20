@@ -72,13 +72,13 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.persona',
     'mathfilters',
 )
 
 SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = (
+    'core.utils.auth_backend.MailBackend',
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )

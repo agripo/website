@@ -1,0 +1,10 @@
+Votre compte {{ site.name }} vient d'être créé avec succès.
+
+Pour terminer le processus et valider ce compte, suivez le lien suivant :
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+Ce lien est valable {{ expiration_days }} jours. Passé ce délai, si vous souhaitez
+créer un compte, il faudra remplir le formulaire à nouveau.
+
+
+{{ site.name }} vous remercie pour votre interêt.
