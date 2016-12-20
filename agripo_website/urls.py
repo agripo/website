@@ -15,11 +15,22 @@ Including another URLconf
 """
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
+from django.contrib import auth
+
 from core import urls as core_urls
 from django.conf import settings
+from django.contrib.auth.views import logout
 from django.contrib.flatpages import views as flatpages_views
+from registration.backends.hmac.views import RegistrationView
+from registration.forms import RegistrationFormUniqueEmail
+
 
 urlpatterns = [
+    url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
+    url(r'^accounts/register/$', RegistrationView.as_view(form_class=RegistrationFormUniqueEmail),
+        name='registration_register'),
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
+    url(r'^accounts/login/$', auth.views.login, name='account_login'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^admin/', include('admin_helper.urls')),

@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block title %}Création de votre compte{% endblock %}
+
+{% block page_name %}id_create_account_page{% endblock %}
+
+{% block content %}
+    <p>Pour créer votre compte, remplissez le formulaire ci-dessous et validez.</p>
+    <p>
+        Vous recevrez ensuite un email contenant un lien vous permettant de valider
+        votre compte.
+    </p>
+    <form method="post" action=".">
+      {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td style="padding-top: 10px;">
+                    <button id="id_submit" type="submit" class="btn btn-primary">
+                        <i class="fa fa-check"></i>
+                        Créer votre compte
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

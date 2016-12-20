@@ -105,11 +105,14 @@
         <div class="row">
             <div class="col-md-8">
                 {% block main_content %}
-                <div class="row text-center">
-                    <div class="col-md-12">
-                        Page content
-                    </div>
-                </div>
+                    <h1>{% block title %}{% endblock %}</h1>
+                    {% block content %}
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                Page content
+                            </div>
+                        </div>
+                        {% endblock %}
                 {% endblock %}
             </div>
 
@@ -213,7 +216,7 @@
                                     </a><br />
                                 {% endif %}
                                 
-                                <a id="id_login_persona" class="btn navbar-btn" href="{% provider_login_url "persona" %}">
+                                <a id="id_login_persona" class="btn navbar-btn" href="{% url 'account_login' %}?next={{request.path}}">
                                     <i class="fa fa-at"></i>
                                     Votre adresse email
                                 </a>
