@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^logout$', logout, {'next_page': '/'}, name='logout'),
     url(r'^using_cookies_accepted/$', views.using_cookies_accepted, name="using_cookies_accepted"),
     url(r'^news/$', views.NewsListPage.as_view(), name="news_page"),
+    url(r'^care/$', views.CareListPage.as_view(), name="care_page"),
     url(r'^partners/$', ListView.as_view(
         model=Partner, template_name='core/partners_page.html', context_object_name="partners"), name="partners_page"),
     url(r'^shop/(?P<pk>[0-9]+)/$', views.ShopPage.as_view(), name="shop_page"),
@@ -27,6 +28,7 @@ urlpatterns = [
     url(r'^requires_js$', views.RequiresJs.as_view(), name="requires_js"),
     url(r'^menu_(?P<page>[a-z_]+)/$', views.SubMenusPage.as_view(), name="menu_page"),
     url(r'^news/(?P<pk>[0-9]+)/$', views.NewsPage.as_view(), name="one_news_page"),
+    url(r'^care/(?P<pk>[0-9]+)/$', views.CarePage.as_view(), name="one_care_page"),
     url(r'^reservation/$', views.ReservationView.as_view(), name="reservation_page"),
     url(r'^reservation_ok/$', TemplateView.as_view(
         template_name="core/reservation_ok.html"), name="reservation_ok_page"),

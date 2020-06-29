@@ -11,12 +11,31 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget
 
 from core.models.news import News
+from core.models.care import Care
 from core.models.partners import Partner
 from core.models.shop import Product, Stock, ProductCategory, Delivery, DeliveryPoint
 from core.models.general import SiteConfiguration, FlatPageHistory
 
 
 class NewsAdmin(AdminHelperAdmin):
+    fieldsets = [
+        ('General settings', {'fields': ['id', 'title', 'is_active', 'icon', 'publication_date']}),
+        ('Contents - French', {'fields': ['content', "writer"], 'classes': ('grp-collapse grp-closed',)},),
+    ]
+
+    list_display = ('id', 'title', 'is_active', 'publication_date', 'writer')
+
+    list_filter = ['is_active', 'publication_date', 'writer']
+    readonly_fields = ('id',)
+
+    class Media:
+        css = {
+            "all": ("css/icon_selector.css", "css/font-awesome.min.css")
+        }
+        js = ("js/icon_selector.js",)
+
+
+class CareAdmin(AdminHelperAdmin):
     fieldsets = [
         ('General settings', {'fields': ['id', 'title', 'is_active', 'icon', 'publication_date']}),
         ('Contents - French', {'fields': ['content', "writer"], 'classes': ('grp-collapse grp-closed',)},),
@@ -125,6 +144,7 @@ admin.site.register(FlatPageHistory, FlatPageHistoryAdmin)
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 admin.site.register(Partner, PartnerAdmin)
 admin.site.register(News, NewsAdmin)
+admin.site.register(Care, CareAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductCategory, ProductCategoryAdmin)
 admin.site.register(Stock, StockAdmin)

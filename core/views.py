@@ -19,6 +19,7 @@ from core.backup import backup, get_last_backup_file
 from core.forms import CheckoutForm, ReservationForm
 from core.authentication import is_production_server
 from core.models.news import News
+from core.models.care import Care
 from core.models.shop import Product, ProductCategory, Command, Delivery, Stock
 from core.models.general import SiteConfiguration, SITECONF_DEFAULT_NEWS_COUNT
 from core.models.users import AgripoUser
@@ -182,6 +183,11 @@ class NewsPage(DetailView):
         return context
 
 
+class CarePage(NewsPage):
+    model = Care
+    context_object_name = "news"
+
+
 class NewsListPage(ListView):
     template = "core/news_list.html"
     context_object_name = "news_list"
@@ -202,6 +208,19 @@ class NewsListPage(ListView):
         except SiteConfiguration.DoesNotExist:
             count = SITECONF_DEFAULT_NEWS_COUNT
         return count
+
+
+class CareListPage(NewsListPage):
+    template = "core/care_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['intro'] = FlatPage.objects.get(url="/intro-page-sante-beaute/")
+        return context
+
+    def get_queryset(self):
+        return Care.objects.filter(
+            publication_date__lte=timezone.now(), is_active=True).order_by('-publication_date')
 
 
 def index_view(request):
